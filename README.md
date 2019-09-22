@@ -1,6 +1,6 @@
-# About this application
+# About this component
 
-Het "agenda" component is ontwikkeld voor de gemeente Utrecht en heeft als doel een agenda te koppelen aan objecten uit andere componenten. Dit stelt je in staat om aan deze objecten, afspraken en beschikbaarheid te kunnen beheren.
+Het "agenda" component is ontwikkeld voor de gemeente Utrecht en heeft als doel een agenda te koppelen aan objecten uit andere componenten. Dit stelt je in staat om aan deze objecten, afspraken en beschikbaarheid te kunnen koppelen en te beheren.
 
 ## Documentation
 
