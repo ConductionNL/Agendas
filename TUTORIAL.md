@@ -1,18 +1,18 @@
 # Tutorial
 
-What do you need for this tutorial?
-* browser
-* github acount
-* git client
-* docker acount
-* docker for desktop
+For this tutorial you need the following:
+
+* Browser
+* Github account
+* Git client
+* Docker account
+* Docker for desktop
+
 
 ## Generating your component (repository/codebase)
-Starting up your first common ground component is extremely easy, al you need is a GitHub account and go the link below and fill in the form press create and presto we have a component!
+Starting up your first Common Ground component is extremely easy, al you need is a GitHub account and go the link below and fill in the form, press create and press to we have a component!
 
-[https://github.com/ConductionNL/commonground-component/generate](https://github.com/ConductionNL/commonground-component/generate)
-
-After that you should be redirected to your own brand new repository 
+[https://github.com/ConductionNL/Proto-component-commonground/generate](https://github.com/ConductionNL/Proto-component-commonground/generate)
 
 **Oke cool but what did we just do?**
 We ran a fork of the base common ground component, that means that we copied the code of the original project into a new repository. By doing so we made sure we have all the necessities for our component including security and compliance with international standards. 
