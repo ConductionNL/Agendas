@@ -56,7 +56,8 @@ We should now see a wizward that allows us to either make new entities, or add p
 
 ## Keeping your repository up to date with the Conduction common ground component 
 
-There are basically three reasons why you should want to keep your repository up to date with the Conduction proto component
+There are basically three reasons why you should want to keep your repository up to date with the Conduction proto component:
+
 * Security, Conduction performs regular security updates on 
 * Functionality We strive to make regular 
 * Compliance, as discusions in the broader common ground comunity progress API standars might advance or change. Conduction wil regulary update the common ground component with those changes. 
