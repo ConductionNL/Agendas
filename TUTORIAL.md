@@ -7,11 +7,9 @@ What do you need for this tutorial?
 * docker account
 * docker for desktop
 
-* Browser
-* Github account
-* Git client
-* Docker account
-* Docker for desktop
+## Setting up your enviroment
+
+You can install docker-desktop from [the docker website](). 
 
 
 ## Generating your component (repository/codebase)
@@ -42,7 +40,7 @@ $ docker-compose up
 
 Your computer should now start up your local development environment. Don't worry about al the code coming by, let's just wait until it finishes. You're free to watch along and see what exactly docker is doing, you will know when it's finished when it tells you that it is ready to handle connections. 
 
-Open your browser type <http://localhost/> as address and hit enter, you should now see your common ground component up and running.
+Open your browser type http://localhost/ as address and hit enter, you should now see your common ground component up and running.
 
 ### trouble shooting
 When spinning up components we make extensive use of the cashing of docker, and use volumes to reprecent server disks. When running in to unexpected trouble always remmember to clear your local docker vm with the -a command (removing image cash)
@@ -66,14 +64,13 @@ Next let's add our own entities, we can do this in two ways, we can do old fashi
 Let's open a new command line window and navigate to our root folder, exactly like we did under "spinning up your component". And then lets fire up maker bundle (make sure that your component is still running in your other command window). We can do so by the following command:
 
 ```CLI
-$ docker-compose exec php php bin/console make:entity --api-platform
+$ docker-compose exec php bin/console make:entity
 ```
 We should now see a wizward that allows us to either make new entities, or add parameters to existing entities (by supplying the name of an existing entity). 
 
 ## Keeping your repository up to date with the Conduction Common Ground component 
 
-There are basically three reasons why you should want to keep your repository up to date with the Conduction proto component:
-
+There are basically three reasons why you should want to keep your repository up to date with the Conduction proto component
 * Security, Conduction performs regular security updates on 
 * Functionality we strive to make regular 
 * Compliance, as discussions in the broader Common Ground community progress API standars might advance or change. Conduction will regularly update the Common Ground component with those changes. 
@@ -198,7 +195,15 @@ More inforation on using validation can be found at the [symfony website](https:
 ## Using UUID
 As default doctrine uses auto increment integers as identifiers (1,2, etc). For modern webapplications we howver prefer the use of UUID's. (e.g. e2984465-190a-4562-829e-a8cca81aa35d). Why? Wel for one it is more secure integer id's are easly gasable and make it posible to "aks" endpoint about objects that you should know about. But UUID's also have a benifit in futere proofing the application. If we in the futere want to merge a table with another table (for example becouse two organisations using a component perform a merger) then we would have to reasign al id's and relations if we where using int based id's (both tables would have a row 1,2 etc) with UUID's however the change of doubles range somwhere in the biljons. Meaning that it i likly that we oly need to either re identify only a handful of rows or more likely none at al! Turning our entire migration into a copy pase action.
 
-The proto component supports ramsy's uuid objects stratagy out of the box, so to use UUID's as intifier simply replace the default id property
+The proto component supports ramsy's uuid objects stratagy out of the box, so to use UUID's as intifier simply we need to add the ApiProperty as a dependecy
+
+
+```PHP
+//...
+use Symfony\Component\Serializer\Annotation\Groups;
+//...
+```
+and  replace the default id property
 
 ```PHP
 //...
@@ -294,6 +299,26 @@ When using Github. To set up a webhook, go to the settings page of your reposito
 * Events: [just the push event]
 
 Now every time you update your repository the commonground dev page will allerted, rescan your repository and do al the apropriate platform actions. It just as easy as that.
+
+
+Automated Testing
+-------
+adasd
+
+### Unit / Behat
+
+adas
+
+### Postman
+ad
+
+Audittrail
+-------
+as
+
+Setting up continues integration and continues delivery
+-------
+adasd
 
 ## Commonground specific data types
 

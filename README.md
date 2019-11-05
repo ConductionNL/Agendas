@@ -2,8 +2,8 @@
 
 ![Repo Status](https://img.shields.io/badge/status-concept-lightgrey.svg?style=plastic)
 
-The calendar service aims to provide both calendar and bookings functionality to other common ground applications. As such a Calendar object is always on the inverse side of a relation. E.g. a person, resource or location can have a calendar but a calendar doesn’t have an owner. 
-Keeping in form with international standardization calendars are based on the [schema.org]( https://schema.org/) [Schedule](https://schema.org/Schedule) and [Event](https://schema.org/Event) objects. They are however extend with functionality from CalDav[](https://en.wikipedia.org/wiki/CalDAV), [ICalendar](https://en.wikipedia.org/wiki/ICalendar) and [Google’s Calendar api](https://developers.google.com/calendar/quickstart/php) to provide and complete API experience. 
+The calendar service aims to provide both calendar and bookings functionality to other common ground applications. As such a Calendar object is always on the inverse side of a relation. E.g. a person, resource or location can have a calendar but a calendar doesnï¿½t have an owner. 
+Keeping in form with international standardization calendars are based on the [schema.org]( https://schema.org/) [Schedule](https://schema.org/Schedule) and [Event](https://schema.org/Event) objects. They are however extend with functionality from CalDav[](https://en.wikipedia.org/wiki/CalDAV), [ICalendar](https://en.wikipedia.org/wiki/ICalendar) and [Googleï¿½s Calendar api](https://developers.google.com/calendar/quickstart/php) to provide and complete API experience. 
 
 ## Documentation
 
@@ -33,7 +33,7 @@ This component was created by conduction (https://www.conduction.nl/team) for th
 [![Conduction](https://raw.githubusercontent.com/ConductionNL/agendascomponent/master/resources/logo-conduction.svg?sanitize=true "Conduction")](https://www.conduction.nl/)
 
 ## License
-Copyright © [Gemeente Utrecht](https://www.utrecht.nl/)  2019
+Copyright ï¿½ [Gemeente Utrecht](https://www.utrecht.nl/)  2019
 
 [Licensed under the EUPL](LICENCE.md)
 
