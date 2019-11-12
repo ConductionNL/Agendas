@@ -12,13 +12,14 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
+use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Serializer\Annotation\MaxDepth;
 
 /**
  * A schedule defines a repeating time period used to describe a regularly occurring Event. At a minimum a schedule will specify repeatFrequency which describes the interval between occurences of the event. Additional information can be provided to specify the schedule more precisely. This includes identifying the day(s) of the week or month when the recurring event will take place, in addition to its start and end time. Schedules may also have start and end dates to indicate when they are active, e.g. to define a limited calendar of events.
- * 
+ *
  * @ApiResource(
  * 	   iri="http://schema.org/PostalAddress",
  *     normalizationContext={"groups"={"read"}, "enable_max_depth"=true},
@@ -29,7 +30,7 @@ use Symfony\Component\Serializer\Annotation\MaxDepth;
 class Schedule
 {
 	/**
-	 * @var \Ramsey\Uuid\UuidInterface $id The UUID identifier of this resource
+	 * @var UuidInterface $id The UUID identifier of this resource
 	 * @example e2984465-190a-4562-829e-a8cca81aa35d
 	 *
 	 * @ApiProperty(
@@ -52,8 +53,8 @@ class Schedule
 	 * @ORM\CustomIdGenerator(class="Ramsey\Uuid\Doctrine\UuidGenerator")
 	 */
 	private $id;
-	
-	
+
+
 	/**
 	 * @var string $name The name of this Schedule
 	 * @example My Schedule
@@ -79,7 +80,7 @@ class Schedule
 	 * @ORM\Column(type="string", length=255)
 	 */
 	private $name;
-	
+
 	/**
 	 * @var string $description An short description of this Schedule
 	 * @example This is the best Schedule ever
@@ -103,7 +104,7 @@ class Schedule
 	 * @ORM\Column(type="text", nullable=true)
 	 */
 	private $description;
-	
+
 
     /**
 	 * @var string $byDay Defines the day(s) of the week on which a recurring Event takes place. Sunday is both 0 and 7.
@@ -122,6 +123,10 @@ class Schedule
 	 *     }
 	 * )
 	 *
+     * @Assert\Range(
+     *     min = 0,
+     *     max = 7
+     * )
 	 * @Assert\PositiveOrZero
 	 * @Groups({"read","write"})
      * @ORM\Column(type="integer", nullable=true)
@@ -146,6 +151,10 @@ class Schedule
 	 * )
 	 *
 	 * @Assert\PositiveOrZero
+     * @Assert\Range(
+     *     min = 1,
+     *     max = 12
+     * )
 	 * @Groups({"read","write"})
      * @ORM\Column(type="integer", nullable=true)
      */
@@ -168,6 +177,10 @@ class Schedule
 	 *     }
 	 * )
 	 *
+     * @Assert\Range(
+     *     min = 1,
+     *     max = 31
+     * )
 	 * @Assert\PositiveOrZero
 	 * @Groups({"read","write"})
      * @ORM\Column(type="integer", nullable=true)
@@ -176,7 +189,7 @@ class Schedule
 
     /**
 	 * @var string $events The that belong to or are coused by this Schedule
-	 * 
+	 *
      * @MaxDepth(1)
 	 * @Groups({"read","write"})
      * @ORM\OneToMany(targetEntity="App\Entity\Event", mappedBy="schedule")
@@ -197,7 +210,7 @@ class Schedule
 	 *         }
 	 *     }
 	 * )
-	 * 
+	 *
 	 * @Groups({"read","write"})
      * @ORM\Column(type="array", nullable=true)
      */
@@ -205,7 +218,7 @@ class Schedule
 
     /**
 	 * @var integer $repeatCount Defines the number of times a recurring Event will take place
-	 * @example 
+	 * @example
 	 *
 	 * @ApiProperty(
 	 * 	   iri="https://schema.org/repeatCount",
@@ -217,7 +230,7 @@ class Schedule
 	 *         }
 	 *     }
 	 * )
-	 * 
+	 *
 	 * @Groups({"read","write"})
      * @ORM\Column(type="integer", nullable=true)
      */
@@ -237,7 +250,7 @@ class Schedule
 	 *         }
 	 *     }
 	 * )
-	 * 
+	 *
 	 * @Groups({"read","write"})
      * @ORM\Column(type="string", length=255, nullable=true)
      */
@@ -245,7 +258,7 @@ class Schedule
 
     /**
 	 * @var string $calendar The Calendar to wich this Schedule belongs
-	 * 
+	 *
      * @MaxDepth(1)
 	 * @Groups({"read","write"})
      * @ORM\ManyToOne(targetEntity="App\Entity\Calendar", inversedBy="schedules")
