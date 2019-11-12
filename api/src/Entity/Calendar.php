@@ -12,13 +12,14 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
+use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Serializer\Annotation\MaxDepth;
 
 /**
  * A Calendar is a collection of events tied to an unque person or resource.
- * 
+ *
  * @ApiResource(
  *     normalizationContext={"groups"={"read"}, "enable_max_depth"=true},
  *     denormalizationContext={"groups"={"write"}, "enable_max_depth"=true}
@@ -28,7 +29,7 @@ use Symfony\Component\Serializer\Annotation\MaxDepth;
 class Calendar
 {
 	/**
-	 * @var \Ramsey\Uuid\UuidInterface $id The UUID identifier of this resource
+	 * @var UuidInterface $id The UUID identifier of this resource
 	 * @example e2984465-190a-4562-829e-a8cca81aa35d
 	 *
 	 * @ApiProperty(
@@ -51,7 +52,7 @@ class Calendar
 	 * @ORM\CustomIdGenerator(class="Ramsey\Uuid\Doctrine\UuidGenerator")
 	 */
 	private $id;
-	
+
 	/**
 	 * @var string $name The name of this Calendar
 	 * @example My Calendar
@@ -77,7 +78,7 @@ class Calendar
 	 * @ORM\Column(type="string", length=255)
 	 */
 	private $name;
-	
+
 	/**
 	 * @var string $description An short description of this Calendar
 	 * @example This is the best Calendar ever
@@ -101,11 +102,11 @@ class Calendar
 	 * @ORM\Column(type="text", nullable=true)
 	 */
 	private $description;
-	
+
 
     /**
 	 * @var array $schedules Schedules that belong to this Calendar
-	 * 
+	 *
      * @MaxDepth(1)
 	 * @Groups({"read","write"})
      * @ORM\OneToMany(targetEntity="App\Entity\Schedule", mappedBy="calendar", orphanRemoval=true)
@@ -114,13 +115,13 @@ class Calendar
 
     /**
 	 * @var array $events Events that belong to this Calendar
-	 * 
+	 *
      * @MaxDepth(1)
 	 * @Groups({"read","write"})
      * @ORM\OneToMany(targetEntity="App\Entity\Event", mappedBy="calendar", orphanRemoval=true)
      */
     private $events;
-    
+
     public function __construct()
     {
         $this->schedules = new ArrayCollection();

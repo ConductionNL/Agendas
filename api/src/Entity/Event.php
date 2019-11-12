@@ -12,13 +12,14 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
+use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Serializer\Annotation\MaxDepth;
 
 /**
- * An event happening at a certain time and location, such as a concert, lecture, meeting or festival. 
- * 
+ * An event happening at a certain time and location, such as a concert, lecture, meeting or festival.
+ *
  * @ApiResource(
  * 	   iri="https://schema.org/Event",
  *     normalizationContext={"groups"={"read"}, "enable_max_depth"=true},
@@ -29,7 +30,7 @@ use Symfony\Component\Serializer\Annotation\MaxDepth;
 class Event
 {
 	/**
-	 * @var \Ramsey\Uuid\UuidInterface $id The UUID identifier of this resource
+	 * @var UuidInterface $id The UUID identifier of this resource
 	 * @example e2984465-190a-4562-829e-a8cca81aa35d
 	 *
 	 * @ApiProperty(
@@ -52,8 +53,8 @@ class Event
 	 * @ORM\CustomIdGenerator(class="Ramsey\Uuid\Doctrine\UuidGenerator")
 	 */
 	private $id;
-	
-	
+
+
 	/**
 	 * @var string $name The name of this RequestType
 	 * @example My RequestType
@@ -79,7 +80,7 @@ class Event
 	 * @ORM\Column(type="string", length=255)
 	 */
 	private $name;
-	
+
 	/**
 	 * @var string $description An short description of this Event
 	 * @example This is the best Event ever
@@ -103,11 +104,11 @@ class Event
 	 * @ORM\Column(type="text", nullable=true)
 	 */
 	private $description;
-	
 
-    /**     * 
+
+    /**     *
 	 * @var Datetime $from The moment this event starts
-	 * 
+	 *
 	 * @Groups({"read","write"})
      * @ORM\Column(type="datetime")
      */
@@ -115,7 +116,7 @@ class Event
 
     /**
 	 * @var Datetime $till The moment this event ends
-	 * 
+	 *
 	 * @Groups({"read","write"})
      * @ORM\Column(type="datetime")
      */
@@ -147,7 +148,7 @@ class Event
 
     /**
 	 * @var string $schedule An optional Schedule to wich this event belongs
-	 * 
+	 *
      * @MaxDepth(1)
 	 * @Groups({"read","write"})
      * @ORM\ManyToOne(targetEntity="App\Entity\Schedule", inversedBy="events")
@@ -156,7 +157,7 @@ class Event
 
     /**
 	 * @var string $calendar The Calendar to wich this event belongs
-	 * 
+	 *
      * @MaxDepth(1)
 	 * @Groups({"read","write"})
      * @ORM\ManyToOne(targetEntity="App\Entity\Calendar", inversedBy="events")
@@ -192,16 +193,16 @@ class Event
 
         return $this;
     }
-    
+
     public function getFrom(): ?\DateTimeInterface
     {
     	return $this->from;
     }
-    
+
     public function setFrom(\DateTimeInterface $from): self
     {
     	$this->from = $from;
-    	
+
     	return $this;
     }
 
