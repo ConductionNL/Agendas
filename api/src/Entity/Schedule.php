@@ -122,7 +122,10 @@ class Schedule
 	 *         }
 	 *     }
 	 * )
-	 *
+	 * @Assert\Range(
+     *     min = 0,
+     *     max = 7
+     * )
 	 * @Assert\PositiveOrZero
 	 * @Groups({"read","write"})
      * @ORM\Column(type="integer", nullable=true)
@@ -145,7 +148,10 @@ class Schedule
 	 *         }
 	 *     }
 	 * )
-	 *
+	 * @Assert\Range(
+     *     min = 1,
+     *     max = 12
+     * )
 	 * @Assert\PositiveOrZero
 	 * @Groups({"read","write"})
      * @ORM\Column(type="integer", nullable=true)
@@ -168,7 +174,10 @@ class Schedule
 	 *         }
 	 *     }
 	 * )
-	 *
+	 * @Assert\Range(
+     *     min = 1,
+     *     max = 31
+     * )
 	 * @Assert\PositiveOrZero
 	 * @Groups({"read","write"})
      * @ORM\Column(type="integer", nullable=true)
