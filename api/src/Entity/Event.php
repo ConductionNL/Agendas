@@ -4,18 +4,11 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
-use ApiPlatform\Core\Annotation\ApiFilter;
-use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
-use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
-use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\DateFilter;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
-use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
-use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Serializer\Annotation\MaxDepth;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * An event happening at a certain time and location, such as a concert, lecture, meeting or festival.
@@ -29,137 +22,139 @@ use Symfony\Component\Serializer\Annotation\MaxDepth;
  */
 class Event
 {
-	/**
-	 * @var UuidInterface $id The UUID identifier of this resource
-	 * @example e2984465-190a-4562-829e-a8cca81aa35d
-	 *
-	 * @ApiProperty(
-	 * 	   identifier=true,
-	 *     attributes={
-	 *         "swagger_context"={
-	 *         	   "description" = "The UUID identifier of this resource",
-	 *             "type"="string",
-	 *             "format"="uuid",
-	 *             "example"="e2984465-190a-4562-829e-a8cca81aa35d"
-	 *         }
-	 *     }
-	 * )
-	 *
-	 * @Assert\Uuid
-	 * @Groups({"read"})
-	 * @ORM\Id
-	 * @ORM\Column(type="uuid", unique=true)
-	 * @ORM\GeneratedValue(strategy="CUSTOM")
-	 * @ORM\CustomIdGenerator(class="Ramsey\Uuid\Doctrine\UuidGenerator")
-	 */
-	private $id;
+    /**
+     * @var UuidInterface The UUID identifier of this resource
+     *
+     * @example e2984465-190a-4562-829e-a8cca81aa35d
+     *
+     * @ApiProperty(
+     * 	   identifier=true,
+     *     attributes={
+     *         "swagger_context"={
+     *         	   "description" = "The UUID identifier of this resource",
+     *             "type"="string",
+     *             "format"="uuid",
+     *             "example"="e2984465-190a-4562-829e-a8cca81aa35d"
+     *         }
+     *     }
+     * )
+     *
+     * @Assert\Uuid
+     * @Groups({"read"})
+     * @ORM\Id
+     * @ORM\Column(type="uuid", unique=true)
+     * @ORM\GeneratedValue(strategy="CUSTOM")
+     * @ORM\CustomIdGenerator(class="Ramsey\Uuid\Doctrine\UuidGenerator")
+     */
+    private $id;
 
+    /**
+     * @var string The name of this RequestType
+     *
+     * @example My RequestType
+     *
+     * @ApiProperty(
+     * 	   iri="http://schema.org/name",
+     *     attributes={
+     *         "swagger_context"={
+     *         	   "description" = "The name of this RequestType",
+     *             "type"="string",
+     *             "example"="My RequestType",
+     *             "maxLength"="255",
+     *             "required" = true
+     *         }
+     *     }
+     * )
+     *
+     * @Assert\NotNull
+     * @Assert\Length(
+     *      max = 255
+     * )
+     * @Groups({"read","write"})
+     * @ORM\Column(type="string", length=255)
+     */
+    private $name;
 
-	/**
-	 * @var string $name The name of this RequestType
-	 * @example My RequestType
-	 *
-	 * @ApiProperty(
-	 * 	   iri="http://schema.org/name",
-	 *     attributes={
-	 *         "swagger_context"={
-	 *         	   "description" = "The name of this RequestType",
-	 *             "type"="string",
-	 *             "example"="My RequestType",
-	 *             "maxLength"="255",
-	 *             "required" = true
-	 *         }
-	 *     }
-	 * )
-	 *
-	 * @Assert\NotNull
-	 * @Assert\Length(
-	 *      max = 255
-	 * )
-	 * @Groups({"read","write"})
-	 * @ORM\Column(type="string", length=255)
-	 */
-	private $name;
-
-	/**
-	 * @var string $description An short description of this Event
-	 * @example This is the best Event ever
-	 *
-	 * @ApiProperty(
-	 * 	   iri="https://schema.org/description",
-	 *     attributes={
-	 *         "swagger_context"={
-	 *         	   "description" = "An short description of this Event",
-	 *             "type"="string",
-	 *             "example"="This is the best Event ever",
-	 *             "maxLength"="2550"
-	 *         }
-	 *     }
-	 * )
-	 *
-	 * @Assert\Length(
-	 *      max = 2550
-	 * )
-	 * @Groups({"read","write"})
-	 * @ORM\Column(type="text", nullable=true)
-	 */
-	private $description;
-
+    /**
+     * @var string An short description of this Event
+     *
+     * @example This is the best Event ever
+     *
+     * @ApiProperty(
+     * 	   iri="https://schema.org/description",
+     *     attributes={
+     *         "swagger_context"={
+     *         	   "description" = "An short description of this Event",
+     *             "type"="string",
+     *             "example"="This is the best Event ever",
+     *             "maxLength"="2550"
+     *         }
+     *     }
+     * )
+     *
+     * @Assert\Length(
+     *      max = 2550
+     * )
+     * @Groups({"read","write"})
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $description;
 
     /**     *
-	 * @var Datetime $from The moment this event starts
-	 *
-	 * @Groups({"read","write"})
+     * @var Datetime The moment this event starts
+     *
+     * @Groups({"read","write"})
      * @ORM\Column(type="datetime")
      */
     private $from;
 
     /**
-	 * @var Datetime $till The moment this event ends
-	 *
-	 * @Groups({"read","write"})
+     * @var Datetime The moment this event ends
+     *
+     * @Groups({"read","write"})
      * @ORM\Column(type="datetime")
      */
     private $till;
 
     /**
-	 * @var string $location The location of this event
-	 * @example Dam 1, Amsterdam
-	 *
-	 * @ApiProperty(
-	 * 	   iri="https://schema.org/location",
-	 *     attributes={
-	 *         "swagger_context"={
-	 *         	   "description" = "The location of this event",
-	 *             "type"="string",
-	 *             "example"="Dam 1, Amsterdam",
-	 *             "maxLength"="255",
-	 *         }
-	 *     }
-	 * )
-	 *
-	 * @Assert\Length(
-	 *      max = 255
-	 * )
-	 * @Groups({"read","write"})
+     * @var string The location of this event
+     *
+     * @example Dam 1, Amsterdam
+     *
+     * @ApiProperty(
+     * 	   iri="https://schema.org/location",
+     *     attributes={
+     *         "swagger_context"={
+     *         	   "description" = "The location of this event",
+     *             "type"="string",
+     *             "example"="Dam 1, Amsterdam",
+     *             "maxLength"="255",
+     *         }
+     *     }
+     * )
+     *
+     * @Assert\Length(
+     *      max = 255
+     * )
+     * @Groups({"read","write"})
      * @ORM\Column(type="string", length=255)
      */
     private $location;
 
     /**
-	 * @var string $schedule An optional Schedule to wich this event belongs
-	 *
+     * @var string An optional Schedule to wich this event belongs
+     *
      * @MaxDepth(1)
-	 * @Groups({"read","write"})
+     * @Groups({"read","write"})
      * @ORM\ManyToOne(targetEntity="App\Entity\Schedule", inversedBy="events")
      */
     private $schedule;
 
     /**
-	 * @var string $calendar The Calendar to wich this event belongs
-	 *
+     * @var string The Calendar to wich this event belongs
+     *
      * @MaxDepth(1)
-	 * @Groups({"read","write"})
+     * @Groups({"read","write"})
      * @ORM\ManyToOne(targetEntity="App\Entity\Calendar", inversedBy="events")
      * @ORM\JoinColumn(nullable=false)
      */
@@ -196,14 +191,14 @@ class Event
 
     public function getFrom(): ?\DateTimeInterface
     {
-    	return $this->from;
+        return $this->from;
     }
 
     public function setFrom(\DateTimeInterface $from): self
     {
-    	$this->from = $from;
+        $this->from = $from;
 
-    	return $this;
+        return $this;
     }
 
     public function getTill(): ?\DateTimeInterface
@@ -213,7 +208,7 @@ class Event
 
     public function setTill(\DateTimeInterface $till): self
     {
-    	$this->till = $till;
+        $this->till = $till;
 
         return $this;
     }
