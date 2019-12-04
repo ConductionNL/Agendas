@@ -105,6 +105,7 @@ jobs:
             kubectl rollout restart deployment/$APP_NAME-varnish --kubeconfig="kubeconfig.yaml"  --namespace=$APP_ENV
       - name: Export release code
         if: (success() || failure())
+        id: releasecode
         run: |
             echo "##[set-output name=releasename]$APP_BUILD-$GITHUB_SHA"
             
@@ -116,7 +117,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
         with:
-          tag_name: $RELEASE_CODE
-          release_name: $RELEASE_CODE
+          tag_name: ${{ steps.releasecode.releasename }}
+          release_name: ${{ steps.releasecode.releasename }}
           draft: false
           prerelease: false
