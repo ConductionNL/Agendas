@@ -25,20 +25,7 @@ class Calendar
 {
     /**
      * @var UuidInterface The UUID identifier of this resource
-     *
      * @example e2984465-190a-4562-829e-a8cca81aa35d
-     *
-     * @ApiProperty(
-     * 	   identifier=true,
-     *     attributes={
-     *         "swagger_context"={
-     *         	   "description" = "The UUID identifier of this resource",
-     *             "type"="string",
-     *             "format"="uuid",
-     *             "example"="e2984465-190a-4562-829e-a8cca81aa35d"
-     *         }
-     *     }
-     * )
      *
      * @Assert\Uuid
      * @Groups({"read"})
@@ -51,21 +38,7 @@ class Calendar
 
     /**
      * @var string The name of this Calendar
-     *
      * @example My Calendar
-     *
-     * @ApiProperty(
-     * 	   iri="http://schema.org/name",
-     *     attributes={
-     *         "swagger_context"={
-     *         	   "description" = "The name of this Calendar",
-     *             "type"="string",
-     *             "example"="My Calendar",
-     *             "maxLength"="255",
-     *             "required" = true
-     *         }
-     *     }
-     * )
      *
      * @Assert\NotNull
      * @Assert\Length(
@@ -78,20 +51,7 @@ class Calendar
 
     /**
      * @var string An short description of this Calendar
-     *
      * @example This is the best Calendar ever
-     *
-     * @ApiProperty(
-     * 	   iri="https://schema.org/description",
-     *     attributes={
-     *         "swagger_context"={
-     *         	   "description" = "An short description of this Calendar",
-     *             "type"="string",
-     *             "example"="This is the best Calendar ever",
-     *             "maxLength"="2550"
-     *         }
-     *     }
-     * )
      *
      * @Assert\Length(
      *      max = 2550
@@ -125,7 +85,7 @@ class Calendar
         $this->events = new ArrayCollection();
     }
 
-    public function getId(): ?int
+    public function getId(): ?string
     {
         return $this->id;
     }

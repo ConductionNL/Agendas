@@ -24,20 +24,7 @@ class Event
 {
     /**
      * @var UuidInterface The UUID identifier of this resource
-     *
      * @example e2984465-190a-4562-829e-a8cca81aa35d
-     *
-     * @ApiProperty(
-     * 	   identifier=true,
-     *     attributes={
-     *         "swagger_context"={
-     *         	   "description" = "The UUID identifier of this resource",
-     *             "type"="string",
-     *             "format"="uuid",
-     *             "example"="e2984465-190a-4562-829e-a8cca81aa35d"
-     *         }
-     *     }
-     * )
      *
      * @Assert\Uuid
      * @Groups({"read"})
@@ -50,21 +37,7 @@ class Event
 
     /**
      * @var string The name of this RequestType
-     *
      * @example My RequestType
-     *
-     * @ApiProperty(
-     * 	   iri="http://schema.org/name",
-     *     attributes={
-     *         "swagger_context"={
-     *         	   "description" = "The name of this RequestType",
-     *             "type"="string",
-     *             "example"="My RequestType",
-     *             "maxLength"="255",
-     *             "required" = true
-     *         }
-     *     }
-     * )
      *
      * @Assert\NotNull
      * @Assert\Length(
@@ -77,20 +50,7 @@ class Event
 
     /**
      * @var string An short description of this Event
-     *
      * @example This is the best Event ever
-     *
-     * @ApiProperty(
-     * 	   iri="https://schema.org/description",
-     *     attributes={
-     *         "swagger_context"={
-     *         	   "description" = "An short description of this Event",
-     *             "type"="string",
-     *             "example"="This is the best Event ever",
-     *             "maxLength"="2550"
-     *         }
-     *     }
-     * )
      *
      * @Assert\Length(
      *      max = 2550
@@ -100,13 +60,14 @@ class Event
      */
     private $description;
 
-    /**     *
+    /**
      * @var Datetime The moment this event starts
+     * @example 30-11-2019
      *
      * @Groups({"read","write"})
      * @ORM\Column(type="datetime")
      */
-    private $from;
+    private $startDateTime;
 
     /**
      * @var Datetime The moment this event ends
@@ -114,24 +75,11 @@ class Event
      * @Groups({"read","write"})
      * @ORM\Column(type="datetime")
      */
-    private $till;
+    private $endDateTime;
 
     /**
      * @var string The location of this event
-     *
      * @example Dam 1, Amsterdam
-     *
-     * @ApiProperty(
-     * 	   iri="https://schema.org/location",
-     *     attributes={
-     *         "swagger_context"={
-     *         	   "description" = "The location of this event",
-     *             "type"="string",
-     *             "example"="Dam 1, Amsterdam",
-     *             "maxLength"="255",
-     *         }
-     *     }
-     * )
      *
      * @Assert\Length(
      *      max = 255
@@ -160,7 +108,7 @@ class Event
      */
     private $calendar;
 
-    public function getId(): ?int
+    public function getId(): ?string
     {
         return $this->id;
     }
@@ -189,26 +137,26 @@ class Event
         return $this;
     }
 
-    public function getFrom(): ?\DateTimeInterface
+    public function getStartDateTime(): ?\DateTimeInterface
     {
-        return $this->from;
+        return $this->startDateTime;
     }
 
-    public function setFrom(\DateTimeInterface $from): self
+    public function setStartDateTime(\DateTimeInterface $startDateTime): self
     {
-        $this->from = $from;
+        $this->startDateTime = $startDateTime;
 
         return $this;
     }
 
-    public function getTill(): ?\DateTimeInterface
+    public function getEndDateTime(): ?\DateTimeInterface
     {
-        return $this->till;
+        return $this->endDateTime;
     }
 
-    public function setTill(\DateTimeInterface $till): self
+    public function setEndDateTime(\DateTimeInterface $endDateTime): self
     {
-        $this->till = $till;
+        $this->endDateTime = $endDateTime;
 
         return $this;
     }
