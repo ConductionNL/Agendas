@@ -64,6 +64,8 @@ class Event
      * @var Datetime The moment this event starts
      * @example 30-11-2019
      *
+     * @Assert\DateTime
+     * @Assert\NotNull
      * @Groups({"read","write"})
      * @ORM\Column(type="datetime")
      */
@@ -72,6 +74,8 @@ class Event
     /**
      * @var Datetime The moment this event ends
      *
+     * @Assert\DateTime
+     * @Assert\NotNull
      * @Groups({"read","write"})
      * @ORM\Column(type="datetime")
      */
@@ -84,6 +88,7 @@ class Event
      * @Assert\Length(
      *      max = 255
      * )
+     * @Assert\NotBlank
      * @Groups({"read","write"})
      * @ORM\Column(type="string", length=255)
      */

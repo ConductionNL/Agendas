@@ -123,7 +123,7 @@ class Schedule
 
     /**
      * @var int Defines the number of times a recurring Event will take place
-     * @example
+     * @example 10
      *
      * @Assert\Type("integer")
      * @Groups({"read","write"})
