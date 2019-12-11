@@ -115,6 +115,7 @@ class Schedule
 
     /**
      * @var string Defines the day(s) of the month on which a recurring Event takes place. Specified as an Integer between 1-31.
+     * @example 30
      *
      * @Groups({"read","write"})
      * @ORM\Column(type="array", nullable=true)

@@ -1810,16 +1810,16 @@ components:
         description:
           description: 'An short description of this Calendar'
           type: string
-        schedules:
-          description: 'Schedules that belong to this Calendar'
-          type: array
-          items:
-            $ref: '#/components/schemas/Schedule-read'
         events:
           description: 'Events that belong to this Calendar'
           type: array
           items:
             $ref: '#/components/schemas/Event-read'
+        schedules:
+          description: 'Schedules that belong to this Calendar'
+          type: array
+          items:
+            $ref: '#/components/schemas/Schedule-read'
       required:
         - name
     Calendar-write:
@@ -1834,16 +1834,16 @@ components:
         description:
           description: 'An short description of this Calendar'
           type: string
-        schedules:
-          description: 'Schedules that belong to this Calendar'
-          type: array
-          items:
-            $ref: '#/components/schemas/Schedule-write'
         events:
           description: 'Events that belong to this Calendar'
           type: array
           items:
             $ref: '#/components/schemas/Event-write'
+        schedules:
+          description: 'Schedules that belong to this Calendar'
+          type: array
+          items:
+            $ref: '#/components/schemas/Schedule-write'
     Event-read:
       type: object
       description: 'An event happening at a certain time and location, such as a concert, lecture, meeting or festival.'
@@ -1860,11 +1860,11 @@ components:
         description:
           description: 'An short description of this Event'
           type: string
-        startDateTime:
+        startDate:
           description: 'The moment this event starts'
           type: string
           format: date-time
-        endDateTime:
+        endDate:
           description: 'The moment this event ends'
           type: string
           format: date-time
@@ -1879,8 +1879,8 @@ components:
           $ref: '#/components/schemas/Calendar-read'
       required:
         - name
-        - startDateTime
-        - endDateTime
+        - startDate
+        - endDate
         - location
     Event-write:
       type: object
@@ -1889,8 +1889,8 @@ components:
         url: 'https://schema.org/Event'
       required:
         - name
-        - startDateTime
-        - endDateTime
+        - startDate
+        - endDate
         - location
       properties:
         name:
@@ -1899,11 +1899,11 @@ components:
         description:
           description: 'An short description of this Event'
           type: string
-        startDateTime:
+        startDate:
           description: 'The moment this event starts'
           type: string
           format: date-time
-        endDateTime:
+        endDate:
           description: 'The moment this event ends'
           type: string
           format: date-time
@@ -2016,8 +2016,8 @@ definitions:
       description:
         example: 'This is the best Calendar ever'
         maxLength: 2550
-      schedules: []
       events: []
+      schedules: []
     required:
       - name
   Calendar-write:
@@ -2028,8 +2028,8 @@ definitions:
       description:
         example: 'This is the best Calendar ever'
         maxLength: 2550
-      schedules: []
       events: []
+      schedules: []
     required:
       - name
   Event-read:
@@ -2043,9 +2043,10 @@ definitions:
       description:
         example: 'This is the best Event ever'
         maxLength: 2550
-      startDateTime:
+      startDate:
         example: 30-11-2019
-      endDateTime: []
+      endDate:
+        example: 3-11-2019
       location:
         example: 'Dam 1, Amsterdam'
         maxLength: 255
@@ -2053,8 +2054,8 @@ definitions:
       calendar: []
     required:
       - name
-      - startDateTime
-      - endDateTime
+      - startDate
+      - endDate
   Event-write:
     properties:
       name:
@@ -2063,9 +2064,10 @@ definitions:
       description:
         example: 'This is the best Event ever'
         maxLength: 2550
-      startDateTime:
+      startDate:
         example: 30-11-2019
-      endDateTime: []
+      endDate:
+        example: 3-11-2019
       location:
         example: 'Dam 1, Amsterdam'
         maxLength: 255
@@ -2073,8 +2075,8 @@ definitions:
       calendar: []
     required:
       - name
-      - startDateTime
-      - endDateTime
+      - startDate
+      - endDate
   Schedule-read:
     properties:
       id:
@@ -2092,7 +2094,8 @@ definitions:
         example: '1'
       byMonthDay:
         example: '1'
-      exceptDates: []
+      exceptDates:
+        example: '30'
       repeatCount:
         example: '10'
       repeatFrequency:
@@ -2116,7 +2119,8 @@ definitions:
         example: '1'
       byMonthDay:
         example: '1'
-      exceptDates: []
+      exceptDates:
+        example: '30'
       repeatCount:
         example: '10'
       repeatFrequency:

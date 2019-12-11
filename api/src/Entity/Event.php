@@ -69,17 +69,18 @@ class Event
      * @Groups({"read","write"})
      * @ORM\Column(type="datetime")
      */
-    private $startDateTime;
+    private $startDate;
 
     /**
      * @var Datetime The moment this event ends
+     * @example 3-11-2019
      *
      * @Assert\DateTime
      * @Assert\NotNull
      * @Groups({"read","write"})
      * @ORM\Column(type="datetime")
      */
-    private $endDateTime;
+    private $endDate;
 
     /**
      * @var string The location of this event
@@ -142,26 +143,26 @@ class Event
         return $this;
     }
 
-    public function getStartDateTime(): ?\DateTimeInterface
+    public function getStartDate(): ?\DateTimeInterface
     {
-        return $this->startDateTime;
+        return $this->startDate;
     }
 
-    public function setStartDateTime(\DateTimeInterface $startDateTime): self
+    public function setStartDate(\DateTimeInterface $startDate): self
     {
-        $this->startDateTime = $startDateTime;
+        $this->startDate = $startDate;
 
         return $this;
     }
 
-    public function getEndDateTime(): ?\DateTimeInterface
+    public function getEndDate(): ?\DateTimeInterface
     {
-        return $this->endDateTime;
+        return $this->endDate;
     }
 
-    public function setEndDateTime(\DateTimeInterface $endDateTime): self
+    public function setEndDate(\DateTimeInterface $endDate): self
     {
-        $this->endDateTime = $endDateTime;
+        $this->endDate = $endDate;
 
         return $this;
     }

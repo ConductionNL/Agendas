@@ -62,15 +62,6 @@ class Calendar
     private $description;
 
     /**
-     * @var array Schedules that belong to this Calendar
-     *
-     * @MaxDepth(1)
-     * @Groups({"read","write"})
-     * @ORM\OneToMany(targetEntity="App\Entity\Schedule", mappedBy="calendar", orphanRemoval=true)
-     */
-    private $schedules;
-
-    /**
      * @var array Events that belong to this Calendar
      *
      * @MaxDepth(1)
@@ -78,6 +69,15 @@ class Calendar
      * @ORM\OneToMany(targetEntity="App\Entity\Event", mappedBy="calendar", orphanRemoval=true)
      */
     private $events;
+
+    /**
+     * @var array Schedules that belong to this Calendar
+     *
+     * @MaxDepth(1)
+     * @Groups({"read","write"})
+     * @ORM\OneToMany(targetEntity="App\Entity\Schedule", mappedBy="calendar", orphanRemoval=true)
+     */
+    private $schedules;
 
     public function __construct()
     {
@@ -115,6 +115,37 @@ class Calendar
     }
 
     /**
+     * @return Collection|Event[]
+     */
+    public function getEvents(): Collection
+    {
+        return $this->events;
+    }
+
+    public function addEvent(Event $event): self
+    {
+        if (!$this->events->contains($event)) {
+            $this->events[] = $event;
+            $event->setCalendar($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEvent(Event $event): self
+    {
+        if ($this->events->contains($event)) {
+            $this->events->removeElement($event);
+            // set the owning side to null (unless already changed)
+            if ($event->getCalendar() === $this) {
+                $event->setCalendar(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
      * @return Collection|Schedule[]
      */
     public function getSchedules(): Collection
@@ -145,34 +176,5 @@ class Calendar
         return $this;
     }
 
-    /**
-     * @return Collection|Event[]
-     */
-    public function getEvents(): Collection
-    {
-        return $this->events;
-    }
 
-    public function addEvent(Event $event): self
-    {
-        if (!$this->events->contains($event)) {
-            $this->events[] = $event;
-            $event->setCalendar($this);
-        }
-
-        return $this;
-    }
-
-    public function removeEvent(Event $event): self
-    {
-        if ($this->events->contains($event)) {
-            $this->events->removeElement($event);
-            // set the owning side to null (unless already changed)
-            if ($event->getCalendar() === $this) {
-                $event->setCalendar(null);
-            }
-        }
-
-        return $this;
-    }
 }
