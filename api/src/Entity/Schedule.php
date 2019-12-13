@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -26,6 +25,7 @@ class Schedule
 {
     /**
      * @var UuidInterface The UUID identifier of this resource
+     *
      * @example e2984465-190a-4562-829e-a8cca81aa35d
      *
      * @Assert\Uuid
@@ -39,6 +39,7 @@ class Schedule
 
     /**
      * @var string The name of this Schedule
+     *
      * @example My Schedule
      *
      * @Assert\NotNull
@@ -52,6 +53,7 @@ class Schedule
 
     /**
      * @var string An short description of this Schedule
+     *
      * @example This is the best Schedule ever
      *
      * @Assert\Length(
@@ -64,6 +66,7 @@ class Schedule
 
     /**
      * @var string Defines the day(s) of the week on which a recurring Event takes place. Sunday is both 0 and 7.
+     *
      * @example 1
      *
      * @Assert\Range(
@@ -78,6 +81,7 @@ class Schedule
 
     /**
      * @var string Defines the month(s) of the year on which a recurring Event takes place. Specified as an Integer between 1-12. January is 1.
+     *
      * @example 1
      *
      * @Assert\Range(
@@ -92,6 +96,7 @@ class Schedule
 
     /**
      * @var string Defines the day(s) of the month on which a recurring Event takes place. Specified as an Integer between 1-31.
+     *
      * @example 1
      *
      * @Assert\Range(
@@ -115,6 +120,7 @@ class Schedule
 
     /**
      * @var string Defines the day(s) of the month on which a recurring Event takes place. Specified as an Integer between 1-31.
+     *
      * @example 30
      *
      * @Groups({"read","write"})
@@ -124,6 +130,7 @@ class Schedule
 
     /**
      * @var int Defines the number of times a recurring Event will take place
+     *
      * @example 10
      *
      * @Assert\Type("integer")
@@ -134,6 +141,7 @@ class Schedule
 
     /**
      * @var string Defines the frequency at which Events will occur according to a schedule Schedule. The intervals between events should be defined as a [Duration](https://en.wikipedia.org/wiki/ISO_8601#Durations) of time.
+     *
      * @example PT1M
      *
      * @Assert\Length(
