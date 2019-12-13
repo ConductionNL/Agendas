@@ -4,9 +4,9 @@
 
 settings:
   registryBase: docker.io/conduction
-  projectName: as
-  name: as
-  title: Agenda Service
+  projectName: arc
+  name: arc
+  title: Agendaservice
   version: V.0.1
   description: '&#039;Naast deze JSON rest API is er ook een [graphql](/graphql) interface beschikbaar.&#039;'
   repro: 'https://github.com/ConductionNL/Proto-component-commonground'

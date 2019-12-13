@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -28,18 +27,6 @@ class Calendar
      *
      * @example e2984465-190a-4562-829e-a8cca81aa35d
      *
-     * @ApiProperty(
-     * 	   identifier=true,
-     *     attributes={
-     *         "swagger_context"={
-     *         	   "description" = "The UUID identifier of this resource",
-     *             "type"="string",
-     *             "format"="uuid",
-     *             "example"="e2984465-190a-4562-829e-a8cca81aa35d"
-     *         }
-     *     }
-     * )
-     *
      * @Assert\Uuid
      * @Groups({"read"})
      * @ORM\Id
@@ -53,19 +40,6 @@ class Calendar
      * @var string The name of this Calendar
      *
      * @example My Calendar
-     *
-     * @ApiProperty(
-     * 	   iri="http://schema.org/name",
-     *     attributes={
-     *         "swagger_context"={
-     *         	   "description" = "The name of this Calendar",
-     *             "type"="string",
-     *             "example"="My Calendar",
-     *             "maxLength"="255",
-     *             "required" = true
-     *         }
-     *     }
-     * )
      *
      * @Assert\NotNull
      * @Assert\Length(
@@ -81,18 +55,6 @@ class Calendar
      *
      * @example This is the best Calendar ever
      *
-     * @ApiProperty(
-     * 	   iri="https://schema.org/description",
-     *     attributes={
-     *         "swagger_context"={
-     *         	   "description" = "An short description of this Calendar",
-     *             "type"="string",
-     *             "example"="This is the best Calendar ever",
-     *             "maxLength"="2550"
-     *         }
-     *     }
-     * )
-     *
      * @Assert\Length(
      *      max = 2550
      * )
@@ -100,15 +62,6 @@ class Calendar
      * @ORM\Column(type="text", nullable=true)
      */
     private $description;
-
-    /**
-     * @var array Schedules that belong to this Calendar
-     *
-     * @MaxDepth(1)
-     * @Groups({"read","write"})
-     * @ORM\OneToMany(targetEntity="App\Entity\Schedule", mappedBy="calendar", orphanRemoval=true)
-     */
-    private $schedules;
 
     /**
      * @var array Events that belong to this Calendar
@@ -119,13 +72,22 @@ class Calendar
      */
     private $events;
 
+    /**
+     * @var array Schedules that belong to this Calendar
+     *
+     * @MaxDepth(1)
+     * @Groups({"read","write"})
+     * @ORM\OneToMany(targetEntity="App\Entity\Schedule", mappedBy="calendar", orphanRemoval=true)
+     */
+    private $schedules;
+
     public function __construct()
     {
         $this->schedules = new ArrayCollection();
         $this->events = new ArrayCollection();
     }
 
-    public function getId(): ?int
+    public function getId(): ?string
     {
         return $this->id;
     }
@@ -155,37 +117,6 @@ class Calendar
     }
 
     /**
-     * @return Collection|Schedule[]
-     */
-    public function getSchedules(): Collection
-    {
-        return $this->schedules;
-    }
-
-    public function addSchedule(Schedule $schedule): self
-    {
-        if (!$this->schedules->contains($schedule)) {
-            $this->schedules[] = $schedule;
-            $schedule->setCalendar($this);
-        }
-
-        return $this;
-    }
-
-    public function removeSchedule(Schedule $schedule): self
-    {
-        if ($this->schedules->contains($schedule)) {
-            $this->schedules->removeElement($schedule);
-            // set the owning side to null (unless already changed)
-            if ($schedule->getCalendar() === $this) {
-                $schedule->setCalendar(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
      * @return Collection|Event[]
      */
     public function getEvents(): Collection
@@ -210,6 +141,37 @@ class Calendar
             // set the owning side to null (unless already changed)
             if ($event->getCalendar() === $this) {
                 $event->setCalendar(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Schedule[]
+     */
+    public function getSchedules(): Collection
+    {
+        return $this->schedules;
+    }
+
+    public function addSchedule(Schedule $schedule): self
+    {
+        if (!$this->schedules->contains($schedule)) {
+            $this->schedules[] = $schedule;
+            $schedule->setCalendar($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSchedule(Schedule $schedule): self
+    {
+        if ($this->schedules->contains($schedule)) {
+            $this->schedules->removeElement($schedule);
+            // set the owning side to null (unless already changed)
+            if ($schedule->getCalendar() === $this) {
+                $schedule->setCalendar(null);
             }
         }
 

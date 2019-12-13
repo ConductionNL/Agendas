@@ -14,7 +14,7 @@ Keeping in form with international standardization calendars are based on the [s
 - [Securing this component](SECURITY.md)
 - [Design considerations](DESIGN.md)
 
-A hosted version of the OAS documentation and an demo version of the API can be found on http://vrc.zaakonline.nl
+A hosted version of the OAS documentation and an demo version of the API can be found on http://arc.zaakonline.nl
 
 ## Features
 This repository uses the power of the [commonground proto component](https://github.com/ConductionNL/commonground-component) provide common ground specific functionality based on the [VNG Api Strategie](https://docs.geostandaarden.nl/api/API-Strategie/). Including  

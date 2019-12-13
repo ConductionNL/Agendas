@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -29,18 +28,6 @@ class Schedule
      *
      * @example e2984465-190a-4562-829e-a8cca81aa35d
      *
-     * @ApiProperty(
-     * 	   identifier=true,
-     *     attributes={
-     *         "swagger_context"={
-     *         	   "description" = "The UUID identifier of this resource",
-     *             "type"="string",
-     *             "format"="uuid",
-     *             "example"="e2984465-190a-4562-829e-a8cca81aa35d"
-     *         }
-     *     }
-     * )
-     *
      * @Assert\Uuid
      * @Groups({"read"})
      * @ORM\Id
@@ -54,19 +41,6 @@ class Schedule
      * @var string The name of this Schedule
      *
      * @example My Schedule
-     *
-     * @ApiProperty(
-     * 	   iri="http://schema.org/name",
-     *     attributes={
-     *         "swagger_context"={
-     *         	   "description" = "The name of this Schedule",
-     *             "type"="string",
-     *             "example"="My Schedule",
-     *             "maxLength"="255",
-     *             "required" = true
-     *         }
-     *     }
-     * )
      *
      * @Assert\NotNull
      * @Assert\Length(
@@ -82,18 +56,6 @@ class Schedule
      *
      * @example This is the best Schedule ever
      *
-     * @ApiProperty(
-     * 	   iri="https://schema.org/description",
-     *     attributes={
-     *         "swagger_context"={
-     *         	   "description" = "An short description of this Schedule",
-     *             "type"="string",
-     *             "example"="This is the best Schedule ever",
-     *             "maxLength"="2550"
-     *         }
-     *     }
-     * )
-     *
      * @Assert\Length(
      *      max = 2550
      * )
@@ -107,18 +69,6 @@ class Schedule
      *
      * @example 1
      *
-     * @ApiProperty(
-     * 	   iri="https://schema.org/byDay",
-     *     attributes={
-     *         "swagger_context"={
-     *         	   "description" = "Defines the day(s) of the week on which a recurring Event takes place. Sunday is both 0 and 7",
-     *             "type"="integer",
-     *             "example"="1",
-     *             "minimum"="0",
-     *             "maximum"="7",
-     *         }
-     *     }
-     * )
      * @Assert\Range(
      *     min = 0,
      *     max = 7
@@ -134,18 +84,6 @@ class Schedule
      *
      * @example 1
      *
-     * @ApiProperty(
-     * 	   iri="https://schema.org/byMonth",
-     *     attributes={
-     *         "swagger_context"={
-     *         	   "description" = "Defines the month(s) of the year on which a recurring Event takes place. Specified as an Integer between 1-12. January is 1",
-     *             "type"="integer",
-     *             "example"="1",
-     *             "minimum"="1",
-     *             "maximum"="12",
-     *         }
-     *     }
-     * )
      * @Assert\Range(
      *     min = 1,
      *     max = 12
@@ -161,18 +99,6 @@ class Schedule
      *
      * @example 1
      *
-     * @ApiProperty(
-     * 	   iri="https://schema.org/byMonthDay",
-     *     attributes={
-     *         "swagger_context"={
-     *         	   "description" = "Defines the day(s) of the month on which a recurring Event takes place. Specified as an Integer between 1-31",
-     *             "type"="integer",
-     *             "example"="1",
-     *             "minimum"="1",
-     *             "maximum"="31",
-     *         }
-     *     }
-     * )
      * @Assert\Range(
      *     min = 1,
      *     max = 31
@@ -195,18 +121,7 @@ class Schedule
     /**
      * @var string Defines the day(s) of the month on which a recurring Event takes place. Specified as an Integer between 1-31.
      *
-     * @example ['2019-10-22T17:32:20Z','2019-10-22T17:32:20Z']
-     *
-     * @ApiProperty(
-     * 	   iri="https://schema.org/exceptDate",
-     *     attributes={
-     *         "swagger_context"={
-     *         	   "description" = "Defines the day(s) of the month on which a recurring Event takes place. Specified as an Integer between 1-31",
-     *             "type"="array",
-     *             "example"="['2019-10-22T17:32:20Z','2019-10-22T17:32:20Z']"
-     *         }
-     *     }
-     * )
+     * @example 30
      *
      * @Groups({"read","write"})
      * @ORM\Column(type="array", nullable=true)
@@ -216,19 +131,9 @@ class Schedule
     /**
      * @var int Defines the number of times a recurring Event will take place
      *
-     * @example
+     * @example 10
      *
-     * @ApiProperty(
-     * 	   iri="https://schema.org/repeatCount",
-     *     attributes={
-     *         "swagger_context"={
-     *         	   "description" = "Defines the number of times a recurring Event will take plac",
-     *             "type"="integer",
-     *             "example"="1",
-     *         }
-     *     }
-     * )
-     *
+     * @Assert\Type("integer")
      * @Groups({"read","write"})
      * @ORM\Column(type="integer", nullable=true)
      */
@@ -239,17 +144,9 @@ class Schedule
      *
      * @example PT1M
      *
-     * @ApiProperty(
-     * 	   iri="https://schema.org/repeatFrequency",
-     *     attributes={
-     *         "swagger_context"={
-     *         	   "description" = "Defines the frequency at which Events will occur according to a schedule Schedule. The intervals between events should be defined as a [Duration](https://en.wikipedia.org/wiki/ISO_8601#Durations) of time",
-     *             "type"="string",
-     *             "example"="PT1M",
-     *         }
-     *     }
+     * @Assert\Length(
+     *     max = 255
      * )
-     *
      * @Groups({"read","write"})
      * @ORM\Column(type="string", length=255, nullable=true)
      */
@@ -270,7 +167,7 @@ class Schedule
         $this->events = new ArrayCollection();
     }
 
-    public function getId(): ?int
+    public function getId(): ?string
     {
         return $this->id;
     }
