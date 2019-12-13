@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
 use Ramsey\Uuid\UuidInterface;
@@ -24,6 +23,7 @@ class Event
 {
     /**
      * @var UuidInterface The UUID identifier of this resource
+     *
      * @example e2984465-190a-4562-829e-a8cca81aa35d
      *
      * @Assert\Uuid
@@ -37,6 +37,7 @@ class Event
 
     /**
      * @var string The name of this RequestType
+     *
      * @example My RequestType
      *
      * @Assert\NotNull
@@ -50,6 +51,7 @@ class Event
 
     /**
      * @var string An short description of this Event
+     *
      * @example This is the best Event ever
      *
      * @Assert\Length(
@@ -62,6 +64,7 @@ class Event
 
     /**
      * @var Datetime The moment this event starts
+     *
      * @example 30-11-2019
      *
      * @Assert\DateTime
@@ -73,6 +76,7 @@ class Event
 
     /**
      * @var Datetime The moment this event ends
+     *
      * @example 3-11-2019
      *
      * @Assert\DateTime
@@ -84,6 +88,7 @@ class Event
 
     /**
      * @var string The location of this event
+     *
      * @example Dam 1, Amsterdam
      *
      * @Assert\Length(

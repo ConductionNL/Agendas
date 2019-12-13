@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -25,6 +24,7 @@ class Calendar
 {
     /**
      * @var UuidInterface The UUID identifier of this resource
+     *
      * @example e2984465-190a-4562-829e-a8cca81aa35d
      *
      * @Assert\Uuid
@@ -38,6 +38,7 @@ class Calendar
 
     /**
      * @var string The name of this Calendar
+     *
      * @example My Calendar
      *
      * @Assert\NotNull
@@ -51,6 +52,7 @@ class Calendar
 
     /**
      * @var string An short description of this Calendar
+     *
      * @example This is the best Calendar ever
      *
      * @Assert\Length(
@@ -175,6 +177,4 @@ class Calendar
 
         return $this;
     }
-
-
 }
