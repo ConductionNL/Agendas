@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -28,18 +27,6 @@ class Calendar
      *
      * @example e2984465-190a-4562-829e-a8cca81aa35d
      *
-     * @ApiProperty(
-     * 	   identifier=true,
-     *     attributes={
-     *         "swagger_context"={
-     *         	   "description" = "The UUID identifier of this resource",
-     *             "type"="string",
-     *             "format"="uuid",
-     *             "example"="e2984465-190a-4562-829e-a8cca81aa35d"
-     *         }
-     *     }
-     * )
-     *
      * @Assert\Uuid
      * @Groups({"read"})
      * @ORM\Id
@@ -51,21 +38,7 @@ class Calendar
 
     /**
      * @var string The name of this Calendar
-     *
      * @example My Calendar
-     *
-     * @ApiProperty(
-     * 	   iri="http://schema.org/name",
-     *     attributes={
-     *         "swagger_context"={
-     *         	   "description" = "The name of this Calendar",
-     *             "type"="string",
-     *             "example"="My Calendar",
-     *             "maxLength"="255",
-     *             "required" = true
-     *         }
-     *     }
-     * )
      *
      * @Assert\NotNull
      * @Assert\Length(
@@ -77,21 +50,8 @@ class Calendar
     private $name;
 
     /**
-     * @var string An short description of this Calendar
-     *
+     * @var string An short description of this Calenda
      * @example This is the best Calendar ever
-     *
-     * @ApiProperty(
-     * 	   iri="https://schema.org/description",
-     *     attributes={
-     *         "swagger_context"={
-     *         	   "description" = "An short description of this Calendar",
-     *             "type"="string",
-     *             "example"="This is the best Calendar ever",
-     *             "maxLength"="2550"
-     *         }
-     *     }
-     * )
      *
      * @Assert\Length(
      *      max = 2550
@@ -100,6 +60,15 @@ class Calendar
      * @ORM\Column(type="text", nullable=true)
      */
     private $description;
+
+    /**
+     * @var array Events that belong to this Calendar
+     *
+     * @MaxDepth(1)
+     * @Groups({"read","write"})
+     * @ORM\OneToMany(targetEntity="App\Entity\Event", mappedBy="calendar", orphanRemoval=true)
+     */
+    private $events;
 
     /**
      * @var array Schedules that belong to this Calendar
@@ -111,21 +80,50 @@ class Calendar
     private $schedules;
 
     /**
-     * @var array Events that belong to this Calendar
+     * @var string The time zone of this calendar
+     * @example CET
      *
-     * @MaxDepth(1)
+     * @Assert\NotNull
+     * @Assert\Length(
+     *      min = 3,
+     *      max = 5
+     * )
      * @Groups({"read","write"})
-     * @ORM\OneToMany(targetEntity="App\Entity\Event", mappedBy="calendar", orphanRemoval=true)
+     * @ORM\Column(type="string", length=5)
      */
-    private $events;
+    private $timeZone;
+
+    /**
+     * @Groups({"read","write"})
+     * @ORM\OneToMany(targetEntity="App\Entity\Freebusy", mappedBy="calendar")
+     * @MaxDepth(1)
+     */
+    private $freebusies;
+
+    /**
+     * @Groups({"read","write"})
+     * @ORM\OneToMany(targetEntity="App\Entity\Journal", mappedBy="calendar")
+     * @MaxDepth(1)
+     */
+    private $journals;
+
+    /**
+     * @Groups({"read","write"})
+     * @ORM\OneToMany(targetEntity="App\Entity\Todo", mappedBy="calendar")
+     * @MaxDepth(1)
+     */
+    private $todos;
 
     public function __construct()
     {
         $this->schedules = new ArrayCollection();
         $this->events = new ArrayCollection();
+        $this->freebusies = new ArrayCollection();
+        $this->journals = new ArrayCollection();
+        $this->todos = new ArrayCollection();
     }
 
-    public function getId(): ?int
+    public function getId(): ?string
     {
         return $this->id;
     }
@@ -150,6 +148,37 @@ class Calendar
     public function setDescription(?string $description): self
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Event[]
+     */
+    public function getEvents(): Collection
+    {
+        return $this->events;
+    }
+
+    public function addEvent(Event $event): self
+    {
+        if (!$this->events->contains($event)) {
+            $this->events[] = $event;
+            $event->setCalendar($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEvent(Event $event): self
+    {
+        if ($this->events->contains($event)) {
+            $this->events->removeElement($event);
+            // set the owning side to null (unless already changed)
+            if ($event->getCalendar() === $this) {
+                $event->setCalendar(null);
+            }
+        }
 
         return $this;
     }
@@ -185,31 +214,105 @@ class Calendar
         return $this;
     }
 
-    /**
-     * @return Collection|Event[]
-     */
-    public function getEvents(): Collection
+    public function getTimeZone(): ?string
     {
-        return $this->events;
+        return $this->timeZone;
     }
 
-    public function addEvent(Event $event): self
+    public function setTimeZone(string $timeZone): self
     {
-        if (!$this->events->contains($event)) {
-            $this->events[] = $event;
-            $event->setCalendar($this);
+        $this->timeZone = $timeZone;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Freebusy[]
+     */
+    public function getFreebusies(): Collection
+    {
+        return $this->freebusies;
+    }
+
+    public function addFreebusy(Freebusy $freebusy): self
+    {
+        if (!$this->freebusies->contains($freebusy)) {
+            $this->freebusies[] = $freebusy;
+            $freebusy->setCalendar($this);
         }
 
         return $this;
     }
 
-    public function removeEvent(Event $event): self
+    public function removeFreebusy(Freebusy $freebusy): self
     {
-        if ($this->events->contains($event)) {
-            $this->events->removeElement($event);
+        if ($this->freebusies->contains($freebusy)) {
+            $this->freebusies->removeElement($freebusy);
             // set the owning side to null (unless already changed)
-            if ($event->getCalendar() === $this) {
-                $event->setCalendar(null);
+            if ($freebusy->getCalendar() === $this) {
+                $freebusy->setCalendar(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Journal[]
+     */
+    public function getJournals(): Collection
+    {
+        return $this->journals;
+    }
+
+    public function addJournal(Journal $journal): self
+    {
+        if (!$this->journals->contains($journal)) {
+            $this->journals[] = $journal;
+            $journal->setCalendar($this);
+        }
+
+        return $this;
+    }
+
+    public function removeJournal(Journal $journal): self
+    {
+        if ($this->journals->contains($journal)) {
+            $this->journals->removeElement($journal);
+            // set the owning side to null (unless already changed)
+            if ($journal->getCalendar() === $this) {
+                $journal->setCalendar(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Todo[]
+     */
+    public function getTodos(): Collection
+    {
+        return $this->todos;
+    }
+
+    public function addTodo(Todo $todo): self
+    {
+        if (!$this->todos->contains($todo)) {
+            $this->todos[] = $todo;
+            $todo->setCalendar($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTodo(Todo $todo): self
+    {
+        if ($this->todos->contains($todo)) {
+            $this->todos->removeElement($todo);
+            // set the owning side to null (unless already changed)
+            if ($todo->getCalendar() === $this) {
+                $todo->setCalendar(null);
             }
         }
 

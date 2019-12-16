@@ -1,83 +1,71 @@
 openapi: 3.0.2
 info:
-  title: 'Proto Component'
+  title: Agendaservice
   version: V.0.1
   description: |
     API Details
-    - Component: Proto Component
-    - Reference: pc
+    - Component: Agendaservice
+    - Reference: arc
     - Enviroment: dev
     - Version: V.0.1
     - Repository: [online](https://github.com/ConductionNL/Proto-component-commonground) / [zip](https://github.com/ConductionNL/Proto-component-commonground/archive/master.zip)
-    - Docker Image: [online](https://hub.docker.com/repository/docker/conduction/pc-php) 
+    - Docker Image: [online](https://hub.docker.com/repository/docker/conduction/arc-php) 
     - Datamodel: [postman](/schema/openapi.postman_collection) / [oas](/schema/openapi.yaml) / [pdf](/schema/datamodel.pdf) / [mwb](/schema/datamodel.mwb) 
     
     'Naast deze JSON rest API is er ook een [graphql](/graphql) interface beschikbaar.'         
     
 paths:
-  /example_entities:
+  /calendars:
     get:
       tags:
-        - ExampleEntity
-      operationId: getExampleEntityCollection
-      summary: 'Retrieves the collection of ExampleEntity resources.'
+        - Calendar
+      operationId: getCalendarCollection
+      summary: 'Retrieves the collection of Calendar resources.'
       responses:
         200:
-          description: 'ExampleEntity collection response'
+          description: 'Calendar collection response'
           content:
             application/hal+json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/ExampleEntity-read'
+                  $ref: '#/components/schemas/Calendar-read'
             application/ld+json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/ExampleEntity-read'
+                  $ref: '#/components/schemas/Calendar-read'
             application/vnd.api+json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/ExampleEntity-read'
+                  $ref: '#/components/schemas/Calendar-read'
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/ExampleEntity-read'
+                  $ref: '#/components/schemas/Calendar-read'
             application/xml:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/ExampleEntity-read'
+                  $ref: '#/components/schemas/Calendar-read'
             application/x-yaml:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/ExampleEntity-read'
+                  $ref: '#/components/schemas/Calendar-read'
             text/csv:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/ExampleEntity-read'
+                  $ref: '#/components/schemas/Calendar-read'
             text/html:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/ExampleEntity-read'
+                  $ref: '#/components/schemas/Calendar-read'
       parameters:
-        -
-          name: like_name
-          in: query
-          required: false
-          schema:
-            type: string
-        -
-          name: like_description
-          in: query
-          required: false
-          schema:
-            type: string
         -
           name: page
           in: query
@@ -160,43 +148,43 @@ paths:
         - application/health+json
     post:
       tags:
-        - ExampleEntity
-      operationId: postExampleEntityCollection
-      summary: 'Creates a ExampleEntity resource.'
+        - Calendar
+      operationId: postCalendarCollection
+      summary: 'Creates a Calendar resource.'
       responses:
         201:
-          description: 'ExampleEntity resource created'
+          description: 'Calendar resource created'
           content:
             application/hal+json:
               schema:
-                $ref: '#/components/schemas/ExampleEntity-read'
+                $ref: '#/components/schemas/Calendar-read'
             application/ld+json:
               schema:
-                $ref: '#/components/schemas/ExampleEntity-read'
+                $ref: '#/components/schemas/Calendar-read'
             application/vnd.api+json:
               schema:
-                $ref: '#/components/schemas/ExampleEntity-read'
+                $ref: '#/components/schemas/Calendar-read'
             application/json:
               schema:
-                $ref: '#/components/schemas/ExampleEntity-read'
+                $ref: '#/components/schemas/Calendar-read'
             application/xml:
               schema:
-                $ref: '#/components/schemas/ExampleEntity-read'
+                $ref: '#/components/schemas/Calendar-read'
             application/x-yaml:
               schema:
-                $ref: '#/components/schemas/ExampleEntity-read'
+                $ref: '#/components/schemas/Calendar-read'
             text/csv:
               schema:
-                $ref: '#/components/schemas/ExampleEntity-read'
+                $ref: '#/components/schemas/Calendar-read'
             text/html:
               schema:
-                $ref: '#/components/schemas/ExampleEntity-read'
+                $ref: '#/components/schemas/Calendar-read'
           links:
-            GetExampleEntityItem:
+            GetCalendarItem:
               parameters:
                 id: '$response.body#/id'
-              operationId: getExampleEntityItem
-              description: 'The `id` value returned in the response can be used as the `id` parameter in `GET /example_entities/{id}`.'
+              operationId: getCalendarItem
+              description: 'The `id` value returned in the response can be used as the `id` parameter in `GET /calendars/{id}`.'
         400:
           description: 'Invalid input'
         404:
@@ -205,29 +193,29 @@ paths:
         content:
           application/hal+json:
             schema:
-              $ref: '#/components/schemas/ExampleEntity-write'
+              $ref: '#/components/schemas/Calendar-write'
           application/ld+json:
             schema:
-              $ref: '#/components/schemas/ExampleEntity-write'
+              $ref: '#/components/schemas/Calendar-write'
           application/vnd.api+json:
             schema:
-              $ref: '#/components/schemas/ExampleEntity-write'
+              $ref: '#/components/schemas/Calendar-write'
           application/json:
             schema:
-              $ref: '#/components/schemas/ExampleEntity-write'
+              $ref: '#/components/schemas/Calendar-write'
           application/xml:
             schema:
-              $ref: '#/components/schemas/ExampleEntity-write'
+              $ref: '#/components/schemas/Calendar-write'
           application/x-yaml:
             schema:
-              $ref: '#/components/schemas/ExampleEntity-write'
+              $ref: '#/components/schemas/Calendar-write'
           text/csv:
             schema:
-              $ref: '#/components/schemas/ExampleEntity-write'
+              $ref: '#/components/schemas/Calendar-write'
           text/html:
             schema:
-              $ref: '#/components/schemas/ExampleEntity-write'
-        description: 'The new ExampleEntity resource'
+              $ref: '#/components/schemas/Calendar-write'
+        description: 'The new Calendar resource'
       parameters:
         -
           name: Authorization
@@ -258,12 +246,12 @@ paths:
           name: X-NLX-Audit-Clarification
           description: 'A clarification as to why a request has been made  (doelbinding)'
           in: header
-  '/example_entities/{id}':
+  '/calendars/{id}':
     get:
       tags:
-        - ExampleEntity
-      operationId: audittrailExampleEntityItem
-      summary: 'Retrieves a ExampleEntity resource.'
+        - Calendar
+      operationId: getCalendarItem
+      summary: 'Retrieves a Calendar resource.'
       parameters:
         -
           name: id
@@ -344,41 +332,87 @@ paths:
           in: query
       responses:
         200:
-          description: 'ExampleEntity resource response'
+          description: 'Calendar resource response'
           content:
             application/hal+json:
               schema:
-                $ref: '#/components/schemas/ExampleEntity-read'
+                $ref: '#/components/schemas/Calendar-read'
             application/ld+json:
               schema:
-                $ref: '#/components/schemas/ExampleEntity-read'
+                $ref: '#/components/schemas/Calendar-read'
             application/vnd.api+json:
               schema:
-                $ref: '#/components/schemas/ExampleEntity-read'
+                $ref: '#/components/schemas/Calendar-read'
             application/json:
               schema:
-                $ref: '#/components/schemas/ExampleEntity-read'
+                $ref: '#/components/schemas/Calendar-read'
             application/xml:
               schema:
-                $ref: '#/components/schemas/ExampleEntity-read'
+                $ref: '#/components/schemas/Calendar-read'
             application/x-yaml:
               schema:
-                $ref: '#/components/schemas/ExampleEntity-read'
+                $ref: '#/components/schemas/Calendar-read'
             text/csv:
               schema:
-                $ref: '#/components/schemas/ExampleEntity-read'
+                $ref: '#/components/schemas/Calendar-read'
             text/html:
               schema:
-                $ref: '#/components/schemas/ExampleEntity-read'
+                $ref: '#/components/schemas/Calendar-read'
         404:
           description: 'Resource not found'
       produces:
         - application/health+json
+    delete:
+      tags:
+        - Calendar
+      operationId: deleteCalendarItem
+      summary: 'Removes the Calendar resource.'
+      responses:
+        204:
+          description: 'Calendar resource deleted'
+        404:
+          description: 'Resource not found'
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: string
+        -
+          name: Authorization
+          description: 'The JWT of the entity performing the request'
+          in: header
+        -
+          name: API-Version
+          description: 'The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)'
+          example: 1.0.1
+          in: header
+        -
+          name: X-NLX-Logrecord-ID
+          description: 'A  globally unique id of the request, which makes a request traceable throughout the network.'
+          in: header
+        -
+          name: X-NLX-Request-Process-Id
+          description: 'A process id for purpose registration (doelbinding)'
+          in: header
+        -
+          name: X-NLX-Request-Data-Elements
+          description: 'A list of requested data elements'
+          in: header
+        -
+          name: X-NLX-Request-Data-Subject
+          description: 'A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`'
+          in: header
+        -
+          name: X-NLX-Audit-Clarification
+          description: 'A clarification as to why a request has been made  (doelbinding)'
+          in: header
     put:
       tags:
-        - ExampleEntity
-      operationId: putExampleEntityItem
-      summary: 'Replaces the ExampleEntity resource.'
+        - Calendar
+      operationId: putCalendarItem
+      summary: 'Replaces the Calendar resource.'
       parameters:
         -
           name: id
@@ -417,32 +451,32 @@ paths:
           in: header
       responses:
         200:
-          description: 'ExampleEntity resource updated'
+          description: 'Calendar resource updated'
           content:
             application/hal+json:
               schema:
-                $ref: '#/components/schemas/ExampleEntity-read'
+                $ref: '#/components/schemas/Calendar-read'
             application/ld+json:
               schema:
-                $ref: '#/components/schemas/ExampleEntity-read'
+                $ref: '#/components/schemas/Calendar-read'
             application/vnd.api+json:
               schema:
-                $ref: '#/components/schemas/ExampleEntity-read'
+                $ref: '#/components/schemas/Calendar-read'
             application/json:
               schema:
-                $ref: '#/components/schemas/ExampleEntity-read'
+                $ref: '#/components/schemas/Calendar-read'
             application/xml:
               schema:
-                $ref: '#/components/schemas/ExampleEntity-read'
+                $ref: '#/components/schemas/Calendar-read'
             application/x-yaml:
               schema:
-                $ref: '#/components/schemas/ExampleEntity-read'
+                $ref: '#/components/schemas/Calendar-read'
             text/csv:
               schema:
-                $ref: '#/components/schemas/ExampleEntity-read'
+                $ref: '#/components/schemas/Calendar-read'
             text/html:
               schema:
-                $ref: '#/components/schemas/ExampleEntity-read'
+                $ref: '#/components/schemas/Calendar-read'
         400:
           description: 'Invalid input'
         404:
@@ -451,37 +485,484 @@ paths:
         content:
           application/hal+json:
             schema:
-              $ref: '#/components/schemas/ExampleEntity-write'
+              $ref: '#/components/schemas/Calendar-write'
           application/ld+json:
             schema:
-              $ref: '#/components/schemas/ExampleEntity-write'
+              $ref: '#/components/schemas/Calendar-write'
           application/vnd.api+json:
             schema:
-              $ref: '#/components/schemas/ExampleEntity-write'
+              $ref: '#/components/schemas/Calendar-write'
           application/json:
             schema:
-              $ref: '#/components/schemas/ExampleEntity-write'
+              $ref: '#/components/schemas/Calendar-write'
           application/xml:
             schema:
-              $ref: '#/components/schemas/ExampleEntity-write'
+              $ref: '#/components/schemas/Calendar-write'
           application/x-yaml:
             schema:
-              $ref: '#/components/schemas/ExampleEntity-write'
+              $ref: '#/components/schemas/Calendar-write'
           text/csv:
             schema:
-              $ref: '#/components/schemas/ExampleEntity-write'
+              $ref: '#/components/schemas/Calendar-write'
           text/html:
             schema:
-              $ref: '#/components/schemas/ExampleEntity-write'
-        description: 'The updated ExampleEntity resource'
+              $ref: '#/components/schemas/Calendar-write'
+        description: 'The updated Calendar resource'
+    patch:
+      tags:
+        - Calendar
+      operationId: patchCalendarItem
+      summary: 'Updates the Calendar resource.'
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: string
+        -
+          name: Authorization
+          description: 'The JWT of the entity performing the request'
+          in: header
+        -
+          name: API-Version
+          description: 'The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)'
+          example: 1.0.1
+          in: header
+        -
+          name: X-NLX-Logrecord-ID
+          description: 'A  globally unique id of the request, which makes a request traceable throughout the network.'
+          in: header
+        -
+          name: X-NLX-Request-Process-Id
+          description: 'A process id for purpose registration (doelbinding)'
+          in: header
+        -
+          name: X-NLX-Request-Data-Elements
+          description: 'A list of requested data elements'
+          in: header
+        -
+          name: X-NLX-Request-Data-Subject
+          description: 'A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`'
+          in: header
+        -
+          name: X-NLX-Audit-Clarification
+          description: 'A clarification as to why a request has been made  (doelbinding)'
+          in: header
+      responses:
+        200:
+          description: 'Calendar resource updated'
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/Calendar-read'
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Calendar-read'
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/Calendar-read'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Calendar-read'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Calendar-read'
+            application/x-yaml:
+              schema:
+                $ref: '#/components/schemas/Calendar-read'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/Calendar-read'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/Calendar-read'
+        400:
+          description: 'Invalid input'
+        404:
+          description: 'Resource not found'
+      requestBody:
+        content:
+          application/hal+json:
+            schema:
+              $ref: '#/components/schemas/Calendar-write'
+          application/ld+json:
+            schema:
+              $ref: '#/components/schemas/Calendar-write'
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/Calendar-write'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Calendar-write'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Calendar-write'
+          application/x-yaml:
+            schema:
+              $ref: '#/components/schemas/Calendar-write'
+          text/csv:
+            schema:
+              $ref: '#/components/schemas/Calendar-write'
+          text/html:
+            schema:
+              $ref: '#/components/schemas/Calendar-write'
+        description: 'The updated Calendar resource'
+  /events:
+    get:
+      tags:
+        - Event
+      operationId: getEventCollection
+      summary: 'Retrieves the collection of Event resources.'
+      responses:
+        200:
+          description: 'Event collection response'
+          content:
+            application/hal+json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Event-read'
+            application/ld+json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Event-read'
+            application/vnd.api+json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Event-read'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Event-read'
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Event-read'
+            application/x-yaml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Event-read'
+            text/csv:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Event-read'
+            text/html:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Event-read'
+      parameters:
+        -
+          name: page
+          in: query
+          required: false
+          description: 'The collection page number'
+          schema:
+            type: integer
+        -
+          name: Authorization
+          description: 'The JWT of the entity performing the request'
+          in: header
+        -
+          name: API-Version
+          description: 'The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)'
+          example: 1.0.1
+          in: header
+        -
+          name: X-NLX-Logrecord-ID
+          description: 'A  globally unique id of the request, which makes a request traceable throughout the network.'
+          in: header
+        -
+          name: X-NLX-Request-Process-Id
+          description: 'A process id for purpose registration (doelbinding)'
+          in: header
+        -
+          name: X-NLX-Request-Data-Elements
+          description: 'A list of requested data elements'
+          in: header
+        -
+          name: X-NLX-Request-Data-Subject
+          description: 'A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`'
+          in: header
+        -
+          name: X-NLX-Audit-Clarification
+          description: 'A clarification as to why a request has been made  (doelbinding)'
+          in: header
+        -
+          name: Link
+          description: 'A [websub](https://www.w3.org/TR/websub/#discovery) header like <https://hub.example.com/>; rel="hub"'
+          in: header
+        -
+          name: 'extend[]'
+          required: false
+          description: 'An array of nested objects to include in the return object'
+          in: query
+          schema:
+            type: array
+        -
+          name: 'fields[]'
+          required: false
+          description: 'An array of fields to return in output, wil return all fields is not supplied'
+          in: query
+          schema:
+            type: array
+        -
+          name: validOn
+          required: false
+          description: 'Returns object as valid on a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+        -
+          name: validFrom
+          required: false
+          description: 'Returns objects valid from a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+        -
+          name: validUntil
+          required: false
+          description: 'Returns objects valid until a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+      produces:
+        - application/health+json
+    post:
+      tags:
+        - Event
+      operationId: postEventCollection
+      summary: 'Creates a Event resource.'
+      responses:
+        201:
+          description: 'Event resource created'
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/Event-read'
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Event-read'
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/Event-read'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event-read'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Event-read'
+            application/x-yaml:
+              schema:
+                $ref: '#/components/schemas/Event-read'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/Event-read'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/Event-read'
+          links:
+            GetEventItem:
+              parameters:
+                id: '$response.body#/id'
+              operationId: getEventItem
+              description: 'The `id` value returned in the response can be used as the `id` parameter in `GET /events/{id}`.'
+        400:
+          description: 'Invalid input'
+        404:
+          description: 'Resource not found'
+      requestBody:
+        content:
+          application/hal+json:
+            schema:
+              $ref: '#/components/schemas/Event-write'
+          application/ld+json:
+            schema:
+              $ref: '#/components/schemas/Event-write'
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/Event-write'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Event-write'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Event-write'
+          application/x-yaml:
+            schema:
+              $ref: '#/components/schemas/Event-write'
+          text/csv:
+            schema:
+              $ref: '#/components/schemas/Event-write'
+          text/html:
+            schema:
+              $ref: '#/components/schemas/Event-write'
+        description: 'The new Event resource'
+      parameters:
+        -
+          name: Authorization
+          description: 'The JWT of the entity performing the request'
+          in: header
+        -
+          name: API-Version
+          description: 'The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)'
+          example: 1.0.1
+          in: header
+        -
+          name: X-NLX-Logrecord-ID
+          description: 'A  globally unique id of the request, which makes a request traceable throughout the network.'
+          in: header
+        -
+          name: X-NLX-Request-Process-Id
+          description: 'A process id for purpose registration (doelbinding)'
+          in: header
+        -
+          name: X-NLX-Request-Data-Elements
+          description: 'A list of requested data elements'
+          in: header
+        -
+          name: X-NLX-Request-Data-Subject
+          description: 'A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`'
+          in: header
+        -
+          name: X-NLX-Audit-Clarification
+          description: 'A clarification as to why a request has been made  (doelbinding)'
+          in: header
+  '/events/{id}':
+    get:
+      tags:
+        - Event
+      operationId: getEventItem
+      summary: 'Retrieves a Event resource.'
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: string
+        -
+          name: Authorization
+          description: 'The JWT of the entity performing the request'
+          in: header
+        -
+          name: API-Version
+          description: 'The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)'
+          example: 1.0.1
+          in: header
+        -
+          name: X-NLX-Logrecord-ID
+          description: 'A  globally unique id of the request, which makes a request traceable throughout the network.'
+          in: header
+        -
+          name: X-NLX-Request-Process-Id
+          description: 'A process id for purpose registration (doelbinding)'
+          in: header
+        -
+          name: X-NLX-Request-Data-Elements
+          description: 'A list of requested data elements'
+          in: header
+        -
+          name: X-NLX-Request-Data-Subject
+          description: 'A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`'
+          in: header
+        -
+          name: X-NLX-Audit-Clarification
+          description: 'A clarification as to why a request has been made  (doelbinding)'
+          in: header
+        -
+          name: Link
+          description: 'A [websub](https://www.w3.org/TR/websub/#discovery) header like <https://hub.example.com/>; rel="hub"'
+          in: header
+        -
+          name: 'extend[]'
+          required: false
+          description: 'An array of nested objects to include in the return object'
+          in: query
+          schema:
+            type: array
+        -
+          name: 'fields[]'
+          required: false
+          description: 'An array of fields to return in output, wil return all fields is not supplied'
+          in: query
+          schema:
+            type: array
+        -
+          name: validOn
+          required: false
+          description: 'Returns object as valid on a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+        -
+          name: validFrom
+          required: false
+          description: 'Returns objects valid from a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+        -
+          name: validUntil
+          required: false
+          description: 'Returns objects valid until a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+      responses:
+        200:
+          description: 'Event resource response'
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/Event-read'
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Event-read'
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/Event-read'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event-read'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Event-read'
+            application/x-yaml:
+              schema:
+                $ref: '#/components/schemas/Event-read'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/Event-read'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/Event-read'
+        404:
+          description: 'Resource not found'
+      produces:
+        - application/health+json
     delete:
       tags:
-        - ExampleEntity
-      operationId: deleteExampleEntityItem
-      summary: 'Removes the ExampleEntity resource.'
+        - Event
+      operationId: deleteEventItem
+      summary: 'Removes the Event resource.'
       responses:
         204:
-          description: 'ExampleEntity resource deleted'
+          description: 'Event resource deleted'
         404:
           description: 'Resource not found'
       parameters:
@@ -520,42 +1001,1169 @@ paths:
           name: X-NLX-Audit-Clarification
           description: 'A clarification as to why a request has been made  (doelbinding)'
           in: header
+    put:
+      tags:
+        - Event
+      operationId: putEventItem
+      summary: 'Replaces the Event resource.'
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: string
+        -
+          name: Authorization
+          description: 'The JWT of the entity performing the request'
+          in: header
+        -
+          name: API-Version
+          description: 'The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)'
+          example: 1.0.1
+          in: header
+        -
+          name: X-NLX-Logrecord-ID
+          description: 'A  globally unique id of the request, which makes a request traceable throughout the network.'
+          in: header
+        -
+          name: X-NLX-Request-Process-Id
+          description: 'A process id for purpose registration (doelbinding)'
+          in: header
+        -
+          name: X-NLX-Request-Data-Elements
+          description: 'A list of requested data elements'
+          in: header
+        -
+          name: X-NLX-Request-Data-Subject
+          description: 'A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`'
+          in: header
+        -
+          name: X-NLX-Audit-Clarification
+          description: 'A clarification as to why a request has been made  (doelbinding)'
+          in: header
+      responses:
+        200:
+          description: 'Event resource updated'
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/Event-read'
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Event-read'
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/Event-read'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event-read'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Event-read'
+            application/x-yaml:
+              schema:
+                $ref: '#/components/schemas/Event-read'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/Event-read'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/Event-read'
+        400:
+          description: 'Invalid input'
+        404:
+          description: 'Resource not found'
+      requestBody:
+        content:
+          application/hal+json:
+            schema:
+              $ref: '#/components/schemas/Event-write'
+          application/ld+json:
+            schema:
+              $ref: '#/components/schemas/Event-write'
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/Event-write'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Event-write'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Event-write'
+          application/x-yaml:
+            schema:
+              $ref: '#/components/schemas/Event-write'
+          text/csv:
+            schema:
+              $ref: '#/components/schemas/Event-write'
+          text/html:
+            schema:
+              $ref: '#/components/schemas/Event-write'
+        description: 'The updated Event resource'
+    patch:
+      tags:
+        - Event
+      operationId: patchEventItem
+      summary: 'Updates the Event resource.'
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: string
+        -
+          name: Authorization
+          description: 'The JWT of the entity performing the request'
+          in: header
+        -
+          name: API-Version
+          description: 'The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)'
+          example: 1.0.1
+          in: header
+        -
+          name: X-NLX-Logrecord-ID
+          description: 'A  globally unique id of the request, which makes a request traceable throughout the network.'
+          in: header
+        -
+          name: X-NLX-Request-Process-Id
+          description: 'A process id for purpose registration (doelbinding)'
+          in: header
+        -
+          name: X-NLX-Request-Data-Elements
+          description: 'A list of requested data elements'
+          in: header
+        -
+          name: X-NLX-Request-Data-Subject
+          description: 'A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`'
+          in: header
+        -
+          name: X-NLX-Audit-Clarification
+          description: 'A clarification as to why a request has been made  (doelbinding)'
+          in: header
+      responses:
+        200:
+          description: 'Event resource updated'
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/Event-read'
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Event-read'
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/Event-read'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event-read'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Event-read'
+            application/x-yaml:
+              schema:
+                $ref: '#/components/schemas/Event-read'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/Event-read'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/Event-read'
+        400:
+          description: 'Invalid input'
+        404:
+          description: 'Resource not found'
+      requestBody:
+        content:
+          application/hal+json:
+            schema:
+              $ref: '#/components/schemas/Event-write'
+          application/ld+json:
+            schema:
+              $ref: '#/components/schemas/Event-write'
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/Event-write'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Event-write'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Event-write'
+          application/x-yaml:
+            schema:
+              $ref: '#/components/schemas/Event-write'
+          text/csv:
+            schema:
+              $ref: '#/components/schemas/Event-write'
+          text/html:
+            schema:
+              $ref: '#/components/schemas/Event-write'
+        description: 'The updated Event resource'
+  /schedules:
+    get:
+      tags:
+        - Schedule
+      operationId: getScheduleCollection
+      summary: 'Retrieves the collection of Schedule resources.'
+      responses:
+        200:
+          description: 'Schedule collection response'
+          content:
+            application/hal+json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Schedule-read'
+            application/ld+json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Schedule-read'
+            application/vnd.api+json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Schedule-read'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Schedule-read'
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Schedule-read'
+            application/x-yaml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Schedule-read'
+            text/csv:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Schedule-read'
+            text/html:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Schedule-read'
+      parameters:
+        -
+          name: page
+          in: query
+          required: false
+          description: 'The collection page number'
+          schema:
+            type: integer
+        -
+          name: Authorization
+          description: 'The JWT of the entity performing the request'
+          in: header
+        -
+          name: API-Version
+          description: 'The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)'
+          example: 1.0.1
+          in: header
+        -
+          name: X-NLX-Logrecord-ID
+          description: 'A  globally unique id of the request, which makes a request traceable throughout the network.'
+          in: header
+        -
+          name: X-NLX-Request-Process-Id
+          description: 'A process id for purpose registration (doelbinding)'
+          in: header
+        -
+          name: X-NLX-Request-Data-Elements
+          description: 'A list of requested data elements'
+          in: header
+        -
+          name: X-NLX-Request-Data-Subject
+          description: 'A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`'
+          in: header
+        -
+          name: X-NLX-Audit-Clarification
+          description: 'A clarification as to why a request has been made  (doelbinding)'
+          in: header
+        -
+          name: Link
+          description: 'A [websub](https://www.w3.org/TR/websub/#discovery) header like <https://hub.example.com/>; rel="hub"'
+          in: header
+        -
+          name: 'extend[]'
+          required: false
+          description: 'An array of nested objects to include in the return object'
+          in: query
+          schema:
+            type: array
+        -
+          name: 'fields[]'
+          required: false
+          description: 'An array of fields to return in output, wil return all fields is not supplied'
+          in: query
+          schema:
+            type: array
+        -
+          name: validOn
+          required: false
+          description: 'Returns object as valid on a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+        -
+          name: validFrom
+          required: false
+          description: 'Returns objects valid from a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+        -
+          name: validUntil
+          required: false
+          description: 'Returns objects valid until a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+      produces:
+        - application/health+json
+    post:
+      tags:
+        - Schedule
+      operationId: postScheduleCollection
+      summary: 'Creates a Schedule resource.'
+      responses:
+        201:
+          description: 'Schedule resource created'
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/Schedule-read'
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Schedule-read'
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/Schedule-read'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Schedule-read'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Schedule-read'
+            application/x-yaml:
+              schema:
+                $ref: '#/components/schemas/Schedule-read'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/Schedule-read'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/Schedule-read'
+          links:
+            GetScheduleItem:
+              parameters:
+                id: '$response.body#/id'
+              operationId: getScheduleItem
+              description: 'The `id` value returned in the response can be used as the `id` parameter in `GET /schedules/{id}`.'
+        400:
+          description: 'Invalid input'
+        404:
+          description: 'Resource not found'
+      requestBody:
+        content:
+          application/hal+json:
+            schema:
+              $ref: '#/components/schemas/Schedule-write'
+          application/ld+json:
+            schema:
+              $ref: '#/components/schemas/Schedule-write'
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/Schedule-write'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Schedule-write'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Schedule-write'
+          application/x-yaml:
+            schema:
+              $ref: '#/components/schemas/Schedule-write'
+          text/csv:
+            schema:
+              $ref: '#/components/schemas/Schedule-write'
+          text/html:
+            schema:
+              $ref: '#/components/schemas/Schedule-write'
+        description: 'The new Schedule resource'
+      parameters:
+        -
+          name: Authorization
+          description: 'The JWT of the entity performing the request'
+          in: header
+        -
+          name: API-Version
+          description: 'The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)'
+          example: 1.0.1
+          in: header
+        -
+          name: X-NLX-Logrecord-ID
+          description: 'A  globally unique id of the request, which makes a request traceable throughout the network.'
+          in: header
+        -
+          name: X-NLX-Request-Process-Id
+          description: 'A process id for purpose registration (doelbinding)'
+          in: header
+        -
+          name: X-NLX-Request-Data-Elements
+          description: 'A list of requested data elements'
+          in: header
+        -
+          name: X-NLX-Request-Data-Subject
+          description: 'A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`'
+          in: header
+        -
+          name: X-NLX-Audit-Clarification
+          description: 'A clarification as to why a request has been made  (doelbinding)'
+          in: header
+  '/schedules/{id}':
+    get:
+      tags:
+        - Schedule
+      operationId: getScheduleItem
+      summary: 'Retrieves a Schedule resource.'
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: string
+        -
+          name: Authorization
+          description: 'The JWT of the entity performing the request'
+          in: header
+        -
+          name: API-Version
+          description: 'The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)'
+          example: 1.0.1
+          in: header
+        -
+          name: X-NLX-Logrecord-ID
+          description: 'A  globally unique id of the request, which makes a request traceable throughout the network.'
+          in: header
+        -
+          name: X-NLX-Request-Process-Id
+          description: 'A process id for purpose registration (doelbinding)'
+          in: header
+        -
+          name: X-NLX-Request-Data-Elements
+          description: 'A list of requested data elements'
+          in: header
+        -
+          name: X-NLX-Request-Data-Subject
+          description: 'A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`'
+          in: header
+        -
+          name: X-NLX-Audit-Clarification
+          description: 'A clarification as to why a request has been made  (doelbinding)'
+          in: header
+        -
+          name: Link
+          description: 'A [websub](https://www.w3.org/TR/websub/#discovery) header like <https://hub.example.com/>; rel="hub"'
+          in: header
+        -
+          name: 'extend[]'
+          required: false
+          description: 'An array of nested objects to include in the return object'
+          in: query
+          schema:
+            type: array
+        -
+          name: 'fields[]'
+          required: false
+          description: 'An array of fields to return in output, wil return all fields is not supplied'
+          in: query
+          schema:
+            type: array
+        -
+          name: validOn
+          required: false
+          description: 'Returns object as valid on a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+        -
+          name: validFrom
+          required: false
+          description: 'Returns objects valid from a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+        -
+          name: validUntil
+          required: false
+          description: 'Returns objects valid until a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+      responses:
+        200:
+          description: 'Schedule resource response'
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/Schedule-read'
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Schedule-read'
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/Schedule-read'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Schedule-read'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Schedule-read'
+            application/x-yaml:
+              schema:
+                $ref: '#/components/schemas/Schedule-read'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/Schedule-read'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/Schedule-read'
+        404:
+          description: 'Resource not found'
+      produces:
+        - application/health+json
+    delete:
+      tags:
+        - Schedule
+      operationId: deleteScheduleItem
+      summary: 'Removes the Schedule resource.'
+      responses:
+        204:
+          description: 'Schedule resource deleted'
+        404:
+          description: 'Resource not found'
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: string
+        -
+          name: Authorization
+          description: 'The JWT of the entity performing the request'
+          in: header
+        -
+          name: API-Version
+          description: 'The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)'
+          example: 1.0.1
+          in: header
+        -
+          name: X-NLX-Logrecord-ID
+          description: 'A  globally unique id of the request, which makes a request traceable throughout the network.'
+          in: header
+        -
+          name: X-NLX-Request-Process-Id
+          description: 'A process id for purpose registration (doelbinding)'
+          in: header
+        -
+          name: X-NLX-Request-Data-Elements
+          description: 'A list of requested data elements'
+          in: header
+        -
+          name: X-NLX-Request-Data-Subject
+          description: 'A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`'
+          in: header
+        -
+          name: X-NLX-Audit-Clarification
+          description: 'A clarification as to why a request has been made  (doelbinding)'
+          in: header
+    put:
+      tags:
+        - Schedule
+      operationId: putScheduleItem
+      summary: 'Replaces the Schedule resource.'
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: string
+        -
+          name: Authorization
+          description: 'The JWT of the entity performing the request'
+          in: header
+        -
+          name: API-Version
+          description: 'The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)'
+          example: 1.0.1
+          in: header
+        -
+          name: X-NLX-Logrecord-ID
+          description: 'A  globally unique id of the request, which makes a request traceable throughout the network.'
+          in: header
+        -
+          name: X-NLX-Request-Process-Id
+          description: 'A process id for purpose registration (doelbinding)'
+          in: header
+        -
+          name: X-NLX-Request-Data-Elements
+          description: 'A list of requested data elements'
+          in: header
+        -
+          name: X-NLX-Request-Data-Subject
+          description: 'A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`'
+          in: header
+        -
+          name: X-NLX-Audit-Clarification
+          description: 'A clarification as to why a request has been made  (doelbinding)'
+          in: header
+      responses:
+        200:
+          description: 'Schedule resource updated'
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/Schedule-read'
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Schedule-read'
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/Schedule-read'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Schedule-read'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Schedule-read'
+            application/x-yaml:
+              schema:
+                $ref: '#/components/schemas/Schedule-read'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/Schedule-read'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/Schedule-read'
+        400:
+          description: 'Invalid input'
+        404:
+          description: 'Resource not found'
+      requestBody:
+        content:
+          application/hal+json:
+            schema:
+              $ref: '#/components/schemas/Schedule-write'
+          application/ld+json:
+            schema:
+              $ref: '#/components/schemas/Schedule-write'
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/Schedule-write'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Schedule-write'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Schedule-write'
+          application/x-yaml:
+            schema:
+              $ref: '#/components/schemas/Schedule-write'
+          text/csv:
+            schema:
+              $ref: '#/components/schemas/Schedule-write'
+          text/html:
+            schema:
+              $ref: '#/components/schemas/Schedule-write'
+        description: 'The updated Schedule resource'
+    patch:
+      tags:
+        - Schedule
+      operationId: patchScheduleItem
+      summary: 'Updates the Schedule resource.'
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: string
+        -
+          name: Authorization
+          description: 'The JWT of the entity performing the request'
+          in: header
+        -
+          name: API-Version
+          description: 'The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)'
+          example: 1.0.1
+          in: header
+        -
+          name: X-NLX-Logrecord-ID
+          description: 'A  globally unique id of the request, which makes a request traceable throughout the network.'
+          in: header
+        -
+          name: X-NLX-Request-Process-Id
+          description: 'A process id for purpose registration (doelbinding)'
+          in: header
+        -
+          name: X-NLX-Request-Data-Elements
+          description: 'A list of requested data elements'
+          in: header
+        -
+          name: X-NLX-Request-Data-Subject
+          description: 'A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`'
+          in: header
+        -
+          name: X-NLX-Audit-Clarification
+          description: 'A clarification as to why a request has been made  (doelbinding)'
+          in: header
+      responses:
+        200:
+          description: 'Schedule resource updated'
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/Schedule-read'
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Schedule-read'
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/Schedule-read'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Schedule-read'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Schedule-read'
+            application/x-yaml:
+              schema:
+                $ref: '#/components/schemas/Schedule-read'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/Schedule-read'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/Schedule-read'
+        400:
+          description: 'Invalid input'
+        404:
+          description: 'Resource not found'
+      requestBody:
+        content:
+          application/hal+json:
+            schema:
+              $ref: '#/components/schemas/Schedule-write'
+          application/ld+json:
+            schema:
+              $ref: '#/components/schemas/Schedule-write'
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/Schedule-write'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Schedule-write'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Schedule-write'
+          application/x-yaml:
+            schema:
+              $ref: '#/components/schemas/Schedule-write'
+          text/csv:
+            schema:
+              $ref: '#/components/schemas/Schedule-write'
+          text/html:
+            schema:
+              $ref: '#/components/schemas/Schedule-write'
+        description: 'The updated Schedule resource'
 components:
   schemas:
-    ExampleEntity-read:
+    Calendar-read:
       type: object
-      description: 'This is an example entity'
+      description: 'A Calendar is a collection of events tied to an unque person or resource.'
       properties:
         id:
           readOnly: true
+          description: 'The UUID identifier of this resource'
           type: string
         name:
-          description: 'The name of this example property'
+          description: 'The name of this Calendar'
           type: string
         description:
-          description: 'The description of this example property'
+          description: 'An short description of this Calendar'
           type: string
+        events:
+          description: 'Events that belong to this Calendar'
+          type: array
+          items:
+            $ref: '#/components/schemas/Event-read'
+        schedules:
+          description: 'Schedules that belong to this Calendar'
+          type: array
+          items:
+            $ref: '#/components/schemas/Schedule-read'
       required:
         - name
-    ExampleEntity-write:
+    Calendar-write:
       type: object
-      description: 'This is an example entity'
+      description: 'A Calendar is a collection of events tied to an unque person or resource.'
       required:
         - name
       properties:
         name:
-          description: 'The name of this example property'
+          description: 'The name of this Calendar'
           type: string
         description:
-          description: 'The description of this example property'
+          description: 'An short description of this Calendar'
           type: string
+        events:
+          description: 'Events that belong to this Calendar'
+          type: array
+          items:
+            $ref: '#/components/schemas/Event-write'
+        schedules:
+          description: 'Schedules that belong to this Calendar'
+          type: array
+          items:
+            $ref: '#/components/schemas/Schedule-write'
+    Event-read:
+      type: object
+      description: 'An event happening at a certain time and location, such as a concert, lecture, meeting or festival.'
+      externalDocs:
+        url: 'https://schema.org/Event'
+      properties:
+        id:
+          readOnly: true
+          description: 'The UUID identifier of this resource'
+          type: string
+        name:
+          description: 'The name of this RequestType'
+          type: string
+        description:
+          description: 'An short description of this Event'
+          type: string
+        startDate:
+          description: 'The moment this event starts'
+          type: string
+          format: date-time
+        endDate:
+          description: 'The moment this event ends'
+          type: string
+          format: date-time
+        location:
+          description: 'The location of this event'
+          type: string
+        schedule:
+          description: 'An optional Schedule to wich this event belongs'
+          $ref: '#/components/schemas/Schedule-read'
+        calendar:
+          description: 'The Calendar to wich this event belongs'
+          $ref: '#/components/schemas/Calendar-read'
+      required:
+        - name
+        - startDate
+        - endDate
+        - location
+    Event-write:
+      type: object
+      description: 'An event happening at a certain time and location, such as a concert, lecture, meeting or festival.'
+      externalDocs:
+        url: 'https://schema.org/Event'
+      required:
+        - name
+        - startDate
+        - endDate
+        - location
+      properties:
+        name:
+          description: 'The name of this RequestType'
+          type: string
+        description:
+          description: 'An short description of this Event'
+          type: string
+        startDate:
+          description: 'The moment this event starts'
+          type: string
+          format: date-time
+        endDate:
+          description: 'The moment this event ends'
+          type: string
+          format: date-time
+        location:
+          description: 'The location of this event'
+          type: string
+        schedule:
+          description: 'An optional Schedule to wich this event belongs'
+          $ref: '#/components/schemas/Schedule-write'
+        calendar:
+          description: 'The Calendar to wich this event belongs'
+          $ref: '#/components/schemas/Calendar-write'
+    Schedule-read:
+      type: object
+      description: 'A schedule defines a repeating time period used to describe a regularly occurring Event. At a minimum a schedule will specify repeatFrequency which describes the interval between occurences of the event. Additional information can be provided to specify the schedule more precisely. This includes identifying the day(s) of the week or month when the recurring event will take place, in addition to its start and end time. Schedules may also have start and end dates to indicate when they are active, e.g. to define a limited calendar of events.'
+      externalDocs:
+        url: 'http://schema.org/PostalAddress'
+      properties:
+        id:
+          readOnly: true
+          description: 'The UUID identifier of this resource'
+          type: string
+        name:
+          description: 'The name of this Schedule'
+          type: string
+        description:
+          description: 'An short description of this Schedule'
+          type: string
+        byDay:
+          description: 'Defines the day(s) of the week on which a recurring Event takes place. Sunday is both 0 and 7.'
+          type: integer
+        byMonth:
+          description: 'Defines the month(s) of the year on which a recurring Event takes place. Specified as an Integer between 1-12. January is 1.'
+          type: integer
+        byMonthDay:
+          description: 'Defines the day(s) of the month on which a recurring Event takes place. Specified as an Integer between 1-31.'
+          type: integer
+        events:
+          description: 'The that belong to or are coused by this Schedule'
+          type: array
+          items:
+            $ref: '#/components/schemas/Event-read'
+        exceptDates:
+          description: 'Defines the day(s) of the month on which a recurring Event takes place. Specified as an Integer between 1-31.'
+          type: array
+          items:
+            type: string
+        repeatCount:
+          description: 'Defines the number of times a recurring Event will take place'
+          type: integer
+        repeatFrequency:
+          description: 'Defines the frequency at which Events will occur according to a schedule Schedule. The intervals between events should be defined as a [Duration](https://en.wikipedia.org/wiki/ISO_8601#Durations) of time.'
+          type: string
+        calendar:
+          description: 'The Calendar to wich this Schedule belongs'
+          $ref: '#/components/schemas/Calendar-read'
+      required:
+        - name
+    Schedule-write:
+      type: object
+      description: 'A schedule defines a repeating time period used to describe a regularly occurring Event. At a minimum a schedule will specify repeatFrequency which describes the interval between occurences of the event. Additional information can be provided to specify the schedule more precisely. This includes identifying the day(s) of the week or month when the recurring event will take place, in addition to its start and end time. Schedules may also have start and end dates to indicate when they are active, e.g. to define a limited calendar of events.'
+      externalDocs:
+        url: 'http://schema.org/PostalAddress'
+      required:
+        - name
+      properties:
+        name:
+          description: 'The name of this Schedule'
+          type: string
+        description:
+          description: 'An short description of this Schedule'
+          type: string
+        byDay:
+          description: 'Defines the day(s) of the week on which a recurring Event takes place. Sunday is both 0 and 7.'
+          type: integer
+        byMonth:
+          description: 'Defines the month(s) of the year on which a recurring Event takes place. Specified as an Integer between 1-12. January is 1.'
+          type: integer
+        byMonthDay:
+          description: 'Defines the day(s) of the month on which a recurring Event takes place. Specified as an Integer between 1-31.'
+          type: integer
+        events:
+          description: 'The that belong to or are coused by this Schedule'
+          type: array
+          items:
+            $ref: '#/components/schemas/Event-write'
+        exceptDates:
+          description: 'Defines the day(s) of the month on which a recurring Event takes place. Specified as an Integer between 1-31.'
+          type: array
+          items:
+            type: string
+        repeatCount:
+          description: 'Defines the number of times a recurring Event will take place'
+          type: integer
+        repeatFrequency:
+          description: 'Defines the frequency at which Events will occur according to a schedule Schedule. The intervals between events should be defined as a [Duration](https://en.wikipedia.org/wiki/ISO_8601#Durations) of time.'
+          type: string
+        calendar:
+          description: 'The Calendar to wich this Schedule belongs'
+          $ref: '#/components/schemas/Calendar-write'
+definitions:
+  Calendar-read:
+    properties:
+      id:
+        example: e2984465-190a-4562-829e-a8cca81aa35d
+        format: uuid
+      name:
+        example: 'My Calendar'
+        maxLength: 255
+      description:
+        example: 'This is the best Calendar ever'
+        maxLength: 2550
+      events: []
+      schedules: []
+    required:
+      - name
+  Calendar-write:
+    properties:
+      name:
+        example: 'My Calendar'
+        maxLength: 255
+      description:
+        example: 'This is the best Calendar ever'
+        maxLength: 2550
+      events: []
+      schedules: []
+    required:
+      - name
+  Event-read:
+    properties:
+      id:
+        example: e2984465-190a-4562-829e-a8cca81aa35d
+        format: uuid
+      name:
+        example: 'My RequestType'
+        maxLength: 255
+      description:
+        example: 'This is the best Event ever'
+        maxLength: 2550
+      startDate:
+        example: 30-11-2019
+      endDate:
+        example: 3-11-2019
+      location:
+        example: 'Dam 1, Amsterdam'
+        maxLength: 255
+      schedule: []
+      calendar: []
+    required:
+      - name
+      - startDate
+      - endDate
+  Event-write:
+    properties:
+      name:
+        example: 'My RequestType'
+        maxLength: 255
+      description:
+        example: 'This is the best Event ever'
+        maxLength: 2550
+      startDate:
+        example: 30-11-2019
+      endDate:
+        example: 3-11-2019
+      location:
+        example: 'Dam 1, Amsterdam'
+        maxLength: 255
+      schedule: []
+      calendar: []
+    required:
+      - name
+      - startDate
+      - endDate
+  Schedule-read:
+    properties:
+      id:
+        example: e2984465-190a-4562-829e-a8cca81aa35d
+        format: uuid
+      name:
+        example: 'My Schedule'
+        maxLength: 255
+      description:
+        example: 'This is the best Schedule ever'
+        maxLength: 2550
+      byDay:
+        example: '1'
+      byMonth:
+        example: '1'
+      byMonthDay:
+        example: '1'
+      exceptDates:
+        example: '30'
+      repeatCount:
+        example: '10'
+      repeatFrequency:
+        example: PT1M
+        maxLength: 255
+      events: []
+      calendar: []
+    required:
+      - name
+  Schedule-write:
+    properties:
+      name:
+        example: 'My Schedule'
+        maxLength: 255
+      description:
+        example: 'This is the best Schedule ever'
+        maxLength: 2550
+      byDay:
+        example: '1'
+      byMonth:
+        example: '1'
+      byMonthDay:
+        example: '1'
+      exceptDates:
+        example: '30'
+      repeatCount:
+        example: '10'
+      repeatFrequency:
+        example: PT1M
+        maxLength: 255
+      events: []
+      calendar: []
+    required:
+      - name
 tags:
   -
-    name: ExampleEntity
+    name: Calendar
     description: |
-      This is an example entity
+      A Calendar is a collection of events tied to an unque person or resource.
       
-      With an adtional description, all in all its pritty nice [url](www.google.nl)
+      
+  -
+    name: Event
+    description: |
+      An event happening at a certain time and location, such as a concert, lecture, meeting or festival.
+      
+      
+  -
+    name: Schedule
+    description: |
+      A schedule defines a repeating time period used to describe a regularly occurring Event. At a minimum a schedule will specify repeatFrequency which describes the interval between occurences of the event. Additional information can be provided to specify the schedule more precisely. This includes identifying the day(s) of the week or month when the recurring event will take place, in addition to its start and end time. Schedules may also have start and end dates to indicate when they are active, e.g. to define a limited calendar of events.
+      
+      
+securityDefinitions:
+  JWT-Oauth:
+    type: oauth2
+    authorizationUrl: 'http://petstore.swagger.io/api/oauth/dialog'
+    flow: implicit
+    scopes:
+      read: 'read right to the Schedule resource'
+      write: 'write right to the Schedule resource'
+  JWT-Token:
+    type: apiKey
+    in: header
+    name: Authorization
+    scopes:
+      read: 'read right to the Schedule resource'
+      write: 'write right to the Schedule resource'
 host: irc.zaakonline.nl
 servers:
   -
