@@ -190,3 +190,5 @@ The resource entity has the following properties:
 - id
 - name
 - description
+- events
+- todos
