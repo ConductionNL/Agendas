@@ -176,7 +176,9 @@ The Schedule entity has the following properties:
 | repeatCount | The number of times the events are repeated | int |   |
 | repeatFrequency | The frequency the events recur in | int |   |
 | exceptDates | The dates that are excluded from the schedule | DateTime[] |   |
-| events | The events in the schedule | Event[] | OneToMany |
+| events | The Events in the schedule | Event[] | OneToMany |
+| todos | The Todos in the schedule | Schedule[] | OneToMany |
+| freeBusys | The FreeBusy-entities in the schedule | FreeBusy[] | OneToMany |
 | calendar | The calendar the schedule belongs to | Calendar | ManyToOne |
 
 ## Resource
@@ -188,3 +190,5 @@ The resource entity has the following properties:
 - id
 - name
 - description
+- events
+- todos
