@@ -10,16 +10,15 @@ use Symfony\Component\Serializer\Annotation\MaxDepth;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * An event happening at a certain time and location, such as a concert, lecture, meeting or festival.
+ * A to-do from an event.
  *
  * @ApiResource(
- *       iri="https://schema.org/Event",
  *     normalizationContext={"groups"={"read"}, "enable_max_depth"=true},
  *     denormalizationContext={"groups"={"write"}, "enable_max_depth"=true}
- * )
- * @ORM\Entity(repositoryClass="App\Repository\EventRepository")
+ *     )
+ * @ORM\Entity(repositoryClass="App\Repository\TodoRepository")
  */
-class Event
+class Todo
 {
     /**
      * @var UuidInterface The UUID identifier of this resource
@@ -96,7 +95,7 @@ class Event
     private $location;
 
     /**
-     * @var string An optional Schedule to which this event belongs
+     * @var string An optional Schedule to wich this event belongs
      *
      * @MaxDepth(1)
      * @Groups({"read","write"})
@@ -203,19 +202,6 @@ class Event
     private $summary;
 
     /**
-     * @var string The determination if the event should block the duration of the event for participants.
-     * @example Transparent
-     *
-     * @Assert\Length(
-     *      max = 255
-     * )
-     * @Assert\NotBlank
-     * @Groups({"read","write"})
-     * @ORM\Column(type="string", length=255)
-     */
-    private $transp;
-
-    /**
      * @todo Automated ?
      * @var string The url of this event.
      * @example conduction.nl
@@ -303,6 +289,28 @@ class Event
      * @ORM\Column(type="array")
      */
     private $comments = [];
+
+    /**
+     * @var datetime The date and time a to-do is completed.
+     * @example 10-12-2019 15:00:00
+     *
+     * @Assert\NotNull
+     * @Assert\DateTime
+     * @Groups({"read","write"})
+     * @ORM\Column(type="datetime")
+     */
+    private $completed;
+
+    /**
+     * @var int The percentage of a to-do that has been comepleted.
+     * @example 40%
+     *
+     * @Assert\Type("int")
+     * @Assert\NotNull
+     * @Groups({"read","write"})
+     * @ORM\Column(type="integer")
+     */
+    private $percentageDone;
 
     public function getId(): ?string
     {
@@ -477,18 +485,6 @@ class Event
         return $this;
     }
 
-    public function getTransp(): ?string
-    {
-        return $this->transp;
-    }
-
-    public function setTransp(string $transp): self
-    {
-        $this->transp = $transp;
-
-        return $this;
-    }
-
     public function getUrl(): ?string
     {
         return $this->url;
@@ -582,6 +578,30 @@ class Event
     public function setComments(array $comments): self
     {
         $this->comments = $comments;
+
+        return $this;
+    }
+
+    public function getCompleted(): ?\DateTimeInterface
+    {
+        return $this->completed;
+    }
+
+    public function setCompleted(\DateTimeInterface $completed): self
+    {
+        $this->completed = $completed;
+
+        return $this;
+    }
+
+    public function getPercentageDone(): ?int
+    {
+        return $this->percentageDone;
+    }
+
+    public function setPercentageDone(int $percentageDone): self
+    {
+        $this->percentageDone = $percentageDone;
 
         return $this;
     }

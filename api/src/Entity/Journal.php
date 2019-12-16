@@ -4,34 +4,17 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
-use Ramsey\Uuid\UuidInterface;
-use Symfony\Component\Serializer\Annotation\Groups;
-use Symfony\Component\Serializer\Annotation\MaxDepth;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * An event happening at a certain time and location, such as a concert, lecture, meeting or festival.
- *
- * @ApiResource(
- *       iri="https://schema.org/Event",
- *     normalizationContext={"groups"={"read"}, "enable_max_depth"=true},
- *     denormalizationContext={"groups"={"write"}, "enable_max_depth"=true}
- * )
- * @ORM\Entity(repositoryClass="App\Repository\EventRepository")
+ * @ApiResource()
+ * @ORM\Entity(repositoryClass="App\Repository\JournalRepository")
  */
-class Event
+class Journal
 {
     /**
-     * @var UuidInterface The UUID identifier of this resource
-     *
-     * @example e2984465-190a-4562-829e-a8cca81aa35d
-     *
-     * @Assert\Uuid
-     * @Groups({"read"})
-     * @ORM\Id
-     * @ORM\Column(type="uuid", unique=true)
-     * @ORM\GeneratedValue(strategy="CUSTOM")
-     * @ORM\CustomIdGenerator(class="Ramsey\Uuid\Doctrine\UuidGenerator")
+     * @ORM\Id()
+     * @ORM\GeneratedValue()
+     * @ORM\Column(type="integer")
      */
     private $id;
 
@@ -83,28 +66,6 @@ class Event
     private $endDate;
 
     /**
-     * @var string The location of this event
-     * @example Dam 1, Amsterdam
-     *
-     * @Assert\Length(
-     *      max = 255
-     * )
-     * @Assert\NotBlank
-     * @Groups({"read","write"})
-     * @ORM\Column(type="string", length=255)
-     */
-    private $location;
-
-    /**
-     * @var string An optional Schedule to which this event belongs
-     *
-     * @MaxDepth(1)
-     * @Groups({"read","write"})
-     * @ORM\ManyToOne(targetEntity="App\Entity\Schedule", inversedBy="events")
-     */
-    private $schedule;
-
-    /**
      * @var string The Calendar to wich this event belongs
      *
      * @MaxDepth(1)
@@ -138,18 +99,6 @@ class Event
      * @ORM\Column(type="datetime")
      */
     private $created;
-
-    /**
-     * @var string The coordinates of this event.
-     * @example 81.15147,10.36374,42.26
-     *
-     * @Assert\Length(
-     *      max = 255
-     * )
-     * @Groups({"read","write"})
-     * @ORM\Column(type="string", length=255)
-     */
-    private $geo;
 
     /**
      * @todo Automated ?
@@ -304,7 +253,7 @@ class Event
      */
     private $comments = [];
 
-    public function getId(): ?string
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -357,30 +306,6 @@ class Event
         return $this;
     }
 
-    public function getLocation(): ?string
-    {
-        return $this->location;
-    }
-
-    public function setLocation(string $location): self
-    {
-        $this->location = $location;
-
-        return $this;
-    }
-
-    public function getSchedule(): ?Schedule
-    {
-        return $this->schedule;
-    }
-
-    public function setSchedule(?Schedule $schedule): self
-    {
-        $this->schedule = $schedule;
-
-        return $this;
-    }
-
     public function getCalendar(): ?Calendar
     {
         return $this->calendar;
@@ -413,18 +338,6 @@ class Event
     public function setCreated(string $created): self
     {
         $this->created = $created;
-
-        return $this;
-    }
-
-    public function getGeo(): ?string
-    {
-        return $this->geo;
-    }
-
-    public function setGeo(string $geo): self
-    {
-        $this->geo = $geo;
 
         return $this;
     }

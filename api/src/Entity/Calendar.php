@@ -38,7 +38,6 @@ class Calendar
 
     /**
      * @var string The name of this Calendar
-     *
      * @example My Calendar
      *
      * @Assert\NotNull
@@ -51,8 +50,7 @@ class Calendar
     private $name;
 
     /**
-     * @var string An short description of this Calendar
-     *
+     * @var string An short description of this Calenda
      * @example This is the best Calendar ever
      *
      * @Assert\Length(
@@ -80,6 +78,20 @@ class Calendar
      * @ORM\OneToMany(targetEntity="App\Entity\Schedule", mappedBy="calendar", orphanRemoval=true)
      */
     private $schedules;
+
+    /**
+     * @var string The time zone of this calendar
+     * @example CET
+     *
+     * @Assert\NotNull
+     * @Assert\Length(
+     *      min = 3,
+     *      max = 5
+     * )
+     * @Groups({"read","write"})
+     * @ORM\Column(type="string", length=5)
+     */
+    private $timeZone;
 
     public function __construct()
     {
@@ -174,6 +186,18 @@ class Calendar
                 $schedule->setCalendar(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getTimeZone(): ?string
+    {
+        return $this->timeZone;
+    }
+
+    public function setTimeZone(string $timeZone): self
+    {
+        $this->timeZone = $timeZone;
 
         return $this;
     }
