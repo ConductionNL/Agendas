@@ -162,9 +162,25 @@ class Schedule
      */
     private $calendar;
 
+    /**
+     * @Groups({"read","write"})
+     * @ORM\OneToMany(targetEntity="App\Entity\Freebusy", mappedBy="schedule")
+     * @MaxDepth(1)
+     */
+    private $freebusies;
+
+    /**
+     * @Groups({"read","write"})
+     * @ORM\OneToMany(targetEntity="App\Entity\Todo", mappedBy="schedule")
+     * @MaxDepth(1)
+     */
+    private $todos;
+
     public function __construct()
     {
         $this->events = new ArrayCollection();
+        $this->freebusies = new ArrayCollection();
+        $this->todos = new ArrayCollection();
     }
 
     public function getId(): ?string
@@ -307,6 +323,68 @@ class Schedule
     public function setCalendar(?Calendar $calendar): self
     {
         $this->calendar = $calendar;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Freebusy[]
+     */
+    public function getFreebusies(): Collection
+    {
+        return $this->freebusies;
+    }
+
+    public function addFreebusy(Freebusy $freebusy): self
+    {
+        if (!$this->freebusies->contains($freebusy)) {
+            $this->freebusies[] = $freebusy;
+            $freebusy->setSchedule($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFreebusy(Freebusy $freebusy): self
+    {
+        if ($this->freebusies->contains($freebusy)) {
+            $this->freebusies->removeElement($freebusy);
+            // set the owning side to null (unless already changed)
+            if ($freebusy->getSchedule() === $this) {
+                $freebusy->setSchedule(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Todo[]
+     */
+    public function getTodos(): Collection
+    {
+        return $this->todos;
+    }
+
+    public function addTodo(Todo $todo): self
+    {
+        if (!$this->todos->contains($todo)) {
+            $this->todos[] = $todo;
+            $todo->setSchedule($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTodo(Todo $todo): self
+    {
+        if ($this->todos->contains($todo)) {
+            $this->todos->removeElement($todo);
+            // set the owning side to null (unless already changed)
+            if ($todo->getSchedule() === $this) {
+                $todo->setSchedule(null);
+            }
+        }
 
         return $this;
     }

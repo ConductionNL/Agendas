@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -241,6 +243,16 @@ class Event
      */
     private $duration;
 
+    /**
+     * @var string Url of this person
+     * @example https://con.example.org
+     *
+     * @Assert\NotNull
+     * @Assert\Url
+     * @Groups({"read","write"})
+     * @ORM\Column(type="string")
+     */
+    private $contact;
 
     /**
      * @todo Automated ?
@@ -303,6 +315,41 @@ class Event
      * @ORM\Column(type="array")
      */
     private $comments = [];
+
+    /**
+     * @Groups({"read","write"})
+     * @ORM\ManyToMany(targetEntity="App\Entity\Event")
+     * @MaxDepth(1)
+     */
+    private $related;
+
+    /**
+     * @Groups({"read","write"})
+     * @ORM\ManyToMany(targetEntity="App\Entity\Resource", mappedBy="events")
+     * @MaxDepth(1)
+     */
+    private $resources;
+
+    /**
+     * @Groups({"read","write"})
+     * @ORM\OneToMany(targetEntity="App\Entity\Alarm", mappedBy="event")
+     * @MaxDepth(1)
+     */
+    private $alarms;
+
+    /**
+     * @Groups({"read","write"})
+     * @ORM\OneToOne(targetEntity="App\Entity\Journal", mappedBy="event", cascade={"persist", "remove"})
+     * @MaxDepth(1)
+     */
+    private $journal;
+
+    public function __construct()
+    {
+        $this->related = new ArrayCollection();
+        $this->resources = new ArrayCollection();
+        $this->alarms = new ArrayCollection();
+    }
 
     public function getId(): ?string
     {
@@ -513,6 +560,18 @@ class Event
         return $this;
     }
 
+    public function getContact(): ?string
+    {
+        return $this->contact;
+    }
+
+    public function setContact(string $contact): ?string
+    {
+        $this->contact = $contact;
+
+        return $this;
+    }
+
     public function getSeq(): ?int
     {
         return $this->seq;
@@ -582,6 +641,109 @@ class Event
     public function setComments(array $comments): self
     {
         $this->comments = $comments;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|self[]
+     */
+    public function getRelated(): Collection
+    {
+        return $this->related;
+    }
+
+    public function addRelated(self $related): self
+    {
+        if (!$this->related->contains($related)) {
+            $this->related[] = $related;
+        }
+
+        return $this;
+    }
+
+    public function removeRelated(self $related): self
+    {
+        if ($this->related->contains($related)) {
+            $this->related->removeElement($related);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Resource[]
+     */
+    public function getResources(): Collection
+    {
+        return $this->resources;
+    }
+
+    public function addResource(Resource $resource): self
+    {
+        if (!$this->resources->contains($resource)) {
+            $this->resources[] = $resource;
+            $resource->addEvent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeResource(Resource $resource): self
+    {
+        if ($this->resources->contains($resource)) {
+            $this->resources->removeElement($resource);
+            $resource->removeEvent($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Alarm[]
+     */
+    public function getAlarms(): Collection
+    {
+        return $this->alarms;
+    }
+
+    public function addAlarm(Alarm $alarm): self
+    {
+        if (!$this->alarms->contains($alarm)) {
+            $this->alarms[] = $alarm;
+            $alarm->setEvent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAlarm(Alarm $alarm): self
+    {
+        if ($this->alarms->contains($alarm)) {
+            $this->alarms->removeElement($alarm);
+            // set the owning side to null (unless already changed)
+            if ($alarm->getEvent() === $this) {
+                $alarm->setEvent(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getJournal(): ?Journal
+    {
+        return $this->journal;
+    }
+
+    public function setJournal(?Journal $journal): self
+    {
+        $this->journal = $journal;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newEvent = $journal === null ? null : $this;
+        if ($newEvent !== $journal->getEvent()) {
+            $journal->setEvent($newEvent);
+        }
 
         return $this;
     }

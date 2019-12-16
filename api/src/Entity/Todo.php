@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -93,25 +95,6 @@ class Todo
      * @ORM\Column(type="string", length=255)
      */
     private $location;
-
-    /**
-     * @var string An optional Schedule to wich this event belongs
-     *
-     * @MaxDepth(1)
-     * @Groups({"read","write"})
-     * @ORM\ManyToOne(targetEntity="App\Entity\Schedule", inversedBy="events")
-     */
-    private $schedule;
-
-    /**
-     * @var string The Calendar to wich this event belongs
-     *
-     * @MaxDepth(1)
-     * @Groups({"read","write"})
-     * @ORM\ManyToOne(targetEntity="App\Entity\Calendar", inversedBy="events")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $calendar;
 
     /**
      * @var string The security class of this event.
@@ -312,6 +295,40 @@ class Todo
      */
     private $percentageDone;
 
+    /**
+     * @Groups({"read","write"})
+     * @ORM\ManyToMany(targetEntity="App\Entity\Resource", mappedBy="todos")
+     * @MaxDepth(1)
+     */
+    private $resources;
+
+    /**
+     * @Groups({"read","write"})
+     * @ORM\OneToOne(targetEntity="App\Entity\Alarm", mappedBy="todo", cascade={"persist", "remove"})
+     * @MaxDepth(1)
+     */
+    private $alarm;
+
+    /**
+     * @Groups({"read","write"})
+     * @ORM\ManyToOne(targetEntity="App\Entity\Calendar", inversedBy="todos")
+     * @ORM\JoinColumn(nullable=false)
+     * @MaxDepth(1)
+     */
+    private $calendar;
+
+    /**
+     * @Groups({"read","write"})
+     * @ORM\ManyToOne(targetEntity="App\Entity\Schedule", inversedBy="todos")
+     * @MaxDepth(1)
+     */
+    private $schedule;
+
+    public function __construct()
+    {
+        $this->resources = new ArrayCollection();
+    }
+
     public function getId(): ?string
     {
         return $this->id;
@@ -373,30 +390,6 @@ class Todo
     public function setLocation(string $location): self
     {
         $this->location = $location;
-
-        return $this;
-    }
-
-    public function getSchedule(): ?Schedule
-    {
-        return $this->schedule;
-    }
-
-    public function setSchedule(?Schedule $schedule): self
-    {
-        $this->schedule = $schedule;
-
-        return $this;
-    }
-
-    public function getCalendar(): ?Calendar
-    {
-        return $this->calendar;
-    }
-
-    public function setCalendar(?Calendar $calendar): self
-    {
-        $this->calendar = $calendar;
 
         return $this;
     }
@@ -602,6 +595,76 @@ class Todo
     public function setPercentageDone(int $percentageDone): self
     {
         $this->percentageDone = $percentageDone;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Resource[]
+     */
+    public function getResources(): Collection
+    {
+        return $this->resources;
+    }
+
+    public function addResource(Resource $resource): self
+    {
+        if (!$this->resources->contains($resource)) {
+            $this->resources[] = $resource;
+            $resource->addTodo($this);
+        }
+
+        return $this;
+    }
+
+    public function removeResource(Resource $resource): self
+    {
+        if ($this->resources->contains($resource)) {
+            $this->resources->removeElement($resource);
+            $resource->removeTodo($this);
+        }
+
+        return $this;
+    }
+
+    public function getAlarm(): ?Alarm
+    {
+        return $this->alarm;
+    }
+
+    public function setAlarm(?Alarm $alarm): self
+    {
+        $this->alarm = $alarm;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newTodo = $alarm === null ? null : $this;
+        if ($newTodo !== $alarm->getTodo()) {
+            $alarm->setTodo($newTodo);
+        }
+
+        return $this;
+    }
+
+    public function getCalendar(): ?Calendar
+    {
+        return $this->calendar;
+    }
+
+    public function setCalendar(?Calendar $calendar): self
+    {
+        $this->calendar = $calendar;
+
+        return $this;
+    }
+
+    public function getSchedule(): ?Schedule
+    {
+        return $this->schedule;
+    }
+
+    public function setSchedule(?Schedule $schedule): self
+    {
+        $this->schedule = $schedule;
 
         return $this;
     }

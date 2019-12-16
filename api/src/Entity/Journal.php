@@ -11,7 +11,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * A journal from an event.
- * 
+ *
  * @ApiResource(
  *     normalizationContext={"groups"={"read"}, "enable_max_depth"=true},
  *     denormalizationContext={"groups"={"write"}, "enable_max_depth"=true}
@@ -80,16 +80,6 @@ class Journal
      * @ORM\Column(type="datetime")
      */
     private $endDate;
-
-    /**
-     * @var string The Calendar to wich this event belongs
-     *
-     * @MaxDepth(1)
-     * @Groups({"read","write"})
-     * @ORM\ManyToOne(targetEntity="App\Entity\Calendar", inversedBy="events")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $calendar;
 
     /**
      * @var string The security class of this event.
@@ -269,6 +259,21 @@ class Journal
      */
     private $comments = [];
 
+    /**
+     * @Groups({"read","write"})
+     * @ORM\ManyToOne(targetEntity="App\Entity\Calendar", inversedBy="journals")
+     * @ORM\JoinColumn(nullable=false)
+     * @MaxDepth(1)
+     */
+    private $calendar;
+
+    /**
+     * @Groups({"read","write"})
+     * @ORM\OneToOne(targetEntity="App\Entity\Event", inversedBy="journal", cascade={"persist", "remove"})
+     * @MaxDepth(1)
+     */
+    private $event;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -318,18 +323,6 @@ class Journal
     public function setEndDate(\DateTimeInterface $endDate): self
     {
         $this->endDate = $endDate;
-
-        return $this;
-    }
-
-    public function getCalendar(): ?Calendar
-    {
-        return $this->calendar;
-    }
-
-    public function setCalendar(?Calendar $calendar): self
-    {
-        $this->calendar = $calendar;
 
         return $this;
     }
@@ -511,6 +504,30 @@ class Journal
     public function setComments(array $comments): self
     {
         $this->comments = $comments;
+
+        return $this;
+    }
+
+    public function getCalendar(): ?Calendar
+    {
+        return $this->calendar;
+    }
+
+    public function setCalendar(?Calendar $calendar): self
+    {
+        $this->calendar = $calendar;
+
+        return $this;
+    }
+
+    public function getEvent(): ?Event
+    {
+        return $this->event;
+    }
+
+    public function setEvent(?Event $event): self
+    {
+        $this->event = $event;
 
         return $this;
     }
