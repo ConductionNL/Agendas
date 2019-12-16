@@ -38,7 +38,6 @@ class Calendar
 
     /**
      * @var string The name of this Calendar
-     *
      * @example My Calendar
      *
      * @Assert\NotNull
@@ -51,8 +50,7 @@ class Calendar
     private $name;
 
     /**
-     * @var string An short description of this Calendar
-     *
+     * @var string An short description of this Calenda
      * @example This is the best Calendar ever
      *
      * @Assert\Length(
@@ -81,10 +79,48 @@ class Calendar
      */
     private $schedules;
 
+    /**
+     * @var string The time zone of this calendar
+     * @example CET
+     *
+     * @Assert\NotNull
+     * @Assert\Length(
+     *      min = 3,
+     *      max = 5
+     * )
+     * @Groups({"read","write"})
+     * @ORM\Column(type="string", length=5)
+     */
+    private $timeZone;
+
+    /**
+     * @Groups({"read","write"})
+     * @ORM\OneToMany(targetEntity="App\Entity\Freebusy", mappedBy="calendar")
+     * @MaxDepth(1)
+     */
+    private $freebusies;
+
+    /**
+     * @Groups({"read","write"})
+     * @ORM\OneToMany(targetEntity="App\Entity\Journal", mappedBy="calendar")
+     * @MaxDepth(1)
+     */
+    private $journals;
+
+    /**
+     * @Groups({"read","write"})
+     * @ORM\OneToMany(targetEntity="App\Entity\Todo", mappedBy="calendar")
+     * @MaxDepth(1)
+     */
+    private $todos;
+
     public function __construct()
     {
         $this->schedules = new ArrayCollection();
         $this->events = new ArrayCollection();
+        $this->freebusies = new ArrayCollection();
+        $this->journals = new ArrayCollection();
+        $this->todos = new ArrayCollection();
     }
 
     public function getId(): ?string
@@ -172,6 +208,111 @@ class Calendar
             // set the owning side to null (unless already changed)
             if ($schedule->getCalendar() === $this) {
                 $schedule->setCalendar(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getTimeZone(): ?string
+    {
+        return $this->timeZone;
+    }
+
+    public function setTimeZone(string $timeZone): self
+    {
+        $this->timeZone = $timeZone;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Freebusy[]
+     */
+    public function getFreebusies(): Collection
+    {
+        return $this->freebusies;
+    }
+
+    public function addFreebusy(Freebusy $freebusy): self
+    {
+        if (!$this->freebusies->contains($freebusy)) {
+            $this->freebusies[] = $freebusy;
+            $freebusy->setCalendar($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFreebusy(Freebusy $freebusy): self
+    {
+        if ($this->freebusies->contains($freebusy)) {
+            $this->freebusies->removeElement($freebusy);
+            // set the owning side to null (unless already changed)
+            if ($freebusy->getCalendar() === $this) {
+                $freebusy->setCalendar(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Journal[]
+     */
+    public function getJournals(): Collection
+    {
+        return $this->journals;
+    }
+
+    public function addJournal(Journal $journal): self
+    {
+        if (!$this->journals->contains($journal)) {
+            $this->journals[] = $journal;
+            $journal->setCalendar($this);
+        }
+
+        return $this;
+    }
+
+    public function removeJournal(Journal $journal): self
+    {
+        if ($this->journals->contains($journal)) {
+            $this->journals->removeElement($journal);
+            // set the owning side to null (unless already changed)
+            if ($journal->getCalendar() === $this) {
+                $journal->setCalendar(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Todo[]
+     */
+    public function getTodos(): Collection
+    {
+        return $this->todos;
+    }
+
+    public function addTodo(Todo $todo): self
+    {
+        if (!$this->todos->contains($todo)) {
+            $this->todos[] = $todo;
+            $todo->setCalendar($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTodo(Todo $todo): self
+    {
+        if ($this->todos->contains($todo)) {
+            $this->todos->removeElement($todo);
+            // set the owning side to null (unless already changed)
+            if ($todo->getCalendar() === $this) {
+                $todo->setCalendar(null);
             }
         }
 

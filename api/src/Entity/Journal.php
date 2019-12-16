@@ -3,8 +3,6 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -12,16 +10,15 @@ use Symfony\Component\Serializer\Annotation\MaxDepth;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * An event happening at a certain time and location, such as a concert, lecture, meeting or festival.
+ * A journal from an event.
  *
  * @ApiResource(
- *       iri="https://schema.org/Event",
  *     normalizationContext={"groups"={"read"}, "enable_max_depth"=true},
  *     denormalizationContext={"groups"={"write"}, "enable_max_depth"=true}
- * )
- * @ORM\Entity(repositoryClass="App\Repository\EventRepository")
+ *     )
+ * @ORM\Entity(repositoryClass="App\Repository\JournalRepository")
  */
-class Event
+class Journal
 {
     /**
      * @var UuidInterface The UUID identifier of this resource
@@ -85,38 +82,6 @@ class Event
     private $endDate;
 
     /**
-     * @var string The location of this event
-     * @example Dam 1, Amsterdam
-     *
-     * @Assert\Length(
-     *      max = 255
-     * )
-     * @Assert\NotBlank
-     * @Groups({"read","write"})
-     * @ORM\Column(type="string", length=255)
-     */
-    private $location;
-
-    /**
-     * @var string An optional Schedule to which this event belongs
-     *
-     * @MaxDepth(1)
-     * @Groups({"read","write"})
-     * @ORM\ManyToOne(targetEntity="App\Entity\Schedule", inversedBy="events")
-     */
-    private $schedule;
-
-    /**
-     * @var string The Calendar to wich this event belongs
-     *
-     * @MaxDepth(1)
-     * @Groups({"read","write"})
-     * @ORM\ManyToOne(targetEntity="App\Entity\Calendar", inversedBy="events")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $calendar;
-
-    /**
      * @var string The security class of this event.
      * @example PUBLIC
      *
@@ -140,18 +105,6 @@ class Event
      * @ORM\Column(type="datetime")
      */
     private $created;
-
-    /**
-     * @var string The coordinates of this event.
-     * @example 81.15147,10.36374,42.26
-     *
-     * @Assert\Length(
-     *      max = 255
-     * )
-     * @Groups({"read","write"})
-     * @ORM\Column(type="string", length=255)
-     */
-    private $geo;
 
     /**
      * @todo Automated ?
@@ -243,16 +196,6 @@ class Event
      */
     private $duration;
 
-    /**
-     * @var string Url of this person
-     * @example https://con.example.org
-     *
-     * @Assert\NotNull
-     * @Assert\Url
-     * @Groups({"read","write"})
-     * @ORM\Column(type="string")
-     */
-    private $contact;
 
     /**
      * @todo Automated ?
@@ -318,40 +261,20 @@ class Event
 
     /**
      * @Groups({"read","write"})
-     * @ORM\ManyToMany(targetEntity="App\Entity\Event")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Calendar", inversedBy="journals")
+     * @ORM\JoinColumn(nullable=false)
      * @MaxDepth(1)
      */
-    private $related;
+    private $calendar;
 
     /**
      * @Groups({"read","write"})
-     * @ORM\ManyToMany(targetEntity="App\Entity\Resource", mappedBy="events")
+     * @ORM\OneToOne(targetEntity="App\Entity\Event", inversedBy="journal", cascade={"persist", "remove"})
      * @MaxDepth(1)
      */
-    private $resources;
+    private $event;
 
-    /**
-     * @Groups({"read","write"})
-     * @ORM\OneToMany(targetEntity="App\Entity\Alarm", mappedBy="event")
-     * @MaxDepth(1)
-     */
-    private $alarms;
-
-    /**
-     * @Groups({"read","write"})
-     * @ORM\OneToOne(targetEntity="App\Entity\Journal", mappedBy="event", cascade={"persist", "remove"})
-     * @MaxDepth(1)
-     */
-    private $journal;
-
-    public function __construct()
-    {
-        $this->related = new ArrayCollection();
-        $this->resources = new ArrayCollection();
-        $this->alarms = new ArrayCollection();
-    }
-
-    public function getId(): ?string
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -404,42 +327,6 @@ class Event
         return $this;
     }
 
-    public function getLocation(): ?string
-    {
-        return $this->location;
-    }
-
-    public function setLocation(string $location): self
-    {
-        $this->location = $location;
-
-        return $this;
-    }
-
-    public function getSchedule(): ?Schedule
-    {
-        return $this->schedule;
-    }
-
-    public function setSchedule(?Schedule $schedule): self
-    {
-        $this->schedule = $schedule;
-
-        return $this;
-    }
-
-    public function getCalendar(): ?Calendar
-    {
-        return $this->calendar;
-    }
-
-    public function setCalendar(?Calendar $calendar): self
-    {
-        $this->calendar = $calendar;
-
-        return $this;
-    }
-
     public function getClass(): ?string
     {
         return $this->class;
@@ -460,18 +347,6 @@ class Event
     public function setCreated(string $created): self
     {
         $this->created = $created;
-
-        return $this;
-    }
-
-    public function getGeo(): ?string
-    {
-        return $this->geo;
-    }
-
-    public function setGeo(string $geo): self
-    {
-        $this->geo = $geo;
 
         return $this;
     }
@@ -560,18 +435,6 @@ class Event
         return $this;
     }
 
-    public function getContact(): ?string
-    {
-        return $this->contact;
-    }
-
-    public function setContact(string $contact): ?string
-    {
-        $this->contact = $contact;
-
-        return $this;
-    }
-
     public function getSeq(): ?int
     {
         return $this->seq;
@@ -645,105 +508,26 @@ class Event
         return $this;
     }
 
-    /**
-     * @return Collection|self[]
-     */
-    public function getRelated(): Collection
+    public function getCalendar(): ?Calendar
     {
-        return $this->related;
+        return $this->calendar;
     }
 
-    public function addRelated(self $related): self
+    public function setCalendar(?Calendar $calendar): self
     {
-        if (!$this->related->contains($related)) {
-            $this->related[] = $related;
-        }
+        $this->calendar = $calendar;
 
         return $this;
     }
 
-    public function removeRelated(self $related): self
+    public function getEvent(): ?Event
     {
-        if ($this->related->contains($related)) {
-            $this->related->removeElement($related);
-        }
-
-        return $this;
+        return $this->event;
     }
 
-    /**
-     * @return Collection|Resource[]
-     */
-    public function getResources(): Collection
+    public function setEvent(?Event $event): self
     {
-        return $this->resources;
-    }
-
-    public function addResource(Resource $resource): self
-    {
-        if (!$this->resources->contains($resource)) {
-            $this->resources[] = $resource;
-            $resource->addEvent($this);
-        }
-
-        return $this;
-    }
-
-    public function removeResource(Resource $resource): self
-    {
-        if ($this->resources->contains($resource)) {
-            $this->resources->removeElement($resource);
-            $resource->removeEvent($this);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Alarm[]
-     */
-    public function getAlarms(): Collection
-    {
-        return $this->alarms;
-    }
-
-    public function addAlarm(Alarm $alarm): self
-    {
-        if (!$this->alarms->contains($alarm)) {
-            $this->alarms[] = $alarm;
-            $alarm->setEvent($this);
-        }
-
-        return $this;
-    }
-
-    public function removeAlarm(Alarm $alarm): self
-    {
-        if ($this->alarms->contains($alarm)) {
-            $this->alarms->removeElement($alarm);
-            // set the owning side to null (unless already changed)
-            if ($alarm->getEvent() === $this) {
-                $alarm->setEvent(null);
-            }
-        }
-
-        return $this;
-    }
-
-    public function getJournal(): ?Journal
-    {
-        return $this->journal;
-    }
-
-    public function setJournal(?Journal $journal): self
-    {
-        $this->journal = $journal;
-
-        // set (or unset) the owning side of the relation if necessary
-        $newEvent = $journal === null ? null : $this;
-        if ($newEvent !== $journal->getEvent()) {
-            $journal->setEvent($newEvent);
-        }
+        $this->event = $event;
 
         return $this;
     }
