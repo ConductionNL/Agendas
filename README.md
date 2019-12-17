@@ -12,7 +12,7 @@ Keeping in form with international standardization calendars are based on the [s
 - [Installation of this component](INSTALLATION.md)
 - [Making commonground components](TUTORIAL.md)
 - [Securing this component](SECURITY.md)
-- [Design considerations](DESIGN.md)
+- [Postman tests of this component](api/public/schema/arc.postman_collection.json)
 
 A hosted version of the OAS documentation and an demo version of the API can be found on http://arc.zaakonline.nl
 

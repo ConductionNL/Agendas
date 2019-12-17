@@ -210,6 +210,16 @@ class Todo
      */
     private $duration;
 
+    /**
+     * @var string Url of this person
+     * @example https://con.example.org
+     *
+     * @Assert\NotNull
+     * @Assert\Url
+     * @Groups({"read","write"})
+     * @ORM\Column(type="string")
+     */
+    private $contact;
 
     /**
      * @todo Automated ?
@@ -498,6 +508,18 @@ class Todo
     public function setDuration(int $duration): self
     {
         $this->duration = $duration;
+
+        return $this;
+    }
+
+    public function getContact(): ?string
+    {
+        return $this->contact;
+    }
+
+    public function setContact(string $contact): ?string
+    {
+        $this->contact = $contact;
 
         return $this;
     }
