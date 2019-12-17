@@ -12,16 +12,15 @@ use Symfony\Component\Serializer\Annotation\MaxDepth;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * An event happening at a certain time and location, such as a concert, lecture, meeting or festival.
+ * A to-do from an event.
  *
  * @ApiResource(
- *       iri="https://schema.org/Event",
  *     normalizationContext={"groups"={"read"}, "enable_max_depth"=true},
  *     denormalizationContext={"groups"={"write"}, "enable_max_depth"=true}
- * )
- * @ORM\Entity(repositoryClass="App\Repository\EventRepository")
+ *     )
+ * @ORM\Entity(repositoryClass="App\Repository\TodoRepository")
  */
-class Event
+class Todo
 {
     /**
      * @var UuidInterface The UUID identifier of this resource
@@ -96,25 +95,6 @@ class Event
      * @ORM\Column(type="string", length=255)
      */
     private $location;
-
-    /**
-     * @var string An optional Schedule to which this event belongs
-     *
-     * @MaxDepth(1)
-     * @Groups({"read","write"})
-     * @ORM\ManyToOne(targetEntity="App\Entity\Schedule", inversedBy="events")
-     */
-    private $schedule;
-
-    /**
-     * @var string The Calendar to wich this event belongs
-     *
-     * @MaxDepth(1)
-     * @Groups({"read","write"})
-     * @ORM\ManyToOne(targetEntity="App\Entity\Calendar", inversedBy="events")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $calendar;
 
     /**
      * @var string The security class of this event.
@@ -203,19 +183,6 @@ class Event
      * @ORM\Column(type="string", length=255)
      */
     private $summary;
-
-    /**
-     * @var string The determination if the event should block the duration of the event for participants.
-     * @example Transparent
-     *
-     * @Assert\Length(
-     *      max = 255
-     * )
-     * @Assert\NotBlank
-     * @Groups({"read","write"})
-     * @ORM\Column(type="string", length=255)
-     */
-    private $transp;
 
     /**
      * @todo Automated ?
@@ -317,38 +284,59 @@ class Event
     private $comments = [];
 
     /**
+     * @var datetime The date and time a to-do is completed.
+     * @example 10-12-2019 15:00:00
+     *
+     * @Assert\NotNull
+     * @Assert\DateTime
      * @Groups({"read","write"})
-     * @ORM\ManyToMany(targetEntity="App\Entity\Event")
-     * @MaxDepth(1)
+     * @ORM\Column(type="datetime")
      */
-    private $related;
+    private $completed;
+
+    /**
+     * @var int The percentage of a to-do that has been comepleted.
+     * @example 40%
+     *
+     * @Assert\Type("int")
+     * @Assert\NotNull
+     * @Groups({"read","write"})
+     * @ORM\Column(type="integer")
+     */
+    private $percentageDone;
 
     /**
      * @Groups({"read","write"})
-     * @ORM\ManyToMany(targetEntity="App\Entity\Resource", mappedBy="events")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Resource", mappedBy="todos")
      * @MaxDepth(1)
      */
     private $resources;
 
     /**
      * @Groups({"read","write"})
-     * @ORM\OneToMany(targetEntity="App\Entity\Alarm", mappedBy="event")
+     * @ORM\OneToOne(targetEntity="App\Entity\Alarm", mappedBy="todo", cascade={"persist", "remove"})
      * @MaxDepth(1)
      */
-    private $alarms;
+    private $alarm;
 
     /**
      * @Groups({"read","write"})
-     * @ORM\OneToOne(targetEntity="App\Entity\Journal", mappedBy="event", cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity="App\Entity\Calendar", inversedBy="todos")
+     * @ORM\JoinColumn(nullable=false)
      * @MaxDepth(1)
      */
-    private $journal;
+    private $calendar;
+
+    /**
+     * @Groups({"read","write"})
+     * @ORM\ManyToOne(targetEntity="App\Entity\Schedule", inversedBy="todos")
+     * @MaxDepth(1)
+     */
+    private $schedule;
 
     public function __construct()
     {
-        $this->related = new ArrayCollection();
         $this->resources = new ArrayCollection();
-        $this->alarms = new ArrayCollection();
     }
 
     public function getId(): ?string
@@ -412,30 +400,6 @@ class Event
     public function setLocation(string $location): self
     {
         $this->location = $location;
-
-        return $this;
-    }
-
-    public function getSchedule(): ?Schedule
-    {
-        return $this->schedule;
-    }
-
-    public function setSchedule(?Schedule $schedule): self
-    {
-        $this->schedule = $schedule;
-
-        return $this;
-    }
-
-    public function getCalendar(): ?Calendar
-    {
-        return $this->calendar;
-    }
-
-    public function setCalendar(?Calendar $calendar): self
-    {
-        $this->calendar = $calendar;
 
         return $this;
     }
@@ -520,18 +484,6 @@ class Event
     public function setSummary(string $summary): self
     {
         $this->summary = $summary;
-
-        return $this;
-    }
-
-    public function getTransp(): ?string
-    {
-        return $this->transp;
-    }
-
-    public function setTransp(string $transp): self
-    {
-        $this->transp = $transp;
 
         return $this;
     }
@@ -645,28 +597,26 @@ class Event
         return $this;
     }
 
-    /**
-     * @return Collection|self[]
-     */
-    public function getRelated(): Collection
+    public function getCompleted(): ?\DateTimeInterface
     {
-        return $this->related;
+        return $this->completed;
     }
 
-    public function addRelated(self $related): self
+    public function setCompleted(\DateTimeInterface $completed): self
     {
-        if (!$this->related->contains($related)) {
-            $this->related[] = $related;
-        }
+        $this->completed = $completed;
 
         return $this;
     }
 
-    public function removeRelated(self $related): self
+    public function getPercentageDone(): ?int
     {
-        if ($this->related->contains($related)) {
-            $this->related->removeElement($related);
-        }
+        return $this->percentageDone;
+    }
+
+    public function setPercentageDone(int $percentageDone): self
+    {
+        $this->percentageDone = $percentageDone;
 
         return $this;
     }
@@ -683,7 +633,7 @@ class Event
     {
         if (!$this->resources->contains($resource)) {
             $this->resources[] = $resource;
-            $resource->addEvent($this);
+            $resource->addTodo($this);
         }
 
         return $this;
@@ -693,57 +643,50 @@ class Event
     {
         if ($this->resources->contains($resource)) {
             $this->resources->removeElement($resource);
-            $resource->removeEvent($this);
+            $resource->removeTodo($this);
         }
 
         return $this;
     }
 
-    /**
-     * @return Collection|Alarm[]
-     */
-    public function getAlarms(): Collection
+    public function getAlarm(): ?Alarm
     {
-        return $this->alarms;
+        return $this->alarm;
     }
 
-    public function addAlarm(Alarm $alarm): self
+    public function setAlarm(?Alarm $alarm): self
     {
-        if (!$this->alarms->contains($alarm)) {
-            $this->alarms[] = $alarm;
-            $alarm->setEvent($this);
-        }
-
-        return $this;
-    }
-
-    public function removeAlarm(Alarm $alarm): self
-    {
-        if ($this->alarms->contains($alarm)) {
-            $this->alarms->removeElement($alarm);
-            // set the owning side to null (unless already changed)
-            if ($alarm->getEvent() === $this) {
-                $alarm->setEvent(null);
-            }
-        }
-
-        return $this;
-    }
-
-    public function getJournal(): ?Journal
-    {
-        return $this->journal;
-    }
-
-    public function setJournal(?Journal $journal): self
-    {
-        $this->journal = $journal;
+        $this->alarm = $alarm;
 
         // set (or unset) the owning side of the relation if necessary
-        $newEvent = $journal === null ? null : $this;
-        if ($newEvent !== $journal->getEvent()) {
-            $journal->setEvent($newEvent);
+        $newTodo = $alarm === null ? null : $this;
+        if ($newTodo !== $alarm->getTodo()) {
+            $alarm->setTodo($newTodo);
         }
+
+        return $this;
+    }
+
+    public function getCalendar(): ?Calendar
+    {
+        return $this->calendar;
+    }
+
+    public function setCalendar(?Calendar $calendar): self
+    {
+        $this->calendar = $calendar;
+
+        return $this;
+    }
+
+    public function getSchedule(): ?Schedule
+    {
+        return $this->schedule;
+    }
+
+    public function setSchedule(?Schedule $schedule): self
+    {
+        $this->schedule = $schedule;
 
         return $this;
     }

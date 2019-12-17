@@ -8,7 +8,6 @@ x-cache:
     - ${CONTAINER_REGISTRY_BASE}/${CONTAINER_PROJECT_NAME}-varnish
     - ${CONTAINER_REGISTRY_BASE}/${CONTAINER_PROJECT_NAME}-admin
     - ${CONTAINER_REGISTRY_BASE}/${CONTAINER_PROJECT_NAME}-client
-    - ${CONTAINER_REGISTRY_BASE}/${CONTAINER_PROJECT_NAME}-h2-proxy
 
 services:
   php:
@@ -220,8 +219,6 @@ services:
     # Don't use this proxy in prod
     build:
       context: ./h2-proxy
-      cache_from:
-        - ${CONTAINER_REGISTRY_BASE}/${CONTAINER_PROJECT_NAME}-h2-proxy
     depends_on:
       - db
       - client
