@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -74,7 +75,7 @@ class Event
     private $startDate;
 
     /**
-     * @var Datetime The moment this event ends
+     * @var DateTime The moment this event ends
      * @example 3-11-2019 20:00:00
      *
      * @Assert\DateTime
@@ -131,10 +132,10 @@ class Event
 
     /**
      * @todo Automated ?
-     * @var string The creation in datetime of this event.
+     * @var DateTime The creation in datetime of this event.
      * @example 16-12-2019 15:08:26
      *
-     * @Assert\DateTime
+     * @Assert\Date
      * @Assert\NotBlank
      * @Groups({"read","write"})
      * @ORM\Column(type="datetime")
@@ -155,7 +156,7 @@ class Event
 
     /**
      * @todo Automated ?
-     * @var datetime The last modification of this event in datetime.
+     * @var DateTime The last modification of this event in datetime.
      * @example 16-12-2019 15:14:34
      *
      * @Assert\DateTime
@@ -257,7 +258,7 @@ class Event
     /**
      * @todo Automated ?
      * @var int The version number of this event.
-     * @example 1.0
+     * @example 1
      *
      * @Assert\Type("int")
      * @Assert\NotBlank
@@ -280,7 +281,6 @@ class Event
      * @var array The urls of the attendees of this event.
      * @example https://con.example.com, https://con.example2.com
      *
-     * @Assert\Url
      * @Groups({"read","write"})
      * @ORM\Column(type="array")
      */
@@ -290,7 +290,6 @@ class Event
      * @var array The urls of the attachments of this event.
      * @example https://example.org, https://example2.org
      *
-     * @Assert\Url
      * @Groups({"read","write"})
      * @ORM\Column(type="array")
      */
@@ -300,7 +299,6 @@ class Event
      * @var array The urls of the catergories this event belongs to.
      * @example https://con.example.com, https://con.example2.com
      *
-     * @Assert\Url
      * @Groups({"read","write"})
      * @ORM\Column(type="array")
      */
@@ -310,7 +308,6 @@ class Event
      * @var array The urls of the comments that belong to this event.
      * @example https://con.example.com, https://con.example2.com
      *
-     * @Assert\Url
      * @Groups({"read","write"})
      * @ORM\Column(type="array")
      */
@@ -452,12 +449,12 @@ class Event
         return $this;
     }
 
-    public function getCreated(): ?string
+    public function getCreated(): ?DateTime
     {
         return $this->created;
     }
 
-    public function setCreated(string $created): self
+    public function setCreated(DateTime $created): self
     {
         $this->created = $created;
 
@@ -476,12 +473,12 @@ class Event
         return $this;
     }
 
-    public function getLastMod(): ?string
+    public function getLastMod(): ?DateTime
     {
         return $this->lastMod;
     }
 
-    public function setLastMod(string $lastMod): self
+    public function setLastMod(DateTime $lastMod): self
     {
         $this->lastMod = $lastMod;
 
@@ -565,7 +562,7 @@ class Event
         return $this->contact;
     }
 
-    public function setContact(string $contact): ?string
+    public function setContact(string $contact): self
     {
         $this->contact = $contact;
 

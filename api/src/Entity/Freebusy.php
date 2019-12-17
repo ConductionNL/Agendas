@@ -21,10 +21,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Freebusy
 {
     /**
-     */
-    private $id;
-
-    /**
      * @var UuidInterface The UUID identifier of this resource
      *
      * @example e2984465-190a-4562-829e-a8cca81aa35d
@@ -35,6 +31,10 @@ class Freebusy
      * @ORM\Column(type="uuid", unique=true)
      * @ORM\GeneratedValue(strategy="CUSTOM")
      * @ORM\CustomIdGenerator(class="Ramsey\Uuid\Doctrine\UuidGenerator")
+     */
+    private $id;
+
+    /**
      * @todo Automated ?
      * @var string The url of this event.
      * @example conduction.nl
@@ -78,7 +78,6 @@ class Freebusy
      * @var array The urls of the comments that belong to this event.
      * @example https://con.example.com, https://con.example2.com
      *
-     * @Assert\Url
      * @Groups({"read","write"})
      * @ORM\Column(type="array")
      */
@@ -225,7 +224,7 @@ class Freebusy
         return $this->contact;
     }
 
-    public function setContact(string $contact): ?string
+    public function setContact(string $contact): self
     {
         $this->contact = $contact;
 

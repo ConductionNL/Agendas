@@ -10,7 +10,7 @@ info:
     - Version: V.0.1
     - Repository: [online](https://github.com/ConductionNL/Proto-component-commonground) / [zip](https://github.com/ConductionNL/Proto-component-commonground/archive/master.zip)
     - Docker Image: [online](https://hub.docker.com/repository/docker/conduction/arc-php) 
-    - Datamodel: [postman](/schema/openapi.postman_collection) / [oas](/schema/openapi.yaml) / [pdf](/schema/datamodel.pdf) / [mwb](/schema/datamodel.mwb) 
+    - Datamodel: [postman](/schema/arc.postman_collection.json) / [oas](/schema/openapi.yaml) / [pdf](/schema/datamodel.pdf) / [mwb](/schema/datamodel.mwb) 
     
     'Naast deze JSON rest API is er ook een [graphql](/graphql) interface beschikbaar.'         
     
@@ -1961,9 +1961,9 @@ paths:
           links:
             GetFreebusyItem:
               parameters:
-                url: '$response.body#/url'
+                id: '$response.body#/id'
               operationId: getFreebusyItem
-              description: 'The `url` value returned in the response can be used as the `url` parameter in `GET /freebusies/{id}`.'
+              description: 'The `id` value returned in the response can be used as the `id` parameter in `GET /freebusies/{id}`.'
         400:
           description: 'Invalid input'
         404:
@@ -5169,9 +5169,12 @@ components:
       type: object
       description: 'This entity checks if a person is free or busy for a event.'
       properties:
-        url:
+        id:
           readOnly: true
           description: 'The UUID identifier of this resource'
+          type: string
+        url:
+          description: 'The url of this event.'
           type: string
         description:
           description: 'An short description of this Event'
@@ -5209,6 +5212,7 @@ components:
         schedule:
           $ref: '#/components/schemas/Schedule-read'
       required:
+        - url
         - attendee
         - contact
         - startDate
@@ -5219,10 +5223,18 @@ components:
     Freebusy-write:
       type: object
       description: 'This entity checks if a person is free or busy for a event.'
+      required:
+        - url
+        - attendee
+        - contact
+        - startDate
+        - endDate
+        - duration
+        - organiser
+        - freebusy
       properties:
         url:
-          readOnly: true
-          description: 'The UUID identifier of this resource'
+          description: 'The url of this event.'
           type: string
         description:
           description: 'An short description of this Event'
@@ -5259,14 +5271,6 @@ components:
           $ref: '#/components/schemas/Calendar-write'
         schedule:
           $ref: '#/components/schemas/Schedule-write'
-      required:
-        - attendee
-        - contact
-        - startDate
-        - endDate
-        - duration
-        - organiser
-        - freebusy
     Journal-read:
       type: object
       description: 'A journal from an event.'
@@ -5302,6 +5306,9 @@ components:
           format: date-time
         organiser:
           description: 'The organiser of this event linked to with an url.'
+          type: string
+        contact:
+          description: 'Url of this person'
           type: string
         status:
           description: 'The status of this evemt.'
@@ -5357,6 +5364,7 @@ components:
         - created
         - lastMod
         - organiser
+        - contact
         - status
         - summary
         - transp
@@ -5375,6 +5383,7 @@ components:
         - created
         - lastMod
         - organiser
+        - contact
         - status
         - summary
         - transp
@@ -5410,6 +5419,9 @@ components:
           format: date-time
         organiser:
           description: 'The organiser of this event linked to with an url.'
+          type: string
+        contact:
+          description: 'Url of this person'
           type: string
         status:
           description: 'The status of this evemt.'
@@ -5648,7 +5660,7 @@ components:
           description: 'The organiser of this event linked to with an url.'
           type: string
         status:
-          description: 'The status of this evemt.'
+          description: 'The status of this event.'
           type: string
         summary:
           description: 'The summary of this event.'
@@ -5659,6 +5671,9 @@ components:
         duration:
           description: 'The duration of this event.'
           type: integer
+        contact:
+          description: 'Url of this person'
+          type: string
         seq:
           description: 'The version number of this event.'
           type: integer
@@ -5716,6 +5731,7 @@ components:
         - summary
         - url
         - duration
+        - contact
         - seq
         - priority
         - completed
@@ -5736,6 +5752,7 @@ components:
         - summary
         - url
         - duration
+        - contact
         - seq
         - priority
         - completed
@@ -5776,7 +5793,7 @@ components:
           description: 'The organiser of this event linked to with an url.'
           type: string
         status:
-          description: 'The status of this evemt.'
+          description: 'The status of this event.'
           type: string
         summary:
           description: 'The summary of this event.'
@@ -5787,6 +5804,9 @@ components:
         duration:
           description: 'The duration of this event.'
           type: integer
+        contact:
+          description: 'Url of this person'
+          type: string
         seq:
           description: 'The version number of this event.'
           type: integer
@@ -5983,21 +6003,17 @@ definitions:
         example: 'https://con.example.org'
         format: url
       seq:
-        example: '1.0'
+        example: '1'
       priority:
         example: '1'
       attendees:
         example: 'https://con.example.com, https://con.example2.com'
-        format: url
       attachments:
         example: 'https://example.org, https://example2.org'
-        format: url
       categories:
         example: 'https://con.example.com, https://con.example2.com'
-        format: url
       comments:
         example: 'https://con.example.com, https://con.example2.com'
-        format: url
       schedule: []
       calendar: []
       related: []
@@ -6055,21 +6071,17 @@ definitions:
         example: 'https://con.example.org'
         format: url
       seq:
-        example: '1.0'
+        example: '1'
       priority:
         example: '1'
       attendees:
         example: 'https://con.example.com, https://con.example2.com'
-        format: url
       attachments:
         example: 'https://example.org, https://example2.org'
-        format: url
       categories:
         example: 'https://con.example.com, https://con.example2.com'
-        format: url
       comments:
         example: 'https://con.example.com, https://con.example2.com'
-        format: url
       schedule: []
       calendar: []
       related: []
@@ -6083,9 +6095,11 @@ definitions:
       - contact
   Freebusy-read:
     properties:
+      id:
+        example: e2984465-190a-4562-829e-a8cca81aa35d
+        format: uuid
       url:
         example: conduction.nl
-        format: uuid
         maxLength: 255
       description:
         example: 'This is the best Event ever'
@@ -6096,7 +6110,6 @@ definitions:
         maxLength: 255
       comments:
         example: 'https://con.example.com, https://con.example2.com'
-        format: url
       contact:
         example: 'https://con.example.org'
         format: url
@@ -6122,6 +6135,9 @@ definitions:
       - freebusy
   Freebusy-write:
     properties:
+      url:
+        example: conduction.nl
+        maxLength: 255
       description:
         example: 'This is the best Event ever'
         maxLength: 2550
@@ -6131,7 +6147,6 @@ definitions:
         maxLength: 255
       comments:
         example: 'https://con.example.com, https://con.example2.com'
-        format: url
       contact:
         example: 'https://con.example.org'
         format: url
@@ -6180,6 +6195,9 @@ definitions:
       organiser:
         example: conduction.nl
         maxLength: 255
+      contact:
+        example: 'https://con.example.org'
+        format: url
       status:
         example: Confirmed
         maxLength: 255
@@ -6200,22 +6218,19 @@ definitions:
         example: '1'
       attendees:
         example: 'https://con.example.com, https://con.example2.com'
-        format: url
       attachments:
         example: 'https://example.org, https://example2.org'
-        format: url
       categories:
         example: 'https://con.example.com, https://con.example2.com'
-        format: url
       comments:
         example: 'https://con.example.com, https://con.example2.com'
-        format: url
       calendar: []
       event: []
     required:
       - name
       - startDate
       - endDate
+      - contact
   Journal-write:
     properties:
       name:
@@ -6238,6 +6253,9 @@ definitions:
       organiser:
         example: conduction.nl
         maxLength: 255
+      contact:
+        example: 'https://con.example.org'
+        format: url
       status:
         example: Confirmed
         maxLength: 255
@@ -6258,22 +6276,19 @@ definitions:
         example: '1'
       attendees:
         example: 'https://con.example.com, https://con.example2.com'
-        format: url
       attachments:
         example: 'https://example.org, https://example2.org'
-        format: url
       categories:
         example: 'https://con.example.com, https://con.example2.com'
-        format: url
       comments:
         example: 'https://con.example.com, https://con.example2.com'
-        format: url
       calendar: []
       event: []
     required:
       - name
       - startDate
       - endDate
+      - contact
   Resource-read:
     properties:
       id:
@@ -6396,30 +6411,30 @@ definitions:
         example: 'This is the best event ever.'
         maxLength: 255
       url:
-        example: conduction.nl
+        example: 'https://www.conduction.nl'
+        format: url
         maxLength: 255
       duration:
         example: '2'
+      contact:
+        example: 'https://con.example.org'
+        format: url
       seq:
-        example: '1.0'
+        example: '1'
       priority:
         example: '1'
       attendees:
         example: 'https://con.example.com, https://con.example2.com'
-        format: url
       attachments:
         example: 'https://example.org, https://example2.org'
-        format: url
       categories:
         example: 'https://con.example.com, https://con.example2.com'
-        format: url
       comments:
         example: 'https://con.example.com, https://con.example2.com'
-        format: url
       completed:
         example: '10-12-2019 15:00:00'
       percentageDone:
-        example: 40%
+        example: '40'
       resources: []
       alarm: []
       calendar: []
@@ -6428,6 +6443,7 @@ definitions:
       - name
       - startDate
       - endDate
+      - contact
       - completed
       - percentageDone
   Todo-write:
@@ -6465,30 +6481,30 @@ definitions:
         example: 'This is the best event ever.'
         maxLength: 255
       url:
-        example: conduction.nl
+        example: 'https://www.conduction.nl'
+        format: url
         maxLength: 255
       duration:
         example: '2'
+      contact:
+        example: 'https://con.example.org'
+        format: url
       seq:
-        example: '1.0'
+        example: '1'
       priority:
         example: '1'
       attendees:
         example: 'https://con.example.com, https://con.example2.com'
-        format: url
       attachments:
         example: 'https://example.org, https://example2.org'
-        format: url
       categories:
         example: 'https://con.example.com, https://con.example2.com'
-        format: url
       comments:
         example: 'https://con.example.com, https://con.example2.com'
-        format: url
       completed:
         example: '10-12-2019 15:00:00'
       percentageDone:
-        example: 40%
+        example: '40'
       resources: []
       alarm: []
       calendar: []
@@ -6497,6 +6513,7 @@ definitions:
       - name
       - startDate
       - endDate
+      - contact
       - completed
       - percentageDone
 tags:
