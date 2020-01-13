@@ -30,7 +30,7 @@ services:
       - CONTAINER_PROJECT_NAME=${CONTAINER_PROJECT_NAME}
       - CONTAINER_REPRO=${CONTAINER_REPRO}
       #- DATABASE_URL=postgres://api-platform:!ChangeMe!@db/api?serverVersion=10.1
-      - DATABASE_URL=mysql://api-platform:!ChangeMe!@db/api?serverVersion=5.7
+      - DATABASE_URL=mysql://api-platform:!ChangeMe!@db/api?serverVersion=10.1
       - APP_ENV=${APP_ENV}
       - APP_DEBUG=${APP_DEBUG} 
       - APP_VERSION=${APP_VERSION}    
@@ -180,7 +180,7 @@ services:
   #    - db-data:/var/lib/postgresql/data:rw
     
   db:
-    image: mysql:5.7
+    image: mysql:5.6
     restart: always
     environment:
       - MYSQL_ROOT_PASSWORD=example
@@ -204,7 +204,7 @@ services:
       - DEMO=1
     ports:
       - "1337:80"
-
+  
   client:
     # Use a static website hosting service in production
     # See https://facebook.github.io/create-react-app/docs/deployment
@@ -235,6 +235,8 @@ services:
     # Don't use this proxy in prod
     build:
       context: ./h2-proxy
+      cache_from:
+        - ${CONTAINER_REGISTRY_BASE}/${CONTAINER_PROJECT_NAME}-h2-proxy
     depends_on:
       - db
       - client

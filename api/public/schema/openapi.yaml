@@ -4639,6 +4639,9 @@ paths:
             schema:
               $ref: '#/components/schemas/Todo-write'
         description: 'The updated Todo resource'
+security:
+  -
+    apiKey: []
 components:
   schemas:
     Alarm-read:
@@ -7233,6 +7236,12 @@ components:
           $ref: '#/components/schemas/Calendar:jsonld-write'
         schedule:
           $ref: '#/components/schemas/Schedule:jsonld-write'
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      in: header
+      description: 'Value for the Authorization header'
+      name: Authorization
 definitions:
   Alarm-read:
     properties:
@@ -7408,12 +7417,12 @@ definitions:
       startDate:
         description: 'The moment this event starts'
         type: string
-        example: '2020-01-13 14:11:00'
+        example: '2020-01-13 15:07:21'
         format: date-time
       endDate:
         description: 'The moment this event ends'
         type: string
-        example: '2020-01-13 14:11:00'
+        example: '2020-01-13 15:07:21'
         format: date-time
       location:
         description: 'The location of this event'
@@ -7428,7 +7437,7 @@ definitions:
       created:
         description: 'The creation in datetime of this event.'
         type: string
-        example: '2020-01-13 14:11:00'
+        example: '2020-01-13 15:07:21'
         format: date-time
       geo:
         description: 'The coordinates of this event.'
@@ -7438,7 +7447,7 @@ definitions:
       lastMod:
         description: 'The last modification of this event in datetime.'
         type: string
-        example: '2020-01-13 14:11:00'
+        example: '2020-01-13 15:07:21'
         format: date-time
       organiser:
         description: 'The organiser of this event linked to with an url.'
@@ -7532,12 +7541,12 @@ definitions:
       startDate:
         description: 'The moment this event starts'
         type: string
-        example: '2020-01-13 14:11:00'
+        example: '2020-01-13 15:07:21'
         format: date-time
       endDate:
         description: 'The moment this event ends'
         type: string
-        example: '2020-01-13 14:11:00'
+        example: '2020-01-13 15:07:21'
         format: date-time
       location:
         description: 'The location of this event'
@@ -7552,7 +7561,7 @@ definitions:
       created:
         description: 'The creation in datetime of this event.'
         type: string
-        example: '2020-01-13 14:11:00'
+        example: '2020-01-13 15:07:21'
         format: date-time
       geo:
         description: 'The coordinates of this event.'
@@ -7562,7 +7571,7 @@ definitions:
       lastMod:
         description: 'The last modification of this event in datetime.'
         type: string
-        example: '2020-01-13 14:11:00'
+        example: '2020-01-13 15:07:21'
         format: date-time
       organiser:
         description: 'The organiser of this event linked to with an url.'
@@ -7673,12 +7682,12 @@ definitions:
       startDate:
         description: 'The moment this event starts'
         type: string
-        example: '2020-01-13 14:11:00'
+        example: '2020-01-13 15:07:21'
         format: date-time
       endDate:
         description: 'The moment this event ends'
         type: string
-        example: '2020-01-13 14:11:00'
+        example: '2020-01-13 15:07:21'
         format: date-time
       duration:
         description: 'The duration of this event.'
@@ -7728,12 +7737,12 @@ definitions:
       startDate:
         description: 'The moment this event starts'
         type: string
-        example: '2020-01-13 14:11:00'
+        example: '2020-01-13 15:07:21'
         format: date-time
       endDate:
         description: 'The moment this event ends'
         type: string
-        example: '2020-01-13 14:11:00'
+        example: '2020-01-13 15:07:21'
         format: date-time
       duration:
         description: 'The duration of this event.'
@@ -7777,12 +7786,12 @@ definitions:
       startDate:
         description: 'The moment this event starts'
         type: string
-        example: '2020-01-13 14:11:00'
+        example: '2020-01-13 15:07:21'
         format: date-time
       endDate:
         description: 'The moment this event ends'
         type: string
-        example: '2020-01-13 14:11:00'
+        example: '2020-01-13 15:07:21'
         format: date-time
       class:
         description: 'The security class of this event.'
@@ -7792,12 +7801,12 @@ definitions:
       created:
         description: 'The creation in datetime of this event.'
         type: string
-        example: '2020-01-13 14:11:00'
+        example: '2020-01-13 15:07:21'
         format: date-time
       lastMod:
         description: 'The last modification of this event in datetime.'
         type: string
-        example: '2020-01-13 14:11:00'
+        example: '2020-01-13 15:07:21'
         format: date-time
       organiser:
         description: 'The organiser of this event linked to with an url.'
@@ -7877,12 +7886,12 @@ definitions:
       startDate:
         description: 'The moment this event starts'
         type: string
-        example: '2020-01-13 14:11:00'
+        example: '2020-01-13 15:07:21'
         format: date-time
       endDate:
         description: 'The moment this event ends'
         type: string
-        example: '2020-01-13 14:11:00'
+        example: '2020-01-13 15:07:21'
         format: date-time
       class:
         description: 'The security class of this event.'
@@ -7892,12 +7901,12 @@ definitions:
       created:
         description: 'The creation in datetime of this event.'
         type: string
-        example: '2020-01-13 14:11:00'
+        example: '2020-01-13 15:07:21'
         format: date-time
       lastMod:
         description: 'The last modification of this event in datetime.'
         type: string
-        example: '2020-01-13 14:11:00'
+        example: '2020-01-13 15:07:21'
         format: date-time
       organiser:
         description: 'The organiser of this event linked to with an url.'
@@ -8118,12 +8127,12 @@ definitions:
       startDate:
         description: 'The moment this event starts'
         type: string
-        example: '2020-01-13 14:11:00'
+        example: '2020-01-13 15:07:21'
         format: date-time
       endDate:
         description: 'The moment this event ends'
         type: string
-        example: '2020-01-13 14:11:00'
+        example: '2020-01-13 15:07:21'
         format: date-time
       location:
         description: 'The location of this event'
@@ -8138,7 +8147,7 @@ definitions:
       created:
         description: 'The creation in datetime of this event.'
         type: string
-        example: '2020-01-13 14:11:00'
+        example: '2020-01-13 15:07:21'
         format: date-time
       geo:
         description: 'The coordinates of this event.'
@@ -8148,7 +8157,7 @@ definitions:
       lastMod:
         description: 'The last modification of this event in datetime.'
         type: string
-        example: '2020-01-13 14:11:00'
+        example: '2020-01-13 15:07:21'
         format: date-time
       organiser:
         description: 'The organiser of this event linked to with an url.'
@@ -8210,7 +8219,7 @@ definitions:
       completed:
         description: 'The date and time a to-do is completed.'
         type: string
-        example: '2020-01-13 14:11:00'
+        example: '2020-01-13 15:07:21'
         format: date-time
       percentageDone:
         description: 'The percentage of a to-do that has been comepleted.'
@@ -8242,12 +8251,12 @@ definitions:
       startDate:
         description: 'The moment this event starts'
         type: string
-        example: '2020-01-13 14:11:00'
+        example: '2020-01-13 15:07:21'
         format: date-time
       endDate:
         description: 'The moment this event ends'
         type: string
-        example: '2020-01-13 14:11:00'
+        example: '2020-01-13 15:07:21'
         format: date-time
       location:
         description: 'The location of this event'
@@ -8262,7 +8271,7 @@ definitions:
       created:
         description: 'The creation in datetime of this event.'
         type: string
-        example: '2020-01-13 14:11:00'
+        example: '2020-01-13 15:07:21'
         format: date-time
       geo:
         description: 'The coordinates of this event.'
@@ -8272,7 +8281,7 @@ definitions:
       lastMod:
         description: 'The last modification of this event in datetime.'
         type: string
-        example: '2020-01-13 14:11:00'
+        example: '2020-01-13 15:07:21'
         format: date-time
       organiser:
         description: 'The organiser of this event linked to with an url.'
@@ -8334,7 +8343,7 @@ definitions:
       completed:
         description: 'The date and time a to-do is completed.'
         type: string
-        example: '2020-01-13 14:11:00'
+        example: '2020-01-13 15:07:21'
         format: date-time
       percentageDone:
         description: 'The percentage of a to-do that has been comepleted.'
