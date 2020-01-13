@@ -36,6 +36,7 @@ class Alarm
 
     /**
      * @var string The name of this RequestType
+     *
      * @example My RequestType
      *
      * @Assert\NotNull
@@ -49,6 +50,7 @@ class Alarm
 
     /**
      * @var string An short description of this Event
+     *
      * @example This is the best Event ever
      *
      * @Assert\Length(
@@ -61,6 +63,7 @@ class Alarm
 
     /**
      * @var string The summary of this event.
+     *
      * @example This is the best event ever.
      *
      * @Assert\Length(
@@ -74,6 +77,7 @@ class Alarm
 
     /**
      * @var string The action of the alarm.
+     *
      * @example AUDIO
      *
      * @Assert\Length(
@@ -87,7 +91,9 @@ class Alarm
 
     /**
      * @todo Duration?
-     * @var integer The time the alarm should trigger relative to the start time of the related event.
+     *
+     * @var int The time the alarm should trigger relative to the start time of the related event.
+     *
      * @example 30
      *
      * @Assert\Type("int")
@@ -99,7 +105,9 @@ class Alarm
 
     /**
      * @todo Duration?
-     * @var integer The time until the alarm repeats.
+     *
+     * @var int The time until the alarm repeats.
+     *
      * @example 60
      *
      * @Assert\Type("int")
@@ -110,7 +118,8 @@ class Alarm
     private $duration;
 
     /**
-     * @var integer The number of times the alarm repeats.
+     * @var int The number of times the alarm repeats.
+     *
      * @example 4
      *
      * @Assert\Type("int")

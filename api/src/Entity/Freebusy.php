@@ -20,8 +20,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Freebusy
 {
-    /**
-     */
     private $id;
 
     /**
@@ -35,8 +33,11 @@ class Freebusy
      * @ORM\Column(type="uuid", unique=true)
      * @ORM\GeneratedValue(strategy="CUSTOM")
      * @ORM\CustomIdGenerator(class="Ramsey\Uuid\Doctrine\UuidGenerator")
+     *
      * @todo Automated ?
+     *
      * @var string The url of this event.
+     *
      * @example conduction.nl
      *
      * @Assert\Length(
@@ -50,6 +51,7 @@ class Freebusy
 
     /**
      * @var string An short description of this Event
+     *
      * @example This is the best Event ever
      *
      * @Assert\Length(
@@ -62,6 +64,7 @@ class Freebusy
 
     /**
      * @var string The urls of the attendees of this event.
+     *
      * @example https://con.example.com
      *
      * @Assert\Url
@@ -76,6 +79,7 @@ class Freebusy
 
     /**
      * @var array The urls of the comments that belong to this event.
+     *
      * @example https://con.example.com, https://con.example2.com
      *
      * @Assert\Url
@@ -86,6 +90,7 @@ class Freebusy
 
     /**
      * @var string Url of this person
+     *
      * @example https://con.example.org
      *
      * @Assert\NotNull
@@ -97,6 +102,7 @@ class Freebusy
 
     /**
      * @var DateTime The moment this event starts
+     *
      * @example 30-11-2019 15:00:00
      *
      * @Assert\DateTime
@@ -108,6 +114,7 @@ class Freebusy
 
     /**
      * @var Datetime The moment this event ends
+     *
      * @example 3-11-2019 20:00:00
      *
      * @Assert\DateTime
@@ -119,7 +126,9 @@ class Freebusy
 
     /**
      * @todo Automated ?
+     *
      * @var string The duration of this event.
+     *
      * @example 2
      *
      * @Assert\Type("int")
@@ -131,6 +140,7 @@ class Freebusy
 
     /**
      * @var string The organiser of this event linked to with an url.
+     *
      * @example conduction.nl
      *
      * @Assert\Length(
@@ -143,6 +153,7 @@ class Freebusy
     private $organiser;
     /**
      * @var string The determination of the type freebusy.
+     *
      * @example FREE
      *
      * @Assert\NotNull
@@ -165,7 +176,6 @@ class Freebusy
      * @MaxDepth(1)
      */
     private $schedule;
-
 
     public function getId(): ?string
     {
