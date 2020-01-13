@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -63,7 +64,7 @@ class Journal
      * @var DateTime The moment this event starts
      * @example 30-11-2019 15:00:00
      *
-     * @Assert\DateTime
+     * @Assert\Date
      * @Assert\NotNull
      * @Groups({"read","write"})
      * @ORM\Column(type="datetime")
@@ -96,10 +97,10 @@ class Journal
 
     /**
      * @todo Automated ?
-     * @var string The creation in datetime of this event.
+     * @var DateTime The creation in datetime of this event.
      * @example 16-12-2019 15:08:26
      *
-     * @Assert\DateTime
+     * @Assert\Date
      * @Assert\NotBlank
      * @Groups({"read","write"})
      * @ORM\Column(type="datetime")
@@ -108,10 +109,10 @@ class Journal
 
     /**
      * @todo Automated ?
-     * @var datetime The last modification of this event in datetime.
+     * @var DateTime The last modification of this event in datetime.
      * @example 16-12-2019 15:14:34
      *
-     * @Assert\DateTime
+     * @Assert\Date
      * @Assert\NotBlank
      * @Groups({"read","write"})
      * @ORM\Column(type="datetime")
@@ -130,6 +131,17 @@ class Journal
      * @ORM\Column(type="string", length=255)
      */
     private $organiser;
+
+    /**
+     * @var string Url of this person
+     * @example https://con.example.org
+     *
+     * @Assert\NotNull
+     * @Assert\Url
+     * @Groups({"read","write"})
+     * @ORM\Column(type="string")
+     */
+    private $contact;
 
     /**
      * @var string The status of this evemt.
@@ -223,7 +235,6 @@ class Journal
      * @var array The urls of the attendees of this event.
      * @example https://con.example.com, https://con.example2.com
      *
-     * @Assert\Url
      * @Groups({"read","write"})
      * @ORM\Column(type="array")
      */
@@ -233,7 +244,6 @@ class Journal
      * @var array The urls of the attachments of this event.
      * @example https://example.org, https://example2.org
      *
-     * @Assert\Url
      * @Groups({"read","write"})
      * @ORM\Column(type="array")
      */
@@ -243,7 +253,6 @@ class Journal
      * @var array The urls of the catergories this event belongs to.
      * @example https://con.example.com, https://con.example2.com
      *
-     * @Assert\Url
      * @Groups({"read","write"})
      * @ORM\Column(type="array")
      */
@@ -253,7 +262,6 @@ class Journal
      * @var array The urls of the comments that belong to this event.
      * @example https://con.example.com, https://con.example2.com
      *
-     * @Assert\Url
      * @Groups({"read","write"})
      * @ORM\Column(type="array")
      */
@@ -274,7 +282,7 @@ class Journal
      */
     private $event;
 
-    public function getId(): ?int
+    public function getId(): ?string
     {
         return $this->id;
     }
@@ -339,24 +347,24 @@ class Journal
         return $this;
     }
 
-    public function getCreated(): ?string
+    public function getCreated(): ?\DateTimeInterface
     {
         return $this->created;
     }
 
-    public function setCreated(string $created): self
+    public function setCreated(\DateTimeInterface $created): self
     {
         $this->created = $created;
 
         return $this;
     }
 
-    public function getLastMod(): ?string
+    public function getLastMod(): ?\DateTimeInterface
     {
         return $this->lastMod;
     }
 
-    public function setLastMod(string $lastMod): self
+    public function setLastMod(\DateTimeInterface $lastMod): self
     {
         $this->lastMod = $lastMod;
 
@@ -371,6 +379,18 @@ class Journal
     public function setOrganiser(string $organiser): self
     {
         $this->organiser = $organiser;
+
+        return $this;
+    }
+
+    public function getContact(): ?string
+    {
+        return $this->contact;
+    }
+
+    public function setContact(string $contact): self
+    {
+        $this->contact = $contact;
 
         return $this;
     }

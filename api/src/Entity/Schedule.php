@@ -95,8 +95,7 @@ class Schedule
     private $byMonth;
 
     /**
-     * @var string Defines the day(s) of the month on which a recurring Event takes place. Specified as an Integer between 1-31.
-     *
+     * @var integer Defines the day(s) of the month on which a recurring Event takes place. Specified as an Integer between 1-31.
      * @example 1
      *
      * @Assert\Range(
@@ -110,7 +109,7 @@ class Schedule
     private $byMonthDay;
 
     /**
-     * @var string The that belong to or are coused by this Schedule
+     * @var integer The that belong to or are coused by this Schedule
      *
      * @MaxDepth(1)
      * @Groups({"read","write"})
@@ -119,7 +118,7 @@ class Schedule
     private $events;
 
     /**
-     * @var string Defines the day(s) of the month on which a recurring Event takes place. Specified as an Integer between 1-31.
+     * @var array Defines the day(s) of the month on which a recurring Event takes place. Specified as an Integer between 1-31.
      *
      * @example 30
      *

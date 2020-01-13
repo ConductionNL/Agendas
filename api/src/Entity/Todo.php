@@ -65,7 +65,7 @@ class Todo
      * @var DateTime The moment this event starts
      * @example 30-11-2019 15:00:00
      *
-     * @Assert\DateTime
+     * @Assert\Date
      * @Assert\NotNull
      * @Groups({"read","write"})
      * @ORM\Column(type="datetime")
@@ -73,10 +73,10 @@ class Todo
     private $startDate;
 
     /**
-     * @var Datetime The moment this event ends
+     * @var DateTime The moment this event ends
      * @example 3-11-2019 20:00:00
      *
-     * @Assert\DateTime
+     * @Assert\Date
      * @Assert\NotNull
      * @Groups({"read","write"})
      * @ORM\Column(type="datetime")
@@ -111,10 +111,10 @@ class Todo
 
     /**
      * @todo Automated ?
-     * @var string The creation in datetime of this event.
+     * @var DateTime The creation in datetime of this event.
      * @example 16-12-2019 15:08:26
      *
-     * @Assert\DateTime
+     * @Assert\Date
      * @Assert\NotBlank
      * @Groups({"read","write"})
      * @ORM\Column(type="datetime")
@@ -135,10 +135,10 @@ class Todo
 
     /**
      * @todo Automated ?
-     * @var datetime The last modification of this event in datetime.
+     * @var DateTime The last modification of this event in datetime.
      * @example 16-12-2019 15:14:34
      *
-     * @Assert\DateTime
+     * @Assert\Date
      * @Assert\NotBlank
      * @Groups({"read","write"})
      * @ORM\Column(type="datetime")
@@ -159,7 +159,7 @@ class Todo
     private $organiser;
 
     /**
-     * @var string The status of this evemt.
+     * @var string The status of this event.
      * @example Confirmed
      *
      * @Assert\Length(
@@ -187,8 +187,9 @@ class Todo
     /**
      * @todo Automated ?
      * @var string The url of this event.
-     * @example conduction.nl
+     * @example https://www.conduction.nl
      *
+     * @Assert\Url
      * @Assert\Length(
      *      max = 255
      * )
@@ -200,7 +201,7 @@ class Todo
 
     /**
      * @todo Automated ?
-     * @var string The duration of this event.
+     * @var integer The duration of this event.
      * @example 2
      *
      * @Assert\Type("int")
@@ -224,7 +225,7 @@ class Todo
     /**
      * @todo Automated ?
      * @var int The version number of this event.
-     * @example 1.0
+     * @example 1
      *
      * @Assert\Type("int")
      * @Assert\NotBlank
@@ -247,7 +248,6 @@ class Todo
      * @var array The urls of the attendees of this event.
      * @example https://con.example.com, https://con.example2.com
      *
-     * @Assert\Url
      * @Groups({"read","write"})
      * @ORM\Column(type="array")
      */
@@ -257,7 +257,6 @@ class Todo
      * @var array The urls of the attachments of this event.
      * @example https://example.org, https://example2.org
      *
-     * @Assert\Url
      * @Groups({"read","write"})
      * @ORM\Column(type="array")
      */
@@ -267,7 +266,6 @@ class Todo
      * @var array The urls of the catergories this event belongs to.
      * @example https://con.example.com, https://con.example2.com
      *
-     * @Assert\Url
      * @Groups({"read","write"})
      * @ORM\Column(type="array")
      */
@@ -277,18 +275,17 @@ class Todo
      * @var array The urls of the comments that belong to this event.
      * @example https://con.example.com, https://con.example2.com
      *
-     * @Assert\Url
      * @Groups({"read","write"})
      * @ORM\Column(type="array")
      */
     private $comments = [];
 
     /**
-     * @var datetime The date and time a to-do is completed.
+     * @var DateTime The date and time a to-do is completed.
      * @example 10-12-2019 15:00:00
      *
      * @Assert\NotNull
-     * @Assert\DateTime
+     * @Assert\Date
      * @Groups({"read","write"})
      * @ORM\Column(type="datetime")
      */
@@ -296,7 +293,7 @@ class Todo
 
     /**
      * @var int The percentage of a to-do that has been comepleted.
-     * @example 40%
+     * @example 40
      *
      * @Assert\Type("int")
      * @Assert\NotNull
@@ -416,12 +413,12 @@ class Todo
         return $this;
     }
 
-    public function getCreated(): ?string
+    public function getCreated(): ?\DateTimeInterface
     {
         return $this->created;
     }
 
-    public function setCreated(string $created): self
+    public function setCreated(\DateTimeInterface $created): self
     {
         $this->created = $created;
 
@@ -440,12 +437,12 @@ class Todo
         return $this;
     }
 
-    public function getLastMod(): ?string
+    public function getLastMod(): ?\DateTimeInterface
     {
         return $this->lastMod;
     }
 
-    public function setLastMod(string $lastMod): self
+    public function setLastMod(\DateTimeInterface $lastMod): self
     {
         $this->lastMod = $lastMod;
 
@@ -517,7 +514,7 @@ class Todo
         return $this->contact;
     }
 
-    public function setContact(string $contact): ?string
+    public function setContact(string $contact): self
     {
         $this->contact = $contact;
 
