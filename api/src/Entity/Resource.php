@@ -37,6 +37,7 @@ class Resource
 
     /**
      * @var string The name of this RequestType
+     *
      * @example My RequestType
      *
      * @Assert\NotNull
@@ -50,6 +51,7 @@ class Resource
 
     /**
      * @var string An short description of this Event
+     *
      * @example This is the best Event ever
      *
      * @Assert\Length(

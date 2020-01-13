@@ -36,6 +36,7 @@ class Journal
 
     /**
      * @var string The name of this RequestType
+     *
      * @example My RequestType
      *
      * @Assert\NotNull
@@ -49,6 +50,7 @@ class Journal
 
     /**
      * @var string An short description of this Event
+     *
      * @example This is the best Event ever
      *
      * @Assert\Length(
@@ -61,6 +63,7 @@ class Journal
 
     /**
      * @var DateTime The moment this event starts
+     *
      * @example 30-11-2019 15:00:00
      *
      * @Assert\DateTime
@@ -72,6 +75,7 @@ class Journal
 
     /**
      * @var Datetime The moment this event ends
+     *
      * @example 3-11-2019 20:00:00
      *
      * @Assert\DateTime
@@ -83,6 +87,7 @@ class Journal
 
     /**
      * @var string The security class of this event.
+     *
      * @example PUBLIC
      *
      * @Assert\Length(
@@ -96,7 +101,9 @@ class Journal
 
     /**
      * @todo Automated ?
+     *
      * @var string The creation in datetime of this event.
+     *
      * @example 16-12-2019 15:08:26
      *
      * @Assert\DateTime
@@ -108,7 +115,9 @@ class Journal
 
     /**
      * @todo Automated ?
+     *
      * @var datetime The last modification of this event in datetime.
+     *
      * @example 16-12-2019 15:14:34
      *
      * @Assert\DateTime
@@ -120,6 +129,7 @@ class Journal
 
     /**
      * @var string The organiser of this event linked to with an url.
+     *
      * @example conduction.nl
      *
      * @Assert\Length(
@@ -133,6 +143,7 @@ class Journal
 
     /**
      * @var string The status of this evemt.
+     *
      * @example Confirmed
      *
      * @Assert\Length(
@@ -146,6 +157,7 @@ class Journal
 
     /**
      * @var string The summary of this event.
+     *
      * @example This is the best event ever.
      *
      * @Assert\Length(
@@ -159,6 +171,7 @@ class Journal
 
     /**
      * @var string The determination if the event should block the duration of the event for participants.
+     *
      * @example Transparent
      *
      * @Assert\Length(
@@ -172,7 +185,9 @@ class Journal
 
     /**
      * @todo Automated ?
+     *
      * @var string The url of this event.
+     *
      * @example conduction.nl
      *
      * @Assert\Length(
@@ -186,7 +201,9 @@ class Journal
 
     /**
      * @todo Automated ?
+     *
      * @var string The duration of this event.
+     *
      * @example 2
      *
      * @Assert\Type("int")
@@ -196,10 +213,11 @@ class Journal
      */
     private $duration;
 
-
     /**
      * @todo Automated ?
+     *
      * @var int The version number of this event.
+     *
      * @example 1.0
      *
      * @Assert\Type("int")
@@ -210,6 +228,7 @@ class Journal
     private $seq;
     /**
      * @var int The priority of this event ranging from 1 (high) to 9 (low).
+     *
      * @example 1
      *
      * @Assert\Type("int")
@@ -221,6 +240,7 @@ class Journal
 
     /**
      * @var array The urls of the attendees of this event.
+     *
      * @example https://con.example.com, https://con.example2.com
      *
      * @Assert\Url
@@ -231,6 +251,7 @@ class Journal
 
     /**
      * @var array The urls of the attachments of this event.
+     *
      * @example https://example.org, https://example2.org
      *
      * @Assert\Url
@@ -241,6 +262,7 @@ class Journal
 
     /**
      * @var array The urls of the catergories this event belongs to.
+     *
      * @example https://con.example.com, https://con.example2.com
      *
      * @Assert\Url
@@ -251,6 +273,7 @@ class Journal
 
     /**
      * @var array The urls of the comments that belong to this event.
+     *
      * @example https://con.example.com, https://con.example2.com
      *
      * @Assert\Url
@@ -470,7 +493,6 @@ class Journal
 
         return $this;
     }
-
 
     public function getAttachments(): ?array
     {
