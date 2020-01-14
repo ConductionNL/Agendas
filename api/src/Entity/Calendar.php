@@ -125,17 +125,17 @@ class Calendar
         $this->journals = new ArrayCollection();
         $this->todos = new ArrayCollection();
     }
-    
+
     public function getId(): ?string
     {
-    	return $this->id;
+        return $this->id;
     }
-    
+
     public function setId(string $id): self
     {
-    	$this->id = $id;
-    	
-    	return $this;
+        $this->id = $id;
+
+        return $this;
     }
 
     public function getName(): ?string
