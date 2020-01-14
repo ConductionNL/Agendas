@@ -2,25 +2,25 @@
 
 namespace App\Repository;
 
-use App\Entity\Application;
+use App\Entity\Alarm;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 
 /**
- * @method Application|null find($id, $lockMode = null, $lockVersion = null)
- * @method Application|null findOneBy(array $criteria, array $orderBy = null)
- * @method Application[]    findAll()
- * @method Application[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Alarm|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Alarm|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Alarm[]    findAll()
+ * @method Alarm[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class ApplicationRepository extends ServiceEntityRepository
+class AlarmRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Application::class);
+        parent::__construct($registry, Alarm::class);
     }
 
     // /**
-    //  * @return Application[] Returns an array of Application objects
+    //  * @return Alarm[] Returns an array of Alarm objects
     //  */
     /*
     public function findByExampleField($value)
@@ -37,7 +37,7 @@ class ApplicationRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?Application
+    public function findOneBySomeField($value): ?Alarm
     {
         return $this->createQueryBuilder('a')
             ->andWhere('a.exampleField = :val')

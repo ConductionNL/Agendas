@@ -2,25 +2,25 @@
 
 namespace App\Repository;
 
-use App\Entity\Slug;
+use App\Entity\Schedule;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 
 /**
- * @method Slug|null find($id, $lockMode = null, $lockVersion = null)
- * @method Slug|null findOneBy(array $criteria, array $orderBy = null)
- * @method Slug[]    findAll()
- * @method Slug[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Schedule|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Schedule|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Schedule[]    findAll()
+ * @method Schedule[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class SlugRepository extends ServiceEntityRepository
+class ScheduleRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Slug::class);
+        parent::__construct($registry, Schedule::class);
     }
 
     // /**
-    //  * @return Slug[] Returns an array of Slug objects
+    //  * @return Schedule[] Returns an array of Schedule objects
     //  */
     /*
     public function findByExampleField($value)
@@ -37,7 +37,7 @@ class SlugRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?Slug
+    public function findOneBySomeField($value): ?Schedule
     {
         return $this->createQueryBuilder('s')
             ->andWhere('s.exampleField = :val')

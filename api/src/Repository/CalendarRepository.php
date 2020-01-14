@@ -2,25 +2,25 @@
 
 namespace App\Repository;
 
-use App\Entity\Template;
+use App\Entity\Calendar;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 
 /**
- * @method Template|null find($id, $lockMode = null, $lockVersion = null)
- * @method Template|null findOneBy(array $criteria, array $orderBy = null)
- * @method Template[]    findAll()
- * @method Template[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Calendar|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Calendar|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Calendar[]    findAll()
+ * @method Calendar[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class TemplateRepository extends ServiceEntityRepository
+class CalendarRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-    	parent::__construct($registry, Template::class);
+        parent::__construct($registry, Calendar::class);
     }
 
     // /**
-    //  * @return Content[] Returns an array of Content objects
+    //  * @return Calendar[] Returns an array of Calendar objects
     //  */
     /*
     public function findByExampleField($value)
@@ -37,7 +37,7 @@ class TemplateRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?Content
+    public function findOneBySomeField($value): ?Calendar
     {
         return $this->createQueryBuilder('c')
             ->andWhere('c.exampleField = :val')

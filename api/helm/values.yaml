@@ -4,13 +4,13 @@
 
 settings:
   registryBase: docker.io/conduction
-  projectName: wrc
-  name: wrc
-  title: Web Resource Component
+  projectName: ac
+  name: ac
+  title: Agenda Component
   version: V.0.1
   description: '&#039;Naast deze JSON rest API is er ook een [graphql](/graphql) interface beschikbaar.&#039;'
-  repro: 'https://github.com/ConductionNL/webresourcecatalogus'
-  subdomain: wrc  
+  repro: 'https://github.com/ConductionNL/agenda-component'
+  subdomain: ac  
   domains:
     - conduction.nl
     - zaakonline.nl
@@ -23,7 +23,7 @@ settings:
   state: Noord-Holland
   locality: Amsterdam
   unit: Common-Ground  
-  demo: wr.zaakonline.nl
+  demo: ac.zaakonline.nl
   env: dev
   debug: 1
   replicaCount: 1

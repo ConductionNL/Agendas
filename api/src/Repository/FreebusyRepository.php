@@ -2,25 +2,25 @@
 
 namespace App\Repository;
 
-use App\Entity\Footer;
+use App\Entity\Freebusy;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 
 /**
- * @method Footer|null find($id, $lockMode = null, $lockVersion = null)
- * @method Footer|null findOneBy(array $criteria, array $orderBy = null)
- * @method Footer[]    findAll()
- * @method Footer[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Freebusy|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Freebusy|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Freebusy[]    findAll()
+ * @method Freebusy[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class FooterRepository extends ServiceEntityRepository
+class FreebusyRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Footer::class);
+        parent::__construct($registry, Freebusy::class);
     }
 
     // /**
-    //  * @return Footer[] Returns an array of Footer objects
+    //  * @return Freebusy[] Returns an array of Freebusy objects
     //  */
     /*
     public function findByExampleField($value)
@@ -37,7 +37,7 @@ class FooterRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?Footer
+    public function findOneBySomeField($value): ?Freebusy
     {
         return $this->createQueryBuilder('f')
             ->andWhere('f.exampleField = :val')
