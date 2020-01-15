@@ -38,6 +38,7 @@ class Calendar
 
     /**
      * @var string The name of this Calendar
+     *
      * @example My Calendar
      *
      * @Assert\NotNull
@@ -51,6 +52,7 @@ class Calendar
 
     /**
      * @var string An short description of this Calenda
+     *
      * @example This is the best Calendar ever
      *
      * @Assert\Length(
@@ -81,6 +83,7 @@ class Calendar
 
     /**
      * @var string The time zone of this calendar
+     *
      * @example CET
      *
      * @Assert\NotNull
@@ -126,6 +129,13 @@ class Calendar
     public function getId(): ?string
     {
         return $this->id;
+    }
+
+    public function setId(string $id): self
+    {
+        $this->id = $id;
+
+        return $this;
     }
 
     public function getName(): ?string

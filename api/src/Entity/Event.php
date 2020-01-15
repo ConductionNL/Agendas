@@ -3,7 +3,6 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
-use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -40,6 +39,7 @@ class Event
 
     /**
      * @var string The name of this RequestType
+     *
      * @example My RequestType
      *
      * @Assert\NotNull
@@ -53,6 +53,7 @@ class Event
 
     /**
      * @var string An short description of this Event
+     *
      * @example This is the best Event ever
      *
      * @Assert\Length(
@@ -65,6 +66,7 @@ class Event
 
     /**
      * @var DateTime The moment this event starts
+     *
      * @example 30-11-2019 15:00:00
      *
      * @Assert\DateTime
@@ -75,7 +77,8 @@ class Event
     private $startDate;
 
     /**
-     * @var DateTime The moment this event ends
+     * @var Datetime The moment this event ends
+     *
      * @example 3-11-2019 20:00:00
      *
      * @Assert\DateTime
@@ -87,6 +90,7 @@ class Event
 
     /**
      * @var string The location of this event
+     *
      * @example Dam 1, Amsterdam
      *
      * @Assert\Length(
@@ -119,6 +123,7 @@ class Event
 
     /**
      * @var string The security class of this event.
+     *
      * @example PUBLIC
      *
      * @Assert\Length(
@@ -132,10 +137,12 @@ class Event
 
     /**
      * @todo Automated ?
-     * @var DateTime The creation in datetime of this event.
+     *
+     * @var string The creation in datetime of this event.
+     *
      * @example 16-12-2019 15:08:26
      *
-     * @Assert\Date
+     * @Assert\DateTime
      * @Assert\NotBlank
      * @Groups({"read","write"})
      * @ORM\Column(type="datetime")
@@ -144,6 +151,7 @@ class Event
 
     /**
      * @var string The coordinates of this event.
+     *
      * @example 81.15147,10.36374,42.26
      *
      * @Assert\Length(
@@ -156,7 +164,9 @@ class Event
 
     /**
      * @todo Automated ?
-     * @var DateTime The last modification of this event in datetime.
+     *
+     * @var datetime The last modification of this event in datetime.
+     *
      * @example 16-12-2019 15:14:34
      *
      * @Assert\DateTime
@@ -168,6 +178,7 @@ class Event
 
     /**
      * @var string The organiser of this event linked to with an url.
+     *
      * @example conduction.nl
      *
      * @Assert\Length(
@@ -181,6 +192,7 @@ class Event
 
     /**
      * @var string The status of this evemt.
+     *
      * @example Confirmed
      *
      * @Assert\Length(
@@ -194,6 +206,7 @@ class Event
 
     /**
      * @var string The summary of this event.
+     *
      * @example This is the best event ever.
      *
      * @Assert\Length(
@@ -207,6 +220,7 @@ class Event
 
     /**
      * @var string The determination if the event should block the duration of the event for participants.
+     *
      * @example Transparent
      *
      * @Assert\Length(
@@ -220,7 +234,9 @@ class Event
 
     /**
      * @todo Automated ?
+     *
      * @var string The url of this event.
+     *
      * @example conduction.nl
      *
      * @Assert\Length(
@@ -234,7 +250,9 @@ class Event
 
     /**
      * @todo Automated ?
+     *
      * @var string The duration of this event.
+     *
      * @example 2
      *
      * @Assert\Type("int")
@@ -246,6 +264,7 @@ class Event
 
     /**
      * @var string Url of this person
+     *
      * @example https://con.example.org
      *
      * @Assert\NotNull
@@ -257,8 +276,10 @@ class Event
 
     /**
      * @todo Automated ?
+     *
      * @var int The version number of this event.
-     * @example 1
+     *
+     * @example 1.0
      *
      * @Assert\Type("int")
      * @Assert\NotBlank
@@ -268,6 +289,7 @@ class Event
     private $seq;
     /**
      * @var int The priority of this event ranging from 1 (high) to 9 (low).
+     *
      * @example 1
      *
      * @Assert\Type("int")
@@ -279,8 +301,10 @@ class Event
 
     /**
      * @var array The urls of the attendees of this event.
+     *
      * @example https://con.example.com, https://con.example2.com
      *
+     * @Assert\Url
      * @Groups({"read","write"})
      * @ORM\Column(type="array")
      */
@@ -288,8 +312,10 @@ class Event
 
     /**
      * @var array The urls of the attachments of this event.
+     *
      * @example https://example.org, https://example2.org
      *
+     * @Assert\Url
      * @Groups({"read","write"})
      * @ORM\Column(type="array")
      */
@@ -297,8 +323,10 @@ class Event
 
     /**
      * @var array The urls of the catergories this event belongs to.
+     *
      * @example https://con.example.com, https://con.example2.com
      *
+     * @Assert\Url
      * @Groups({"read","write"})
      * @ORM\Column(type="array")
      */
@@ -306,8 +334,10 @@ class Event
 
     /**
      * @var array The urls of the comments that belong to this event.
+     *
      * @example https://con.example.com, https://con.example2.com
      *
+     * @Assert\Url
      * @Groups({"read","write"})
      * @ORM\Column(type="array")
      */
@@ -449,12 +479,12 @@ class Event
         return $this;
     }
 
-    public function getCreated(): ?DateTime
+    public function getCreated(): ?string
     {
         return $this->created;
     }
 
-    public function setCreated(DateTime $created): self
+    public function setCreated(string $created): self
     {
         $this->created = $created;
 
@@ -473,12 +503,12 @@ class Event
         return $this;
     }
 
-    public function getLastMod(): ?DateTime
+    public function getLastMod(): ?string
     {
         return $this->lastMod;
     }
 
-    public function setLastMod(DateTime $lastMod): self
+    public function setLastMod(string $lastMod): self
     {
         $this->lastMod = $lastMod;
 
@@ -562,7 +592,7 @@ class Event
         return $this->contact;
     }
 
-    public function setContact(string $contact): self
+    public function setContact(string $contact): ?string
     {
         $this->contact = $contact;
 
@@ -604,7 +634,6 @@ class Event
 
         return $this;
     }
-
 
     public function getAttachments(): ?array
     {
@@ -669,7 +698,7 @@ class Event
     }
 
     /**
-     * @return Collection|Resource[]
+     * @return Collection|resource[]
      */
     public function getResources(): Collection
     {

@@ -1,16 +1,16 @@
 openapi: 3.0.2
 info:
-  title: Agendaservice
+  title: 'Agenda Component'
   version: V.0.1
   description: |
     API Details
-    - Component: Agendaservice
-    - Reference: arc
+    - Component: Agenda Component
+    - Reference: ac
     - Enviroment: dev
     - Version: V.0.1
-    - Repository: [online](https://github.com/ConductionNL/Proto-component-commonground) / [zip](https://github.com/ConductionNL/Proto-component-commonground/archive/master.zip)
-    - Docker Image: [online](https://hub.docker.com/repository/docker/conduction/arc-php) 
-    - Datamodel: [postman](/schema/arc.postman_collection.json) / [oas](/schema/openapi.yaml) / [pdf](/schema/datamodel.pdf) / [mwb](/schema/datamodel.mwb) 
+    - Repository: [online](https://github.com/ConductionNL/agenda-component) / [zip](https://github.com/ConductionNL/agenda-component/archive/master.zip)
+    - Docker Image: [online](https://hub.docker.com/repository/docker/conduction/ac-php) 
+    - Datamodel: [postman](/schema/ac.postman_collection.json) / [oas](/schema/openapi.yaml) / [pdf](/schema/datamodel.pdf) / [mwb](/schema/datamodel.mwb) 
     
     'Naast deze JSON rest API is er ook een [graphql](/graphql) interface beschikbaar.'         
     
@@ -32,9 +32,14 @@ paths:
                   $ref: '#/components/schemas/Alarm-read'
             application/ld+json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Alarm-read'
+                type: object
+                properties:
+                  'hydra:member': { type: array, items: { $ref: '#/components/schemas/Alarm:jsonld-read' } }
+                  'hydra:totalItems': { type: integer, minimum: 0 }
+                  'hydra:view': { type: object, properties: { '@id': { type: string, format: iri-reference }, '@type': { type: string }, 'hydra:first': { type: string, format: iri-reference }, 'hydra:last': { type: string, format: iri-reference }, 'hydra:next': { type: string, format: iri-reference } } }
+                  'hydra:search': { type: object, properties: { '@type': { type: string }, 'hydra:template': { type: string }, 'hydra:variableRepresentation': { type: string }, 'hydra:mapping': { type: array, items: { type: object, properties: { '@type': { type: string }, variable: { type: string }, property: { type: string }, required: { type: boolean } } } } } }
+                required:
+                  - 'hydra:member'
             application/vnd.api+json:
               schema:
                 type: array
@@ -73,6 +78,7 @@ paths:
           description: 'The collection page number'
           schema:
             type: integer
+            default: 1
         -
           name: Authorization
           description: 'The JWT of the entity performing the request'
@@ -160,7 +166,7 @@ paths:
                 $ref: '#/components/schemas/Alarm-read'
             application/ld+json:
               schema:
-                $ref: '#/components/schemas/Alarm-read'
+                $ref: '#/components/schemas/Alarm:jsonld-read'
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/Alarm-read'
@@ -196,7 +202,7 @@ paths:
               $ref: '#/components/schemas/Alarm-write'
           application/ld+json:
             schema:
-              $ref: '#/components/schemas/Alarm-write'
+              $ref: '#/components/schemas/Alarm:jsonld-write'
           application/vnd.api+json:
             schema:
               $ref: '#/components/schemas/Alarm-write'
@@ -339,7 +345,7 @@ paths:
                 $ref: '#/components/schemas/Alarm-read'
             application/ld+json:
               schema:
-                $ref: '#/components/schemas/Alarm-read'
+                $ref: '#/components/schemas/Alarm:jsonld-read'
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/Alarm-read'
@@ -458,7 +464,7 @@ paths:
                 $ref: '#/components/schemas/Alarm-read'
             application/ld+json:
               schema:
-                $ref: '#/components/schemas/Alarm-read'
+                $ref: '#/components/schemas/Alarm:jsonld-read'
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/Alarm-read'
@@ -488,7 +494,7 @@ paths:
               $ref: '#/components/schemas/Alarm-write'
           application/ld+json:
             schema:
-              $ref: '#/components/schemas/Alarm-write'
+              $ref: '#/components/schemas/Alarm:jsonld-write'
           application/vnd.api+json:
             schema:
               $ref: '#/components/schemas/Alarm-write'
@@ -558,7 +564,7 @@ paths:
                 $ref: '#/components/schemas/Alarm-read'
             application/ld+json:
               schema:
-                $ref: '#/components/schemas/Alarm-read'
+                $ref: '#/components/schemas/Alarm:jsonld-read'
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/Alarm-read'
@@ -583,28 +589,7 @@ paths:
           description: 'Resource not found'
       requestBody:
         content:
-          application/hal+json:
-            schema:
-              $ref: '#/components/schemas/Alarm-write'
-          application/ld+json:
-            schema:
-              $ref: '#/components/schemas/Alarm-write'
           application/vnd.api+json:
-            schema:
-              $ref: '#/components/schemas/Alarm-write'
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Alarm-write'
-          application/xml:
-            schema:
-              $ref: '#/components/schemas/Alarm-write'
-          application/x-yaml:
-            schema:
-              $ref: '#/components/schemas/Alarm-write'
-          text/csv:
-            schema:
-              $ref: '#/components/schemas/Alarm-write'
-          text/html:
             schema:
               $ref: '#/components/schemas/Alarm-write'
         description: 'The updated Alarm resource'
@@ -625,9 +610,14 @@ paths:
                   $ref: '#/components/schemas/Calendar-read'
             application/ld+json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Calendar-read'
+                type: object
+                properties:
+                  'hydra:member': { type: array, items: { $ref: '#/components/schemas/Calendar:jsonld-read' } }
+                  'hydra:totalItems': { type: integer, minimum: 0 }
+                  'hydra:view': { type: object, properties: { '@id': { type: string, format: iri-reference }, '@type': { type: string }, 'hydra:first': { type: string, format: iri-reference }, 'hydra:last': { type: string, format: iri-reference }, 'hydra:next': { type: string, format: iri-reference } } }
+                  'hydra:search': { type: object, properties: { '@type': { type: string }, 'hydra:template': { type: string }, 'hydra:variableRepresentation': { type: string }, 'hydra:mapping': { type: array, items: { type: object, properties: { '@type': { type: string }, variable: { type: string }, property: { type: string }, required: { type: boolean } } } } } }
+                required:
+                  - 'hydra:member'
             application/vnd.api+json:
               schema:
                 type: array
@@ -754,7 +744,7 @@ paths:
                 $ref: '#/components/schemas/Calendar-read'
             application/ld+json:
               schema:
-                $ref: '#/components/schemas/Calendar-read'
+                $ref: '#/components/schemas/Calendar:jsonld-read'
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/Calendar-read'
@@ -790,7 +780,7 @@ paths:
               $ref: '#/components/schemas/Calendar-write'
           application/ld+json:
             schema:
-              $ref: '#/components/schemas/Calendar-write'
+              $ref: '#/components/schemas/Calendar:jsonld-write'
           application/vnd.api+json:
             schema:
               $ref: '#/components/schemas/Calendar-write'
@@ -933,7 +923,7 @@ paths:
                 $ref: '#/components/schemas/Calendar-read'
             application/ld+json:
               schema:
-                $ref: '#/components/schemas/Calendar-read'
+                $ref: '#/components/schemas/Calendar:jsonld-read'
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/Calendar-read'
@@ -1052,7 +1042,7 @@ paths:
                 $ref: '#/components/schemas/Calendar-read'
             application/ld+json:
               schema:
-                $ref: '#/components/schemas/Calendar-read'
+                $ref: '#/components/schemas/Calendar:jsonld-read'
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/Calendar-read'
@@ -1082,7 +1072,7 @@ paths:
               $ref: '#/components/schemas/Calendar-write'
           application/ld+json:
             schema:
-              $ref: '#/components/schemas/Calendar-write'
+              $ref: '#/components/schemas/Calendar:jsonld-write'
           application/vnd.api+json:
             schema:
               $ref: '#/components/schemas/Calendar-write'
@@ -1152,7 +1142,7 @@ paths:
                 $ref: '#/components/schemas/Calendar-read'
             application/ld+json:
               schema:
-                $ref: '#/components/schemas/Calendar-read'
+                $ref: '#/components/schemas/Calendar:jsonld-read'
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/Calendar-read'
@@ -1177,28 +1167,7 @@ paths:
           description: 'Resource not found'
       requestBody:
         content:
-          application/hal+json:
-            schema:
-              $ref: '#/components/schemas/Calendar-write'
-          application/ld+json:
-            schema:
-              $ref: '#/components/schemas/Calendar-write'
           application/vnd.api+json:
-            schema:
-              $ref: '#/components/schemas/Calendar-write'
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Calendar-write'
-          application/xml:
-            schema:
-              $ref: '#/components/schemas/Calendar-write'
-          application/x-yaml:
-            schema:
-              $ref: '#/components/schemas/Calendar-write'
-          text/csv:
-            schema:
-              $ref: '#/components/schemas/Calendar-write'
-          text/html:
             schema:
               $ref: '#/components/schemas/Calendar-write'
         description: 'The updated Calendar resource'
@@ -1219,9 +1188,14 @@ paths:
                   $ref: '#/components/schemas/Event-read'
             application/ld+json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Event-read'
+                type: object
+                properties:
+                  'hydra:member': { type: array, items: { $ref: '#/components/schemas/Event:jsonld-read' } }
+                  'hydra:totalItems': { type: integer, minimum: 0 }
+                  'hydra:view': { type: object, properties: { '@id': { type: string, format: iri-reference }, '@type': { type: string }, 'hydra:first': { type: string, format: iri-reference }, 'hydra:last': { type: string, format: iri-reference }, 'hydra:next': { type: string, format: iri-reference } } }
+                  'hydra:search': { type: object, properties: { '@type': { type: string }, 'hydra:template': { type: string }, 'hydra:variableRepresentation': { type: string }, 'hydra:mapping': { type: array, items: { type: object, properties: { '@type': { type: string }, variable: { type: string }, property: { type: string }, required: { type: boolean } } } } } }
+                required:
+                  - 'hydra:member'
             application/vnd.api+json:
               schema:
                 type: array
@@ -1260,6 +1234,7 @@ paths:
           description: 'The collection page number'
           schema:
             type: integer
+            default: 1
         -
           name: Authorization
           description: 'The JWT of the entity performing the request'
@@ -1347,7 +1322,7 @@ paths:
                 $ref: '#/components/schemas/Event-read'
             application/ld+json:
               schema:
-                $ref: '#/components/schemas/Event-read'
+                $ref: '#/components/schemas/Event:jsonld-read'
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/Event-read'
@@ -1383,7 +1358,7 @@ paths:
               $ref: '#/components/schemas/Event-write'
           application/ld+json:
             schema:
-              $ref: '#/components/schemas/Event-write'
+              $ref: '#/components/schemas/Event:jsonld-write'
           application/vnd.api+json:
             schema:
               $ref: '#/components/schemas/Event-write'
@@ -1526,7 +1501,7 @@ paths:
                 $ref: '#/components/schemas/Event-read'
             application/ld+json:
               schema:
-                $ref: '#/components/schemas/Event-read'
+                $ref: '#/components/schemas/Event:jsonld-read'
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/Event-read'
@@ -1645,7 +1620,7 @@ paths:
                 $ref: '#/components/schemas/Event-read'
             application/ld+json:
               schema:
-                $ref: '#/components/schemas/Event-read'
+                $ref: '#/components/schemas/Event:jsonld-read'
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/Event-read'
@@ -1675,7 +1650,7 @@ paths:
               $ref: '#/components/schemas/Event-write'
           application/ld+json:
             schema:
-              $ref: '#/components/schemas/Event-write'
+              $ref: '#/components/schemas/Event:jsonld-write'
           application/vnd.api+json:
             schema:
               $ref: '#/components/schemas/Event-write'
@@ -1745,7 +1720,7 @@ paths:
                 $ref: '#/components/schemas/Event-read'
             application/ld+json:
               schema:
-                $ref: '#/components/schemas/Event-read'
+                $ref: '#/components/schemas/Event:jsonld-read'
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/Event-read'
@@ -1770,28 +1745,7 @@ paths:
           description: 'Resource not found'
       requestBody:
         content:
-          application/hal+json:
-            schema:
-              $ref: '#/components/schemas/Event-write'
-          application/ld+json:
-            schema:
-              $ref: '#/components/schemas/Event-write'
           application/vnd.api+json:
-            schema:
-              $ref: '#/components/schemas/Event-write'
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Event-write'
-          application/xml:
-            schema:
-              $ref: '#/components/schemas/Event-write'
-          application/x-yaml:
-            schema:
-              $ref: '#/components/schemas/Event-write'
-          text/csv:
-            schema:
-              $ref: '#/components/schemas/Event-write'
-          text/html:
             schema:
               $ref: '#/components/schemas/Event-write'
         description: 'The updated Event resource'
@@ -1812,9 +1766,14 @@ paths:
                   $ref: '#/components/schemas/Freebusy-read'
             application/ld+json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Freebusy-read'
+                type: object
+                properties:
+                  'hydra:member': { type: array, items: { $ref: '#/components/schemas/Freebusy:jsonld-read' } }
+                  'hydra:totalItems': { type: integer, minimum: 0 }
+                  'hydra:view': { type: object, properties: { '@id': { type: string, format: iri-reference }, '@type': { type: string }, 'hydra:first': { type: string, format: iri-reference }, 'hydra:last': { type: string, format: iri-reference }, 'hydra:next': { type: string, format: iri-reference } } }
+                  'hydra:search': { type: object, properties: { '@type': { type: string }, 'hydra:template': { type: string }, 'hydra:variableRepresentation': { type: string }, 'hydra:mapping': { type: array, items: { type: object, properties: { '@type': { type: string }, variable: { type: string }, property: { type: string }, required: { type: boolean } } } } } }
+                required:
+                  - 'hydra:member'
             application/vnd.api+json:
               schema:
                 type: array
@@ -1853,6 +1812,7 @@ paths:
           description: 'The collection page number'
           schema:
             type: integer
+            default: 1
         -
           name: Authorization
           description: 'The JWT of the entity performing the request'
@@ -1940,7 +1900,7 @@ paths:
                 $ref: '#/components/schemas/Freebusy-read'
             application/ld+json:
               schema:
-                $ref: '#/components/schemas/Freebusy-read'
+                $ref: '#/components/schemas/Freebusy:jsonld-read'
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/Freebusy-read'
@@ -1962,9 +1922,9 @@ paths:
           links:
             GetFreebusyItem:
               parameters:
-                id: '$response.body#/id'
+                url: '$response.body#/url'
               operationId: getFreebusyItem
-              description: 'The `id` value returned in the response can be used as the `id` parameter in `GET /freebusies/{id}`.'
+              description: 'The `url` value returned in the response can be used as the `url` parameter in `GET /freebusies/{id}`.'
         400:
           description: 'Invalid input'
         404:
@@ -1976,7 +1936,7 @@ paths:
               $ref: '#/components/schemas/Freebusy-write'
           application/ld+json:
             schema:
-              $ref: '#/components/schemas/Freebusy-write'
+              $ref: '#/components/schemas/Freebusy:jsonld-write'
           application/vnd.api+json:
             schema:
               $ref: '#/components/schemas/Freebusy-write'
@@ -2119,7 +2079,7 @@ paths:
                 $ref: '#/components/schemas/Freebusy-read'
             application/ld+json:
               schema:
-                $ref: '#/components/schemas/Freebusy-read'
+                $ref: '#/components/schemas/Freebusy:jsonld-read'
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/Freebusy-read'
@@ -2238,7 +2198,7 @@ paths:
                 $ref: '#/components/schemas/Freebusy-read'
             application/ld+json:
               schema:
-                $ref: '#/components/schemas/Freebusy-read'
+                $ref: '#/components/schemas/Freebusy:jsonld-read'
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/Freebusy-read'
@@ -2268,7 +2228,7 @@ paths:
               $ref: '#/components/schemas/Freebusy-write'
           application/ld+json:
             schema:
-              $ref: '#/components/schemas/Freebusy-write'
+              $ref: '#/components/schemas/Freebusy:jsonld-write'
           application/vnd.api+json:
             schema:
               $ref: '#/components/schemas/Freebusy-write'
@@ -2338,7 +2298,7 @@ paths:
                 $ref: '#/components/schemas/Freebusy-read'
             application/ld+json:
               schema:
-                $ref: '#/components/schemas/Freebusy-read'
+                $ref: '#/components/schemas/Freebusy:jsonld-read'
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/Freebusy-read'
@@ -2363,28 +2323,7 @@ paths:
           description: 'Resource not found'
       requestBody:
         content:
-          application/hal+json:
-            schema:
-              $ref: '#/components/schemas/Freebusy-write'
-          application/ld+json:
-            schema:
-              $ref: '#/components/schemas/Freebusy-write'
           application/vnd.api+json:
-            schema:
-              $ref: '#/components/schemas/Freebusy-write'
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Freebusy-write'
-          application/xml:
-            schema:
-              $ref: '#/components/schemas/Freebusy-write'
-          application/x-yaml:
-            schema:
-              $ref: '#/components/schemas/Freebusy-write'
-          text/csv:
-            schema:
-              $ref: '#/components/schemas/Freebusy-write'
-          text/html:
             schema:
               $ref: '#/components/schemas/Freebusy-write'
         description: 'The updated Freebusy resource'
@@ -2405,9 +2344,14 @@ paths:
                   $ref: '#/components/schemas/Journal-read'
             application/ld+json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Journal-read'
+                type: object
+                properties:
+                  'hydra:member': { type: array, items: { $ref: '#/components/schemas/Journal:jsonld-read' } }
+                  'hydra:totalItems': { type: integer, minimum: 0 }
+                  'hydra:view': { type: object, properties: { '@id': { type: string, format: iri-reference }, '@type': { type: string }, 'hydra:first': { type: string, format: iri-reference }, 'hydra:last': { type: string, format: iri-reference }, 'hydra:next': { type: string, format: iri-reference } } }
+                  'hydra:search': { type: object, properties: { '@type': { type: string }, 'hydra:template': { type: string }, 'hydra:variableRepresentation': { type: string }, 'hydra:mapping': { type: array, items: { type: object, properties: { '@type': { type: string }, variable: { type: string }, property: { type: string }, required: { type: boolean } } } } } }
+                required:
+                  - 'hydra:member'
             application/vnd.api+json:
               schema:
                 type: array
@@ -2446,6 +2390,7 @@ paths:
           description: 'The collection page number'
           schema:
             type: integer
+            default: 1
         -
           name: Authorization
           description: 'The JWT of the entity performing the request'
@@ -2533,7 +2478,7 @@ paths:
                 $ref: '#/components/schemas/Journal-read'
             application/ld+json:
               schema:
-                $ref: '#/components/schemas/Journal-read'
+                $ref: '#/components/schemas/Journal:jsonld-read'
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/Journal-read'
@@ -2569,7 +2514,7 @@ paths:
               $ref: '#/components/schemas/Journal-write'
           application/ld+json:
             schema:
-              $ref: '#/components/schemas/Journal-write'
+              $ref: '#/components/schemas/Journal:jsonld-write'
           application/vnd.api+json:
             schema:
               $ref: '#/components/schemas/Journal-write'
@@ -2712,7 +2657,7 @@ paths:
                 $ref: '#/components/schemas/Journal-read'
             application/ld+json:
               schema:
-                $ref: '#/components/schemas/Journal-read'
+                $ref: '#/components/schemas/Journal:jsonld-read'
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/Journal-read'
@@ -2831,7 +2776,7 @@ paths:
                 $ref: '#/components/schemas/Journal-read'
             application/ld+json:
               schema:
-                $ref: '#/components/schemas/Journal-read'
+                $ref: '#/components/schemas/Journal:jsonld-read'
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/Journal-read'
@@ -2861,7 +2806,7 @@ paths:
               $ref: '#/components/schemas/Journal-write'
           application/ld+json:
             schema:
-              $ref: '#/components/schemas/Journal-write'
+              $ref: '#/components/schemas/Journal:jsonld-write'
           application/vnd.api+json:
             schema:
               $ref: '#/components/schemas/Journal-write'
@@ -2931,7 +2876,7 @@ paths:
                 $ref: '#/components/schemas/Journal-read'
             application/ld+json:
               schema:
-                $ref: '#/components/schemas/Journal-read'
+                $ref: '#/components/schemas/Journal:jsonld-read'
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/Journal-read'
@@ -2956,28 +2901,7 @@ paths:
           description: 'Resource not found'
       requestBody:
         content:
-          application/hal+json:
-            schema:
-              $ref: '#/components/schemas/Journal-write'
-          application/ld+json:
-            schema:
-              $ref: '#/components/schemas/Journal-write'
           application/vnd.api+json:
-            schema:
-              $ref: '#/components/schemas/Journal-write'
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Journal-write'
-          application/xml:
-            schema:
-              $ref: '#/components/schemas/Journal-write'
-          application/x-yaml:
-            schema:
-              $ref: '#/components/schemas/Journal-write'
-          text/csv:
-            schema:
-              $ref: '#/components/schemas/Journal-write'
-          text/html:
             schema:
               $ref: '#/components/schemas/Journal-write'
         description: 'The updated Journal resource'
@@ -2998,9 +2922,14 @@ paths:
                   $ref: '#/components/schemas/Resource-read'
             application/ld+json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Resource-read'
+                type: object
+                properties:
+                  'hydra:member': { type: array, items: { $ref: '#/components/schemas/Resource:jsonld-read' } }
+                  'hydra:totalItems': { type: integer, minimum: 0 }
+                  'hydra:view': { type: object, properties: { '@id': { type: string, format: iri-reference }, '@type': { type: string }, 'hydra:first': { type: string, format: iri-reference }, 'hydra:last': { type: string, format: iri-reference }, 'hydra:next': { type: string, format: iri-reference } } }
+                  'hydra:search': { type: object, properties: { '@type': { type: string }, 'hydra:template': { type: string }, 'hydra:variableRepresentation': { type: string }, 'hydra:mapping': { type: array, items: { type: object, properties: { '@type': { type: string }, variable: { type: string }, property: { type: string }, required: { type: boolean } } } } } }
+                required:
+                  - 'hydra:member'
             application/vnd.api+json:
               schema:
                 type: array
@@ -3039,6 +2968,7 @@ paths:
           description: 'The collection page number'
           schema:
             type: integer
+            default: 1
         -
           name: Authorization
           description: 'The JWT of the entity performing the request'
@@ -3126,7 +3056,7 @@ paths:
                 $ref: '#/components/schemas/Resource-read'
             application/ld+json:
               schema:
-                $ref: '#/components/schemas/Resource-read'
+                $ref: '#/components/schemas/Resource:jsonld-read'
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/Resource-read'
@@ -3162,7 +3092,7 @@ paths:
               $ref: '#/components/schemas/Resource-write'
           application/ld+json:
             schema:
-              $ref: '#/components/schemas/Resource-write'
+              $ref: '#/components/schemas/Resource:jsonld-write'
           application/vnd.api+json:
             schema:
               $ref: '#/components/schemas/Resource-write'
@@ -3305,7 +3235,7 @@ paths:
                 $ref: '#/components/schemas/Resource-read'
             application/ld+json:
               schema:
-                $ref: '#/components/schemas/Resource-read'
+                $ref: '#/components/schemas/Resource:jsonld-read'
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/Resource-read'
@@ -3424,7 +3354,7 @@ paths:
                 $ref: '#/components/schemas/Resource-read'
             application/ld+json:
               schema:
-                $ref: '#/components/schemas/Resource-read'
+                $ref: '#/components/schemas/Resource:jsonld-read'
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/Resource-read'
@@ -3454,7 +3384,7 @@ paths:
               $ref: '#/components/schemas/Resource-write'
           application/ld+json:
             schema:
-              $ref: '#/components/schemas/Resource-write'
+              $ref: '#/components/schemas/Resource:jsonld-write'
           application/vnd.api+json:
             schema:
               $ref: '#/components/schemas/Resource-write'
@@ -3524,7 +3454,7 @@ paths:
                 $ref: '#/components/schemas/Resource-read'
             application/ld+json:
               schema:
-                $ref: '#/components/schemas/Resource-read'
+                $ref: '#/components/schemas/Resource:jsonld-read'
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/Resource-read'
@@ -3549,28 +3479,7 @@ paths:
           description: 'Resource not found'
       requestBody:
         content:
-          application/hal+json:
-            schema:
-              $ref: '#/components/schemas/Resource-write'
-          application/ld+json:
-            schema:
-              $ref: '#/components/schemas/Resource-write'
           application/vnd.api+json:
-            schema:
-              $ref: '#/components/schemas/Resource-write'
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Resource-write'
-          application/xml:
-            schema:
-              $ref: '#/components/schemas/Resource-write'
-          application/x-yaml:
-            schema:
-              $ref: '#/components/schemas/Resource-write'
-          text/csv:
-            schema:
-              $ref: '#/components/schemas/Resource-write'
-          text/html:
             schema:
               $ref: '#/components/schemas/Resource-write'
         description: 'The updated Resource resource'
@@ -3591,9 +3500,14 @@ paths:
                   $ref: '#/components/schemas/Schedule-read'
             application/ld+json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Schedule-read'
+                type: object
+                properties:
+                  'hydra:member': { type: array, items: { $ref: '#/components/schemas/Schedule:jsonld-read' } }
+                  'hydra:totalItems': { type: integer, minimum: 0 }
+                  'hydra:view': { type: object, properties: { '@id': { type: string, format: iri-reference }, '@type': { type: string }, 'hydra:first': { type: string, format: iri-reference }, 'hydra:last': { type: string, format: iri-reference }, 'hydra:next': { type: string, format: iri-reference } } }
+                  'hydra:search': { type: object, properties: { '@type': { type: string }, 'hydra:template': { type: string }, 'hydra:variableRepresentation': { type: string }, 'hydra:mapping': { type: array, items: { type: object, properties: { '@type': { type: string }, variable: { type: string }, property: { type: string }, required: { type: boolean } } } } } }
+                required:
+                  - 'hydra:member'
             application/vnd.api+json:
               schema:
                 type: array
@@ -3632,6 +3546,7 @@ paths:
           description: 'The collection page number'
           schema:
             type: integer
+            default: 1
         -
           name: Authorization
           description: 'The JWT of the entity performing the request'
@@ -3719,7 +3634,7 @@ paths:
                 $ref: '#/components/schemas/Schedule-read'
             application/ld+json:
               schema:
-                $ref: '#/components/schemas/Schedule-read'
+                $ref: '#/components/schemas/Schedule:jsonld-read'
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/Schedule-read'
@@ -3755,7 +3670,7 @@ paths:
               $ref: '#/components/schemas/Schedule-write'
           application/ld+json:
             schema:
-              $ref: '#/components/schemas/Schedule-write'
+              $ref: '#/components/schemas/Schedule:jsonld-write'
           application/vnd.api+json:
             schema:
               $ref: '#/components/schemas/Schedule-write'
@@ -3898,7 +3813,7 @@ paths:
                 $ref: '#/components/schemas/Schedule-read'
             application/ld+json:
               schema:
-                $ref: '#/components/schemas/Schedule-read'
+                $ref: '#/components/schemas/Schedule:jsonld-read'
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/Schedule-read'
@@ -4017,7 +3932,7 @@ paths:
                 $ref: '#/components/schemas/Schedule-read'
             application/ld+json:
               schema:
-                $ref: '#/components/schemas/Schedule-read'
+                $ref: '#/components/schemas/Schedule:jsonld-read'
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/Schedule-read'
@@ -4047,7 +3962,7 @@ paths:
               $ref: '#/components/schemas/Schedule-write'
           application/ld+json:
             schema:
-              $ref: '#/components/schemas/Schedule-write'
+              $ref: '#/components/schemas/Schedule:jsonld-write'
           application/vnd.api+json:
             schema:
               $ref: '#/components/schemas/Schedule-write'
@@ -4117,7 +4032,7 @@ paths:
                 $ref: '#/components/schemas/Schedule-read'
             application/ld+json:
               schema:
-                $ref: '#/components/schemas/Schedule-read'
+                $ref: '#/components/schemas/Schedule:jsonld-read'
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/Schedule-read'
@@ -4142,28 +4057,7 @@ paths:
           description: 'Resource not found'
       requestBody:
         content:
-          application/hal+json:
-            schema:
-              $ref: '#/components/schemas/Schedule-write'
-          application/ld+json:
-            schema:
-              $ref: '#/components/schemas/Schedule-write'
           application/vnd.api+json:
-            schema:
-              $ref: '#/components/schemas/Schedule-write'
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Schedule-write'
-          application/xml:
-            schema:
-              $ref: '#/components/schemas/Schedule-write'
-          application/x-yaml:
-            schema:
-              $ref: '#/components/schemas/Schedule-write'
-          text/csv:
-            schema:
-              $ref: '#/components/schemas/Schedule-write'
-          text/html:
             schema:
               $ref: '#/components/schemas/Schedule-write'
         description: 'The updated Schedule resource'
@@ -4184,9 +4078,14 @@ paths:
                   $ref: '#/components/schemas/Todo-read'
             application/ld+json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Todo-read'
+                type: object
+                properties:
+                  'hydra:member': { type: array, items: { $ref: '#/components/schemas/Todo:jsonld-read' } }
+                  'hydra:totalItems': { type: integer, minimum: 0 }
+                  'hydra:view': { type: object, properties: { '@id': { type: string, format: iri-reference }, '@type': { type: string }, 'hydra:first': { type: string, format: iri-reference }, 'hydra:last': { type: string, format: iri-reference }, 'hydra:next': { type: string, format: iri-reference } } }
+                  'hydra:search': { type: object, properties: { '@type': { type: string }, 'hydra:template': { type: string }, 'hydra:variableRepresentation': { type: string }, 'hydra:mapping': { type: array, items: { type: object, properties: { '@type': { type: string }, variable: { type: string }, property: { type: string }, required: { type: boolean } } } } } }
+                required:
+                  - 'hydra:member'
             application/vnd.api+json:
               schema:
                 type: array
@@ -4225,6 +4124,7 @@ paths:
           description: 'The collection page number'
           schema:
             type: integer
+            default: 1
         -
           name: Authorization
           description: 'The JWT of the entity performing the request'
@@ -4312,7 +4212,7 @@ paths:
                 $ref: '#/components/schemas/Todo-read'
             application/ld+json:
               schema:
-                $ref: '#/components/schemas/Todo-read'
+                $ref: '#/components/schemas/Todo:jsonld-read'
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/Todo-read'
@@ -4348,7 +4248,7 @@ paths:
               $ref: '#/components/schemas/Todo-write'
           application/ld+json:
             schema:
-              $ref: '#/components/schemas/Todo-write'
+              $ref: '#/components/schemas/Todo:jsonld-write'
           application/vnd.api+json:
             schema:
               $ref: '#/components/schemas/Todo-write'
@@ -4491,7 +4391,7 @@ paths:
                 $ref: '#/components/schemas/Todo-read'
             application/ld+json:
               schema:
-                $ref: '#/components/schemas/Todo-read'
+                $ref: '#/components/schemas/Todo:jsonld-read'
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/Todo-read'
@@ -4610,7 +4510,7 @@ paths:
                 $ref: '#/components/schemas/Todo-read'
             application/ld+json:
               schema:
-                $ref: '#/components/schemas/Todo-read'
+                $ref: '#/components/schemas/Todo:jsonld-read'
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/Todo-read'
@@ -4640,7 +4540,7 @@ paths:
               $ref: '#/components/schemas/Todo-write'
           application/ld+json:
             schema:
-              $ref: '#/components/schemas/Todo-write'
+              $ref: '#/components/schemas/Todo:jsonld-write'
           application/vnd.api+json:
             schema:
               $ref: '#/components/schemas/Todo-write'
@@ -4710,7 +4610,7 @@ paths:
                 $ref: '#/components/schemas/Todo-read'
             application/ld+json:
               schema:
-                $ref: '#/components/schemas/Todo-read'
+                $ref: '#/components/schemas/Todo:jsonld-read'
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/Todo-read'
@@ -4735,31 +4635,13 @@ paths:
           description: 'Resource not found'
       requestBody:
         content:
-          application/hal+json:
-            schema:
-              $ref: '#/components/schemas/Todo-write'
-          application/ld+json:
-            schema:
-              $ref: '#/components/schemas/Todo-write'
           application/vnd.api+json:
             schema:
               $ref: '#/components/schemas/Todo-write'
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Todo-write'
-          application/xml:
-            schema:
-              $ref: '#/components/schemas/Todo-write'
-          application/x-yaml:
-            schema:
-              $ref: '#/components/schemas/Todo-write'
-          text/csv:
-            schema:
-              $ref: '#/components/schemas/Todo-write'
-          text/html:
-            schema:
-              $ref: '#/components/schemas/Todo-write'
         description: 'The updated Todo resource'
+security:
+  -
+    apiKey: []
 components:
   schemas:
     Alarm-read:
@@ -4769,6 +4651,8 @@ components:
         id:
           readOnly: true
           description: 'The UUID identifier of this resource'
+          externalDocs:
+            url: 'http://schema.org/identifier'
           type: string
         name:
           description: 'The name of this RequestType'
@@ -4838,9 +4722,9 @@ components:
           $ref: '#/components/schemas/Event-write'
         todo:
           $ref: '#/components/schemas/Todo-write'
-    Calendar-read:
+    'Alarm:jsonld-read':
       type: object
-      description: 'A Calendar is a collection of events tied to an unque person or resource.'
+      description: 'Used to describe alarms for Events and Todos.'
       properties:
         id:
           readOnly: true
@@ -5173,6 +5057,8 @@ components:
         id:
           readOnly: true
           description: 'The UUID identifier of this resource'
+          externalDocs:
+            url: 'http://schema.org/identifier'
           type: string
         url:
           description: 'The url of this event.'
@@ -5286,112 +5172,42 @@ components:
         description:
           description: 'An short description of this Event'
           type: string
-        startDate:
-          description: 'The moment this event starts'
-          type: string
-          format: date-time
-        endDate:
-          description: 'The moment this event ends'
-          type: string
-          format: date-time
-        class:
-          description: 'The security class of this event.'
-          type: string
-        created:
-          description: 'The creation in datetime of this event.'
-          type: string
-          format: date-time
-        lastMod:
-          description: 'The last modification of this event in datetime.'
-          type: string
-          format: date-time
-        organiser:
-          description: 'The organiser of this event linked to with an url.'
-          type: string
-        contact:
-          description: 'Url of this person'
-          type: string
-        status:
-          description: 'The status of this evemt.'
-          type: string
         summary:
           description: 'The summary of this event.'
           type: string
-        transp:
-          description: 'The determination if the event should block the duration of the event for participants.'
+        action:
+          description: 'The action of the alarm.'
           type: string
-        url:
-          description: 'The url of this event.'
-          type: string
+        trigger:
+          description: 'The time the alarm should trigger relative to the start time of the related event.'
+          type: integer
         duration:
-          description: 'The duration of this event.'
+          description: 'The time until the alarm repeats.'
           type: integer
-        seq:
-          description: 'The version number of this event.'
+        repeat:
+          description: 'The number of times the alarm repeats.'
           type: integer
-        priority:
-          description: 'The priority of this event ranging from 1 (high) to 9 (low).'
-          type: integer
-        attendees:
-          description: 'The urls of the attendees of this event.'
-          type: array
-          items:
-            type: string
-        attachments:
-          readOnly: true
-          description: 'The urls of the attachments of this event.'
-          type: array
-          items:
-            type: string
-        categories:
-          description: 'The urls of the catergories this event belongs to.'
-          type: array
-          items:
-            type: string
-        comments:
-          description: 'The urls of the comments that belong to this event.'
-          type: array
-          items:
-            type: string
-        calendar:
-          $ref: '#/components/schemas/Calendar-read'
         event:
-          $ref: '#/components/schemas/Event-read'
+          $ref: '#/components/schemas/Event:jsonld-read'
+        todo:
+          $ref: '#/components/schemas/Todo:jsonld-read'
       required:
         - name
-        - startDate
-        - endDate
-        - class
-        - created
-        - lastMod
-        - organiser
-        - contact
-        - status
         - summary
-        - transp
-        - url
+        - action
+        - trigger
         - duration
-        - seq
-        - priority
-    Journal-write:
+        - repeat
+    'Alarm:jsonld-write':
       type: object
-      description: 'A journal from an event.'
+      description: 'Used to describe alarms for Events and Todos.'
       required:
         - name
-        - startDate
-        - endDate
-        - class
-        - created
-        - lastMod
-        - organiser
-        - contact
-        - status
         - summary
-        - transp
-        - url
+        - action
+        - trigger
         - duration
-        - seq
-        - priority
+        - repeat
       properties:
         name:
           description: 'The name of this RequestType'
@@ -5632,12 +5448,1899 @@ components:
         description:
           description: 'An short description of this Event'
           type: string
+        summary:
+          description: 'The summary of this event.'
+          type: string
+        action:
+          description: 'The action of the alarm.'
+          type: string
+        trigger:
+          description: 'The time the alarm should trigger relative to the start time of the related event.'
+          type: integer
+        duration:
+          description: 'The time until the alarm repeats.'
+          type: integer
+        repeat:
+          description: 'The number of times the alarm repeats.'
+          type: integer
+        event:
+          $ref: '#/components/schemas/Event:jsonld-write'
+        todo:
+          $ref: '#/components/schemas/Todo:jsonld-write'
+    Calendar-read:
+      type: object
+      description: 'A Calendar is a collection of events tied to an unque person or resource.'
+      properties:
+        id:
+          readOnly: true
+          description: 'The UUID identifier of this resource'
+          externalDocs:
+            url: 'http://schema.org/identifier'
+          type: string
+        name:
+          description: 'The name of this Calendar'
+          type: string
+        description:
+          description: 'An short description of this Calenda'
+          type: string
+        events:
+          description: 'Events that belong to this Calendar'
+          type: array
+          items:
+            $ref: '#/components/schemas/Event-read'
+        schedules:
+          description: 'Schedules that belong to this Calendar'
+          type: array
+          items:
+            $ref: '#/components/schemas/Schedule-read'
+        timeZone:
+          description: 'The time zone of this calendar'
+          type: string
+        freebusies:
+          type: array
+          items:
+            $ref: '#/components/schemas/Freebusy-read'
+        journals:
+          type: array
+          items:
+            $ref: '#/components/schemas/Journal-read'
+        todos:
+          type: array
+          items:
+            $ref: '#/components/schemas/Todo-read'
+      required:
+        - name
+        - timeZone
+    Calendar-write:
+      type: object
+      description: 'A Calendar is a collection of events tied to an unque person or resource.'
+      required:
+        - name
+        - timeZone
+      properties:
+        name:
+          description: 'The name of this Calendar'
+          type: string
+        description:
+          description: 'An short description of this Calenda'
+          type: string
+        events:
+          description: 'Events that belong to this Calendar'
+          type: array
+          items:
+            $ref: '#/components/schemas/Event-write'
+        schedules:
+          description: 'Schedules that belong to this Calendar'
+          type: array
+          items:
+            $ref: '#/components/schemas/Schedule-write'
+        timeZone:
+          description: 'The time zone of this calendar'
+          type: string
+        freebusies:
+          type: array
+          items:
+            $ref: '#/components/schemas/Freebusy-write'
+        journals:
+          type: array
+          items:
+            $ref: '#/components/schemas/Journal-write'
+        todos:
+          type: array
+          items:
+            $ref: '#/components/schemas/Todo-write'
+    'Calendar:jsonld-read':
+      type: object
+      description: 'A Calendar is a collection of events tied to an unque person or resource.'
+      properties:
+        '@context':
+          readOnly: true
+          type: string
+        '@id':
+          readOnly: true
+          type: string
+        '@type':
+          readOnly: true
+          type: string
+        id:
+          readOnly: true
+          description: 'The UUID identifier of this resource'
+          externalDocs:
+            url: 'http://schema.org/identifier'
+          type: string
+        name:
+          description: 'The name of this Calendar'
+          type: string
+        description:
+          description: 'An short description of this Calenda'
+          type: string
+        events:
+          description: 'Events that belong to this Calendar'
+          type: array
+          items:
+            $ref: '#/components/schemas/Event:jsonld-read'
+        schedules:
+          description: 'Schedules that belong to this Calendar'
+          type: array
+          items:
+            $ref: '#/components/schemas/Schedule:jsonld-read'
+        timeZone:
+          description: 'The time zone of this calendar'
+          type: string
+        freebusies:
+          type: array
+          items:
+            $ref: '#/components/schemas/Freebusy:jsonld-read'
+        journals:
+          type: array
+          items:
+            $ref: '#/components/schemas/Journal:jsonld-read'
+        todos:
+          type: array
+          items:
+            $ref: '#/components/schemas/Todo:jsonld-read'
+      required:
+        - name
+        - timeZone
+    'Calendar:jsonld-write':
+      type: object
+      description: 'A Calendar is a collection of events tied to an unque person or resource.'
+      required:
+        - name
+        - timeZone
+      properties:
+        '@context':
+          readOnly: true
+          type: string
+        '@id':
+          readOnly: true
+          type: string
+        '@type':
+          readOnly: true
+          type: string
+        name:
+          description: 'The name of this Calendar'
+          type: string
+        description:
+          description: 'An short description of this Calenda'
+          type: string
+        events:
+          description: 'Events that belong to this Calendar'
+          type: array
+          items:
+            $ref: '#/components/schemas/Event:jsonld-write'
+        schedules:
+          description: 'Schedules that belong to this Calendar'
+          type: array
+          items:
+            $ref: '#/components/schemas/Schedule:jsonld-write'
+        timeZone:
+          description: 'The time zone of this calendar'
+          type: string
+        freebusies:
+          type: array
+          items:
+            $ref: '#/components/schemas/Freebusy:jsonld-write'
+        journals:
+          type: array
+          items:
+            $ref: '#/components/schemas/Journal:jsonld-write'
+        todos:
+          type: array
+          items:
+            $ref: '#/components/schemas/Todo:jsonld-write'
+    Event-read:
+      type: object
+      description: 'An event happening at a certain time and location, such as a concert, lecture, meeting or festival.'
+      externalDocs:
+        url: 'https://schema.org/Event'
+      properties:
+        id:
+          readOnly: true
+          description: 'The UUID identifier of this resource'
+          externalDocs:
+            url: 'http://schema.org/identifier'
+          type: string
+        name:
+          description: 'The name of this RequestType'
+          type: string
+        description:
+          description: 'An short description of this Event'
+          type: string
         startDate:
           description: 'The moment this event starts'
+          externalDocs:
+            url: 'http://schema.org/DateTime'
           type: string
           format: date-time
         endDate:
           description: 'The moment this event ends'
+          externalDocs:
+            url: 'http://schema.org/DateTime'
+          type: string
+          format: date-time
+        location:
+          description: 'The location of this event'
+          type: string
+        schedule:
+          description: 'An optional Schedule to which this event belongs'
+          $ref: '#/components/schemas/Schedule-read'
+        calendar:
+          description: 'The Calendar to wich this event belongs'
+          $ref: '#/components/schemas/Calendar-read'
+        class:
+          description: 'The security class of this event.'
+          type: string
+        created:
+          description: 'The creation in datetime of this event.'
+          externalDocs:
+            url: 'http://schema.org/DateTime'
+          type: string
+          format: date-time
+        geo:
+          description: 'The coordinates of this event.'
+          type: string
+        lastMod:
+          description: 'The last modification of this event in datetime.'
+          externalDocs:
+            url: 'http://schema.org/DateTime'
+          type: string
+          format: date-time
+        organiser:
+          description: 'The organiser of this event linked to with an url.'
+          type: string
+        status:
+          description: 'The status of this evemt.'
+          type: string
+        summary:
+          description: 'The summary of this event.'
+          type: string
+        transp:
+          description: 'The determination if the event should block the duration of the event for participants.'
+          type: string
+        url:
+          description: 'The url of this event.'
+          type: string
+        duration:
+          description: 'The duration of this event.'
+          type: integer
+        contact:
+          description: 'Url of this person'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: string
+        seq:
+          description: 'The version number of this event.'
+          type: integer
+        priority:
+          description: 'The priority of this event ranging from 1 (high) to 9 (low).'
+          type: integer
+        attendees:
+          description: 'The urls of the attendees of this event.'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: array
+          items:
+            type: string
+        attachments:
+          readOnly: true
+          description: 'The urls of the attachments of this event.'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: array
+          items:
+            type: string
+        categories:
+          description: 'The urls of the catergories this event belongs to.'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: array
+          items:
+            type: string
+        comments:
+          description: 'The urls of the comments that belong to this event.'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: array
+          items:
+            type: string
+        related:
+          type: array
+          items:
+            $ref: '#/components/schemas/Event-read'
+        resources:
+          type: array
+          items:
+            $ref: '#/components/schemas/Resource-read'
+        alarms:
+          type: array
+          items:
+            $ref: '#/components/schemas/Alarm-read'
+        journal:
+          $ref: '#/components/schemas/Journal-read'
+      required:
+        - name
+        - startDate
+        - endDate
+        - location
+        - class
+        - created
+        - lastMod
+        - organiser
+        - status
+        - summary
+        - transp
+        - url
+        - duration
+        - contact
+        - seq
+        - priority
+    Event-write:
+      type: object
+      description: 'An event happening at a certain time and location, such as a concert, lecture, meeting or festival.'
+      externalDocs:
+        url: 'https://schema.org/Event'
+      required:
+        - name
+        - startDate
+        - endDate
+        - location
+        - class
+        - created
+        - lastMod
+        - organiser
+        - status
+        - summary
+        - transp
+        - url
+        - duration
+        - contact
+        - seq
+        - priority
+      properties:
+        name:
+          description: 'The name of this RequestType'
+          type: string
+        description:
+          description: 'An short description of this Event'
+          type: string
+        startDate:
+          description: 'The moment this event starts'
+          externalDocs:
+            url: 'http://schema.org/DateTime'
+          type: string
+          format: date-time
+        endDate:
+          description: 'The moment this event ends'
+          externalDocs:
+            url: 'http://schema.org/DateTime'
+          type: string
+          format: date-time
+        location:
+          description: 'The location of this event'
+          type: string
+        schedule:
+          description: 'An optional Schedule to which this event belongs'
+          $ref: '#/components/schemas/Schedule-write'
+        calendar:
+          description: 'The Calendar to wich this event belongs'
+          $ref: '#/components/schemas/Calendar-write'
+        class:
+          description: 'The security class of this event.'
+          type: string
+        created:
+          description: 'The creation in datetime of this event.'
+          externalDocs:
+            url: 'http://schema.org/DateTime'
+          type: string
+          format: date-time
+        geo:
+          description: 'The coordinates of this event.'
+          type: string
+        lastMod:
+          description: 'The last modification of this event in datetime.'
+          externalDocs:
+            url: 'http://schema.org/DateTime'
+          type: string
+          format: date-time
+        organiser:
+          description: 'The organiser of this event linked to with an url.'
+          type: string
+        status:
+          description: 'The status of this evemt.'
+          type: string
+        summary:
+          description: 'The summary of this event.'
+          type: string
+        transp:
+          description: 'The determination if the event should block the duration of the event for participants.'
+          type: string
+        url:
+          description: 'The url of this event.'
+          type: string
+        duration:
+          description: 'The duration of this event.'
+          type: integer
+        contact:
+          description: 'Url of this person'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: string
+        seq:
+          description: 'The version number of this event.'
+          type: integer
+        priority:
+          description: 'The priority of this event ranging from 1 (high) to 9 (low).'
+          type: integer
+        attendees:
+          description: 'The urls of the attendees of this event.'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: array
+          items:
+            type: string
+        attachments:
+          readOnly: true
+          description: 'The urls of the attachments of this event.'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: array
+          items:
+            type: string
+        categories:
+          description: 'The urls of the catergories this event belongs to.'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: array
+          items:
+            type: string
+        comments:
+          description: 'The urls of the comments that belong to this event.'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: array
+          items:
+            type: string
+        related:
+          type: array
+          items:
+            $ref: '#/components/schemas/Event-write'
+        resources:
+          type: array
+          items:
+            $ref: '#/components/schemas/Resource-write'
+        alarms:
+          type: array
+          items:
+            $ref: '#/components/schemas/Alarm-write'
+        journal:
+          $ref: '#/components/schemas/Journal-write'
+    'Event:jsonld-read':
+      type: object
+      description: 'An event happening at a certain time and location, such as a concert, lecture, meeting or festival.'
+      externalDocs:
+        url: 'https://schema.org/Event'
+      properties:
+        '@context':
+          readOnly: true
+          type: string
+        '@id':
+          readOnly: true
+          type: string
+        '@type':
+          readOnly: true
+          type: string
+        id:
+          readOnly: true
+          description: 'The UUID identifier of this resource'
+          externalDocs:
+            url: 'http://schema.org/identifier'
+          type: string
+        name:
+          description: 'The name of this RequestType'
+          type: string
+        description:
+          description: 'An short description of this Event'
+          type: string
+        startDate:
+          description: 'The moment this event starts'
+          externalDocs:
+            url: 'http://schema.org/DateTime'
+          type: string
+          format: date-time
+        endDate:
+          description: 'The moment this event ends'
+          externalDocs:
+            url: 'http://schema.org/DateTime'
+          type: string
+          format: date-time
+        location:
+          description: 'The location of this event'
+          type: string
+        schedule:
+          description: 'An optional Schedule to which this event belongs'
+          $ref: '#/components/schemas/Schedule:jsonld-read'
+        calendar:
+          description: 'The Calendar to wich this event belongs'
+          $ref: '#/components/schemas/Calendar:jsonld-read'
+        class:
+          description: 'The security class of this event.'
+          type: string
+        created:
+          description: 'The creation in datetime of this event.'
+          externalDocs:
+            url: 'http://schema.org/DateTime'
+          type: string
+          format: date-time
+        geo:
+          description: 'The coordinates of this event.'
+          type: string
+        lastMod:
+          description: 'The last modification of this event in datetime.'
+          externalDocs:
+            url: 'http://schema.org/DateTime'
+          type: string
+          format: date-time
+        organiser:
+          description: 'The organiser of this event linked to with an url.'
+          type: string
+        status:
+          description: 'The status of this evemt.'
+          type: string
+        summary:
+          description: 'The summary of this event.'
+          type: string
+        transp:
+          description: 'The determination if the event should block the duration of the event for participants.'
+          type: string
+        url:
+          description: 'The url of this event.'
+          type: string
+        duration:
+          description: 'The duration of this event.'
+          type: integer
+        contact:
+          description: 'Url of this person'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: string
+        seq:
+          description: 'The version number of this event.'
+          type: integer
+        priority:
+          description: 'The priority of this event ranging from 1 (high) to 9 (low).'
+          type: integer
+        attendees:
+          description: 'The urls of the attendees of this event.'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: array
+          items:
+            type: string
+        attachments:
+          readOnly: true
+          description: 'The urls of the attachments of this event.'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: array
+          items:
+            type: string
+        categories:
+          description: 'The urls of the catergories this event belongs to.'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: array
+          items:
+            type: string
+        comments:
+          description: 'The urls of the comments that belong to this event.'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: array
+          items:
+            type: string
+        related:
+          type: array
+          items:
+            $ref: '#/components/schemas/Event:jsonld-read'
+        resources:
+          type: array
+          items:
+            $ref: '#/components/schemas/Resource:jsonld-read'
+        alarms:
+          type: array
+          items:
+            $ref: '#/components/schemas/Alarm:jsonld-read'
+        journal:
+          $ref: '#/components/schemas/Journal:jsonld-read'
+      required:
+        - name
+        - startDate
+        - endDate
+        - location
+        - class
+        - created
+        - lastMod
+        - organiser
+        - status
+        - summary
+        - transp
+        - url
+        - duration
+        - contact
+        - seq
+        - priority
+    'Event:jsonld-write':
+      type: object
+      description: 'An event happening at a certain time and location, such as a concert, lecture, meeting or festival.'
+      externalDocs:
+        url: 'https://schema.org/Event'
+      required:
+        - name
+        - startDate
+        - endDate
+        - location
+        - class
+        - created
+        - lastMod
+        - organiser
+        - status
+        - summary
+        - transp
+        - url
+        - duration
+        - contact
+        - seq
+        - priority
+      properties:
+        '@context':
+          readOnly: true
+          type: string
+        '@id':
+          readOnly: true
+          type: string
+        '@type':
+          readOnly: true
+          type: string
+        name:
+          description: 'The name of this RequestType'
+          type: string
+        description:
+          description: 'An short description of this Event'
+          type: string
+        startDate:
+          description: 'The moment this event starts'
+          externalDocs:
+            url: 'http://schema.org/DateTime'
+          type: string
+          format: date-time
+        endDate:
+          description: 'The moment this event ends'
+          externalDocs:
+            url: 'http://schema.org/DateTime'
+          type: string
+          format: date-time
+        location:
+          description: 'The location of this event'
+          type: string
+        schedule:
+          description: 'An optional Schedule to which this event belongs'
+          $ref: '#/components/schemas/Schedule:jsonld-write'
+        calendar:
+          description: 'The Calendar to wich this event belongs'
+          $ref: '#/components/schemas/Calendar:jsonld-write'
+        class:
+          description: 'The security class of this event.'
+          type: string
+        created:
+          description: 'The creation in datetime of this event.'
+          externalDocs:
+            url: 'http://schema.org/DateTime'
+          type: string
+          format: date-time
+        geo:
+          description: 'The coordinates of this event.'
+          type: string
+        lastMod:
+          description: 'The last modification of this event in datetime.'
+          externalDocs:
+            url: 'http://schema.org/DateTime'
+          type: string
+          format: date-time
+        organiser:
+          description: 'The organiser of this event linked to with an url.'
+          type: string
+        status:
+          description: 'The status of this evemt.'
+          type: string
+        summary:
+          description: 'The summary of this event.'
+          type: string
+        transp:
+          description: 'The determination if the event should block the duration of the event for participants.'
+          type: string
+        url:
+          description: 'The url of this event.'
+          type: string
+        duration:
+          description: 'The duration of this event.'
+          type: integer
+        contact:
+          description: 'Url of this person'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: string
+        seq:
+          description: 'The version number of this event.'
+          type: integer
+        priority:
+          description: 'The priority of this event ranging from 1 (high) to 9 (low).'
+          type: integer
+        attendees:
+          description: 'The urls of the attendees of this event.'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: array
+          items:
+            type: string
+        attachments:
+          readOnly: true
+          description: 'The urls of the attachments of this event.'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: array
+          items:
+            type: string
+        categories:
+          description: 'The urls of the catergories this event belongs to.'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: array
+          items:
+            type: string
+        comments:
+          description: 'The urls of the comments that belong to this event.'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: array
+          items:
+            type: string
+        related:
+          type: array
+          items:
+            $ref: '#/components/schemas/Event:jsonld-write'
+        resources:
+          type: array
+          items:
+            $ref: '#/components/schemas/Resource:jsonld-write'
+        alarms:
+          type: array
+          items:
+            $ref: '#/components/schemas/Alarm:jsonld-write'
+        journal:
+          $ref: '#/components/schemas/Journal:jsonld-write'
+    Freebusy-read:
+      type: object
+      description: 'This entity checks if a person is free or busy for a event.'
+      properties:
+        url:
+          readOnly: true
+          description: 'The UUID identifier of this resource'
+          externalDocs:
+            url: 'http://schema.org/identifier'
+          type: string
+        description:
+          description: 'An short description of this Event'
+          type: string
+        attendee:
+          description: 'The urls of the attendees of this event.'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: string
+        comments:
+          description: 'The urls of the comments that belong to this event.'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: array
+          items:
+            type: string
+        contact:
+          description: 'Url of this person'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: string
+        startDate:
+          description: 'The moment this event starts'
+          externalDocs:
+            url: 'http://schema.org/DateTime'
+          type: string
+          format: date-time
+        endDate:
+          description: 'The moment this event ends'
+          externalDocs:
+            url: 'http://schema.org/DateTime'
+          type: string
+          format: date-time
+        duration:
+          description: 'The duration of this event.'
+          type: integer
+        organiser:
+          description: 'The organiser of this event linked to with an url.'
+          type: string
+        freebusy:
+          description: 'The determination of the type freebusy.'
+          type: string
+        calendar:
+          $ref: '#/components/schemas/Calendar-read'
+        schedule:
+          $ref: '#/components/schemas/Schedule-read'
+      required:
+        - attendee
+        - contact
+        - startDate
+        - endDate
+        - duration
+        - organiser
+        - freebusy
+    Freebusy-write:
+      type: object
+      description: 'This entity checks if a person is free or busy for a event.'
+      properties:
+        url:
+          readOnly: true
+          description: 'The UUID identifier of this resource'
+          externalDocs:
+            url: 'http://schema.org/identifier'
+          type: string
+        description:
+          description: 'An short description of this Event'
+          type: string
+        attendee:
+          description: 'The urls of the attendees of this event.'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: string
+        comments:
+          description: 'The urls of the comments that belong to this event.'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: array
+          items:
+            type: string
+        contact:
+          description: 'Url of this person'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: string
+        startDate:
+          description: 'The moment this event starts'
+          externalDocs:
+            url: 'http://schema.org/DateTime'
+          type: string
+          format: date-time
+        endDate:
+          description: 'The moment this event ends'
+          externalDocs:
+            url: 'http://schema.org/DateTime'
+          type: string
+          format: date-time
+        duration:
+          description: 'The duration of this event.'
+          type: integer
+        organiser:
+          description: 'The organiser of this event linked to with an url.'
+          type: string
+        freebusy:
+          description: 'The determination of the type freebusy.'
+          type: string
+        calendar:
+          $ref: '#/components/schemas/Calendar-write'
+        schedule:
+          $ref: '#/components/schemas/Schedule-write'
+      required:
+        - attendee
+        - contact
+        - startDate
+        - endDate
+        - duration
+        - organiser
+        - freebusy
+    'Freebusy:jsonld-read':
+      type: object
+      description: 'This entity checks if a person is free or busy for a event.'
+      properties:
+        '@context':
+          readOnly: true
+          type: string
+        '@id':
+          readOnly: true
+          type: string
+        '@type':
+          readOnly: true
+          type: string
+        url:
+          readOnly: true
+          description: 'The UUID identifier of this resource'
+          externalDocs:
+            url: 'http://schema.org/identifier'
+          type: string
+        description:
+          description: 'An short description of this Event'
+          type: string
+        attendee:
+          description: 'The urls of the attendees of this event.'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: string
+        comments:
+          description: 'The urls of the comments that belong to this event.'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: array
+          items:
+            type: string
+        contact:
+          description: 'Url of this person'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: string
+        startDate:
+          description: 'The moment this event starts'
+          externalDocs:
+            url: 'http://schema.org/DateTime'
+          type: string
+          format: date-time
+        endDate:
+          description: 'The moment this event ends'
+          externalDocs:
+            url: 'http://schema.org/DateTime'
+          type: string
+          format: date-time
+        duration:
+          description: 'The duration of this event.'
+          type: integer
+        organiser:
+          description: 'The organiser of this event linked to with an url.'
+          type: string
+        freebusy:
+          description: 'The determination of the type freebusy.'
+          type: string
+        calendar:
+          $ref: '#/components/schemas/Calendar:jsonld-read'
+        schedule:
+          $ref: '#/components/schemas/Schedule:jsonld-read'
+      required:
+        - attendee
+        - contact
+        - startDate
+        - endDate
+        - duration
+        - organiser
+        - freebusy
+    'Freebusy:jsonld-write':
+      type: object
+      description: 'This entity checks if a person is free or busy for a event.'
+      properties:
+        '@context':
+          readOnly: true
+          type: string
+        '@id':
+          readOnly: true
+          type: string
+        '@type':
+          readOnly: true
+          type: string
+        url:
+          readOnly: true
+          description: 'The UUID identifier of this resource'
+          externalDocs:
+            url: 'http://schema.org/identifier'
+          type: string
+        description:
+          description: 'An short description of this Event'
+          type: string
+        attendee:
+          description: 'The urls of the attendees of this event.'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: string
+        comments:
+          description: 'The urls of the comments that belong to this event.'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: array
+          items:
+            type: string
+        contact:
+          description: 'Url of this person'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: string
+        startDate:
+          description: 'The moment this event starts'
+          externalDocs:
+            url: 'http://schema.org/DateTime'
+          type: string
+          format: date-time
+        endDate:
+          description: 'The moment this event ends'
+          externalDocs:
+            url: 'http://schema.org/DateTime'
+          type: string
+          format: date-time
+        duration:
+          description: 'The duration of this event.'
+          type: integer
+        organiser:
+          description: 'The organiser of this event linked to with an url.'
+          type: string
+        freebusy:
+          description: 'The determination of the type freebusy.'
+          type: string
+        calendar:
+          $ref: '#/components/schemas/Calendar:jsonld-write'
+        schedule:
+          $ref: '#/components/schemas/Schedule:jsonld-write'
+      required:
+        - attendee
+        - contact
+        - startDate
+        - endDate
+        - duration
+        - organiser
+        - freebusy
+    Journal-read:
+      type: object
+      description: 'A journal from an event.'
+      properties:
+        id:
+          readOnly: true
+          description: 'The UUID identifier of this resource'
+          externalDocs:
+            url: 'http://schema.org/identifier'
+          type: string
+        name:
+          description: 'The name of this RequestType'
+          type: string
+        description:
+          description: 'An short description of this Event'
+          type: string
+        startDate:
+          description: 'The moment this event starts'
+          externalDocs:
+            url: 'http://schema.org/DateTime'
+          type: string
+          format: date-time
+        endDate:
+          description: 'The moment this event ends'
+          externalDocs:
+            url: 'http://schema.org/DateTime'
+          type: string
+          format: date-time
+        class:
+          description: 'The security class of this event.'
+          type: string
+        created:
+          description: 'The creation in datetime of this event.'
+          externalDocs:
+            url: 'http://schema.org/DateTime'
+          type: string
+          format: date-time
+        lastMod:
+          description: 'The last modification of this event in datetime.'
+          externalDocs:
+            url: 'http://schema.org/DateTime'
+          type: string
+          format: date-time
+        organiser:
+          description: 'The organiser of this event linked to with an url.'
+          type: string
+        status:
+          description: 'The status of this evemt.'
+          type: string
+        summary:
+          description: 'The summary of this event.'
+          type: string
+        transp:
+          description: 'The determination if the event should block the duration of the event for participants.'
+          type: string
+        url:
+          description: 'The url of this event.'
+          type: string
+        duration:
+          description: 'The duration of this event.'
+          type: integer
+        seq:
+          description: 'The version number of this event.'
+          type: integer
+        priority:
+          description: 'The priority of this event ranging from 1 (high) to 9 (low).'
+          type: integer
+        attendees:
+          description: 'The urls of the attendees of this event.'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: array
+          items:
+            type: string
+        attachments:
+          readOnly: true
+          description: 'The urls of the attachments of this event.'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: array
+          items:
+            type: string
+        categories:
+          description: 'The urls of the catergories this event belongs to.'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: array
+          items:
+            type: string
+        comments:
+          description: 'The urls of the comments that belong to this event.'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: array
+          items:
+            type: string
+        calendar:
+          $ref: '#/components/schemas/Calendar-read'
+        event:
+          $ref: '#/components/schemas/Event-read'
+      required:
+        - name
+        - startDate
+        - endDate
+        - class
+        - created
+        - lastMod
+        - organiser
+        - status
+        - summary
+        - transp
+        - url
+        - duration
+        - seq
+        - priority
+    Journal-write:
+      type: object
+      description: 'A journal from an event.'
+      required:
+        - name
+        - startDate
+        - endDate
+        - class
+        - created
+        - lastMod
+        - organiser
+        - status
+        - summary
+        - transp
+        - url
+        - duration
+        - seq
+        - priority
+      properties:
+        name:
+          description: 'The name of this RequestType'
+          type: string
+        description:
+          description: 'An short description of this Event'
+          type: string
+        startDate:
+          description: 'The moment this event starts'
+          externalDocs:
+            url: 'http://schema.org/DateTime'
+          type: string
+          format: date-time
+        endDate:
+          description: 'The moment this event ends'
+          externalDocs:
+            url: 'http://schema.org/DateTime'
+          type: string
+          format: date-time
+        class:
+          description: 'The security class of this event.'
+          type: string
+        created:
+          description: 'The creation in datetime of this event.'
+          externalDocs:
+            url: 'http://schema.org/DateTime'
+          type: string
+          format: date-time
+        lastMod:
+          description: 'The last modification of this event in datetime.'
+          externalDocs:
+            url: 'http://schema.org/DateTime'
+          type: string
+          format: date-time
+        organiser:
+          description: 'The organiser of this event linked to with an url.'
+          type: string
+        status:
+          description: 'The status of this evemt.'
+          type: string
+        summary:
+          description: 'The summary of this event.'
+          type: string
+        transp:
+          description: 'The determination if the event should block the duration of the event for participants.'
+          type: string
+        url:
+          description: 'The url of this event.'
+          type: string
+        duration:
+          description: 'The duration of this event.'
+          type: integer
+        seq:
+          description: 'The version number of this event.'
+          type: integer
+        priority:
+          description: 'The priority of this event ranging from 1 (high) to 9 (low).'
+          type: integer
+        attendees:
+          description: 'The urls of the attendees of this event.'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: array
+          items:
+            type: string
+        attachments:
+          readOnly: true
+          description: 'The urls of the attachments of this event.'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: array
+          items:
+            type: string
+        categories:
+          description: 'The urls of the catergories this event belongs to.'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: array
+          items:
+            type: string
+        comments:
+          description: 'The urls of the comments that belong to this event.'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: array
+          items:
+            type: string
+        calendar:
+          $ref: '#/components/schemas/Calendar-write'
+        event:
+          $ref: '#/components/schemas/Event-write'
+    'Journal:jsonld-read':
+      type: object
+      description: 'A journal from an event.'
+      properties:
+        '@context':
+          readOnly: true
+          type: string
+        '@id':
+          readOnly: true
+          type: string
+        '@type':
+          readOnly: true
+          type: string
+        id:
+          readOnly: true
+          description: 'The UUID identifier of this resource'
+          externalDocs:
+            url: 'http://schema.org/identifier'
+          type: string
+        name:
+          description: 'The name of this RequestType'
+          type: string
+        description:
+          description: 'An short description of this Event'
+          type: string
+        startDate:
+          description: 'The moment this event starts'
+          externalDocs:
+            url: 'http://schema.org/DateTime'
+          type: string
+          format: date-time
+        endDate:
+          description: 'The moment this event ends'
+          externalDocs:
+            url: 'http://schema.org/DateTime'
+          type: string
+          format: date-time
+        class:
+          description: 'The security class of this event.'
+          type: string
+        created:
+          description: 'The creation in datetime of this event.'
+          externalDocs:
+            url: 'http://schema.org/DateTime'
+          type: string
+          format: date-time
+        lastMod:
+          description: 'The last modification of this event in datetime.'
+          externalDocs:
+            url: 'http://schema.org/DateTime'
+          type: string
+          format: date-time
+        organiser:
+          description: 'The organiser of this event linked to with an url.'
+          type: string
+        status:
+          description: 'The status of this evemt.'
+          type: string
+        summary:
+          description: 'The summary of this event.'
+          type: string
+        transp:
+          description: 'The determination if the event should block the duration of the event for participants.'
+          type: string
+        url:
+          description: 'The url of this event.'
+          type: string
+        duration:
+          description: 'The duration of this event.'
+          type: integer
+        seq:
+          description: 'The version number of this event.'
+          type: integer
+        priority:
+          description: 'The priority of this event ranging from 1 (high) to 9 (low).'
+          type: integer
+        attendees:
+          description: 'The urls of the attendees of this event.'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: array
+          items:
+            type: string
+        attachments:
+          readOnly: true
+          description: 'The urls of the attachments of this event.'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: array
+          items:
+            type: string
+        categories:
+          description: 'The urls of the catergories this event belongs to.'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: array
+          items:
+            type: string
+        comments:
+          description: 'The urls of the comments that belong to this event.'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: array
+          items:
+            type: string
+        calendar:
+          $ref: '#/components/schemas/Calendar:jsonld-read'
+        event:
+          $ref: '#/components/schemas/Event:jsonld-read'
+      required:
+        - name
+        - startDate
+        - endDate
+        - class
+        - created
+        - lastMod
+        - organiser
+        - status
+        - summary
+        - transp
+        - url
+        - duration
+        - seq
+        - priority
+    'Journal:jsonld-write':
+      type: object
+      description: 'A journal from an event.'
+      required:
+        - name
+        - startDate
+        - endDate
+        - class
+        - created
+        - lastMod
+        - organiser
+        - status
+        - summary
+        - transp
+        - url
+        - duration
+        - seq
+        - priority
+      properties:
+        '@context':
+          readOnly: true
+          type: string
+        '@id':
+          readOnly: true
+          type: string
+        '@type':
+          readOnly: true
+          type: string
+        name:
+          description: 'The name of this RequestType'
+          type: string
+        description:
+          description: 'An short description of this Event'
+          type: string
+        startDate:
+          description: 'The moment this event starts'
+          externalDocs:
+            url: 'http://schema.org/DateTime'
+          type: string
+          format: date-time
+        endDate:
+          description: 'The moment this event ends'
+          externalDocs:
+            url: 'http://schema.org/DateTime'
+          type: string
+          format: date-time
+        class:
+          description: 'The security class of this event.'
+          type: string
+        created:
+          description: 'The creation in datetime of this event.'
+          externalDocs:
+            url: 'http://schema.org/DateTime'
+          type: string
+          format: date-time
+        lastMod:
+          description: 'The last modification of this event in datetime.'
+          externalDocs:
+            url: 'http://schema.org/DateTime'
+          type: string
+          format: date-time
+        organiser:
+          description: 'The organiser of this event linked to with an url.'
+          type: string
+        status:
+          description: 'The status of this evemt.'
+          type: string
+        summary:
+          description: 'The summary of this event.'
+          type: string
+        transp:
+          description: 'The determination if the event should block the duration of the event for participants.'
+          type: string
+        url:
+          description: 'The url of this event.'
+          type: string
+        duration:
+          description: 'The duration of this event.'
+          type: integer
+        seq:
+          description: 'The version number of this event.'
+          type: integer
+        priority:
+          description: 'The priority of this event ranging from 1 (high) to 9 (low).'
+          type: integer
+        attendees:
+          description: 'The urls of the attendees of this event.'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: array
+          items:
+            type: string
+        attachments:
+          readOnly: true
+          description: 'The urls of the attachments of this event.'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: array
+          items:
+            type: string
+        categories:
+          description: 'The urls of the catergories this event belongs to.'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: array
+          items:
+            type: string
+        comments:
+          description: 'The urls of the comments that belong to this event.'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: array
+          items:
+            type: string
+        calendar:
+          $ref: '#/components/schemas/Calendar:jsonld-write'
+        event:
+          $ref: '#/components/schemas/Event:jsonld-write'
+    Resource-read:
+      type: object
+      description: 'Describes resources that can be needed for an event.'
+      properties:
+        id:
+          readOnly: true
+          description: 'The UUID identifier of this resource'
+          externalDocs:
+            url: 'http://schema.org/identifier'
+          type: string
+        name:
+          description: 'The name of this RequestType'
+          type: string
+        description:
+          description: 'An short description of this Event'
+          type: string
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/Event-read'
+        todos:
+          type: array
+          items:
+            $ref: '#/components/schemas/Todo-read'
+      required:
+        - name
+    Resource-write:
+      type: object
+      description: 'Describes resources that can be needed for an event.'
+      required:
+        - name
+      properties:
+        name:
+          description: 'The name of this RequestType'
+          type: string
+        description:
+          description: 'An short description of this Event'
+          type: string
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/Event-write'
+        todos:
+          type: array
+          items:
+            $ref: '#/components/schemas/Todo-write'
+    'Resource:jsonld-read':
+      type: object
+      description: 'Describes resources that can be needed for an event.'
+      properties:
+        '@context':
+          readOnly: true
+          type: string
+        '@id':
+          readOnly: true
+          type: string
+        '@type':
+          readOnly: true
+          type: string
+        id:
+          readOnly: true
+          description: 'The UUID identifier of this resource'
+          externalDocs:
+            url: 'http://schema.org/identifier'
+          type: string
+        name:
+          description: 'The name of this RequestType'
+          type: string
+        description:
+          description: 'An short description of this Event'
+          type: string
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/Event:jsonld-read'
+        todos:
+          type: array
+          items:
+            $ref: '#/components/schemas/Todo:jsonld-read'
+      required:
+        - name
+    'Resource:jsonld-write':
+      type: object
+      description: 'Describes resources that can be needed for an event.'
+      required:
+        - name
+      properties:
+        '@context':
+          readOnly: true
+          type: string
+        '@id':
+          readOnly: true
+          type: string
+        '@type':
+          readOnly: true
+          type: string
+        name:
+          description: 'The name of this RequestType'
+          type: string
+        description:
+          description: 'An short description of this Event'
+          type: string
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/Event:jsonld-write'
+        todos:
+          type: array
+          items:
+            $ref: '#/components/schemas/Todo:jsonld-write'
+    Schedule-read:
+      type: object
+      description: 'A schedule defines a repeating time period used to describe a regularly occurring Event. At a minimum a schedule will specify repeatFrequency which describes the interval between occurences of the event. Additional information can be provided to specify the schedule more precisely. This includes identifying the day(s) of the week or month when the recurring event will take place, in addition to its start and end time. Schedules may also have start and end dates to indicate when they are active, e.g. to define a limited calendar of events.'
+      externalDocs:
+        url: 'http://schema.org/PostalAddress'
+      properties:
+        id:
+          readOnly: true
+          description: 'The UUID identifier of this resource'
+          externalDocs:
+            url: 'http://schema.org/identifier'
+          type: string
+        name:
+          description: 'The name of this Schedule'
+          type: string
+        description:
+          description: 'An short description of this Schedule'
+          type: string
+        byDay:
+          description: 'Defines the day(s) of the week on which a recurring Event takes place. Sunday is both 0 and 7.'
+          type: integer
+        byMonth:
+          description: 'Defines the month(s) of the year on which a recurring Event takes place. Specified as an Integer between 1-12. January is 1.'
+          type: integer
+        byMonthDay:
+          description: 'Defines the day(s) of the month on which a recurring Event takes place. Specified as an Integer between 1-31.'
+          type: integer
+        events:
+          description: 'The that belong to or are coused by this Schedule'
+          type: array
+          items:
+            $ref: '#/components/schemas/Event-read'
+        exceptDates:
+          description: 'Defines the day(s) of the month on which a recurring Event takes place. Specified as an Integer between 1-31.'
+          type: array
+          items:
+            type: string
+        repeatCount:
+          description: 'Defines the number of times a recurring Event will take place'
+          type: integer
+        repeatFrequency:
+          description: 'Defines the frequency at which Events will occur according to a schedule Schedule. The intervals between events should be defined as a [Duration](https://en.wikipedia.org/wiki/ISO_8601#Durations) of time.'
+          type: string
+        calendar:
+          description: 'The Calendar to wich this Schedule belongs'
+          $ref: '#/components/schemas/Calendar-read'
+        freebusies:
+          type: array
+          items:
+            $ref: '#/components/schemas/Freebusy-read'
+        todos:
+          type: array
+          items:
+            $ref: '#/components/schemas/Todo-read'
+      required:
+        - name
+    Schedule-write:
+      type: object
+      description: 'A schedule defines a repeating time period used to describe a regularly occurring Event. At a minimum a schedule will specify repeatFrequency which describes the interval between occurences of the event. Additional information can be provided to specify the schedule more precisely. This includes identifying the day(s) of the week or month when the recurring event will take place, in addition to its start and end time. Schedules may also have start and end dates to indicate when they are active, e.g. to define a limited calendar of events.'
+      externalDocs:
+        url: 'http://schema.org/PostalAddress'
+      required:
+        - name
+      properties:
+        name:
+          description: 'The name of this Schedule'
+          type: string
+        description:
+          description: 'An short description of this Schedule'
+          type: string
+        byDay:
+          description: 'Defines the day(s) of the week on which a recurring Event takes place. Sunday is both 0 and 7.'
+          type: integer
+        byMonth:
+          description: 'Defines the month(s) of the year on which a recurring Event takes place. Specified as an Integer between 1-12. January is 1.'
+          type: integer
+        byMonthDay:
+          description: 'Defines the day(s) of the month on which a recurring Event takes place. Specified as an Integer between 1-31.'
+          type: integer
+        events:
+          description: 'The that belong to or are coused by this Schedule'
+          type: array
+          items:
+            $ref: '#/components/schemas/Event-write'
+        exceptDates:
+          description: 'Defines the day(s) of the month on which a recurring Event takes place. Specified as an Integer between 1-31.'
+          type: array
+          items:
+            type: string
+        repeatCount:
+          description: 'Defines the number of times a recurring Event will take place'
+          type: integer
+        repeatFrequency:
+          description: 'Defines the frequency at which Events will occur according to a schedule Schedule. The intervals between events should be defined as a [Duration](https://en.wikipedia.org/wiki/ISO_8601#Durations) of time.'
+          type: string
+        calendar:
+          description: 'The Calendar to wich this Schedule belongs'
+          $ref: '#/components/schemas/Calendar-write'
+        freebusies:
+          type: array
+          items:
+            $ref: '#/components/schemas/Freebusy-write'
+        todos:
+          type: array
+          items:
+            $ref: '#/components/schemas/Todo-write'
+    'Schedule:jsonld-read':
+      type: object
+      description: 'A schedule defines a repeating time period used to describe a regularly occurring Event. At a minimum a schedule will specify repeatFrequency which describes the interval between occurences of the event. Additional information can be provided to specify the schedule more precisely. This includes identifying the day(s) of the week or month when the recurring event will take place, in addition to its start and end time. Schedules may also have start and end dates to indicate when they are active, e.g. to define a limited calendar of events.'
+      externalDocs:
+        url: 'http://schema.org/PostalAddress'
+      properties:
+        '@context':
+          readOnly: true
+          type: string
+        '@id':
+          readOnly: true
+          type: string
+        '@type':
+          readOnly: true
+          type: string
+        id:
+          readOnly: true
+          description: 'The UUID identifier of this resource'
+          externalDocs:
+            url: 'http://schema.org/identifier'
+          type: string
+        name:
+          description: 'The name of this Schedule'
+          type: string
+        description:
+          description: 'An short description of this Schedule'
+          type: string
+        byDay:
+          description: 'Defines the day(s) of the week on which a recurring Event takes place. Sunday is both 0 and 7.'
+          type: integer
+        byMonth:
+          description: 'Defines the month(s) of the year on which a recurring Event takes place. Specified as an Integer between 1-12. January is 1.'
+          type: integer
+        byMonthDay:
+          description: 'Defines the day(s) of the month on which a recurring Event takes place. Specified as an Integer between 1-31.'
+          type: integer
+        events:
+          description: 'The that belong to or are coused by this Schedule'
+          type: array
+          items:
+            $ref: '#/components/schemas/Event:jsonld-read'
+        exceptDates:
+          description: 'Defines the day(s) of the month on which a recurring Event takes place. Specified as an Integer between 1-31.'
+          type: array
+          items:
+            type: string
+        repeatCount:
+          description: 'Defines the number of times a recurring Event will take place'
+          type: integer
+        repeatFrequency:
+          description: 'Defines the frequency at which Events will occur according to a schedule Schedule. The intervals between events should be defined as a [Duration](https://en.wikipedia.org/wiki/ISO_8601#Durations) of time.'
+          type: string
+        calendar:
+          description: 'The Calendar to wich this Schedule belongs'
+          $ref: '#/components/schemas/Calendar:jsonld-read'
+        freebusies:
+          type: array
+          items:
+            $ref: '#/components/schemas/Freebusy:jsonld-read'
+        todos:
+          type: array
+          items:
+            $ref: '#/components/schemas/Todo:jsonld-read'
+      required:
+        - name
+    'Schedule:jsonld-write':
+      type: object
+      description: 'A schedule defines a repeating time period used to describe a regularly occurring Event. At a minimum a schedule will specify repeatFrequency which describes the interval between occurences of the event. Additional information can be provided to specify the schedule more precisely. This includes identifying the day(s) of the week or month when the recurring event will take place, in addition to its start and end time. Schedules may also have start and end dates to indicate when they are active, e.g. to define a limited calendar of events.'
+      externalDocs:
+        url: 'http://schema.org/PostalAddress'
+      required:
+        - name
+      properties:
+        '@context':
+          readOnly: true
+          type: string
+        '@id':
+          readOnly: true
+          type: string
+        '@type':
+          readOnly: true
+          type: string
+        name:
+          description: 'The name of this Schedule'
+          type: string
+        description:
+          description: 'An short description of this Schedule'
+          type: string
+        byDay:
+          description: 'Defines the day(s) of the week on which a recurring Event takes place. Sunday is both 0 and 7.'
+          type: integer
+        byMonth:
+          description: 'Defines the month(s) of the year on which a recurring Event takes place. Specified as an Integer between 1-12. January is 1.'
+          type: integer
+        byMonthDay:
+          description: 'Defines the day(s) of the month on which a recurring Event takes place. Specified as an Integer between 1-31.'
+          type: integer
+        events:
+          description: 'The that belong to or are coused by this Schedule'
+          type: array
+          items:
+            $ref: '#/components/schemas/Event:jsonld-write'
+        exceptDates:
+          description: 'Defines the day(s) of the month on which a recurring Event takes place. Specified as an Integer between 1-31.'
+          type: array
+          items:
+            type: string
+        repeatCount:
+          description: 'Defines the number of times a recurring Event will take place'
+          type: integer
+        repeatFrequency:
+          description: 'Defines the frequency at which Events will occur according to a schedule Schedule. The intervals between events should be defined as a [Duration](https://en.wikipedia.org/wiki/ISO_8601#Durations) of time.'
+          type: string
+        calendar:
+          description: 'The Calendar to wich this Schedule belongs'
+          $ref: '#/components/schemas/Calendar:jsonld-write'
+        freebusies:
+          type: array
+          items:
+            $ref: '#/components/schemas/Freebusy:jsonld-write'
+        todos:
+          type: array
+          items:
+            $ref: '#/components/schemas/Todo:jsonld-write'
+    Todo-read:
+      type: object
+      description: 'A to-do from an event.'
+      properties:
+        id:
+          readOnly: true
+          description: 'The UUID identifier of this resource'
+          externalDocs:
+            url: 'http://schema.org/identifier'
+          type: string
+        name:
+          description: 'The name of this RequestType'
+          type: string
+        description:
+          description: 'An short description of this Event'
+          type: string
+        startDate:
+          description: 'The moment this event starts'
+          externalDocs:
+            url: 'http://schema.org/DateTime'
+          type: string
+          format: date-time
+        endDate:
+          description: 'The moment this event ends'
+          externalDocs:
+            url: 'http://schema.org/DateTime'
           type: string
           format: date-time
         location:
@@ -5648,6 +7351,8 @@ components:
           type: string
         created:
           description: 'The creation in datetime of this event.'
+          externalDocs:
+            url: 'http://schema.org/DateTime'
           type: string
           format: date-time
         geo:
@@ -5655,13 +7360,15 @@ components:
           type: string
         lastMod:
           description: 'The last modification of this event in datetime.'
+          externalDocs:
+            url: 'http://schema.org/DateTime'
           type: string
           format: date-time
         organiser:
           description: 'The organiser of this event linked to with an url.'
           type: string
         status:
-          description: 'The status of this event.'
+          description: 'The status of this evemt.'
           type: string
         summary:
           description: 'The summary of this event.'
@@ -5674,6 +7381,8 @@ components:
           type: integer
         contact:
           description: 'Url of this person'
+          externalDocs:
+            url: 'http://schema.org/url'
           type: string
         seq:
           description: 'The version number of this event.'
@@ -5683,27 +7392,37 @@ components:
           type: integer
         attendees:
           description: 'The urls of the attendees of this event.'
+          externalDocs:
+            url: 'http://schema.org/url'
           type: array
           items:
             type: string
         attachments:
           readOnly: true
           description: 'The urls of the attachments of this event.'
+          externalDocs:
+            url: 'http://schema.org/url'
           type: array
           items:
             type: string
         categories:
           description: 'The urls of the catergories this event belongs to.'
+          externalDocs:
+            url: 'http://schema.org/url'
           type: array
           items:
             type: string
         comments:
           description: 'The urls of the comments that belong to this event.'
+          externalDocs:
+            url: 'http://schema.org/url'
           type: array
           items:
             type: string
         completed:
           description: 'The date and time a to-do is completed.'
+          externalDocs:
+            url: 'http://schema.org/DateTime'
           type: string
           format: date-time
         percentageDone:
@@ -5767,10 +7486,14 @@ components:
           type: string
         startDate:
           description: 'The moment this event starts'
+          externalDocs:
+            url: 'http://schema.org/DateTime'
           type: string
           format: date-time
         endDate:
           description: 'The moment this event ends'
+          externalDocs:
+            url: 'http://schema.org/DateTime'
           type: string
           format: date-time
         location:
@@ -5781,6 +7504,8 @@ components:
           type: string
         created:
           description: 'The creation in datetime of this event.'
+          externalDocs:
+            url: 'http://schema.org/DateTime'
           type: string
           format: date-time
         geo:
@@ -5788,13 +7513,15 @@ components:
           type: string
         lastMod:
           description: 'The last modification of this event in datetime.'
+          externalDocs:
+            url: 'http://schema.org/DateTime'
           type: string
           format: date-time
         organiser:
           description: 'The organiser of this event linked to with an url.'
           type: string
         status:
-          description: 'The status of this event.'
+          description: 'The status of this evemt.'
           type: string
         summary:
           description: 'The summary of this event.'
@@ -5807,6 +7534,8 @@ components:
           type: integer
         contact:
           description: 'Url of this person'
+          externalDocs:
+            url: 'http://schema.org/url'
           type: string
         seq:
           description: 'The version number of this event.'
@@ -5816,27 +7545,37 @@ components:
           type: integer
         attendees:
           description: 'The urls of the attendees of this event.'
+          externalDocs:
+            url: 'http://schema.org/url'
           type: array
           items:
             type: string
         attachments:
           readOnly: true
           description: 'The urls of the attachments of this event.'
+          externalDocs:
+            url: 'http://schema.org/url'
           type: array
           items:
             type: string
         categories:
           description: 'The urls of the catergories this event belongs to.'
+          externalDocs:
+            url: 'http://schema.org/url'
           type: array
           items:
             type: string
         comments:
           description: 'The urls of the comments that belong to this event.'
+          externalDocs:
+            url: 'http://schema.org/url'
           type: array
           items:
             type: string
         completed:
           description: 'The date and time a to-do is completed.'
+          externalDocs:
+            url: 'http://schema.org/DateTime'
           type: string
           format: date-time
         percentageDone:
@@ -5852,6 +7591,306 @@ components:
           $ref: '#/components/schemas/Calendar-write'
         schedule:
           $ref: '#/components/schemas/Schedule-write'
+    'Todo:jsonld-read':
+      type: object
+      description: 'A to-do from an event.'
+      properties:
+        '@context':
+          readOnly: true
+          type: string
+        '@id':
+          readOnly: true
+          type: string
+        '@type':
+          readOnly: true
+          type: string
+        id:
+          readOnly: true
+          description: 'The UUID identifier of this resource'
+          externalDocs:
+            url: 'http://schema.org/identifier'
+          type: string
+        name:
+          description: 'The name of this RequestType'
+          type: string
+        description:
+          description: 'An short description of this Event'
+          type: string
+        startDate:
+          description: 'The moment this event starts'
+          externalDocs:
+            url: 'http://schema.org/DateTime'
+          type: string
+          format: date-time
+        endDate:
+          description: 'The moment this event ends'
+          externalDocs:
+            url: 'http://schema.org/DateTime'
+          type: string
+          format: date-time
+        location:
+          description: 'The location of this event'
+          type: string
+        class:
+          description: 'The security class of this event.'
+          type: string
+        created:
+          description: 'The creation in datetime of this event.'
+          externalDocs:
+            url: 'http://schema.org/DateTime'
+          type: string
+          format: date-time
+        geo:
+          description: 'The coordinates of this event.'
+          type: string
+        lastMod:
+          description: 'The last modification of this event in datetime.'
+          externalDocs:
+            url: 'http://schema.org/DateTime'
+          type: string
+          format: date-time
+        organiser:
+          description: 'The organiser of this event linked to with an url.'
+          type: string
+        status:
+          description: 'The status of this evemt.'
+          type: string
+        summary:
+          description: 'The summary of this event.'
+          type: string
+        url:
+          description: 'The url of this event.'
+          type: string
+        duration:
+          description: 'The duration of this event.'
+          type: integer
+        contact:
+          description: 'Url of this person'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: string
+        seq:
+          description: 'The version number of this event.'
+          type: integer
+        priority:
+          description: 'The priority of this event ranging from 1 (high) to 9 (low).'
+          type: integer
+        attendees:
+          description: 'The urls of the attendees of this event.'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: array
+          items:
+            type: string
+        attachments:
+          readOnly: true
+          description: 'The urls of the attachments of this event.'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: array
+          items:
+            type: string
+        categories:
+          description: 'The urls of the catergories this event belongs to.'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: array
+          items:
+            type: string
+        comments:
+          description: 'The urls of the comments that belong to this event.'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: array
+          items:
+            type: string
+        completed:
+          description: 'The date and time a to-do is completed.'
+          externalDocs:
+            url: 'http://schema.org/DateTime'
+          type: string
+          format: date-time
+        percentageDone:
+          description: 'The percentage of a to-do that has been comepleted.'
+          type: integer
+        resources:
+          type: array
+          items:
+            $ref: '#/components/schemas/Resource:jsonld-read'
+        alarm:
+          $ref: '#/components/schemas/Alarm:jsonld-read'
+        calendar:
+          $ref: '#/components/schemas/Calendar:jsonld-read'
+        schedule:
+          $ref: '#/components/schemas/Schedule:jsonld-read'
+      required:
+        - name
+        - startDate
+        - endDate
+        - location
+        - class
+        - created
+        - lastMod
+        - organiser
+        - status
+        - summary
+        - url
+        - duration
+        - contact
+        - seq
+        - priority
+        - completed
+        - percentageDone
+    'Todo:jsonld-write':
+      type: object
+      description: 'A to-do from an event.'
+      required:
+        - name
+        - startDate
+        - endDate
+        - location
+        - class
+        - created
+        - lastMod
+        - organiser
+        - status
+        - summary
+        - url
+        - duration
+        - contact
+        - seq
+        - priority
+        - completed
+        - percentageDone
+      properties:
+        '@context':
+          readOnly: true
+          type: string
+        '@id':
+          readOnly: true
+          type: string
+        '@type':
+          readOnly: true
+          type: string
+        name:
+          description: 'The name of this RequestType'
+          type: string
+        description:
+          description: 'An short description of this Event'
+          type: string
+        startDate:
+          description: 'The moment this event starts'
+          externalDocs:
+            url: 'http://schema.org/DateTime'
+          type: string
+          format: date-time
+        endDate:
+          description: 'The moment this event ends'
+          externalDocs:
+            url: 'http://schema.org/DateTime'
+          type: string
+          format: date-time
+        location:
+          description: 'The location of this event'
+          type: string
+        class:
+          description: 'The security class of this event.'
+          type: string
+        created:
+          description: 'The creation in datetime of this event.'
+          externalDocs:
+            url: 'http://schema.org/DateTime'
+          type: string
+          format: date-time
+        geo:
+          description: 'The coordinates of this event.'
+          type: string
+        lastMod:
+          description: 'The last modification of this event in datetime.'
+          externalDocs:
+            url: 'http://schema.org/DateTime'
+          type: string
+          format: date-time
+        organiser:
+          description: 'The organiser of this event linked to with an url.'
+          type: string
+        status:
+          description: 'The status of this evemt.'
+          type: string
+        summary:
+          description: 'The summary of this event.'
+          type: string
+        url:
+          description: 'The url of this event.'
+          type: string
+        duration:
+          description: 'The duration of this event.'
+          type: integer
+        contact:
+          description: 'Url of this person'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: string
+        seq:
+          description: 'The version number of this event.'
+          type: integer
+        priority:
+          description: 'The priority of this event ranging from 1 (high) to 9 (low).'
+          type: integer
+        attendees:
+          description: 'The urls of the attendees of this event.'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: array
+          items:
+            type: string
+        attachments:
+          readOnly: true
+          description: 'The urls of the attachments of this event.'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: array
+          items:
+            type: string
+        categories:
+          description: 'The urls of the catergories this event belongs to.'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: array
+          items:
+            type: string
+        comments:
+          description: 'The urls of the comments that belong to this event.'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: array
+          items:
+            type: string
+        completed:
+          description: 'The date and time a to-do is completed.'
+          externalDocs:
+            url: 'http://schema.org/DateTime'
+          type: string
+          format: date-time
+        percentageDone:
+          description: 'The percentage of a to-do that has been comepleted.'
+          type: integer
+        resources:
+          type: array
+          items:
+            $ref: '#/components/schemas/Resource:jsonld-write'
+        alarm:
+          $ref: '#/components/schemas/Alarm:jsonld-write'
+        calendar:
+          $ref: '#/components/schemas/Calendar:jsonld-write'
+        schedule:
+          $ref: '#/components/schemas/Schedule:jsonld-write'
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      in: header
+      description: 'Value for the Authorization header'
+      name: Authorization
 definitions:
   Alarm-read:
     properties:
@@ -6004,17 +8043,21 @@ definitions:
         example: 'https://con.example.org'
         format: url
       seq:
-        example: '1'
+        example: '1.0'
       priority:
         example: '1'
       attendees:
         example: 'https://con.example.com, https://con.example2.com'
+        format: url
       attachments:
         example: 'https://example.org, https://example2.org'
+        format: url
       categories:
         example: 'https://con.example.com, https://con.example2.com'
+        format: url
       comments:
         example: 'https://con.example.com, https://con.example2.com'
+        format: url
       schedule: []
       calendar: []
       related: []
@@ -6072,17 +8115,21 @@ definitions:
         example: 'https://con.example.org'
         format: url
       seq:
-        example: '1'
+        example: '1.0'
       priority:
         example: '1'
       attendees:
         example: 'https://con.example.com, https://con.example2.com'
+        format: url
       attachments:
         example: 'https://example.org, https://example2.org'
+        format: url
       categories:
         example: 'https://con.example.com, https://con.example2.com'
+        format: url
       comments:
         example: 'https://con.example.com, https://con.example2.com'
+        format: url
       schedule: []
       calendar: []
       related: []
@@ -6096,11 +8143,9 @@ definitions:
       - contact
   Freebusy-read:
     properties:
-      id:
-        example: e2984465-190a-4562-829e-a8cca81aa35d
-        format: uuid
       url:
         example: conduction.nl
+        format: uuid
         maxLength: 255
       description:
         example: 'This is the best Event ever'
@@ -6111,6 +8156,7 @@ definitions:
         maxLength: 255
       comments:
         example: 'https://con.example.com, https://con.example2.com'
+        format: url
       contact:
         example: 'https://con.example.org'
         format: url
@@ -6136,9 +8182,6 @@ definitions:
       - freebusy
   Freebusy-write:
     properties:
-      url:
-        example: conduction.nl
-        maxLength: 255
       description:
         example: 'This is the best Event ever'
         maxLength: 2550
@@ -6148,6 +8191,7 @@ definitions:
         maxLength: 255
       comments:
         example: 'https://con.example.com, https://con.example2.com'
+        format: url
       contact:
         example: 'https://con.example.org'
         format: url
@@ -6196,9 +8240,6 @@ definitions:
       organiser:
         example: conduction.nl
         maxLength: 255
-      contact:
-        example: 'https://con.example.org'
-        format: url
       status:
         example: Confirmed
         maxLength: 255
@@ -6219,19 +8260,22 @@ definitions:
         example: '1'
       attendees:
         example: 'https://con.example.com, https://con.example2.com'
+        format: url
       attachments:
         example: 'https://example.org, https://example2.org'
+        format: url
       categories:
         example: 'https://con.example.com, https://con.example2.com'
+        format: url
       comments:
         example: 'https://con.example.com, https://con.example2.com'
+        format: url
       calendar: []
       event: []
     required:
       - name
       - startDate
       - endDate
-      - contact
   Journal-write:
     properties:
       name:
@@ -6254,9 +8298,6 @@ definitions:
       organiser:
         example: conduction.nl
         maxLength: 255
-      contact:
-        example: 'https://con.example.org'
-        format: url
       status:
         example: Confirmed
         maxLength: 255
@@ -6277,19 +8318,22 @@ definitions:
         example: '1'
       attendees:
         example: 'https://con.example.com, https://con.example2.com'
+        format: url
       attachments:
         example: 'https://example.org, https://example2.org'
+        format: url
       categories:
         example: 'https://con.example.com, https://con.example2.com'
+        format: url
       comments:
         example: 'https://con.example.com, https://con.example2.com'
+        format: url
       calendar: []
       event: []
     required:
       - name
       - startDate
       - endDate
-      - contact
   Resource-read:
     properties:
       id:
@@ -6412,8 +8456,7 @@ definitions:
         example: 'This is the best event ever.'
         maxLength: 255
       url:
-        example: 'https://www.conduction.nl'
-        format: url
+        example: conduction.nl
         maxLength: 255
       duration:
         example: '2'
@@ -6421,21 +8464,25 @@ definitions:
         example: 'https://con.example.org'
         format: url
       seq:
-        example: '1'
+        example: '1.0'
       priority:
         example: '1'
       attendees:
         example: 'https://con.example.com, https://con.example2.com'
+        format: url
       attachments:
         example: 'https://example.org, https://example2.org'
+        format: url
       categories:
         example: 'https://con.example.com, https://con.example2.com'
+        format: url
       comments:
         example: 'https://con.example.com, https://con.example2.com'
+        format: url
       completed:
         example: '10-12-2019 15:00:00'
       percentageDone:
-        example: '40'
+        example: 40%
       resources: []
       alarm: []
       calendar: []
@@ -6482,8 +8529,7 @@ definitions:
         example: 'This is the best event ever.'
         maxLength: 255
       url:
-        example: 'https://www.conduction.nl'
-        format: url
+        example: conduction.nl
         maxLength: 255
       duration:
         example: '2'
@@ -6491,21 +8537,25 @@ definitions:
         example: 'https://con.example.org'
         format: url
       seq:
-        example: '1'
+        example: '1.0'
       priority:
         example: '1'
       attendees:
         example: 'https://con.example.com, https://con.example2.com'
+        format: url
       attachments:
         example: 'https://example.org, https://example2.org'
+        format: url
       categories:
         example: 'https://con.example.com, https://con.example2.com'
+        format: url
       comments:
         example: 'https://con.example.com, https://con.example2.com'
+        format: url
       completed:
         example: '10-12-2019 15:00:00'
       percentageDone:
-        example: '40'
+        example: 40%
       resources: []
       alarm: []
       calendar: []
