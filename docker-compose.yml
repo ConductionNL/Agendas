@@ -235,8 +235,6 @@ services:
     # Don't use this proxy in prod
     build:
       context: ./h2-proxy
-      cache_from:
-        - ${CONTAINER_REGISTRY_BASE}/${CONTAINER_PROJECT_NAME}-h2-proxy
     depends_on:
       - db
       - client

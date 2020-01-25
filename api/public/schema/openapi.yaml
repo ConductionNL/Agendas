@@ -4726,20 +4726,445 @@ components:
       type: object
       description: 'Used to describe alarms for Events and Todos.'
       properties:
-        '@context':
+        id:
           readOnly: true
+          description: 'The UUID identifier of this resource'
           type: string
-        '@id':
+        name:
+          description: 'The name of this Calendar'
+          type: string
+        description:
+          description: 'An short description of this Calenda'
+          type: string
+        events:
+          description: 'Events that belong to this Calendar'
+          type: array
+          items:
+            $ref: '#/components/schemas/Event-read'
+        schedules:
+          description: 'Schedules that belong to this Calendar'
+          type: array
+          items:
+            $ref: '#/components/schemas/Schedule-read'
+        timeZone:
+          description: 'The time zone of this calendar'
+          type: string
+        freebusies:
+          type: array
+          items:
+            $ref: '#/components/schemas/Freebusy-read'
+        journals:
+          type: array
+          items:
+            $ref: '#/components/schemas/Journal-read'
+        todos:
+          type: array
+          items:
+            $ref: '#/components/schemas/Todo-read'
+      required:
+        - name
+        - timeZone
+    Calendar-write:
+      type: object
+      description: 'A Calendar is a collection of events tied to an unque person or resource.'
+      required:
+        - name
+        - timeZone
+      properties:
+        name:
+          description: 'The name of this Calendar'
+          type: string
+        description:
+          description: 'An short description of this Calenda'
+          type: string
+        events:
+          description: 'Events that belong to this Calendar'
+          type: array
+          items:
+            $ref: '#/components/schemas/Event-write'
+        schedules:
+          description: 'Schedules that belong to this Calendar'
+          type: array
+          items:
+            $ref: '#/components/schemas/Schedule-write'
+        timeZone:
+          description: 'The time zone of this calendar'
+          type: string
+        freebusies:
+          type: array
+          items:
+            $ref: '#/components/schemas/Freebusy-write'
+        journals:
+          type: array
+          items:
+            $ref: '#/components/schemas/Journal-write'
+        todos:
+          type: array
+          items:
+            $ref: '#/components/schemas/Todo-write'
+    Event-read:
+      type: object
+      description: 'An event happening at a certain time and location, such as a concert, lecture, meeting or festival.'
+      externalDocs:
+        url: 'https://schema.org/Event'
+      properties:
+        id:
           readOnly: true
+          description: 'The UUID identifier of this resource'
           type: string
-        '@type':
+        name:
+          description: 'The name of this RequestType'
+          type: string
+        description:
+          description: 'An short description of this Event'
+          type: string
+        startDate:
+          description: 'The moment this event starts'
+          type: string
+          format: date-time
+        endDate:
+          description: 'The moment this event ends'
+          type: string
+          format: date-time
+        location:
+          description: 'The location of this event'
+          type: string
+        schedule:
+          description: 'An optional Schedule to which this event belongs'
+          $ref: '#/components/schemas/Schedule-read'
+        calendar:
+          description: 'The Calendar to wich this event belongs'
+          $ref: '#/components/schemas/Calendar-read'
+        class:
+          description: 'The security class of this event.'
+          type: string
+        created:
+          description: 'The creation in datetime of this event.'
+          type: string
+          format: date-time
+        geo:
+          description: 'The coordinates of this event.'
+          type: string
+        lastMod:
+          description: 'The last modification of this event in datetime.'
+          type: string
+          format: date-time
+        organiser:
+          description: 'The organiser of this event linked to with an url.'
+          type: string
+        status:
+          description: 'The status of this evemt.'
+          type: string
+        summary:
+          description: 'The summary of this event.'
+          type: string
+        transp:
+          description: 'The determination if the event should block the duration of the event for participants.'
+          type: string
+        url:
+          description: 'The url of this event.'
+          type: string
+        duration:
+          description: 'The duration of this event.'
+          type: integer
+        contact:
+          description: 'Url of this person'
+          type: string
+        seq:
+          description: 'The version number of this event.'
+          type: integer
+        priority:
+          description: 'The priority of this event ranging from 1 (high) to 9 (low).'
+          type: integer
+        attendees:
+          description: 'The urls of the attendees of this event.'
+          type: array
+          items:
+            type: string
+        attachments:
           readOnly: true
+          description: 'The urls of the attachments of this event.'
+          type: array
+          items:
+            type: string
+        categories:
+          description: 'The urls of the catergories this event belongs to.'
+          type: array
+          items:
+            type: string
+        comments:
+          description: 'The urls of the comments that belong to this event.'
+          type: array
+          items:
+            type: string
+        related:
+          type: array
+          items:
+            $ref: '#/components/schemas/Event-read'
+        resources:
+          type: array
+          items:
+            $ref: '#/components/schemas/Resource-read'
+        alarms:
+          type: array
+          items:
+            $ref: '#/components/schemas/Alarm-read'
+        journal:
+          $ref: '#/components/schemas/Journal-read'
+      required:
+        - name
+        - startDate
+        - endDate
+        - location
+        - class
+        - created
+        - lastMod
+        - organiser
+        - status
+        - summary
+        - transp
+        - url
+        - duration
+        - contact
+        - seq
+        - priority
+    Event-write:
+      type: object
+      description: 'An event happening at a certain time and location, such as a concert, lecture, meeting or festival.'
+      externalDocs:
+        url: 'https://schema.org/Event'
+      required:
+        - name
+        - startDate
+        - endDate
+        - location
+        - class
+        - created
+        - lastMod
+        - organiser
+        - status
+        - summary
+        - transp
+        - url
+        - duration
+        - contact
+        - seq
+        - priority
+      properties:
+        name:
+          description: 'The name of this RequestType'
           type: string
+        description:
+          description: 'An short description of this Event'
+          type: string
+        startDate:
+          description: 'The moment this event starts'
+          type: string
+          format: date-time
+        endDate:
+          description: 'The moment this event ends'
+          type: string
+          format: date-time
+        location:
+          description: 'The location of this event'
+          type: string
+        schedule:
+          description: 'An optional Schedule to which this event belongs'
+          $ref: '#/components/schemas/Schedule-write'
+        calendar:
+          description: 'The Calendar to wich this event belongs'
+          $ref: '#/components/schemas/Calendar-write'
+        class:
+          description: 'The security class of this event.'
+          type: string
+        created:
+          description: 'The creation in datetime of this event.'
+          type: string
+          format: date-time
+        geo:
+          description: 'The coordinates of this event.'
+          type: string
+        lastMod:
+          description: 'The last modification of this event in datetime.'
+          type: string
+          format: date-time
+        organiser:
+          description: 'The organiser of this event linked to with an url.'
+          type: string
+        status:
+          description: 'The status of this evemt.'
+          type: string
+        summary:
+          description: 'The summary of this event.'
+          type: string
+        transp:
+          description: 'The determination if the event should block the duration of the event for participants.'
+          type: string
+        url:
+          description: 'The url of this event.'
+          type: string
+        duration:
+          description: 'The duration of this event.'
+          type: integer
+        contact:
+          description: 'Url of this person'
+          type: string
+        seq:
+          description: 'The version number of this event.'
+          type: integer
+        priority:
+          description: 'The priority of this event ranging from 1 (high) to 9 (low).'
+          type: integer
+        attendees:
+          description: 'The urls of the attendees of this event.'
+          type: array
+          items:
+            type: string
+        attachments:
+          readOnly: true
+          description: 'The urls of the attachments of this event.'
+          type: array
+          items:
+            type: string
+        categories:
+          description: 'The urls of the catergories this event belongs to.'
+          type: array
+          items:
+            type: string
+        comments:
+          description: 'The urls of the comments that belong to this event.'
+          type: array
+          items:
+            type: string
+        related:
+          type: array
+          items:
+            $ref: '#/components/schemas/Event-write'
+        resources:
+          type: array
+          items:
+            $ref: '#/components/schemas/Resource-write'
+        alarms:
+          type: array
+          items:
+            $ref: '#/components/schemas/Alarm-write'
+        journal:
+          $ref: '#/components/schemas/Journal-write'
+    Freebusy-read:
+      type: object
+      description: 'This entity checks if a person is free or busy for a event.'
+      properties:
         id:
           readOnly: true
           description: 'The UUID identifier of this resource'
           externalDocs:
             url: 'http://schema.org/identifier'
+          type: string
+        url:
+          description: 'The url of this event.'
+          type: string
+        description:
+          description: 'An short description of this Event'
+          type: string
+        attendee:
+          description: 'The urls of the attendees of this event.'
+          type: string
+        comments:
+          description: 'The urls of the comments that belong to this event.'
+          type: array
+          items:
+            type: string
+        contact:
+          description: 'Url of this person'
+          type: string
+        startDate:
+          description: 'The moment this event starts'
+          type: string
+          format: date-time
+        endDate:
+          description: 'The moment this event ends'
+          type: string
+          format: date-time
+        duration:
+          description: 'The duration of this event.'
+          type: integer
+        organiser:
+          description: 'The organiser of this event linked to with an url.'
+          type: string
+        freebusy:
+          description: 'The determination of the type freebusy.'
+          type: string
+        calendar:
+          $ref: '#/components/schemas/Calendar-read'
+        schedule:
+          $ref: '#/components/schemas/Schedule-read'
+      required:
+        - url
+        - attendee
+        - contact
+        - startDate
+        - endDate
+        - duration
+        - organiser
+        - freebusy
+    Freebusy-write:
+      type: object
+      description: 'This entity checks if a person is free or busy for a event.'
+      required:
+        - url
+        - attendee
+        - contact
+        - startDate
+        - endDate
+        - duration
+        - organiser
+        - freebusy
+      properties:
+        url:
+          description: 'The url of this event.'
+          type: string
+        description:
+          description: 'An short description of this Event'
+          type: string
+        attendee:
+          description: 'The urls of the attendees of this event.'
+          type: string
+        comments:
+          description: 'The urls of the comments that belong to this event.'
+          type: array
+          items:
+            type: string
+        contact:
+          description: 'Url of this person'
+          type: string
+        startDate:
+          description: 'The moment this event starts'
+          type: string
+          format: date-time
+        endDate:
+          description: 'The moment this event ends'
+          type: string
+          format: date-time
+        duration:
+          description: 'The duration of this event.'
+          type: integer
+        organiser:
+          description: 'The organiser of this event linked to with an url.'
+          type: string
+        freebusy:
+          description: 'The determination of the type freebusy.'
+          type: string
+        calendar:
+          $ref: '#/components/schemas/Calendar-write'
+        schedule:
+          $ref: '#/components/schemas/Schedule-write'
+    Journal-read:
+      type: object
+      description: 'A journal from an event.'
+      properties:
+        id:
+          readOnly: true
+          description: 'The UUID identifier of this resource'
           type: string
         name:
           description: 'The name of this RequestType'
@@ -4784,14 +5209,238 @@ components:
         - duration
         - repeat
       properties:
-        '@context':
-          readOnly: true
+        name:
+          description: 'The name of this RequestType'
           type: string
-        '@id':
-          readOnly: true
+        description:
+          description: 'An short description of this Event'
           type: string
-        '@type':
+        startDate:
+          description: 'The moment this event starts'
+          type: string
+          format: date-time
+        endDate:
+          description: 'The moment this event ends'
+          type: string
+          format: date-time
+        class:
+          description: 'The security class of this event.'
+          type: string
+        created:
+          description: 'The creation in datetime of this event.'
+          type: string
+          format: date-time
+        lastMod:
+          description: 'The last modification of this event in datetime.'
+          type: string
+          format: date-time
+        organiser:
+          description: 'The organiser of this event linked to with an url.'
+          type: string
+        contact:
+          description: 'Url of this person'
+          type: string
+        status:
+          description: 'The status of this evemt.'
+          type: string
+        summary:
+          description: 'The summary of this event.'
+          type: string
+        transp:
+          description: 'The determination if the event should block the duration of the event for participants.'
+          type: string
+        url:
+          description: 'The url of this event.'
+          type: string
+        duration:
+          description: 'The duration of this event.'
+          type: integer
+        seq:
+          description: 'The version number of this event.'
+          type: integer
+        priority:
+          description: 'The priority of this event ranging from 1 (high) to 9 (low).'
+          type: integer
+        attendees:
+          description: 'The urls of the attendees of this event.'
+          type: array
+          items:
+            type: string
+        attachments:
           readOnly: true
+          description: 'The urls of the attachments of this event.'
+          type: array
+          items:
+            type: string
+        categories:
+          description: 'The urls of the catergories this event belongs to.'
+          type: array
+          items:
+            type: string
+        comments:
+          description: 'The urls of the comments that belong to this event.'
+          type: array
+          items:
+            type: string
+        calendar:
+          $ref: '#/components/schemas/Calendar-write'
+        event:
+          $ref: '#/components/schemas/Event-write'
+    Resource-read:
+      type: object
+      description: 'Describes resources that can be needed for an event.'
+      properties:
+        id:
+          readOnly: true
+          description: 'The UUID identifier of this resource'
+          type: string
+        name:
+          description: 'The name of this RequestType'
+          type: string
+        description:
+          description: 'An short description of this Event'
+          type: string
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/Event-read'
+        todos:
+          type: array
+          items:
+            $ref: '#/components/schemas/Todo-read'
+      required:
+        - name
+    Resource-write:
+      type: object
+      description: 'Describes resources that can be needed for an event.'
+      required:
+        - name
+      properties:
+        name:
+          description: 'The name of this RequestType'
+          type: string
+        description:
+          description: 'An short description of this Event'
+          type: string
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/Event-write'
+        todos:
+          type: array
+          items:
+            $ref: '#/components/schemas/Todo-write'
+    Schedule-read:
+      type: object
+      description: 'A schedule defines a repeating time period used to describe a regularly occurring Event. At a minimum a schedule will specify repeatFrequency which describes the interval between occurences of the event. Additional information can be provided to specify the schedule more precisely. This includes identifying the day(s) of the week or month when the recurring event will take place, in addition to its start and end time. Schedules may also have start and end dates to indicate when they are active, e.g. to define a limited calendar of events.'
+      externalDocs:
+        url: 'http://schema.org/PostalAddress'
+      properties:
+        id:
+          readOnly: true
+          description: 'The UUID identifier of this resource'
+          type: string
+        name:
+          description: 'The name of this Schedule'
+          type: string
+        description:
+          description: 'An short description of this Schedule'
+          type: string
+        byDay:
+          description: 'Defines the day(s) of the week on which a recurring Event takes place. Sunday is both 0 and 7.'
+          type: integer
+        byMonth:
+          description: 'Defines the month(s) of the year on which a recurring Event takes place. Specified as an Integer between 1-12. January is 1.'
+          type: integer
+        byMonthDay:
+          description: 'Defines the day(s) of the month on which a recurring Event takes place. Specified as an Integer between 1-31.'
+          type: integer
+        events:
+          description: 'The that belong to or are coused by this Schedule'
+          type: array
+          items:
+            $ref: '#/components/schemas/Event-read'
+        exceptDates:
+          description: 'Defines the day(s) of the month on which a recurring Event takes place. Specified as an Integer between 1-31.'
+          type: array
+          items:
+            type: string
+        repeatCount:
+          description: 'Defines the number of times a recurring Event will take place'
+          type: integer
+        repeatFrequency:
+          description: 'Defines the frequency at which Events will occur according to a schedule Schedule. The intervals between events should be defined as a [Duration](https://en.wikipedia.org/wiki/ISO_8601#Durations) of time.'
+          type: string
+        calendar:
+          description: 'The Calendar to wich this Schedule belongs'
+          $ref: '#/components/schemas/Calendar-read'
+        freebusies:
+          type: array
+          items:
+            $ref: '#/components/schemas/Freebusy-read'
+        todos:
+          type: array
+          items:
+            $ref: '#/components/schemas/Todo-read'
+      required:
+        - name
+    Schedule-write:
+      type: object
+      description: 'A schedule defines a repeating time period used to describe a regularly occurring Event. At a minimum a schedule will specify repeatFrequency which describes the interval between occurences of the event. Additional information can be provided to specify the schedule more precisely. This includes identifying the day(s) of the week or month when the recurring event will take place, in addition to its start and end time. Schedules may also have start and end dates to indicate when they are active, e.g. to define a limited calendar of events.'
+      externalDocs:
+        url: 'http://schema.org/PostalAddress'
+      required:
+        - name
+      properties:
+        name:
+          description: 'The name of this Schedule'
+          type: string
+        description:
+          description: 'An short description of this Schedule'
+          type: string
+        byDay:
+          description: 'Defines the day(s) of the week on which a recurring Event takes place. Sunday is both 0 and 7.'
+          type: integer
+        byMonth:
+          description: 'Defines the month(s) of the year on which a recurring Event takes place. Specified as an Integer between 1-12. January is 1.'
+          type: integer
+        byMonthDay:
+          description: 'Defines the day(s) of the month on which a recurring Event takes place. Specified as an Integer between 1-31.'
+          type: integer
+        events:
+          description: 'The that belong to or are coused by this Schedule'
+          type: array
+          items:
+            $ref: '#/components/schemas/Event-write'
+        exceptDates:
+          description: 'Defines the day(s) of the month on which a recurring Event takes place. Specified as an Integer between 1-31.'
+          type: array
+          items:
+            type: string
+        repeatCount:
+          description: 'Defines the number of times a recurring Event will take place'
+          type: integer
+        repeatFrequency:
+          description: 'Defines the frequency at which Events will occur according to a schedule Schedule. The intervals between events should be defined as a [Duration](https://en.wikipedia.org/wiki/ISO_8601#Durations) of time.'
+          type: string
+        calendar:
+          description: 'The Calendar to wich this Schedule belongs'
+          $ref: '#/components/schemas/Calendar-write'
+        freebusies:
+          type: array
+          items:
+            $ref: '#/components/schemas/Freebusy-write'
+        todos:
+          type: array
+          items:
+            $ref: '#/components/schemas/Todo-write'
+    Todo-read:
+      type: object
+      description: 'A to-do from an event.'
+      properties:
+        id:
+          readOnly: true
+          description: 'The UUID identifier of this resource'
           type: string
         name:
           description: 'The name of this RequestType'
