@@ -7895,6 +7895,8 @@ definitions:
   Alarm-read:
     properties:
       id:
+        description: 'The UUID identifier of this resource'
+        type: string
         example: e2984465-190a-4562-829e-a8cca81aa35d
         format: uuid
       name:
