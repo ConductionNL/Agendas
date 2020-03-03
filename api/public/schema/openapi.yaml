@@ -7895,10 +7895,11 @@ definitions:
   Alarm-read:
     properties:
       id:
-        description: 'The UUID identifier of this resource'
+        description: 'The id of this entity'
         type: string
-        example: e2984465-190a-4562-829e-a8cca81aa35d
+        eaxample: '#/components/schemas/RamseyUuidUuidInterface-read'
         format: uuid
+        example: 9b9eea1a-ef04-427d-b8bd-7f5c24801874
       name:
         example: 'My RequestType'
         maxLength: 255
