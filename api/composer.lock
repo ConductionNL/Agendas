@@ -2303,8 +2303,8 @@
             "authors": [
                 {
                     "name": "Luís Otávio Cobucci Oblonczyk",
-                    "email": "lcobucci@gmail.com",
-                    "role": "Developer"
+                    "role": "Developer",
+                    "email": "lcobucci@gmail.com"
                 }
             ],
             "description": "A simple library to work with JSON Web Token and JSON Web Signature",
@@ -3378,7 +3378,6 @@
         },
         {
             "name": "sensio/framework-extra-bundle",
-
             "version": "v5.5.2",
             "source": {
                 "type": "git",
