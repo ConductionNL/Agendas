@@ -8,7 +8,7 @@ info:
     - Reference: ac
     - Enviroment: dev
     - Version: V.0.1
-    - Repository: [online](https://github.com/ConductionNL/agenda-component) / [zip](https://github.com/ConductionNL/agenda-component/archive/master.zip)
+    - Repository: [online](https://github.com/ConductionNL/agendaservice) / [zip](https://github.com/ConductionNL/agendaservice/archive/master.zip)
     - Docker Image: [online](https://hub.docker.com/repository/docker/conduction/ac-php) 
     - Datamodel: [postman](/schema/ac.postman_collection.json) / [oas](/schema/openapi.yaml) / [pdf](/schema/datamodel.pdf) / [mwb](/schema/datamodel.mwb) 
     
@@ -12537,6 +12537,28 @@ components:
           readOnly: true
           description: 'The moment this request was created'
           type: string
+        headers:
+          readOnly: true
+          description: 'The headers supplied by client'
+          type: array
+          items:
+            type: string
+        statusCode:
+          readOnly: true
+          description: 'The status code returned to client'
+          type: integer
+        notFound:
+          readOnly: true
+          description: 'Whether or not the reqousted endpoint was found'
+          type: boolean
+        forbidden:
+          readOnly: true
+          description: 'Whether or not the client was allowed to the reqousted endpoint'
+          type: boolean
+        ok:
+          readOnly: true
+          description: 'Whether or not there where any problems'
+          type: boolean
         dateCreated:
           readOnly: true
           description: 'The moment this request was created'
@@ -12646,6 +12668,28 @@ components:
           readOnly: true
           description: 'The moment this request was created'
           type: string
+        headers:
+          readOnly: true
+          description: 'The headers supplied by client'
+          type: array
+          items:
+            type: string
+        statusCode:
+          readOnly: true
+          description: 'The status code returned to client'
+          type: integer
+        notFound:
+          readOnly: true
+          description: 'Whether or not the reqousted endpoint was found'
+          type: boolean
+        forbidden:
+          readOnly: true
+          description: 'Whether or not the client was allowed to the reqousted endpoint'
+          type: boolean
+        ok:
+          readOnly: true
+          description: 'Whether or not there where any problems'
+          type: boolean
         dateCreated:
           readOnly: true
           description: 'The moment this request was created'
@@ -15482,7 +15526,7 @@ definitions:
       note:
         description: 'A note conserning this log lin'
         type: string
-        example: 'This log line is suspicius'
+        example: 'This log line looks suspicius'
         maxLength: 2555
       application:
         description: 'The application that made the request'
@@ -15551,25 +15595,44 @@ definitions:
         maxLength: 255
       session:
         description: 'The moment this request was created'
-        type: \sting
+        type: string
         maxLength: 255
+      headers:
+        description: 'The headers supplied by client'
+        type: array
+      statusCode:
+        description: 'The status code returned to client'
+        type: int
+        example: '200'
+      notFound:
+        description: 'Whether or not the reqousted endpoint was found'
+        type: bool
+        example: 'false'
+      forbidden:
+        description: 'Whether or not the client was allowed to the reqousted endpoint'
+        type: bool
+        example: 'false'
+      ok:
+        description: 'Whether or not there where any problems'
+        type: bool
+        example: 'true'
       dateCreated:
         description: 'The moment this request was created'
         type: string
         format: date-time
-        example: '2020-03-10 14:56:59'
+        example: '2020-03-11 08:52:00'
       dateModified:
         description: 'The moment this request last Modified'
         type: string
         format: date-time
-        example: '2020-03-10 14:56:59'
+        example: '2020-03-11 08:52:00'
     required: []
   AuditTrail-write:
     properties:
       note:
         description: 'A note conserning this log lin'
         type: string
-        example: 'This log line is suspicius'
+        example: 'This log line looks suspicius'
         maxLength: 2555
     required: []
   Calendar-read:
@@ -15681,12 +15744,12 @@ definitions:
         description: 'The moment this request was created'
         type: string
         format: date-time
-        example: '2020-03-10 14:56:59'
+        example: '2020-03-11 08:52:00'
       dateModified:
         description: 'The moment this request last Modified'
         type: string
         format: date-time
-        example: '2020-03-10 14:56:59'
+        example: '2020-03-11 08:52:00'
     required: []
   ChangeLog-write:
     properties:
@@ -15716,12 +15779,12 @@ definitions:
       startDate:
         description: 'The moment this event starts'
         type: string
-        example: '2020-03-10 14:56:59'
+        example: '2020-03-11 08:52:00'
         format: date-time
       endDate:
         description: 'The moment this event ends'
         type: string
-        example: '2020-03-10 14:56:59'
+        example: '2020-03-11 08:52:00'
         format: date-time
       location:
         description: 'The location of this event'
@@ -15736,7 +15799,7 @@ definitions:
       created:
         description: 'The creation in datetime of this event.'
         type: string
-        example: '2020-03-10 14:56:59'
+        example: '2020-03-11 08:52:00'
         format: date-time
       geo:
         description: 'The coordinates of this event.'
@@ -15746,7 +15809,7 @@ definitions:
       lastMod:
         description: 'The last modification of this event in datetime.'
         type: string
-        example: '2020-03-10 14:56:59'
+        example: '2020-03-11 08:52:00'
         format: date-time
       organiser:
         description: 'The organiser of this event linked to with an url.'
@@ -15846,12 +15909,12 @@ definitions:
       startDate:
         description: 'The moment this event starts'
         type: string
-        example: '2020-03-10 14:56:59'
+        example: '2020-03-11 08:52:00'
         format: date-time
       endDate:
         description: 'The moment this event ends'
         type: string
-        example: '2020-03-10 14:56:59'
+        example: '2020-03-11 08:52:00'
         format: date-time
       location:
         description: 'The location of this event'
@@ -15866,7 +15929,7 @@ definitions:
       created:
         description: 'The creation in datetime of this event.'
         type: string
-        example: '2020-03-10 14:56:59'
+        example: '2020-03-11 08:52:00'
         format: date-time
       geo:
         description: 'The coordinates of this event.'
@@ -15876,7 +15939,7 @@ definitions:
       lastMod:
         description: 'The last modification of this event in datetime.'
         type: string
-        example: '2020-03-10 14:56:59'
+        example: '2020-03-11 08:52:00'
         format: date-time
       organiser:
         description: 'The organiser of this event linked to with an url.'
@@ -15987,12 +16050,12 @@ definitions:
       startDate:
         description: 'The moment this event starts'
         type: string
-        example: '2020-03-10 14:56:59'
+        example: '2020-03-11 08:52:00'
         format: date-time
       endDate:
         description: 'The moment this event ends'
         type: string
-        example: '2020-03-10 14:56:59'
+        example: '2020-03-11 08:52:00'
         format: date-time
       duration:
         description: 'The duration of this event.'
@@ -16048,12 +16111,12 @@ definitions:
       startDate:
         description: 'The moment this event starts'
         type: string
-        example: '2020-03-10 14:56:59'
+        example: '2020-03-11 08:52:00'
         format: date-time
       endDate:
         description: 'The moment this event ends'
         type: string
-        example: '2020-03-10 14:56:59'
+        example: '2020-03-11 08:52:00'
         format: date-time
       duration:
         description: 'The duration of this event.'
@@ -16097,12 +16160,12 @@ definitions:
       startDate:
         description: 'The moment this event starts'
         type: string
-        example: '2020-03-10 14:56:59'
+        example: '2020-03-11 08:52:00'
         format: date-time
       endDate:
         description: 'The moment this event ends'
         type: string
-        example: '2020-03-10 14:56:59'
+        example: '2020-03-11 08:52:00'
         format: date-time
       class:
         description: 'The security class of this event.'
@@ -16112,12 +16175,12 @@ definitions:
       created:
         description: 'The creation in datetime of this event.'
         type: string
-        example: '2020-03-10 14:56:59'
+        example: '2020-03-11 08:52:00'
         format: date-time
       lastMod:
         description: 'The last modification of this event in datetime.'
         type: string
-        example: '2020-03-10 14:56:59'
+        example: '2020-03-11 08:52:00'
         format: date-time
       organiser:
         description: 'The organiser of this event linked to with an url.'
@@ -16203,12 +16266,12 @@ definitions:
       startDate:
         description: 'The moment this event starts'
         type: string
-        example: '2020-03-10 14:56:59'
+        example: '2020-03-11 08:52:00'
         format: date-time
       endDate:
         description: 'The moment this event ends'
         type: string
-        example: '2020-03-10 14:56:59'
+        example: '2020-03-11 08:52:00'
         format: date-time
       class:
         description: 'The security class of this event.'
@@ -16218,12 +16281,12 @@ definitions:
       created:
         description: 'The creation in datetime of this event.'
         type: string
-        example: '2020-03-10 14:56:59'
+        example: '2020-03-11 08:52:00'
         format: date-time
       lastMod:
         description: 'The last modification of this event in datetime.'
         type: string
-        example: '2020-03-10 14:56:59'
+        example: '2020-03-11 08:52:00'
         format: date-time
       organiser:
         description: 'The organiser of this event linked to with an url.'
@@ -16456,12 +16519,12 @@ definitions:
       startDate:
         description: 'The moment this event starts'
         type: string
-        example: '2020-03-10 14:56:59'
+        example: '2020-03-11 08:52:00'
         format: date-time
       endDate:
         description: 'The moment this event ends'
         type: string
-        example: '2020-03-10 14:56:59'
+        example: '2020-03-11 08:52:00'
         format: date-time
       location:
         description: 'The location of this event'
@@ -16476,7 +16539,7 @@ definitions:
       created:
         description: 'The creation in datetime of this event.'
         type: string
-        example: '2020-03-10 14:56:59'
+        example: '2020-03-11 08:52:00'
         format: date-time
       geo:
         description: 'The coordinates of this event.'
@@ -16486,7 +16549,7 @@ definitions:
       lastMod:
         description: 'The last modification of this event in datetime.'
         type: string
-        example: '2020-03-10 14:56:59'
+        example: '2020-03-11 08:52:00'
         format: date-time
       organiser:
         description: 'The organiser of this event linked to with an url.'
@@ -16548,7 +16611,7 @@ definitions:
       completed:
         description: 'The date and time a to-do is completed.'
         type: string
-        example: '2020-03-10 14:56:59'
+        example: '2020-03-11 08:52:00'
         format: date-time
       percentageDone:
         description: 'The percentage of a to-do that has been comepleted.'
@@ -16586,12 +16649,12 @@ definitions:
       startDate:
         description: 'The moment this event starts'
         type: string
-        example: '2020-03-10 14:56:59'
+        example: '2020-03-11 08:52:00'
         format: date-time
       endDate:
         description: 'The moment this event ends'
         type: string
-        example: '2020-03-10 14:56:59'
+        example: '2020-03-11 08:52:00'
         format: date-time
       location:
         description: 'The location of this event'
@@ -16606,7 +16669,7 @@ definitions:
       created:
         description: 'The creation in datetime of this event.'
         type: string
-        example: '2020-03-10 14:56:59'
+        example: '2020-03-11 08:52:00'
         format: date-time
       geo:
         description: 'The coordinates of this event.'
@@ -16616,7 +16679,7 @@ definitions:
       lastMod:
         description: 'The last modification of this event in datetime.'
         type: string
-        example: '2020-03-10 14:56:59'
+        example: '2020-03-11 08:52:00'
         format: date-time
       organiser:
         description: 'The organiser of this event linked to with an url.'
@@ -16678,7 +16741,7 @@ definitions:
       completed:
         description: 'The date and time a to-do is completed.'
         type: string
-        example: '2020-03-10 14:56:59'
+        example: '2020-03-11 08:52:00'
         format: date-time
       percentageDone:
         description: 'The percentage of a to-do that has been comepleted.'
