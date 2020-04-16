@@ -46,7 +46,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *     )
  * @ORM\Entity(repositoryClass="App\Repository\FreebusyRepository")
  * @Gedmo\Loggable(logEntryClass="App\Entity\ChangeLog")
- * 
+ *
  * @ApiFilter(BooleanFilter::class)
  * @ApiFilter(OrderFilter::class)
  * @ApiFilter(DateFilter::class, strategy=DateFilter::EXCLUDE_NULL)
@@ -54,8 +54,6 @@ use Gedmo\Mapping\Annotation as Gedmo;
  */
 class Freebusy
 {
-    private $id;
-
     /**
      * @var UuidInterface The UUID identifier of this resource
      *
@@ -68,21 +66,9 @@ class Freebusy
      * @ORM\GeneratedValue(strategy="CUSTOM")
      * @ORM\CustomIdGenerator(class="Ramsey\Uuid\Doctrine\UuidGenerator")
      *
-     * @todo Automated ?
-     *
-     * @var string The url of this event.
-     *
-     * @example conduction.nl
-     *
-     * @Assert\Length(
-     *      max = 255
-     * )
-     * @Assert\NotNull
-     * @Groups({"read","write"})
-     * @ORM\Column(type="string", length=255)
      */
-    private $url;
 
+    private $id;
     /**
      * @var string An short description of this Event
      *
@@ -94,6 +80,7 @@ class Freebusy
      * @Groups({"read","write"})
      * @ORM\Column(type="text", nullable=true)
      */
+
     private $description;
 
     /**
@@ -165,10 +152,8 @@ class Freebusy
      *
      * @example 2
      *
-     * @Assert\Type("int")
-     * @Assert\NotBlank
      * @Groups({"read","write"})
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $duration;
 
@@ -210,7 +195,7 @@ class Freebusy
      * @MaxDepth(1)
      */
     private $schedule;
-    
+
     /**
      * @var Datetime $dateCreated The moment this resource was created
      *
@@ -219,31 +204,19 @@ class Freebusy
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $dateCreated;
-    
+
     /**
      * @var Datetime $dateModified  The moment this resource last Modified
      *
      * @Groups({"read"})
-     * @Gedmo\Timestampable(on="create")
+     * @Gedmo\Timestampable(on="update")
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $dateModified;
 
-    public function getId(): ?string
+    public function getId(): ?Uuid
     {
         return $this->id;
-    }
-
-    public function getUrl(): ?string
-    {
-        return $this->url;
-    }
-
-    public function setUrl(string $url): self
-    {
-        $this->url = $url;
-
-        return $this;
     }
 
     public function getDescription(): ?string
@@ -377,28 +350,28 @@ class Freebusy
 
         return $this;
     }
-    
+
     public function getDateCreated(): ?\DateTimeInterface
     {
     	return $this->dateCreated;
     }
-    
+
     public function setDateCreated(\DateTimeInterface $dateCreated): self
     {
     	$this->dateCreated= $dateCreated;
-    	
+
     	return $this;
     }
-    
+
     public function getDateModified(): ?\DateTimeInterface
     {
     	return $this->dateModified;
     }
-    
+
     public function setDateModified(\DateTimeInterface $dateModified): self
     {
     	$this->dateModified = $dateModified;
-    	
+
     	return $this;
     }
 }

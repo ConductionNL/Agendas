@@ -46,7 +46,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *     )
  * @ORM\Entity(repositoryClass="App\Repository\JournalRepository")
  * @Gedmo\Loggable(logEntryClass="App\Entity\ChangeLog")
- * 
+ *
  * @ApiFilter(BooleanFilter::class)
  * @ApiFilter(OrderFilter::class)
  * @ApiFilter(DateFilter::class, strategy=DateFilter::EXCLUDE_NULL)
@@ -134,34 +134,6 @@ class Journal
     private $class;
 
     /**
-     * @todo Automated ?
-     *
-     * @var string The creation in datetime of this event.
-     *
-     * @example 16-12-2019 15:08:26
-     *
-     * @Assert\DateTime
-     * @Assert\NotBlank
-     * @Groups({"read","write"})
-     * @ORM\Column(type="datetime")
-     */
-    private $created;
-
-    /**
-     * @todo Automated ?
-     *
-     * @var datetime The last modification of this event in datetime.
-     *
-     * @example 16-12-2019 15:14:34
-     *
-     * @Assert\DateTime
-     * @Assert\NotBlank
-     * @Groups({"read","write"})
-     * @ORM\Column(type="datetime")
-     */
-    private $lastMod;
-
-    /**
      * @var string The organiser of this event linked to with an url.
      *
      * @example conduction.nl
@@ -220,30 +192,12 @@ class Journal
     /**
      * @todo Automated ?
      *
-     * @var string The url of this event.
-     *
-     * @example conduction.nl
-     *
-     * @Assert\Length(
-     *      max = 255
-     * )
-     * @Assert\NotBlank
-     * @Groups({"read","write"})
-     * @ORM\Column(type="string", length=255)
-     */
-    private $url;
-
-    /**
-     * @todo Automated ?
-     *
      * @var string The duration of this event.
      *
      * @example 2
      *
-     * @Assert\Type("int")
-     * @Assert\NotBlank
      * @Groups({"read","write"})
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $duration;
 
@@ -259,7 +213,7 @@ class Journal
      * @Groups({"read","write"})
      * @ORM\Column(type="integer")
      */
-    private $seq;
+    private $seq = 1;
     /**
      * @var int The priority of this event ranging from 1 (high) to 9 (low).
      *
@@ -330,7 +284,7 @@ class Journal
      * @MaxDepth(1)
      */
     private $event;
-    
+
     /**
      * @var Datetime $dateCreated The moment this resource was created
      *
@@ -339,17 +293,17 @@ class Journal
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $dateCreated;
-    
+
     /**
      * @var Datetime $dateModified  The moment this resource last Modified
      *
      * @Groups({"read"})
-     * @Gedmo\Timestampable(on="create")
+     * @Gedmo\Timestampable(on="update")
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $dateModified;
 
-    public function getId(): ?int
+    public function getId(): ?Uuid
     {
         return $this->id;
     }
@@ -419,25 +373,6 @@ class Journal
         return $this->created;
     }
 
-    public function setCreated(string $created): self
-    {
-        $this->created = $created;
-
-        return $this;
-    }
-
-    public function getLastMod(): ?string
-    {
-        return $this->lastMod;
-    }
-
-    public function setLastMod(string $lastMod): self
-    {
-        $this->lastMod = $lastMod;
-
-        return $this;
-    }
-
     public function getOrganiser(): ?string
     {
         return $this->organiser;
@@ -482,18 +417,6 @@ class Journal
     public function setTransp(string $transp): self
     {
         $this->transp = $transp;
-
-        return $this;
-    }
-
-    public function getUrl(): ?string
-    {
-        return $this->url;
-    }
-
-    public function setUrl(string $url): self
-    {
-        $this->url = $url;
 
         return $this;
     }
@@ -605,28 +528,28 @@ class Journal
 
         return $this;
     }
-    
+
     public function getDateCreated(): ?\DateTimeInterface
     {
     	return $this->dateCreated;
     }
-    
+
     public function setDateCreated(\DateTimeInterface $dateCreated): self
     {
     	$this->dateCreated= $dateCreated;
-    	
+
     	return $this;
     }
-    
+
     public function getDateModified(): ?\DateTimeInterface
     {
     	return $this->dateModified;
     }
-    
+
     public function setDateModified(\DateTimeInterface $dateModified): self
     {
     	$this->dateModified = $dateModified;
-    	
+
     	return $this;
     }
 }

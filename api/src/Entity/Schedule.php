@@ -49,7 +49,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * )
  * @ORM\Entity(repositoryClass="App\Repository\ScheduleRepository")
  * @Gedmo\Loggable(logEntryClass="App\Entity\ChangeLog")
- * 
+ *
  * @ApiFilter(BooleanFilter::class)
  * @ApiFilter(OrderFilter::class)
  * @ApiFilter(DateFilter::class, strategy=DateFilter::EXCLUDE_NULL)
@@ -144,15 +144,6 @@ class Schedule
     private $byMonthDay;
 
     /**
-     * @var string The that belong to or are coused by this Schedule
-     *
-     * @MaxDepth(1)
-     * @Groups({"read","write"})
-     * @ORM\OneToMany(targetEntity="App\Entity\Event", mappedBy="schedule")
-     */
-    private $events;
-
-    /**
      * @var string Defines the day(s) of the month on which a recurring Event takes place. Specified as an Integer between 1-31.
      *
      * @example 30
@@ -197,6 +188,16 @@ class Schedule
     private $calendar;
 
     /**
+     * @var ArrayCollection The events that belong to or are caused by this Schedule
+     *
+     * @MaxDepth(1)
+     * @Groups({"read","write"})
+     * @ORM\OneToMany(targetEntity="App\Entity\Event", mappedBy="schedule")
+     */
+    private $events;
+
+    /**
+     * @var ArrayCollection The freebusies that belong to or are caused by this Schedule
      * @Groups({"read","write"})
      * @ORM\OneToMany(targetEntity="App\Entity\Freebusy", mappedBy="schedule")
      * @MaxDepth(1)
@@ -204,12 +205,13 @@ class Schedule
     private $freebusies;
 
     /**
+     * @var ArrayCollection The todos that belong to or are caused by this Schedule
      * @Groups({"read","write"})
      * @ORM\OneToMany(targetEntity="App\Entity\Todo", mappedBy="schedule")
      * @MaxDepth(1)
      */
     private $todos;
-    
+
     /**
      * @var Datetime $dateCreated The moment this resource was created
      *
@@ -218,12 +220,12 @@ class Schedule
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $dateCreated;
-    
+
     /**
      * @var Datetime $dateModified  The moment this resource last Modified
      *
      * @Groups({"read"})
-     * @Gedmo\Timestampable(on="create")
+     * @Gedmo\Timestampable(on="update")
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $dateModified;
@@ -235,7 +237,7 @@ class Schedule
         $this->todos = new ArrayCollection();
     }
 
-    public function getId(): ?string
+    public function getId(): ?Uuid
     {
         return $this->id;
     }
@@ -440,28 +442,28 @@ class Schedule
 
         return $this;
     }
-    
+
     public function getDateCreated(): ?\DateTimeInterface
     {
     	return $this->dateCreated;
     }
-    
+
     public function setDateCreated(\DateTimeInterface $dateCreated): self
     {
     	$this->dateCreated= $dateCreated;
-    	
+
     	return $this;
     }
-    
+
     public function getDateModified(): ?\DateTimeInterface
     {
     	return $this->dateModified;
     }
-    
+
     public function setDateModified(\DateTimeInterface $dateModified): self
     {
     	$this->dateModified = $dateModified;
-    	
+
     	return $this;
     }
 }

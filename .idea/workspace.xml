@@ -2,10 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="92089c82-d91e-45b0-a4eb-32fdfd03bfef" name="Default Changelist" comment="(semi) definitive fix for rollout issue">
-      <change beforePath="$PROJECT_DIR$/.github/workflows/test.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/test.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/src/Entity/Alarm.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/src/Entity/Alarm.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/src/Entity/Calendar.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/src/Entity/Calendar.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/src/Entity/Event.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/src/Entity/Event.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/src/Entity/Freebusy.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/src/Entity/Freebusy.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/src/Entity/Journal.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/src/Entity/Journal.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/src/Entity/Resource.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/src/Entity/Resource.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/src/Entity/Schedule.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/src/Entity/Schedule.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/src/Entity/Todo.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/src/Entity/Todo.php" afterDir="false" />
     </list>
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -145,21 +152,14 @@
     </include_path>
   </component>
   <component name="ProjectId" id="1TbQklh1l4KcnpTiFkL5CMaM8Vy" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-  </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -174,6 +174,11 @@
       <workItem from="1573726462409" duration="6345000" />
       <workItem from="1574770780191" duration="4500000" />
       <workItem from="1575443613282" duration="255000" />
+      <workItem from="1586345112769" duration="1402000" />
+      <workItem from="1586414886852" duration="596000" />
+      <workItem from="1586852212197" duration="595000" />
+      <workItem from="1586934474768" duration="1449000" />
+      <workItem from="1587021211675" duration="4363000" />
     </task>
     <task id="LOCAL-00001" summary="Fixed language errors in Installation.md">
       <created>1573726496674</created>

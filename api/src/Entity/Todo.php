@@ -48,7 +48,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *     )
  * @ORM\Entity(repositoryClass="App\Repository\TodoRepository")
  * @Gedmo\Loggable(logEntryClass="App\Entity\ChangeLog")
- * 
+ *
  * @ApiFilter(BooleanFilter::class)
  * @ApiFilter(OrderFilter::class)
  * @ApiFilter(DateFilter::class, strategy=DateFilter::EXCLUDE_NULL)
@@ -150,20 +150,6 @@ class Todo
     private $class;
 
     /**
-     * @todo Automated ?
-     *
-     * @var string The creation in datetime of this event.
-     *
-     * @example 16-12-2019 15:08:26
-     *
-     * @Assert\DateTime
-     * @Assert\NotBlank
-     * @Groups({"read","write"})
-     * @ORM\Column(type="datetime")
-     */
-    private $created;
-
-    /**
      * @var string The coordinates of this event.
      *
      * @example 81.15147,10.36374,42.26
@@ -175,20 +161,6 @@ class Todo
      * @ORM\Column(type="string", length=255)
      */
     private $geo;
-
-    /**
-     * @todo Automated ?
-     *
-     * @var datetime The last modification of this event in datetime.
-     *
-     * @example 16-12-2019 15:14:34
-     *
-     * @Assert\DateTime
-     * @Assert\NotBlank
-     * @Groups({"read","write"})
-     * @ORM\Column(type="datetime")
-     */
-    private $lastMod;
 
     /**
      * @var string The organiser of this event linked to with an url.
@@ -235,30 +207,12 @@ class Todo
     /**
      * @todo Automated ?
      *
-     * @var string The url of this event.
-     *
-     * @example conduction.nl
-     *
-     * @Assert\Length(
-     *      max = 255
-     * )
-     * @Assert\NotBlank
-     * @Groups({"read","write"})
-     * @ORM\Column(type="string", length=255)
-     */
-    private $url;
-
-    /**
-     * @todo Automated ?
-     *
      * @var string The duration of this event.
      *
      * @example 2
      *
-     * @Assert\Type("int")
-     * @Assert\NotBlank
      * @Groups({"read","write"})
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $duration;
 
@@ -286,7 +240,7 @@ class Todo
      * @Groups({"read","write"})
      * @ORM\Column(type="integer")
      */
-    private $seq;
+    private $seq = 1;
     /**
      * @var int The priority of this event ranging from 1 (high) to 9 (low).
      *
@@ -395,7 +349,7 @@ class Todo
      * @MaxDepth(1)
      */
     private $schedule;
-    
+
     /**
      * @var Datetime $dateCreated The moment this resource was created
      *
@@ -404,12 +358,12 @@ class Todo
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $dateCreated;
-    
+
     /**
      * @var Datetime $dateModified  The moment this resource last Modified
      *
      * @Groups({"read"})
-     * @Gedmo\Timestampable(on="create")
+     * @Gedmo\Timestampable(on="update")
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $dateModified;
@@ -419,7 +373,7 @@ class Todo
         $this->resources = new ArrayCollection();
     }
 
-    public function getId(): ?string
+    public function getId(): ?Uuid
     {
         return $this->id;
     }
@@ -769,28 +723,28 @@ class Todo
 
         return $this;
     }
-    
+
     public function getDateCreated(): ?\DateTimeInterface
     {
     	return $this->dateCreated;
     }
-    
+
     public function setDateCreated(\DateTimeInterface $dateCreated): self
     {
     	$this->dateCreated= $dateCreated;
-    	
+
     	return $this;
     }
-    
+
     public function getDateModified(): ?\DateTimeInterface
     {
     	return $this->dateModified;
     }
-    
+
     public function setDateModified(\DateTimeInterface $dateModified): self
     {
     	$this->dateModified = $dateModified;
-    	
+
     	return $this;
     }
 }

@@ -49,7 +49,7 @@ use Gedmo\Mapping\Annotation as Gedmo;;
  * )
  * @ORM\Entity(repositoryClass="App\Repository\EventRepository")
  * @Gedmo\Loggable(logEntryClass="App\Entity\ChangeLog")
- * 
+ *
  * @ApiFilter(BooleanFilter::class)
  * @ApiFilter(OrderFilter::class)
  * @ApiFilter(DateFilter::class, strategy=DateFilter::EXCLUDE_NULL)
@@ -170,20 +170,6 @@ class Event
     private $class;
 
     /**
-     * @todo Automated ?
-     *
-     * @var string The creation in datetime of this event.
-     *
-     * @example 16-12-2019 15:08:26
-     *
-     * @Assert\DateTime
-     * @Assert\NotBlank
-     * @Groups({"read","write"})
-     * @ORM\Column(type="datetime")
-     */
-    private $created;
-
-    /**
      * @var string The coordinates of this event.
      *
      * @example 81.15147,10.36374,42.26
@@ -195,20 +181,6 @@ class Event
      * @ORM\Column(type="string", length=255)
      */
     private $geo;
-
-    /**
-     * @todo Automated ?
-     *
-     * @var datetime The last modification of this event in datetime.
-     *
-     * @example 16-12-2019 15:14:34
-     *
-     * @Assert\DateTime
-     * @Assert\NotBlank
-     * @Groups({"read","write"})
-     * @ORM\Column(type="datetime")
-     */
-    private $lastMod;
 
     /**
      * @var string The organiser of this event linked to with an url.
@@ -269,30 +241,12 @@ class Event
     /**
      * @todo Automated ?
      *
-     * @var string The url of this event.
-     *
-     * @example conduction.nl
-     *
-     * @Assert\Length(
-     *      max = 255
-     * )
-     * @Assert\NotBlank
-     * @Groups({"read","write"})
-     * @ORM\Column(type="string", length=255)
-     */
-    private $url;
-
-    /**
-     * @todo Automated ?
-     *
      * @var string The duration of this event.
      *
      * @example 2
      *
-     * @Assert\Type("int")
-     * @Assert\NotBlank
      * @Groups({"read","write"})
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $duration;
 
@@ -320,7 +274,7 @@ class Event
      * @Groups({"read","write"})
      * @ORM\Column(type="integer")
      */
-    private $seq;
+    private $seq = 1;
     /**
      * @var int The priority of this event ranging from 1 (high) to 9 (low).
      *
@@ -331,7 +285,7 @@ class Event
      * @Groups({"read","write"})
      * @ORM\Column(type="integer")
      */
-    private $priority;
+    private $priority = 9;
 
     /**
      * @var array The urls of the attendees of this event.
@@ -404,7 +358,7 @@ class Event
      * @MaxDepth(1)
      */
     private $journal;
-    
+
     /**
      * @var Datetime $dateCreated The moment this resource was created
      *
@@ -413,12 +367,12 @@ class Event
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $dateCreated;
-    
+
     /**
      * @var Datetime $dateModified  The moment this resource last Modified
      *
      * @Groups({"read"})
-     * @Gedmo\Timestampable(on="create")
+     * @Gedmo\Timestampable(on="update")
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $dateModified;
@@ -430,7 +384,7 @@ class Event
         $this->alarms = new ArrayCollection();
     }
 
-    public function getId(): ?string
+    public function getId(): ?Uuid
     {
         return $this->id;
     }
@@ -531,18 +485,6 @@ class Event
         return $this;
     }
 
-    public function getCreated(): ?string
-    {
-        return $this->created;
-    }
-
-    public function setCreated(string $created): self
-    {
-        $this->created = $created;
-
-        return $this;
-    }
-
     public function getGeo(): ?string
     {
         return $this->geo;
@@ -551,18 +493,6 @@ class Event
     public function setGeo(string $geo): self
     {
         $this->geo = $geo;
-
-        return $this;
-    }
-
-    public function getLastMod(): ?string
-    {
-        return $this->lastMod;
-    }
-
-    public function setLastMod(string $lastMod): self
-    {
-        $this->lastMod = $lastMod;
 
         return $this;
     }
@@ -615,18 +545,6 @@ class Event
         return $this;
     }
 
-    public function getUrl(): ?string
-    {
-        return $this->url;
-    }
-
-    public function setUrl(string $url): self
-    {
-        $this->url = $url;
-
-        return $this;
-    }
-
     public function getDuration(): ?int
     {
         return $this->duration;
@@ -656,7 +574,7 @@ class Event
         return $this->seq;
     }
 
-    public function setSeq(int $seq): self
+    public function setSeq(?int $seq): self
     {
         $this->seq = $seq;
 
@@ -668,7 +586,7 @@ class Event
         return $this->priority;
     }
 
-    public function setPriority(int $priority): self
+    public function setPriority(?int $priority): self
     {
         $this->priority = $priority;
 
@@ -825,28 +743,28 @@ class Event
 
         return $this;
     }
-    
+
     public function getDateCreated(): ?\DateTimeInterface
     {
     	return $this->dateCreated;
     }
-    
+
     public function setDateCreated(\DateTimeInterface $dateCreated): self
     {
     	$this->dateCreated= $dateCreated;
-    	
+
     	return $this;
     }
-    
+
     public function getDateModified(): ?\DateTimeInterface
     {
     	return $this->dateModified;
     }
-    
+
     public function setDateModified(\DateTimeInterface $dateModified): self
     {
     	$this->dateModified = $dateModified;
-    	
+
     	return $this;
     }
 }
