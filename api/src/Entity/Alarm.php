@@ -11,6 +11,7 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\DateFilter;
 
 use DateInterval;
 use Doctrine\ORM\Mapping as ORM;
+use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Serializer\Annotation\MaxDepth;
@@ -126,24 +127,21 @@ class Alarm
     /**
      * @var DateInterval The time the alarm should trigger relative to the start time of the related event.
      *
-     * @example -PT30M
+     * @example PT30M
      *
      * @Assert\NotNull
-     * @ORM\Column(type="dateinterval")
+     * @ORM\Column(type="dateinterval", name="alarm_trigger")
      * @Groups({"read","write"})
      */
     private $trigger;
 
     /**
-     * @todo Duration?
-     *
      * @var DateInterval The time until the alarm repeats.
      *
      * @example PT30M
      *
-     * @Assert\Type("int")
      * @Assert\NotNull
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="dateinterval")
      * @Groups({"read","write"})
      */
     private $duration;
@@ -154,7 +152,7 @@ class Alarm
      * @example 4
      *
      * @Assert\Type("int")
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", name="alarm_repeat")
      * @Groups({"read","write"})
      */
     private $repeat = 0;
@@ -244,24 +242,24 @@ class Alarm
         return $this;
     }
 
-    public function getTrigger(): ?int
+    public function getTrigger(): ?DateInterval
     {
         return $this->trigger;
     }
 
-    public function setTrigger(int $trigger): self
+    public function setTrigger(DateInterval $trigger): self
     {
         $this->trigger = $trigger;
 
         return $this;
     }
 
-    public function getDuration(): ?int
+    public function getDuration(): ?DateInterval
     {
         return $this->duration;
     }
 
-    public function setDuration(int $duration): self
+    public function setDuration(DateInterval $duration): self
     {
         $this->duration = $duration;
 
