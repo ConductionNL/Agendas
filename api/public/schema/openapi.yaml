@@ -340,7 +340,7 @@ paths:
           in: query
           required: false
           schema:
-            type: integer
+            type: string
         -
           name: 'duration[]'
           in: query
@@ -348,7 +348,7 @@ paths:
           schema:
             type: array
             items:
-              type: integer
+              type: string
           style: form
           explode: true
         -
@@ -11937,7 +11937,7 @@ components:
           type: string
         duration:
           description: 'The time until the alarm repeats.'
-          type: integer
+          type: string
         repeat:
           description: 'The number of times the alarm repeats.'
           type: integer
@@ -11986,7 +11986,7 @@ components:
           type: string
         duration:
           description: 'The time until the alarm repeats.'
-          type: integer
+          type: string
         repeat:
           description: 'The number of times the alarm repeats.'
           type: integer
@@ -12030,7 +12030,7 @@ components:
           type: string
         duration:
           description: 'The time until the alarm repeats.'
-          type: integer
+          type: string
         repeat:
           description: 'The number of times the alarm repeats.'
           type: integer
@@ -12088,7 +12088,7 @@ components:
           type: string
         duration:
           description: 'The time until the alarm repeats.'
-          type: integer
+          type: string
         repeat:
           description: 'The number of times the alarm repeats.'
           type: integer
@@ -14581,97 +14581,6 @@ components:
         schedule:
           $ref: '#/components/schemas/Schedule:jsonld-write'
 definitions:
-  Alarm-read:
-    properties:
-      id:
-        description: 'The UUID identifier of this resource'
-        type: string
-        example: e2984465-190a-4562-829e-a8cca81aa35d
-        format: uuid
-      name:
-        description: 'The name of this RequestType'
-        type: string
-        example: 'My RequestType'
-        maxLength: 255
-      description:
-        description: 'An short description of this Event'
-        type: string
-        example: 'This is the best Event ever'
-        maxLength: 2550
-      summary:
-        description: 'The summary of this event.'
-        type: string
-        example: 'This is the best event ever.'
-        maxLength: 255
-      action:
-        description: 'The action of the alarm. **AUDIO**, **DISPLAY**, **EMAIL**, **PROCEDURE**'
-        type: string
-        example: AUDIO
-      trigger:
-        description: 'The time the alarm should trigger relative to the start time of the related event.'
-        type: \DateInterval
-        example: '-PT30M'
-      duration:
-        description: 'The time until the alarm repeats.'
-        type: \DateInterval
-        example: PT30M
-      repeat:
-        description: 'The number of times the alarm repeats.'
-        type: int
-        example: '4'
-      dateCreated:
-        description: 'The moment this resource was created'
-        type: \Datetime
-      dateModified:
-        description: 'The moment this resource last Modified'
-        type: \Datetime
-      event: []
-      todo: []
-    required:
-      - name
-      - action
-      - trigger
-      - duration
-  Alarm-write:
-    properties:
-      name:
-        description: 'The name of this RequestType'
-        type: string
-        example: 'My RequestType'
-        maxLength: 255
-      description:
-        description: 'An short description of this Event'
-        type: string
-        example: 'This is the best Event ever'
-        maxLength: 2550
-      summary:
-        description: 'The summary of this event.'
-        type: string
-        example: 'This is the best event ever.'
-        maxLength: 255
-      action:
-        description: 'The action of the alarm. **AUDIO**, **DISPLAY**, **EMAIL**, **PROCEDURE**'
-        type: string
-        example: AUDIO
-      trigger:
-        description: 'The time the alarm should trigger relative to the start time of the related event.'
-        type: \DateInterval
-        example: '-PT30M'
-      duration:
-        description: 'The time until the alarm repeats.'
-        type: \DateInterval
-        example: PT30M
-      repeat:
-        description: 'The number of times the alarm repeats.'
-        type: int
-        example: '4'
-      event: []
-      todo: []
-    required:
-      - name
-      - action
-      - trigger
-      - duration
   Event-read:
     properties:
       id:
@@ -14692,12 +14601,12 @@ definitions:
       startDate:
         description: 'The moment this event starts'
         type: string
-        example: '2020-04-16 12:24:44'
+        example: '2020-04-16 14:13:23'
         format: date-time
       endDate:
         description: 'The moment this event ends'
         type: string
-        example: '2020-04-16 12:24:44'
+        example: '2020-04-16 14:13:23'
         format: date-time
       location:
         description: 'The location of this event'
@@ -14802,12 +14711,12 @@ definitions:
       startDate:
         description: 'The moment this event starts'
         type: string
-        example: '2020-04-16 12:24:44'
+        example: '2020-04-16 14:13:23'
         format: date-time
       endDate:
         description: 'The moment this event ends'
         type: string
-        example: '2020-04-16 12:24:44'
+        example: '2020-04-16 14:13:23'
         format: date-time
       location:
         description: 'The location of this event'
@@ -14891,6 +14800,758 @@ definitions:
       - name
       - startDate
       - endDate
+  Freebusy-read:
+    properties:
+      id:
+        description: 'The UUID identifier of this resource'
+        type: string
+        example: e2984465-190a-4562-829e-a8cca81aa35d
+        format: uuid
+      description:
+        description: 'An short description of this Event'
+        type: string
+        example: 'This is the best Event ever'
+        maxLength: 2550
+      attendee:
+        description: 'The urls of the attendees of this event.'
+        type: string
+        example: 'https://con.example.com'
+        format: url
+        maxLength: 255
+      comments:
+        description: 'The urls of the comments that belong to this event.'
+        type: array
+        example: 'https://con.example.com, https://con.example2.com'
+      contact:
+        description: 'Url of this person'
+        type: string
+        example: 'https://con.example.org'
+        format: url
+      startDate:
+        description: 'The moment this event starts'
+        type: string
+        example: '2020-04-16 14:13:23'
+        format: date-time
+      endDate:
+        description: 'The moment this event ends'
+        type: string
+        example: '2020-04-16 14:13:23'
+        format: date-time
+      duration:
+        description: 'The duration of this event.'
+        type: \DateInterval
+        example: '2'
+      organiser:
+        description: 'The organiser of this event linked to with an url.'
+        type: string
+        example: conduction.nl
+        maxLength: 255
+      freebusy:
+        description: 'The determination of the type freebusy. **FREE**, **BUSY**'
+        type: string
+        example: FREE
+      dateCreated:
+        description: 'The moment this resource was created'
+        type: \DateTime
+      dateModified:
+        description: 'The moment this resource last Modified'
+        type: \DateTime
+      calendar: []
+      schedule: []
+    required:
+      - startDate
+      - endDate
+  Freebusy-write:
+    properties:
+      description:
+        description: 'An short description of this Event'
+        type: string
+        example: 'This is the best Event ever'
+        maxLength: 2550
+      attendee:
+        description: 'The urls of the attendees of this event.'
+        type: string
+        example: 'https://con.example.com'
+        format: url
+        maxLength: 255
+      comments:
+        description: 'The urls of the comments that belong to this event.'
+        type: array
+        example: 'https://con.example.com, https://con.example2.com'
+      contact:
+        description: 'Url of this person'
+        type: string
+        example: 'https://con.example.org'
+        format: url
+      startDate:
+        description: 'The moment this event starts'
+        type: string
+        example: '2020-04-16 14:13:23'
+        format: date-time
+      endDate:
+        description: 'The moment this event ends'
+        type: string
+        example: '2020-04-16 14:13:23'
+        format: date-time
+      duration:
+        description: 'The duration of this event.'
+        type: \DateInterval
+        example: '2'
+      organiser:
+        description: 'The organiser of this event linked to with an url.'
+        type: string
+        example: conduction.nl
+        maxLength: 255
+      freebusy:
+        description: 'The determination of the type freebusy. **FREE**, **BUSY**'
+        type: string
+        example: FREE
+      calendar: []
+      schedule: []
+    required:
+      - startDate
+      - endDate
+  Journal-read:
+    properties:
+      id:
+        description: 'The UUID identifier of this resource'
+        type: string
+        example: e2984465-190a-4562-829e-a8cca81aa35d
+        format: uuid
+      name:
+        description: 'The name of this RequestType'
+        type: string
+        example: 'My RequestType'
+        maxLength: 255
+      description:
+        description: 'An short description of this Event'
+        type: string
+        example: 'This is the best Event ever'
+        maxLength: 2550
+      startDate:
+        description: 'The moment this event starts'
+        type: string
+        example: '2020-04-16 14:13:23'
+        format: date-time
+      endDate:
+        description: 'The moment this event ends'
+        type: string
+        example: '2020-04-16 14:13:23'
+        format: date-time
+      class:
+        description: 'The security class of this event.'
+        type: string
+        example: PUBLIC
+        maxLength: 255
+      organiser:
+        description: 'The organiser of this event linked to with an url.'
+        type: string
+        example: conduction.nl
+        maxLength: 255
+      status:
+        description: 'The status of this event.'
+        type: string
+        example: Confirmed
+        maxLength: 255
+      summary:
+        description: 'The summary of this event.'
+        type: string
+        example: 'This is the best event ever.'
+        maxLength: 255
+      transp:
+        description: 'The determination if the event should block the duration of the event for participants.'
+        type: string
+        example: Transparent
+        maxLength: 255
+      duration:
+        description: 'The duration of this event.'
+        type: \DateInterval
+        example: '2'
+      seq:
+        description: 'The version number of this event.'
+        type: int
+        example: '1'
+      priority:
+        description: 'The priority of this event ranging from 1 (high) to 9 (low).'
+        type: int
+        example: '1'
+      attendees:
+        description: 'The urls of the attendees of this event.'
+        type: array
+        example: 'https://con.example.com, https://con.example2.com'
+      attachments:
+        description: 'The urls of the attachments of this event.'
+        type: array
+        example: 'https://example.org, https://example2.org'
+      categories:
+        description: 'The urls of the catergories this event belongs to.'
+        type: array
+        example: 'https://con.example.com, https://con.example2.com'
+      comments:
+        description: 'The urls of the comments that belong to this event.'
+        type: array
+        example: 'https://con.example.com, https://con.example2.com'
+      dateCreated:
+        description: 'The moment this resource was created'
+        type: \DateTime
+      dateModified:
+        description: 'The moment this resource last Modified'
+        type: \DateTime
+      calendar: []
+      event: []
+    required:
+      - name
+      - startDate
+      - endDate
+  Journal-write:
+    properties:
+      name:
+        description: 'The name of this RequestType'
+        type: string
+        example: 'My RequestType'
+        maxLength: 255
+      description:
+        description: 'An short description of this Event'
+        type: string
+        example: 'This is the best Event ever'
+        maxLength: 2550
+      startDate:
+        description: 'The moment this event starts'
+        type: string
+        example: '2020-04-16 14:13:23'
+        format: date-time
+      endDate:
+        description: 'The moment this event ends'
+        type: string
+        example: '2020-04-16 14:13:23'
+        format: date-time
+      class:
+        description: 'The security class of this event.'
+        type: string
+        example: PUBLIC
+        maxLength: 255
+      organiser:
+        description: 'The organiser of this event linked to with an url.'
+        type: string
+        example: conduction.nl
+        maxLength: 255
+      status:
+        description: 'The status of this event.'
+        type: string
+        example: Confirmed
+        maxLength: 255
+      summary:
+        description: 'The summary of this event.'
+        type: string
+        example: 'This is the best event ever.'
+        maxLength: 255
+      transp:
+        description: 'The determination if the event should block the duration of the event for participants.'
+        type: string
+        example: Transparent
+        maxLength: 255
+      duration:
+        description: 'The duration of this event.'
+        type: \DateInterval
+        example: '2'
+      seq:
+        description: 'The version number of this event.'
+        type: int
+        example: '1'
+      priority:
+        description: 'The priority of this event ranging from 1 (high) to 9 (low).'
+        type: int
+        example: '1'
+      attendees:
+        description: 'The urls of the attendees of this event.'
+        type: array
+        example: 'https://con.example.com, https://con.example2.com'
+      attachments:
+        description: 'The urls of the attachments of this event.'
+        type: array
+        example: 'https://example.org, https://example2.org'
+      categories:
+        description: 'The urls of the catergories this event belongs to.'
+        type: array
+        example: 'https://con.example.com, https://con.example2.com'
+      comments:
+        description: 'The urls of the comments that belong to this event.'
+        type: array
+        example: 'https://con.example.com, https://con.example2.com'
+      calendar: []
+      event: []
+    required:
+      - name
+      - startDate
+      - endDate
+  Todo-read:
+    properties:
+      id:
+        description: 'The UUID identifier of this resource'
+        type: string
+        example: e2984465-190a-4562-829e-a8cca81aa35d
+        format: uuid
+      name:
+        description: 'The name of this RequestType'
+        type: string
+        example: 'My RequestType'
+        maxLength: 255
+      description:
+        description: 'An short description of this Event'
+        type: string
+        example: 'This is the best Event ever'
+        maxLength: 2550
+      startDate:
+        description: 'The moment this event starts'
+        type: string
+        example: '2020-04-16 14:13:23'
+        format: date-time
+      endDate:
+        description: 'The moment this event ends'
+        type: string
+        example: '2020-04-16 14:13:23'
+        format: date-time
+      location:
+        description: 'The location of this event'
+        type: string
+        example: 'Dam 1, Amsterdam'
+        maxLength: 255
+      class:
+        description: 'The security class of this event.'
+        type: string
+        example: PUBLIC
+        maxLength: 255
+      geo:
+        description: 'The coordinates of this event.'
+        type: string
+        example: '81.15147,10.36374,42.26'
+        maxLength: 255
+      organiser:
+        description: 'The organiser of this event linked to with an url.'
+        type: string
+        example: conduction.nl
+        maxLength: 255
+      status:
+        description: 'The status of this evemt.'
+        type: string
+        example: Confirmed
+        maxLength: 255
+      summary:
+        description: 'The summary of this event.'
+        type: string
+        example: 'This is the best event ever.'
+        maxLength: 255
+      duration:
+        description: 'The duration of this event.'
+        type: \DateInterval
+        example: '2'
+      contact:
+        description: 'Url of this person'
+        type: string
+        example: 'https://con.example.org'
+        format: url
+      seq:
+        description: 'The version number of this event.'
+        type: int
+        example: '1'
+      priority:
+        description: 'The priority of this event ranging from 1 (high) to 9 (low).'
+        type: int
+        example: '1'
+      attendees:
+        description: 'The urls of the attendees of this event.'
+        type: array
+        example: 'https://con.example.com, https://con.example2.com'
+      attachments:
+        description: 'The urls of the attachments of this event.'
+        type: array
+        example: 'https://example.org, https://example2.org'
+      categories:
+        description: 'The urls of the catergories this event belongs to.'
+        type: array
+        example: 'https://con.example.com, https://con.example2.com'
+      comments:
+        description: 'The urls of the comments that belong to this event.'
+        type: array
+        example: 'https://con.example.com, https://con.example2.com'
+      completed:
+        description: 'The date and time a to-do is completed.'
+        type: string
+        example: '2020-04-16 14:13:23'
+        format: date-time
+      percentageDone:
+        description: 'The percentage of a to-do that has been comepleted.'
+        type: int
+        example: 40%
+      dateCreated:
+        description: 'The moment this resource was created'
+        type: \Datetime
+      dateModified:
+        description: 'The moment this resource last Modified'
+        type: \Datetime
+      resources: []
+      alarm: []
+      calendar: []
+      schedule: []
+    required:
+      - name
+      - startDate
+      - endDate
+  Todo-write:
+    properties:
+      name:
+        description: 'The name of this RequestType'
+        type: string
+        example: 'My RequestType'
+        maxLength: 255
+      description:
+        description: 'An short description of this Event'
+        type: string
+        example: 'This is the best Event ever'
+        maxLength: 2550
+      startDate:
+        description: 'The moment this event starts'
+        type: string
+        example: '2020-04-16 14:13:23'
+        format: date-time
+      endDate:
+        description: 'The moment this event ends'
+        type: string
+        example: '2020-04-16 14:13:23'
+        format: date-time
+      location:
+        description: 'The location of this event'
+        type: string
+        example: 'Dam 1, Amsterdam'
+        maxLength: 255
+      class:
+        description: 'The security class of this event.'
+        type: string
+        example: PUBLIC
+        maxLength: 255
+      geo:
+        description: 'The coordinates of this event.'
+        type: string
+        example: '81.15147,10.36374,42.26'
+        maxLength: 255
+      organiser:
+        description: 'The organiser of this event linked to with an url.'
+        type: string
+        example: conduction.nl
+        maxLength: 255
+      status:
+        description: 'The status of this evemt.'
+        type: string
+        example: Confirmed
+        maxLength: 255
+      summary:
+        description: 'The summary of this event.'
+        type: string
+        example: 'This is the best event ever.'
+        maxLength: 255
+      duration:
+        description: 'The duration of this event.'
+        type: \DateInterval
+        example: '2'
+      contact:
+        description: 'Url of this person'
+        type: string
+        example: 'https://con.example.org'
+        format: url
+      seq:
+        description: 'The version number of this event.'
+        type: int
+        example: '1'
+      priority:
+        description: 'The priority of this event ranging from 1 (high) to 9 (low).'
+        type: int
+        example: '1'
+      attendees:
+        description: 'The urls of the attendees of this event.'
+        type: array
+        example: 'https://con.example.com, https://con.example2.com'
+      attachments:
+        description: 'The urls of the attachments of this event.'
+        type: array
+        example: 'https://example.org, https://example2.org'
+      categories:
+        description: 'The urls of the catergories this event belongs to.'
+        type: array
+        example: 'https://con.example.com, https://con.example2.com'
+      comments:
+        description: 'The urls of the comments that belong to this event.'
+        type: array
+        example: 'https://con.example.com, https://con.example2.com'
+      completed:
+        description: 'The date and time a to-do is completed.'
+        type: string
+        example: '2020-04-16 14:13:23'
+        format: date-time
+      percentageDone:
+        description: 'The percentage of a to-do that has been comepleted.'
+        type: int
+        example: 40%
+      resources: []
+      alarm: []
+      calendar: []
+      schedule: []
+    required:
+      - name
+      - startDate
+      - endDate
+  Resource-read:
+    properties:
+      id:
+        description: 'The UUID identifier of this resource'
+        type: string
+        example: e2984465-190a-4562-829e-a8cca81aa35d
+        format: uuid
+      name:
+        description: 'The name of this RequestType'
+        type: string
+        example: 'My RequestType'
+        maxLength: 255
+      description:
+        description: 'An short description of this Event'
+        type: string
+        example: 'This is the best Event ever'
+        maxLength: 2550
+      dateCreated:
+        description: 'The moment this resource was created'
+        type: \Datetime
+      dateModified:
+        description: 'The moment this resource last Modified'
+        type: \Datetime
+      events: []
+      todos: []
+    required:
+      - name
+  Resource-write:
+    properties:
+      name:
+        description: 'The name of this RequestType'
+        type: string
+        example: 'My RequestType'
+        maxLength: 255
+      description:
+        description: 'An short description of this Event'
+        type: string
+        example: 'This is the best Event ever'
+        maxLength: 2550
+      events: []
+      todos: []
+    required:
+      - name
+  Alarm-read:
+    properties:
+      id:
+        description: 'The UUID identifier of this resource'
+        type: string
+        example: e2984465-190a-4562-829e-a8cca81aa35d
+        format: uuid
+      name:
+        description: 'The name of this RequestType'
+        type: string
+        example: 'My RequestType'
+        maxLength: 255
+      description:
+        description: 'An short description of this Event'
+        type: string
+        example: 'This is the best Event ever'
+        maxLength: 2550
+      summary:
+        description: 'The summary of this event.'
+        type: string
+        example: 'This is the best event ever.'
+        maxLength: 255
+      action:
+        description: 'The action of the alarm. **AUDIO**, **DISPLAY**, **EMAIL**, **PROCEDURE**'
+        type: string
+        example: AUDIO
+      trigger:
+        description: 'The time the alarm should trigger relative to the start time of the related event.'
+        type: \DateInterval
+        example: PT30M
+      duration:
+        description: 'The time until the alarm repeats.'
+        type: \DateInterval
+        example: PT30M
+      repeat:
+        description: 'The number of times the alarm repeats.'
+        type: int
+        example: '4'
+      dateCreated:
+        description: 'The moment this resource was created'
+        type: \Datetime
+      dateModified:
+        description: 'The moment this resource last Modified'
+        type: \Datetime
+      event: []
+      todo: []
+    required:
+      - name
+      - action
+      - trigger
+      - duration
+  Alarm-write:
+    properties:
+      name:
+        description: 'The name of this RequestType'
+        type: string
+        example: 'My RequestType'
+        maxLength: 255
+      description:
+        description: 'An short description of this Event'
+        type: string
+        example: 'This is the best Event ever'
+        maxLength: 2550
+      summary:
+        description: 'The summary of this event.'
+        type: string
+        example: 'This is the best event ever.'
+        maxLength: 255
+      action:
+        description: 'The action of the alarm. **AUDIO**, **DISPLAY**, **EMAIL**, **PROCEDURE**'
+        type: string
+        example: AUDIO
+      trigger:
+        description: 'The time the alarm should trigger relative to the start time of the related event.'
+        type: \DateInterval
+        example: PT30M
+      duration:
+        description: 'The time until the alarm repeats.'
+        type: \DateInterval
+        example: PT30M
+      repeat:
+        description: 'The number of times the alarm repeats.'
+        type: int
+        example: '4'
+      event: []
+      todo: []
+    required:
+      - name
+      - action
+      - trigger
+      - duration
+  AuditTrail-read:
+    properties:
+      id:
+        description: 'The UUID identifier of this object'
+        type: string
+        example: e2984465-190a-4562-829e-a8cca81aa35d
+        format: uuid
+      note:
+        description: 'A note conserning this log lin'
+        type: string
+        example: 'This log line looks suspicius'
+        maxLength: 2555
+      application:
+        description: 'The application that made the request'
+        type: string
+        format: url
+        maxLength: 255
+      request:
+        description: 'The id of the request within that application'
+        type: string
+        format: url
+        maxLength: 255
+      user:
+        description: 'The user on behalf of wich the request was made'
+        type: string
+        format: url
+        maxLength: 255
+      subject:
+        description: '???'
+        type: \sting
+        maxLength: 255
+      process:
+        description: 'The procces on behalf of wich the request was made'
+        type: \sting
+        maxLength: 255
+      dataElements:
+        description: 'The moment this request was created'
+        type: array
+      dataSubjects:
+        description: 'The moment this request was created'
+        type: array
+      resource:
+        description: 'The resource that was requested'
+        type: \sting
+        maxLength: 255
+      resourceType:
+        description: 'The type of the resource that was requested'
+        type: \sting
+        maxLength: 255
+      route:
+        description: 'The moment this request was created'
+        type: \sting
+        maxLength: 255
+      endpoint:
+        description: 'The endpoint that the request was made to'
+        type: \sting
+        maxLength: 255
+      method:
+        description: 'The method that was used'
+        type: \sting
+        maxLength: 255
+      accept:
+        description: 'The contentType that was reqousted'
+        type: \sting
+        maxLength: 255
+      contentType:
+        description: 'The contentType that was suplieds'
+        type: \sting
+        maxLength: 255
+      content:
+        description: 'The moment this request was created'
+        type: \sting
+        maxLength: 2555
+      ip:
+        description: 'The moment this request was created'
+        type: \sting
+        maxLength: 255
+      session:
+        description: 'The moment this request was created'
+        type: string
+        maxLength: 255
+      headers:
+        description: 'The headers supplied by client'
+        type: array
+      statusCode:
+        description: 'The status code returned to client'
+        type: int
+        example: '200'
+      notFound:
+        description: 'Whether or not the reqousted endpoint was found'
+        type: bool
+        example: 'false'
+      forbidden:
+        description: 'Whether or not the client was allowed to the reqousted endpoint'
+        type: bool
+        example: 'false'
+      ok:
+        description: 'Whether or not there where any problems'
+        type: bool
+        example: 'true'
+      dateCreated:
+        description: 'The moment this request was created'
+        type: string
+        format: date-time
+        example: '2020-04-16 14:13:23'
+      dateModified:
+        description: 'The moment this request last Modified'
+        type: string
+        format: date-time
+        example: '2020-04-16 14:13:23'
+    required: []
+  AuditTrail-write:
+    properties:
+      note:
+        description: 'A note conserning this log lin'
+        type: string
+        example: 'This log line looks suspicius'
+        maxLength: 2555
+    required: []
   Schedule-read:
     properties:
       id:
@@ -15075,548 +15736,6 @@ definitions:
     required:
       - name
       - timeZone
-  Freebusy-read:
-    properties:
-      id:
-        description: 'The UUID identifier of this resource'
-        type: string
-        example: e2984465-190a-4562-829e-a8cca81aa35d
-        format: uuid
-      description:
-        description: 'An short description of this Event'
-        type: string
-        example: 'This is the best Event ever'
-        maxLength: 2550
-      attendee:
-        description: 'The urls of the attendees of this event.'
-        type: string
-        example: 'https://con.example.com'
-        format: url
-        maxLength: 255
-      comments:
-        description: 'The urls of the comments that belong to this event.'
-        type: array
-        example: 'https://con.example.com, https://con.example2.com'
-      contact:
-        description: 'Url of this person'
-        type: string
-        example: 'https://con.example.org'
-        format: url
-      startDate:
-        description: 'The moment this event starts'
-        type: string
-        example: '2020-04-16 12:24:44'
-        format: date-time
-      endDate:
-        description: 'The moment this event ends'
-        type: string
-        example: '2020-04-16 12:24:44'
-        format: date-time
-      duration:
-        description: 'The duration of this event.'
-        type: \DateInterval
-        example: '2'
-      organiser:
-        description: 'The organiser of this event linked to with an url.'
-        type: string
-        example: conduction.nl
-        maxLength: 255
-      freebusy:
-        description: 'The determination of the type freebusy. **FREE**, **BUSY**'
-        type: string
-        example: FREE
-      dateCreated:
-        description: 'The moment this resource was created'
-        type: \DateTime
-      dateModified:
-        description: 'The moment this resource last Modified'
-        type: \DateTime
-      calendar: []
-      schedule: []
-    required:
-      - startDate
-      - endDate
-  Freebusy-write:
-    properties:
-      description:
-        description: 'An short description of this Event'
-        type: string
-        example: 'This is the best Event ever'
-        maxLength: 2550
-      attendee:
-        description: 'The urls of the attendees of this event.'
-        type: string
-        example: 'https://con.example.com'
-        format: url
-        maxLength: 255
-      comments:
-        description: 'The urls of the comments that belong to this event.'
-        type: array
-        example: 'https://con.example.com, https://con.example2.com'
-      contact:
-        description: 'Url of this person'
-        type: string
-        example: 'https://con.example.org'
-        format: url
-      startDate:
-        description: 'The moment this event starts'
-        type: string
-        example: '2020-04-16 12:24:44'
-        format: date-time
-      endDate:
-        description: 'The moment this event ends'
-        type: string
-        example: '2020-04-16 12:24:44'
-        format: date-time
-      duration:
-        description: 'The duration of this event.'
-        type: \DateInterval
-        example: '2'
-      organiser:
-        description: 'The organiser of this event linked to with an url.'
-        type: string
-        example: conduction.nl
-        maxLength: 255
-      freebusy:
-        description: 'The determination of the type freebusy. **FREE**, **BUSY**'
-        type: string
-        example: FREE
-      calendar: []
-      schedule: []
-    required:
-      - startDate
-      - endDate
-  Journal-read:
-    properties:
-      id:
-        description: 'The UUID identifier of this resource'
-        type: string
-        example: e2984465-190a-4562-829e-a8cca81aa35d
-        format: uuid
-      name:
-        description: 'The name of this RequestType'
-        type: string
-        example: 'My RequestType'
-        maxLength: 255
-      description:
-        description: 'An short description of this Event'
-        type: string
-        example: 'This is the best Event ever'
-        maxLength: 2550
-      startDate:
-        description: 'The moment this event starts'
-        type: string
-        example: '2020-04-16 12:24:44'
-        format: date-time
-      endDate:
-        description: 'The moment this event ends'
-        type: string
-        example: '2020-04-16 12:24:44'
-        format: date-time
-      class:
-        description: 'The security class of this event.'
-        type: string
-        example: PUBLIC
-        maxLength: 255
-      organiser:
-        description: 'The organiser of this event linked to with an url.'
-        type: string
-        example: conduction.nl
-        maxLength: 255
-      status:
-        description: 'The status of this event.'
-        type: string
-        example: Confirmed
-        maxLength: 255
-      summary:
-        description: 'The summary of this event.'
-        type: string
-        example: 'This is the best event ever.'
-        maxLength: 255
-      transp:
-        description: 'The determination if the event should block the duration of the event for participants.'
-        type: string
-        example: Transparent
-        maxLength: 255
-      duration:
-        description: 'The duration of this event.'
-        type: \DateInterval
-        example: '2'
-      seq:
-        description: 'The version number of this event.'
-        type: int
-        example: '1'
-      priority:
-        description: 'The priority of this event ranging from 1 (high) to 9 (low).'
-        type: int
-        example: '1'
-      attendees:
-        description: 'The urls of the attendees of this event.'
-        type: array
-        example: 'https://con.example.com, https://con.example2.com'
-      attachments:
-        description: 'The urls of the attachments of this event.'
-        type: array
-        example: 'https://example.org, https://example2.org'
-      categories:
-        description: 'The urls of the catergories this event belongs to.'
-        type: array
-        example: 'https://con.example.com, https://con.example2.com'
-      comments:
-        description: 'The urls of the comments that belong to this event.'
-        type: array
-        example: 'https://con.example.com, https://con.example2.com'
-      dateCreated:
-        description: 'The moment this resource was created'
-        type: \DateTime
-      dateModified:
-        description: 'The moment this resource last Modified'
-        type: \DateTime
-      calendar: []
-      event: []
-    required:
-      - name
-      - startDate
-      - endDate
-  Journal-write:
-    properties:
-      name:
-        description: 'The name of this RequestType'
-        type: string
-        example: 'My RequestType'
-        maxLength: 255
-      description:
-        description: 'An short description of this Event'
-        type: string
-        example: 'This is the best Event ever'
-        maxLength: 2550
-      startDate:
-        description: 'The moment this event starts'
-        type: string
-        example: '2020-04-16 12:24:44'
-        format: date-time
-      endDate:
-        description: 'The moment this event ends'
-        type: string
-        example: '2020-04-16 12:24:44'
-        format: date-time
-      class:
-        description: 'The security class of this event.'
-        type: string
-        example: PUBLIC
-        maxLength: 255
-      organiser:
-        description: 'The organiser of this event linked to with an url.'
-        type: string
-        example: conduction.nl
-        maxLength: 255
-      status:
-        description: 'The status of this event.'
-        type: string
-        example: Confirmed
-        maxLength: 255
-      summary:
-        description: 'The summary of this event.'
-        type: string
-        example: 'This is the best event ever.'
-        maxLength: 255
-      transp:
-        description: 'The determination if the event should block the duration of the event for participants.'
-        type: string
-        example: Transparent
-        maxLength: 255
-      duration:
-        description: 'The duration of this event.'
-        type: \DateInterval
-        example: '2'
-      seq:
-        description: 'The version number of this event.'
-        type: int
-        example: '1'
-      priority:
-        description: 'The priority of this event ranging from 1 (high) to 9 (low).'
-        type: int
-        example: '1'
-      attendees:
-        description: 'The urls of the attendees of this event.'
-        type: array
-        example: 'https://con.example.com, https://con.example2.com'
-      attachments:
-        description: 'The urls of the attachments of this event.'
-        type: array
-        example: 'https://example.org, https://example2.org'
-      categories:
-        description: 'The urls of the catergories this event belongs to.'
-        type: array
-        example: 'https://con.example.com, https://con.example2.com'
-      comments:
-        description: 'The urls of the comments that belong to this event.'
-        type: array
-        example: 'https://con.example.com, https://con.example2.com'
-      calendar: []
-      event: []
-    required:
-      - name
-      - startDate
-      - endDate
-  Todo-read:
-    properties:
-      id:
-        description: 'The UUID identifier of this resource'
-        type: string
-        example: e2984465-190a-4562-829e-a8cca81aa35d
-        format: uuid
-      name:
-        description: 'The name of this RequestType'
-        type: string
-        example: 'My RequestType'
-        maxLength: 255
-      description:
-        description: 'An short description of this Event'
-        type: string
-        example: 'This is the best Event ever'
-        maxLength: 2550
-      startDate:
-        description: 'The moment this event starts'
-        type: string
-        example: '2020-04-16 12:24:44'
-        format: date-time
-      endDate:
-        description: 'The moment this event ends'
-        type: string
-        example: '2020-04-16 12:24:44'
-        format: date-time
-      location:
-        description: 'The location of this event'
-        type: string
-        example: 'Dam 1, Amsterdam'
-        maxLength: 255
-      class:
-        description: 'The security class of this event.'
-        type: string
-        example: PUBLIC
-        maxLength: 255
-      geo:
-        description: 'The coordinates of this event.'
-        type: string
-        example: '81.15147,10.36374,42.26'
-        maxLength: 255
-      organiser:
-        description: 'The organiser of this event linked to with an url.'
-        type: string
-        example: conduction.nl
-        maxLength: 255
-      status:
-        description: 'The status of this evemt.'
-        type: string
-        example: Confirmed
-        maxLength: 255
-      summary:
-        description: 'The summary of this event.'
-        type: string
-        example: 'This is the best event ever.'
-        maxLength: 255
-      duration:
-        description: 'The duration of this event.'
-        type: \DateInterval
-        example: '2'
-      contact:
-        description: 'Url of this person'
-        type: string
-        example: 'https://con.example.org'
-        format: url
-      seq:
-        description: 'The version number of this event.'
-        type: int
-        example: '1'
-      priority:
-        description: 'The priority of this event ranging from 1 (high) to 9 (low).'
-        type: int
-        example: '1'
-      attendees:
-        description: 'The urls of the attendees of this event.'
-        type: array
-        example: 'https://con.example.com, https://con.example2.com'
-      attachments:
-        description: 'The urls of the attachments of this event.'
-        type: array
-        example: 'https://example.org, https://example2.org'
-      categories:
-        description: 'The urls of the catergories this event belongs to.'
-        type: array
-        example: 'https://con.example.com, https://con.example2.com'
-      comments:
-        description: 'The urls of the comments that belong to this event.'
-        type: array
-        example: 'https://con.example.com, https://con.example2.com'
-      completed:
-        description: 'The date and time a to-do is completed.'
-        type: string
-        example: '2020-04-16 12:24:44'
-        format: date-time
-      percentageDone:
-        description: 'The percentage of a to-do that has been comepleted.'
-        type: int
-        example: 40%
-      dateCreated:
-        description: 'The moment this resource was created'
-        type: \Datetime
-      dateModified:
-        description: 'The moment this resource last Modified'
-        type: \Datetime
-      resources: []
-      alarm: []
-      calendar: []
-      schedule: []
-    required:
-      - name
-      - startDate
-      - endDate
-  Todo-write:
-    properties:
-      name:
-        description: 'The name of this RequestType'
-        type: string
-        example: 'My RequestType'
-        maxLength: 255
-      description:
-        description: 'An short description of this Event'
-        type: string
-        example: 'This is the best Event ever'
-        maxLength: 2550
-      startDate:
-        description: 'The moment this event starts'
-        type: string
-        example: '2020-04-16 12:24:44'
-        format: date-time
-      endDate:
-        description: 'The moment this event ends'
-        type: string
-        example: '2020-04-16 12:24:44'
-        format: date-time
-      location:
-        description: 'The location of this event'
-        type: string
-        example: 'Dam 1, Amsterdam'
-        maxLength: 255
-      class:
-        description: 'The security class of this event.'
-        type: string
-        example: PUBLIC
-        maxLength: 255
-      geo:
-        description: 'The coordinates of this event.'
-        type: string
-        example: '81.15147,10.36374,42.26'
-        maxLength: 255
-      organiser:
-        description: 'The organiser of this event linked to with an url.'
-        type: string
-        example: conduction.nl
-        maxLength: 255
-      status:
-        description: 'The status of this evemt.'
-        type: string
-        example: Confirmed
-        maxLength: 255
-      summary:
-        description: 'The summary of this event.'
-        type: string
-        example: 'This is the best event ever.'
-        maxLength: 255
-      duration:
-        description: 'The duration of this event.'
-        type: \DateInterval
-        example: '2'
-      contact:
-        description: 'Url of this person'
-        type: string
-        example: 'https://con.example.org'
-        format: url
-      seq:
-        description: 'The version number of this event.'
-        type: int
-        example: '1'
-      priority:
-        description: 'The priority of this event ranging from 1 (high) to 9 (low).'
-        type: int
-        example: '1'
-      attendees:
-        description: 'The urls of the attendees of this event.'
-        type: array
-        example: 'https://con.example.com, https://con.example2.com'
-      attachments:
-        description: 'The urls of the attachments of this event.'
-        type: array
-        example: 'https://example.org, https://example2.org'
-      categories:
-        description: 'The urls of the catergories this event belongs to.'
-        type: array
-        example: 'https://con.example.com, https://con.example2.com'
-      comments:
-        description: 'The urls of the comments that belong to this event.'
-        type: array
-        example: 'https://con.example.com, https://con.example2.com'
-      completed:
-        description: 'The date and time a to-do is completed.'
-        type: string
-        example: '2020-04-16 12:24:44'
-        format: date-time
-      percentageDone:
-        description: 'The percentage of a to-do that has been comepleted.'
-        type: int
-        example: 40%
-      resources: []
-      alarm: []
-      calendar: []
-      schedule: []
-    required:
-      - name
-      - startDate
-      - endDate
-  Resource-read:
-    properties:
-      id:
-        description: 'The UUID identifier of this resource'
-        type: string
-        example: e2984465-190a-4562-829e-a8cca81aa35d
-        format: uuid
-      name:
-        description: 'The name of this RequestType'
-        type: string
-        example: 'My RequestType'
-        maxLength: 255
-      description:
-        description: 'An short description of this Event'
-        type: string
-        example: 'This is the best Event ever'
-        maxLength: 2550
-      dateCreated:
-        description: 'The moment this resource was created'
-        type: \Datetime
-      dateModified:
-        description: 'The moment this resource last Modified'
-        type: \Datetime
-      events: []
-      todos: []
-    required:
-      - name
-  Resource-write:
-    properties:
-      name:
-        description: 'The name of this RequestType'
-        type: string
-        example: 'My RequestType'
-        maxLength: 255
-      description:
-        description: 'An short description of this Event'
-        type: string
-        example: 'This is the best Event ever'
-        maxLength: 2550
-      events: []
-      todos: []
-    required:
-      - name
   ChangeLog-read:
     properties:
       id:
@@ -15655,12 +15774,12 @@ definitions:
         description: 'The moment this request was created'
         type: string
         format: date-time
-        example: '2020-04-16 12:24:44'
+        example: '2020-04-16 14:13:23'
       dateModified:
         description: 'The moment this request last Modified'
         type: string
         format: date-time
-        example: '2020-04-16 12:24:44'
+        example: '2020-04-16 14:13:23'
     required: []
   ChangeLog-write:
     properties:
@@ -15670,148 +15789,11 @@ definitions:
         example: 'This log line is suspicius'
         maxLength: 2555
     required: []
-  AuditTrail-read:
-    properties:
-      id:
-        description: 'The UUID identifier of this object'
-        type: string
-        example: e2984465-190a-4562-829e-a8cca81aa35d
-        format: uuid
-      note:
-        description: 'A note conserning this log lin'
-        type: string
-        example: 'This log line looks suspicius'
-        maxLength: 2555
-      application:
-        description: 'The application that made the request'
-        type: string
-        format: url
-        maxLength: 255
-      request:
-        description: 'The id of the request within that application'
-        type: string
-        format: url
-        maxLength: 255
-      user:
-        description: 'The user on behalf of wich the request was made'
-        type: string
-        format: url
-        maxLength: 255
-      subject:
-        description: '???'
-        type: \sting
-        maxLength: 255
-      process:
-        description: 'The procces on behalf of wich the request was made'
-        type: \sting
-        maxLength: 255
-      dataElements:
-        description: 'The moment this request was created'
-        type: array
-      dataSubjects:
-        description: 'The moment this request was created'
-        type: array
-      resource:
-        description: 'The resource that was requested'
-        type: \sting
-        maxLength: 255
-      resourceType:
-        description: 'The type of the resource that was requested'
-        type: \sting
-        maxLength: 255
-      route:
-        description: 'The moment this request was created'
-        type: \sting
-        maxLength: 255
-      endpoint:
-        description: 'The endpoint that the request was made to'
-        type: \sting
-        maxLength: 255
-      method:
-        description: 'The method that was used'
-        type: \sting
-        maxLength: 255
-      accept:
-        description: 'The contentType that was reqousted'
-        type: \sting
-        maxLength: 255
-      contentType:
-        description: 'The contentType that was suplieds'
-        type: \sting
-        maxLength: 255
-      content:
-        description: 'The moment this request was created'
-        type: \sting
-        maxLength: 2555
-      ip:
-        description: 'The moment this request was created'
-        type: \sting
-        maxLength: 255
-      session:
-        description: 'The moment this request was created'
-        type: string
-        maxLength: 255
-      headers:
-        description: 'The headers supplied by client'
-        type: array
-      statusCode:
-        description: 'The status code returned to client'
-        type: int
-        example: '200'
-      notFound:
-        description: 'Whether or not the reqousted endpoint was found'
-        type: bool
-        example: 'false'
-      forbidden:
-        description: 'Whether or not the client was allowed to the reqousted endpoint'
-        type: bool
-        example: 'false'
-      ok:
-        description: 'Whether or not there where any problems'
-        type: bool
-        example: 'true'
-      dateCreated:
-        description: 'The moment this request was created'
-        type: string
-        format: date-time
-        example: '2020-04-16 12:24:44'
-      dateModified:
-        description: 'The moment this request last Modified'
-        type: string
-        format: date-time
-        example: '2020-04-16 12:24:44'
-    required: []
-  AuditTrail-write:
-    properties:
-      note:
-        description: 'A note conserning this log lin'
-        type: string
-        example: 'This log line looks suspicius'
-        maxLength: 2555
-    required: []
 tags:
-  -
-    name: Alarm
-    description: |
-      Used to describe alarms for Events and Todos.
-      
-      
   -
     name: Event
     description: |
       An event happening at a certain time and location, such as a concert, lecture, meeting or festival.
-      
-      
-  -
-    name: Schedule
-    description: |
-      A schedule defines a repeating time period used to describe a regularly occurring Event. At a minimum a schedule will specify repeatFrequency which describes the interval between occurences of the event. Additional information can be provided to specify the schedule more precisely. This includes identifying the day(s) of the week or month when the recurring event will take place, in addition to its start and end time. Schedules may also have start and end dates to indicate when they are active, e.g. to define a limited calendar of events.
-      
-      
-  -
-    name: Calendar
-    description: |
-      A Calendar is a collection of events tied to an unque person or resource.
       
       
   -
@@ -15839,13 +15821,31 @@ tags:
       
       
   -
-    name: ChangeLog
+    name: Alarm
+    description: |
+      Used to describe alarms for Events and Todos.
+      
+      
+  -
+    name: AuditTrail
     description: |
       An resource representing a log line.
       
       This entity represents a product that can be ordered via the OrderRegistratieComponent.
   -
-    name: AuditTrail
+    name: Schedule
+    description: |
+      A schedule defines a repeating time period used to describe a regularly occurring Event. At a minimum a schedule will specify repeatFrequency which describes the interval between occurences of the event. Additional information can be provided to specify the schedule more precisely. This includes identifying the day(s) of the week or month when the recurring event will take place, in addition to its start and end time. Schedules may also have start and end dates to indicate when they are active, e.g. to define a limited calendar of events.
+      
+      
+  -
+    name: Calendar
+    description: |
+      A Calendar is a collection of events tied to an unque person or resource.
+      
+      
+  -
+    name: ChangeLog
     description: |
       An resource representing a log line.
       
@@ -15856,15 +15856,15 @@ securityDefinitions:
     authorizationUrl: 'http://petstore.swagger.io/api/oauth/dialog'
     flow: implicit
     scopes:
-      read: 'read right to the AuditTrail resource'
-      write: 'write right to the AuditTrail resource'
+      read: 'read right to the ChangeLog resource'
+      write: 'write right to the ChangeLog resource'
   JWT-Token:
     type: apiKey
     in: header
     name: Authorization
     scopes:
-      read: 'read right to the AuditTrail resource'
-      write: 'write right to the AuditTrail resource'
+      read: 'read right to the ChangeLog resource'
+      write: 'write right to the ChangeLog resource'
 host: irc.zaakonline.nl
 servers:
   -
