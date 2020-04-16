@@ -9,9 +9,12 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\DateFilter;
 
+use DateInterval;
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Serializer\Annotation\MaxDepth;
@@ -129,9 +132,8 @@ class Todo
      * @Assert\Length(
      *      max = 255
      * )
-     * @Assert\NotBlank
      * @Groups({"read","write"})
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $location;
 
@@ -143,9 +145,8 @@ class Todo
      * @Assert\Length(
      *      max = 255
      * )
-     * @Assert\NotBlank
      * @Groups({"read","write"})
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $class;
 
@@ -158,7 +159,7 @@ class Todo
      *      max = 255
      * )
      * @Groups({"read","write"})
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $geo;
 
@@ -170,9 +171,8 @@ class Todo
      * @Assert\Length(
      *      max = 255
      * )
-     * @Assert\NotBlank
      * @Groups({"read","write"})
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $organiser;
 
@@ -184,9 +184,8 @@ class Todo
      * @Assert\Length(
      *      max = 255
      * )
-     * @Assert\NotBlank
      * @Groups({"read","write"})
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $status;
 
@@ -198,21 +197,18 @@ class Todo
      * @Assert\Length(
      *      max = 255
      * )
-     * @Assert\NotBlank
      * @Groups({"read","write"})
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $summary;
 
     /**
-     * @todo Automated ?
-     *
-     * @var string The duration of this event.
+     * @var DateInterval The duration of this event.
      *
      * @example 2
      *
      * @Groups({"read","write"})
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\Column(type="dateinterval", nullable=true)
      */
     private $duration;
 
@@ -221,22 +217,18 @@ class Todo
      *
      * @example https://con.example.org
      *
-     * @Assert\NotNull
      * @Assert\Url
      * @Groups({"read","write"})
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $contact;
 
     /**
-     * @todo Automated ?
-     *
      * @var int The version number of this event.
      *
-     * @example 1.0
+     * @example 1
      *
      * @Assert\Type("int")
-     * @Assert\NotBlank
      * @Groups({"read","write"})
      * @ORM\Column(type="integer")
      */
@@ -247,20 +239,18 @@ class Todo
      * @example 1
      *
      * @Assert\Type("int")
-     * @Assert\NotBlank
      * @Groups({"read","write"})
      * @ORM\Column(type="integer")
      */
-    private $priority;
+    private $priority = 9;
 
     /**
      * @var array The urls of the attendees of this event.
      *
      * @example https://con.example.com, https://con.example2.com
      *
-     * @Assert\Url
      * @Groups({"read","write"})
-     * @ORM\Column(type="array")
+     * @ORM\Column(type="array", nullable=true)
      */
     private $attendees = [];
 
@@ -269,9 +259,8 @@ class Todo
      *
      * @example https://example.org, https://example2.org
      *
-     * @Assert\Url
      * @Groups({"read","write"})
-     * @ORM\Column(type="array")
+     * @ORM\Column(type="array", nullable=true)
      */
     private $attachments = [];
 
@@ -280,9 +269,8 @@ class Todo
      *
      * @example https://con.example.com, https://con.example2.com
      *
-     * @Assert\Url
      * @Groups({"read","write"})
-     * @ORM\Column(type="array")
+     * @ORM\Column(type="array", nullable=true)
      */
     private $categories = [];
 
@@ -291,21 +279,19 @@ class Todo
      *
      * @example https://con.example.com, https://con.example2.com
      *
-     * @Assert\Url
      * @Groups({"read","write"})
-     * @ORM\Column(type="array")
+     * @ORM\Column(type="array", nullable=true)
      */
     private $comments = [];
 
     /**
-     * @var datetime The date and time a to-do is completed.
+     * @var DateTime The date and time a to-do is completed.
      *
      * @example 10-12-2019 15:00:00
      *
-     * @Assert\NotNull
      * @Assert\DateTime
      * @Groups({"read","write"})
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private $completed;
 
@@ -315,11 +301,10 @@ class Todo
      * @example 40%
      *
      * @Assert\Type("int")
-     * @Assert\NotNull
      * @Groups({"read","write"})
      * @ORM\Column(type="integer")
      */
-    private $percentageDone;
+    private $percentageDone = 0;
 
     /**
      * @Groups({"read","write"})
@@ -534,12 +519,12 @@ class Todo
         return $this;
     }
 
-    public function getDuration(): ?int
+    public function getDuration(): ?DateInterval
     {
         return $this->duration;
     }
 
-    public function setDuration(int $duration): self
+    public function setDuration(DateInterval $duration): self
     {
         $this->duration = $duration;
 

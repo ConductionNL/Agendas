@@ -9,9 +9,12 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\DateFilter;
 
+use DateInterval;
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Serializer\Annotation\MaxDepth;
@@ -130,14 +133,13 @@ class Event
      * @Assert\Length(
      *      max = 255
      * )
-     * @Assert\NotBlank
      * @Groups({"read","write"})
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $location;
 
     /**
-     * @var string An optional Schedule to which this event belongs
+     * @var Schedule An optional Schedule to which this event belongs
      *
      * @MaxDepth(1)
      * @Groups({"read","write"})
@@ -146,7 +148,7 @@ class Event
     private $schedule;
 
     /**
-     * @var string The Calendar to wich this event belongs
+     * @var Calendar The Calendar to wich this event belongs
      *
      * @MaxDepth(1)
      * @Groups({"read","write"})
@@ -163,9 +165,8 @@ class Event
      * @Assert\Length(
      *      max = 255
      * )
-     * @Assert\NotBlank
      * @Groups({"read","write"})
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $class;
 
@@ -178,7 +179,7 @@ class Event
      *      max = 255
      * )
      * @Groups({"read","write"})
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $geo;
 
@@ -190,23 +191,21 @@ class Event
      * @Assert\Length(
      *      max = 255
      * )
-     * @Assert\NotBlank
      * @Groups({"read","write"})
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $organiser;
+    private $organizer;
 
     /**
-     * @var string The status of this evemt.
+     * @var string The status of this event.
      *
      * @example Confirmed
      *
      * @Assert\Length(
      *      max = 255
      * )
-     * @Assert\NotBlank
      * @Groups({"read","write"})
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $status;
 
@@ -218,9 +217,8 @@ class Event
      * @Assert\Length(
      *      max = 255
      * )
-     * @Assert\NotBlank
      * @Groups({"read","write"})
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255,nullable=true)
      */
     private $summary;
 
@@ -232,21 +230,18 @@ class Event
      * @Assert\Length(
      *      max = 255
      * )
-     * @Assert\NotBlank
      * @Groups({"read","write"})
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $transp;
 
     /**
-     * @todo Automated ?
+     * @var DateInterval The duration of this event.
      *
-     * @var string The duration of this event.
-     *
-     * @example 2
+     * @example P0M3
      *
      * @Groups({"read","write"})
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\Column(type="dateinterval", nullable=true)
      */
     private $duration;
 
@@ -255,22 +250,18 @@ class Event
      *
      * @example https://con.example.org
      *
-     * @Assert\NotNull
      * @Assert\Url
      * @Groups({"read","write"})
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $contact;
 
     /**
-     * @todo Automated ?
-     *
      * @var int The version number of this event.
      *
-     * @example 1.0
+     * @example 1
      *
      * @Assert\Type("int")
-     * @Assert\NotBlank
      * @Groups({"read","write"})
      * @ORM\Column(type="integer")
      */
@@ -292,7 +283,6 @@ class Event
      *
      * @example https://con.example.com, https://con.example2.com
      *
-     * @Assert\Url
      * @Groups({"read","write"})
      * @ORM\Column(type="array")
      */
@@ -303,7 +293,6 @@ class Event
      *
      * @example https://example.org, https://example2.org
      *
-     * @Assert\Url
      * @Groups({"read","write"})
      * @ORM\Column(type="array")
      */
@@ -314,7 +303,6 @@ class Event
      *
      * @example https://con.example.com, https://con.example2.com
      *
-     * @Assert\Url
      * @Groups({"read","write"})
      * @ORM\Column(type="array")
      */
@@ -325,7 +313,6 @@ class Event
      *
      * @example https://con.example.com, https://con.example2.com
      *
-     * @Assert\Url
      * @Groups({"read","write"})
      * @ORM\Column(type="array")
      */
@@ -360,7 +347,7 @@ class Event
     private $journal;
 
     /**
-     * @var Datetime $dateCreated The moment this resource was created
+     * @var DateTime $dateCreated The moment this resource was created
      *
      * @Groups({"read"})
      * @Gedmo\Timestampable(on="create")
@@ -497,14 +484,14 @@ class Event
         return $this;
     }
 
-    public function getOrganiser(): ?string
+    public function getOrganizer(): ?string
     {
-        return $this->organiser;
+        return $this->organizer;
     }
 
-    public function setOrganiser(string $organiser): self
+    public function setOrganizer(string $organizer): self
     {
-        $this->organiser = $organiser;
+        $this->organizer = $organizer;
 
         return $this;
     }
@@ -545,12 +532,12 @@ class Event
         return $this;
     }
 
-    public function getDuration(): ?int
+    public function getDuration(): ?DateInterval
     {
         return $this->duration;
     }
 
-    public function setDuration(int $duration): self
+    public function setDuration(DateInterval $duration): self
     {
         $this->duration = $duration;
 

@@ -9,7 +9,10 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\DateFilter;
 
+use DateInterval;
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
+use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Serializer\Annotation\MaxDepth;
@@ -92,9 +95,8 @@ class Freebusy
      * @Assert\Length(
      *     max = 255
      * )
-     * @Assert\NotNull
      * @Groups({"read","write"})
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $attendee;
 
@@ -103,9 +105,8 @@ class Freebusy
      *
      * @example https://con.example.com, https://con.example2.com
      *
-     * @Assert\Url
      * @Groups({"read","write"})
-     * @ORM\Column(type="array")
+     * @ORM\Column(type="array", nullable=true)
      */
     private $comments = [];
 
@@ -114,10 +115,9 @@ class Freebusy
      *
      * @example https://con.example.org
      *
-     * @Assert\NotNull
      * @Assert\Url
      * @Groups({"read","write"})
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $contact;
 
@@ -129,26 +129,24 @@ class Freebusy
      * @Assert\DateTime
      * @Assert\NotNull
      * @Groups({"read","write"})
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private $startDate;
 
     /**
-     * @var Datetime The moment this event ends
+     * @var DateTime The moment this event ends
      *
      * @example 3-11-2019 20:00:00
      *
      * @Assert\DateTime
      * @Assert\NotNull
      * @Groups({"read","write"})
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private $endDate;
 
     /**
-     * @todo Automated ?
-     *
-     * @var string The duration of this event.
+     * @var DateInterval The duration of this event.
      *
      * @example 2
      *
@@ -165,19 +163,17 @@ class Freebusy
      * @Assert\Length(
      *      max = 255
      * )
-     * @Assert\NotBlank
      * @Groups({"read","write"})
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $organiser;
     /**
-     * @var string The determination of the type freebusy.
+     * @var string The determination of the type freebusy. **FREE**, **BUSY**
      *
      * @example FREE
-     *
-     * @Assert\NotNull
+     * @Assert\Choice({"FREE","BUSY"})
      * @Groups({"read","write"})
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $freebusy;
 
@@ -197,7 +193,7 @@ class Freebusy
     private $schedule;
 
     /**
-     * @var Datetime $dateCreated The moment this resource was created
+     * @var DateTime $dateCreated The moment this resource was created
      *
      * @Groups({"read"})
      * @Gedmo\Timestampable(on="create")
@@ -206,7 +202,7 @@ class Freebusy
     private $dateCreated;
 
     /**
-     * @var Datetime $dateModified  The moment this resource last Modified
+     * @var DateTime $dateModified  The moment this resource last Modified
      *
      * @Groups({"read"})
      * @Gedmo\Timestampable(on="update")
@@ -291,12 +287,12 @@ class Freebusy
         return $this;
     }
 
-    public function getDuration(): ?int
+    public function getDuration(): ?DateInterval
     {
         return $this->duration;
     }
 
-    public function setDuration(int $duration): self
+    public function setDuration(DateInterval $duration): self
     {
         $this->duration = $duration;
 

@@ -9,7 +9,10 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\DateFilter;
 
+use DateInterval;
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
+use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Serializer\Annotation\MaxDepth;
@@ -127,9 +130,8 @@ class Journal
      * @Assert\Length(
      *      max = 255
      * )
-     * @Assert\NotBlank
      * @Groups({"read","write"})
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $class;
 
@@ -141,23 +143,21 @@ class Journal
      * @Assert\Length(
      *      max = 255
      * )
-     * @Assert\NotBlank
      * @Groups({"read","write"})
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $organiser;
 
     /**
-     * @var string The status of this evemt.
+     * @var string The status of this event.
      *
      * @example Confirmed
      *
      * @Assert\Length(
      *      max = 255
      * )
-     * @Assert\NotBlank
      * @Groups({"read","write"})
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $status;
 
@@ -169,9 +169,8 @@ class Journal
      * @Assert\Length(
      *      max = 255
      * )
-     * @Assert\NotBlank
      * @Groups({"read","write"})
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $summary;
 
@@ -183,33 +182,27 @@ class Journal
      * @Assert\Length(
      *      max = 255
      * )
-     * @Assert\NotBlank
      * @Groups({"read","write"})
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $transp;
 
     /**
-     * @todo Automated ?
-     *
-     * @var string The duration of this event.
+     * @var DateInterval The duration of this event.
      *
      * @example 2
      *
      * @Groups({"read","write"})
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\Column(type="dateinterval", nullable=true)
      */
     private $duration;
 
     /**
-     * @todo Automated ?
-     *
      * @var int The version number of this event.
      *
-     * @example 1.0
+     * @example 1
      *
      * @Assert\Type("int")
-     * @Assert\NotBlank
      * @Groups({"read","write"})
      * @ORM\Column(type="integer")
      */
@@ -220,20 +213,18 @@ class Journal
      * @example 1
      *
      * @Assert\Type("int")
-     * @Assert\NotBlank
      * @Groups({"read","write"})
      * @ORM\Column(type="integer")
      */
-    private $priority;
+    private $priority = 9;
 
     /**
      * @var array The urls of the attendees of this event.
      *
      * @example https://con.example.com, https://con.example2.com
      *
-     * @Assert\Url
      * @Groups({"read","write"})
-     * @ORM\Column(type="array")
+     * @ORM\Column(type="array", nullable=true)
      */
     private $attendees = [];
 
@@ -242,9 +233,8 @@ class Journal
      *
      * @example https://example.org, https://example2.org
      *
-     * @Assert\Url
      * @Groups({"read","write"})
-     * @ORM\Column(type="array")
+     * @ORM\Column(type="array", nullable=true)
      */
     private $attachments = [];
 
@@ -253,9 +243,8 @@ class Journal
      *
      * @example https://con.example.com, https://con.example2.com
      *
-     * @Assert\Url
      * @Groups({"read","write"})
-     * @ORM\Column(type="array")
+     * @ORM\Column(type="array", nullable=true)
      */
     private $categories = [];
 
@@ -264,7 +253,6 @@ class Journal
      *
      * @example https://con.example.com, https://con.example2.com
      *
-     * @Assert\Url
      * @Groups({"read","write"})
      * @ORM\Column(type="array")
      */
@@ -286,7 +274,7 @@ class Journal
     private $event;
 
     /**
-     * @var Datetime $dateCreated The moment this resource was created
+     * @var DateTime $dateCreated The moment this resource was created
      *
      * @Groups({"read"})
      * @Gedmo\Timestampable(on="create")
@@ -295,7 +283,7 @@ class Journal
     private $dateCreated;
 
     /**
-     * @var Datetime $dateModified  The moment this resource last Modified
+     * @var DateTime $dateModified  The moment this resource last Modified
      *
      * @Groups({"read"})
      * @Gedmo\Timestampable(on="update")
@@ -421,12 +409,12 @@ class Journal
         return $this;
     }
 
-    public function getDuration(): ?int
+    public function getDuration(): ?DateInterval
     {
         return $this->duration;
     }
 
-    public function setDuration(int $duration): self
+    public function setDuration(DateInterval $duration): self
     {
         $this->duration = $duration;
 

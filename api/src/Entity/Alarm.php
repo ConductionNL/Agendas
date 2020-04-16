@@ -9,6 +9,7 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\DateFilter;
 
+use DateInterval;
 use Doctrine\ORM\Mapping as ORM;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -103,19 +104,18 @@ class Alarm
      * @Assert\Length(
      *      max = 255
      * )
-     * @Assert\NotBlank
      * @Groups({"read","write"})
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $summary;
 
     /**
-     * @var string The action of the alarm.
+     * @var string The action of the alarm. **AUDIO**, **DISPLAY**, **EMAIL**, **PROCEDURE**
      *
      * @example AUDIO
      *
-     * @Assert\Length(
-     *      max = 255
+     * @Assert\Choice(
+     *      {"AUDIO","DISPLAY","EMAIL","PROCEDURE"}
      * )
      * @Assert\NotNull
      * @ORM\Column(type="string", length=255)
@@ -124,15 +124,12 @@ class Alarm
     private $action;
 
     /**
-     * @todo Duration?
+     * @var DateInterval The time the alarm should trigger relative to the start time of the related event.
      *
-     * @var int The time the alarm should trigger relative to the start time of the related event.
+     * @example -PT30M
      *
-     * @example 30
-     *
-     * @Assert\Type("int")
      * @Assert\NotNull
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="dateinterval")
      * @Groups({"read","write"})
      */
     private $trigger;
@@ -140,9 +137,9 @@ class Alarm
     /**
      * @todo Duration?
      *
-     * @var int The time until the alarm repeats.
+     * @var DateInterval The time until the alarm repeats.
      *
-     * @example 60
+     * @example PT30M
      *
      * @Assert\Type("int")
      * @Assert\NotNull
@@ -157,11 +154,10 @@ class Alarm
      * @example 4
      *
      * @Assert\Type("int")
-     * @Assert\NotNull
      * @ORM\Column(type="integer")
      * @Groups({"read","write"})
      */
-    private $repeat;
+    private $repeat = 0;
 
     /**
      * @Groups({"read","write"})
