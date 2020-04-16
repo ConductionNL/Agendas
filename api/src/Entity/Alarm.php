@@ -9,7 +9,9 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\DateFilter;
 
+use DateInterval;
 use Doctrine\ORM\Mapping as ORM;
+use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Serializer\Annotation\MaxDepth;
@@ -46,7 +48,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *     )
  * @ORM\Entity(repositoryClass="App\Repository\AlarmRepository")
  * @Gedmo\Loggable(logEntryClass="App\Entity\ChangeLog")
- * 
+ *
  * @ApiFilter(BooleanFilter::class)
  * @ApiFilter(OrderFilter::class)
  * @ApiFilter(DateFilter::class, strategy=DateFilter::EXCLUDE_NULL)
@@ -103,19 +105,18 @@ class Alarm
      * @Assert\Length(
      *      max = 255
      * )
-     * @Assert\NotBlank
      * @Groups({"read","write"})
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $summary;
 
     /**
-     * @var string The action of the alarm.
+     * @var string The action of the alarm. **AUDIO**, **DISPLAY**, **EMAIL**, **PROCEDURE**
      *
      * @example AUDIO
      *
-     * @Assert\Length(
-     *      max = 255
+     * @Assert\Choice(
+     *      {"AUDIO","DISPLAY","EMAIL","PROCEDURE"}
      * )
      * @Assert\NotNull
      * @ORM\Column(type="string", length=255)
@@ -124,29 +125,23 @@ class Alarm
     private $action;
 
     /**
-     * @todo Duration?
+     * @var DateInterval The time the alarm should trigger relative to the start time of the related event.
      *
-     * @var int The time the alarm should trigger relative to the start time of the related event.
+     * @example PT30M
      *
-     * @example 30
-     *
-     * @Assert\Type("int")
      * @Assert\NotNull
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="dateinterval", name="alarm_trigger")
      * @Groups({"read","write"})
      */
     private $trigger;
 
     /**
-     * @todo Duration?
+     * @var DateInterval The time until the alarm repeats.
      *
-     * @var int The time until the alarm repeats.
+     * @example PT30M
      *
-     * @example 60
-     *
-     * @Assert\Type("int")
      * @Assert\NotNull
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="dateinterval")
      * @Groups({"read","write"})
      */
     private $duration;
@@ -157,11 +152,10 @@ class Alarm
      * @example 4
      *
      * @Assert\Type("int")
-     * @Assert\NotNull
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", name="alarm_repeat")
      * @Groups({"read","write"})
      */
-    private $repeat;
+    private $repeat = 0;
 
     /**
      * @Groups({"read","write"})
@@ -176,7 +170,7 @@ class Alarm
      * @MaxDepth(1)
      */
     private $todo;
-    
+
     /**
      * @var Datetime $dateCreated The moment this resource was created
      *
@@ -185,17 +179,17 @@ class Alarm
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $dateCreated;
-    
+
     /**
      * @var Datetime $dateModified  The moment this resource last Modified
      *
      * @Groups({"read"})
-     * @Gedmo\Timestampable(on="create")
+     * @Gedmo\Timestampable(on="update")
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $dateModified;
 
-    public function getId(): ?string
+    public function getId(): ?Uuid
     {
         return $this->id;
     }
@@ -248,24 +242,24 @@ class Alarm
         return $this;
     }
 
-    public function getTrigger(): ?int
+    public function getTrigger(): ?DateInterval
     {
         return $this->trigger;
     }
 
-    public function setTrigger(int $trigger): self
+    public function setTrigger(DateInterval $trigger): self
     {
         $this->trigger = $trigger;
 
         return $this;
     }
 
-    public function getDuration(): ?int
+    public function getDuration(): ?DateInterval
     {
         return $this->duration;
     }
 
-    public function setDuration(int $duration): self
+    public function setDuration(DateInterval $duration): self
     {
         $this->duration = $duration;
 
@@ -307,28 +301,28 @@ class Alarm
 
         return $this;
     }
-    
+
     public function getDateCreated(): ?\DateTimeInterface
     {
     	return $this->dateCreated;
     }
-    
+
     public function setDateCreated(\DateTimeInterface $dateCreated): self
     {
     	$this->dateCreated= $dateCreated;
-    	
+
     	return $this;
     }
-    
+
     public function getDateModified(): ?\DateTimeInterface
     {
     	return $this->dateModified;
     }
-    
+
     public function setDateModified(\DateTimeInterface $dateModified): self
     {
     	$this->dateModified = $dateModified;
-    	
+
     	return $this;
     }
 }
