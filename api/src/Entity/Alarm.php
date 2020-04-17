@@ -73,6 +73,7 @@ class Alarm
     /**
      * @var string The name of this RequestType
      *
+     * @Gedmo\Versioned
      * @example My RequestType
      *
      * @Assert\NotNull
@@ -87,6 +88,7 @@ class Alarm
     /**
      * @var string An short description of this Event
      *
+     * @Gedmo\Versioned
      * @example This is the best Event ever
      *
      * @Assert\Length(
@@ -100,6 +102,7 @@ class Alarm
     /**
      * @var string The summary of this event.
      *
+     * @Gedmo\Versioned
      * @example This is the best event ever.
      *
      * @Assert\Length(
@@ -113,6 +116,7 @@ class Alarm
     /**
      * @var string The action of the alarm. **AUDIO**, **DISPLAY**, **EMAIL**, **PROCEDURE**
      *
+     * @Gedmo\Versioned
      * @example AUDIO
      *
      * @Assert\Choice(
@@ -127,6 +131,7 @@ class Alarm
     /**
      * @var DateInterval The time the alarm should trigger relative to the start time of the related event.
      *
+     * @Gedmo\Versioned
      * @example PT30M
      *
      * @Assert\NotNull
@@ -138,6 +143,7 @@ class Alarm
     /**
      * @var DateInterval The time until the alarm repeats.
      *
+     * @Gedmo\Versioned
      * @example PT30M
      *
      * @Assert\NotNull
@@ -149,6 +155,7 @@ class Alarm
     /**
      * @var int The number of times the alarm repeats.
      *
+     * @Gedmo\Versioned
      * @example 4
      *
      * @Assert\Type("int")

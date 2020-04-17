@@ -76,6 +76,7 @@ class Calendar
      *
      * @example My Calendar
      *
+     * @Gedmo\Versioned
      * @Assert\NotNull
      * @Assert\Length(
      *      max = 255
@@ -90,6 +91,7 @@ class Calendar
      *
      * @example This is the best Calendar ever
      *
+     * @Gedmo\Versioned
      * @Assert\Length(
      *      max = 2550
      * )
@@ -121,6 +123,7 @@ class Calendar
      *
      * @example CET
      *
+     * @Gedmo\Versioned
      * @Assert\NotNull
      * @Assert\Length(
      *      min = 3,

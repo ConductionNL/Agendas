@@ -73,6 +73,7 @@ class Resource
     /**
      * @var string The name of this RequestType
      *
+     * @Gedmo\Versioned
      * @example My RequestType
      *
      * @Assert\NotNull
@@ -87,6 +88,7 @@ class Resource
     /**
      * @var string An short description of this Event
      *
+     * @Gedmo\Versioned
      * @example This is the best Event ever
      *
      * @Assert\Length(

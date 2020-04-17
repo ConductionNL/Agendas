@@ -77,6 +77,7 @@ class Freebusy
      *
      * @example This is the best Event ever
      *
+     * @Gedmo\Versioned
      * @Assert\Length(
      *      max = 2550
      * )
@@ -91,6 +92,7 @@ class Freebusy
      *
      * @example https://con.example.com
      *
+     * @Gedmo\Versioned
      * @Assert\Url
      * @Assert\Length(
      *     max = 255
@@ -103,6 +105,7 @@ class Freebusy
     /**
      * @var array The urls of the comments that belong to this event.
      *
+     * @Gedmo\Versioned
      * @example https://con.example.com, https://con.example2.com
      *
      * @Groups({"read","write"})
@@ -114,7 +117,7 @@ class Freebusy
      * @var string Url of this person
      *
      * @example https://con.example.org
-     *
+     * @Gedmo\Versioned
      * @Assert\Url
      * @Groups({"read","write"})
      * @ORM\Column(type="string", nullable=true)
@@ -125,6 +128,7 @@ class Freebusy
      * @var DateTime The moment this event starts
      *
      * @example 30-11-2019 15:00:00
+     * @Gedmo\Versioned
      *
      * @Assert\DateTime
      * @Assert\NotNull
@@ -137,6 +141,7 @@ class Freebusy
      * @var DateTime The moment this event ends
      *
      * @example 3-11-2019 20:00:00
+     * @Gedmo\Versioned
      *
      * @Assert\DateTime
      * @Assert\NotNull
@@ -149,6 +154,7 @@ class Freebusy
      * @var DateInterval The duration of this event.
      *
      * @example 2
+     * @Gedmo\Versioned
      *
      * @Groups({"read","write"})
      * @ORM\Column(type="string", nullable=true)
@@ -159,6 +165,7 @@ class Freebusy
      * @var string The organiser of this event linked to with an url.
      *
      * @example conduction.nl
+     * @Gedmo\Versioned
      *
      * @Assert\Length(
      *      max = 255
@@ -169,6 +176,7 @@ class Freebusy
     private $organiser;
     /**
      * @var string The determination of the type freebusy. **FREE**, **BUSY**
+     * @Gedmo\Versioned
      *
      * @example FREE
      * @Assert\Choice({"FREE","BUSY"})
