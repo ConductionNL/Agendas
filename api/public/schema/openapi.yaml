@@ -240,13 +240,13 @@ paths:
           schema:
             type: string
         -
-          name: id
+          name: event.id
           in: query
           required: false
           schema:
             type: string
         -
-          name: 'id[]'
+          name: 'event.id[]'
           in: query
           required: false
           schema:
@@ -256,13 +256,13 @@ paths:
           style: form
           explode: true
         -
-          name: name
+          name: todo.id
           in: query
           required: false
           schema:
             type: string
         -
-          name: 'name[]'
+          name: 'todo.id[]'
           in: query
           required: false
           schema:
@@ -271,126 +271,6 @@ paths:
               type: string
           style: form
           explode: true
-        -
-          name: description
-          in: query
-          required: false
-          schema:
-            type: string
-        -
-          name: 'description[]'
-          in: query
-          required: false
-          schema:
-            type: array
-            items:
-              type: string
-          style: form
-          explode: true
-        -
-          name: summary
-          in: query
-          required: false
-          schema:
-            type: string
-        -
-          name: 'summary[]'
-          in: query
-          required: false
-          schema:
-            type: array
-            items:
-              type: string
-          style: form
-          explode: true
-        -
-          name: action
-          in: query
-          required: false
-          schema:
-            type: string
-        -
-          name: 'action[]'
-          in: query
-          required: false
-          schema:
-            type: array
-            items:
-              type: string
-          style: form
-          explode: true
-        -
-          name: trigger
-          in: query
-          required: false
-          schema:
-            type: string
-        -
-          name: 'trigger[]'
-          in: query
-          required: false
-          schema:
-            type: array
-            items:
-              type: string
-          style: form
-          explode: true
-        -
-          name: duration
-          in: query
-          required: false
-          schema:
-            type: string
-        -
-          name: 'duration[]'
-          in: query
-          required: false
-          schema:
-            type: array
-            items:
-              type: string
-          style: form
-          explode: true
-        -
-          name: repeat
-          in: query
-          required: false
-          schema:
-            type: integer
-        -
-          name: 'repeat[]'
-          in: query
-          required: false
-          schema:
-            type: array
-            items:
-              type: integer
-          style: form
-          explode: true
-        -
-          name: dateCreated
-          in: query
-          required: false
-          schema:
-            type: string
-        -
-          name: 'dateCreated[]'
-          in: query
-          required: false
-          schema:
-            type: string
-        -
-          name: dateModified
-          in: query
-          required: false
-          schema:
-            type: string
-        -
-          name: 'dateModified[]'
-          in: query
-          required: false
-          schema:
-            type: string
         -
           name: page
           in: query
@@ -2387,78 +2267,6 @@ paths:
               type: string
           style: form
           explode: true
-        -
-          name: name
-          in: query
-          required: false
-          schema:
-            type: string
-        -
-          name: 'name[]'
-          in: query
-          required: false
-          schema:
-            type: array
-            items:
-              type: string
-          style: form
-          explode: true
-        -
-          name: description
-          in: query
-          required: false
-          schema:
-            type: string
-        -
-          name: 'description[]'
-          in: query
-          required: false
-          schema:
-            type: array
-            items:
-              type: string
-          style: form
-          explode: true
-        -
-          name: timeZone
-          in: query
-          required: false
-          schema:
-            type: string
-        -
-          name: 'timeZone[]'
-          in: query
-          required: false
-          schema:
-            type: array
-            items:
-              type: string
-          style: form
-          explode: true
-        -
-          name: dateCreated
-          in: query
-          required: false
-          schema:
-            type: string
-        -
-          name: 'dateCreated[]'
-          in: query
-          required: false
-          schema:
-            type: string
-        -
-          name: dateModified
-          in: query
-          required: false
-          schema:
-            type: string
-        -
-          name: 'dateModified[]'
-          in: query
-          required: false
-          schema:
-            type: string
         -
           name: page
           in: query
@@ -4517,13 +4325,13 @@ paths:
           schema:
             type: string
         -
-          name: id
+          name: calendar.id
           in: query
           required: false
           schema:
             type: string
         -
-          name: 'id[]'
+          name: 'calendar.id[]'
           in: query
           required: false
           schema:
@@ -4532,326 +4340,6 @@ paths:
               type: string
           style: form
           explode: true
-        -
-          name: name
-          in: query
-          required: false
-          schema:
-            type: string
-        -
-          name: 'name[]'
-          in: query
-          required: false
-          schema:
-            type: array
-            items:
-              type: string
-          style: form
-          explode: true
-        -
-          name: description
-          in: query
-          required: false
-          schema:
-            type: string
-        -
-          name: 'description[]'
-          in: query
-          required: false
-          schema:
-            type: array
-            items:
-              type: string
-          style: form
-          explode: true
-        -
-          name: startDate
-          in: query
-          required: false
-          schema:
-            type: string
-        -
-          name: 'startDate[]'
-          in: query
-          required: false
-          schema:
-            type: string
-        -
-          name: endDate
-          in: query
-          required: false
-          schema:
-            type: string
-        -
-          name: 'endDate[]'
-          in: query
-          required: false
-          schema:
-            type: string
-        -
-          name: location
-          in: query
-          required: false
-          schema:
-            type: string
-        -
-          name: 'location[]'
-          in: query
-          required: false
-          schema:
-            type: array
-            items:
-              type: string
-          style: form
-          explode: true
-        -
-          name: class
-          in: query
-          required: false
-          schema:
-            type: string
-        -
-          name: 'class[]'
-          in: query
-          required: false
-          schema:
-            type: array
-            items:
-              type: string
-          style: form
-          explode: true
-        -
-          name: geo
-          in: query
-          required: false
-          schema:
-            type: string
-        -
-          name: 'geo[]'
-          in: query
-          required: false
-          schema:
-            type: array
-            items:
-              type: string
-          style: form
-          explode: true
-        -
-          name: organizer
-          in: query
-          required: false
-          schema:
-            type: string
-        -
-          name: 'organizer[]'
-          in: query
-          required: false
-          schema:
-            type: array
-            items:
-              type: string
-          style: form
-          explode: true
-        -
-          name: status
-          in: query
-          required: false
-          schema:
-            type: string
-        -
-          name: 'status[]'
-          in: query
-          required: false
-          schema:
-            type: array
-            items:
-              type: string
-          style: form
-          explode: true
-        -
-          name: summary
-          in: query
-          required: false
-          schema:
-            type: string
-        -
-          name: 'summary[]'
-          in: query
-          required: false
-          schema:
-            type: array
-            items:
-              type: string
-          style: form
-          explode: true
-        -
-          name: transp
-          in: query
-          required: false
-          schema:
-            type: string
-        -
-          name: 'transp[]'
-          in: query
-          required: false
-          schema:
-            type: array
-            items:
-              type: string
-          style: form
-          explode: true
-        -
-          name: duration
-          in: query
-          required: false
-          schema:
-            type: string
-        -
-          name: 'duration[]'
-          in: query
-          required: false
-          schema:
-            type: array
-            items:
-              type: string
-          style: form
-          explode: true
-        -
-          name: contact
-          in: query
-          required: false
-          schema:
-            type: string
-        -
-          name: 'contact[]'
-          in: query
-          required: false
-          schema:
-            type: array
-            items:
-              type: string
-          style: form
-          explode: true
-        -
-          name: seq
-          in: query
-          required: false
-          schema:
-            type: integer
-        -
-          name: 'seq[]'
-          in: query
-          required: false
-          schema:
-            type: array
-            items:
-              type: integer
-          style: form
-          explode: true
-        -
-          name: priority
-          in: query
-          required: false
-          schema:
-            type: integer
-        -
-          name: 'priority[]'
-          in: query
-          required: false
-          schema:
-            type: array
-            items:
-              type: integer
-          style: form
-          explode: true
-        -
-          name: attendees
-          in: query
-          required: false
-          schema:
-            type: string
-        -
-          name: 'attendees[]'
-          in: query
-          required: false
-          schema:
-            type: array
-            items:
-              type: string
-          style: deepObject
-          explode: true
-        -
-          name: attachments
-          in: query
-          required: false
-          schema:
-            type: string
-        -
-          name: 'attachments[]'
-          in: query
-          required: false
-          schema:
-            type: array
-            items:
-              type: string
-          style: deepObject
-          explode: true
-        -
-          name: categories
-          in: query
-          required: false
-          schema:
-            type: string
-        -
-          name: 'categories[]'
-          in: query
-          required: false
-          schema:
-            type: array
-            items:
-              type: string
-          style: deepObject
-          explode: true
-        -
-          name: comments
-          in: query
-          required: false
-          schema:
-            type: string
-        -
-          name: 'comments[]'
-          in: query
-          required: false
-          schema:
-            type: array
-            items:
-              type: string
-          style: deepObject
-          explode: true
-        -
-          name: dateCreated
-          in: query
-          required: false
-          schema:
-            type: string
-        -
-          name: 'dateCreated[]'
-          in: query
-          required: false
-          schema:
-            type: string
-        -
-          name: dateModified
-          in: query
-          required: false
-          schema:
-            type: string
-        -
-          name: 'dateModified[]'
-          in: query
-          required: false
-          schema:
-            type: string
         -
           name: page
           in: query
@@ -5923,13 +5411,13 @@ paths:
           schema:
             type: string
         -
-          name: id
+          name: calendar.id
           in: query
           required: false
           schema:
             type: string
         -
-          name: 'id[]'
+          name: 'calendar.id[]'
           in: query
           required: false
           schema:
@@ -5938,166 +5426,6 @@ paths:
               type: string
           style: form
           explode: true
-        -
-          name: description
-          in: query
-          required: false
-          schema:
-            type: string
-        -
-          name: 'description[]'
-          in: query
-          required: false
-          schema:
-            type: array
-            items:
-              type: string
-          style: form
-          explode: true
-        -
-          name: attendee
-          in: query
-          required: false
-          schema:
-            type: string
-        -
-          name: 'attendee[]'
-          in: query
-          required: false
-          schema:
-            type: array
-            items:
-              type: string
-          style: form
-          explode: true
-        -
-          name: comments
-          in: query
-          required: false
-          schema:
-            type: string
-        -
-          name: 'comments[]'
-          in: query
-          required: false
-          schema:
-            type: array
-            items:
-              type: string
-          style: deepObject
-          explode: true
-        -
-          name: contact
-          in: query
-          required: false
-          schema:
-            type: string
-        -
-          name: 'contact[]'
-          in: query
-          required: false
-          schema:
-            type: array
-            items:
-              type: string
-          style: form
-          explode: true
-        -
-          name: startDate
-          in: query
-          required: false
-          schema:
-            type: string
-        -
-          name: 'startDate[]'
-          in: query
-          required: false
-          schema:
-            type: string
-        -
-          name: endDate
-          in: query
-          required: false
-          schema:
-            type: string
-        -
-          name: 'endDate[]'
-          in: query
-          required: false
-          schema:
-            type: string
-        -
-          name: duration
-          in: query
-          required: false
-          schema:
-            type: string
-        -
-          name: 'duration[]'
-          in: query
-          required: false
-          schema:
-            type: array
-            items:
-              type: string
-          style: form
-          explode: true
-        -
-          name: organiser
-          in: query
-          required: false
-          schema:
-            type: string
-        -
-          name: 'organiser[]'
-          in: query
-          required: false
-          schema:
-            type: array
-            items:
-              type: string
-          style: form
-          explode: true
-        -
-          name: freebusy
-          in: query
-          required: false
-          schema:
-            type: string
-        -
-          name: 'freebusy[]'
-          in: query
-          required: false
-          schema:
-            type: array
-            items:
-              type: string
-          style: form
-          explode: true
-        -
-          name: dateCreated
-          in: query
-          required: false
-          schema:
-            type: string
-        -
-          name: 'dateCreated[]'
-          in: query
-          required: false
-          schema:
-            type: string
-        -
-          name: dateModified
-          in: query
-          required: false
-          schema:
-            type: string
-        -
-          name: 'dateModified[]'
-          in: query
-          required: false
-          schema:
-            type: string
         -
           name: page
           in: query
@@ -7232,13 +6560,13 @@ paths:
           schema:
             type: string
         -
-          name: id
+          name: calendar.id
           in: query
           required: false
           schema:
             type: string
         -
-          name: 'id[]'
+          name: 'calendar.id[]'
           in: query
           required: false
           schema:
@@ -7247,278 +6575,6 @@ paths:
               type: string
           style: form
           explode: true
-        -
-          name: name
-          in: query
-          required: false
-          schema:
-            type: string
-        -
-          name: 'name[]'
-          in: query
-          required: false
-          schema:
-            type: array
-            items:
-              type: string
-          style: form
-          explode: true
-        -
-          name: description
-          in: query
-          required: false
-          schema:
-            type: string
-        -
-          name: 'description[]'
-          in: query
-          required: false
-          schema:
-            type: array
-            items:
-              type: string
-          style: form
-          explode: true
-        -
-          name: startDate
-          in: query
-          required: false
-          schema:
-            type: string
-        -
-          name: 'startDate[]'
-          in: query
-          required: false
-          schema:
-            type: string
-        -
-          name: endDate
-          in: query
-          required: false
-          schema:
-            type: string
-        -
-          name: 'endDate[]'
-          in: query
-          required: false
-          schema:
-            type: string
-        -
-          name: class
-          in: query
-          required: false
-          schema:
-            type: string
-        -
-          name: 'class[]'
-          in: query
-          required: false
-          schema:
-            type: array
-            items:
-              type: string
-          style: form
-          explode: true
-        -
-          name: organiser
-          in: query
-          required: false
-          schema:
-            type: string
-        -
-          name: 'organiser[]'
-          in: query
-          required: false
-          schema:
-            type: array
-            items:
-              type: string
-          style: form
-          explode: true
-        -
-          name: status
-          in: query
-          required: false
-          schema:
-            type: string
-        -
-          name: 'status[]'
-          in: query
-          required: false
-          schema:
-            type: array
-            items:
-              type: string
-          style: form
-          explode: true
-        -
-          name: summary
-          in: query
-          required: false
-          schema:
-            type: string
-        -
-          name: 'summary[]'
-          in: query
-          required: false
-          schema:
-            type: array
-            items:
-              type: string
-          style: form
-          explode: true
-        -
-          name: transp
-          in: query
-          required: false
-          schema:
-            type: string
-        -
-          name: 'transp[]'
-          in: query
-          required: false
-          schema:
-            type: array
-            items:
-              type: string
-          style: form
-          explode: true
-        -
-          name: duration
-          in: query
-          required: false
-          schema:
-            type: string
-        -
-          name: 'duration[]'
-          in: query
-          required: false
-          schema:
-            type: array
-            items:
-              type: string
-          style: form
-          explode: true
-        -
-          name: seq
-          in: query
-          required: false
-          schema:
-            type: integer
-        -
-          name: 'seq[]'
-          in: query
-          required: false
-          schema:
-            type: array
-            items:
-              type: integer
-          style: form
-          explode: true
-        -
-          name: priority
-          in: query
-          required: false
-          schema:
-            type: integer
-        -
-          name: 'priority[]'
-          in: query
-          required: false
-          schema:
-            type: array
-            items:
-              type: integer
-          style: form
-          explode: true
-        -
-          name: attendees
-          in: query
-          required: false
-          schema:
-            type: string
-        -
-          name: 'attendees[]'
-          in: query
-          required: false
-          schema:
-            type: array
-            items:
-              type: string
-          style: deepObject
-          explode: true
-        -
-          name: attachments
-          in: query
-          required: false
-          schema:
-            type: string
-        -
-          name: 'attachments[]'
-          in: query
-          required: false
-          schema:
-            type: array
-            items:
-              type: string
-          style: deepObject
-          explode: true
-        -
-          name: categories
-          in: query
-          required: false
-          schema:
-            type: string
-        -
-          name: 'categories[]'
-          in: query
-          required: false
-          schema:
-            type: array
-            items:
-              type: string
-          style: deepObject
-          explode: true
-        -
-          name: comments
-          in: query
-          required: false
-          schema:
-            type: string
-        -
-          name: 'comments[]'
-          in: query
-          required: false
-          schema:
-            type: array
-            items:
-              type: string
-          style: deepObject
-          explode: true
-        -
-          name: dateCreated
-          in: query
-          required: false
-          schema:
-            type: string
-        -
-          name: 'dateCreated[]'
-          in: query
-          required: false
-          schema:
-            type: string
-        -
-          name: dateModified
-          in: query
-          required: false
-          schema:
-            type: string
-        -
-          name: 'dateModified[]'
-          in: query
-          required: false
-          schema:
-            type: string
         -
           name: page
           in: query
@@ -9420,13 +8476,13 @@ paths:
           schema:
             type: string
         -
-          name: id
+          name: calendar.id
           in: query
           required: false
           schema:
             type: string
         -
-          name: 'id[]'
+          name: 'calendar.id[]'
           in: query
           required: false
           schema:
@@ -9435,158 +8491,6 @@ paths:
               type: string
           style: form
           explode: true
-        -
-          name: name
-          in: query
-          required: false
-          schema:
-            type: string
-        -
-          name: 'name[]'
-          in: query
-          required: false
-          schema:
-            type: array
-            items:
-              type: string
-          style: form
-          explode: true
-        -
-          name: description
-          in: query
-          required: false
-          schema:
-            type: string
-        -
-          name: 'description[]'
-          in: query
-          required: false
-          schema:
-            type: array
-            items:
-              type: string
-          style: form
-          explode: true
-        -
-          name: byDay
-          in: query
-          required: false
-          schema:
-            type: integer
-        -
-          name: 'byDay[]'
-          in: query
-          required: false
-          schema:
-            type: array
-            items:
-              type: integer
-          style: form
-          explode: true
-        -
-          name: byMonth
-          in: query
-          required: false
-          schema:
-            type: integer
-        -
-          name: 'byMonth[]'
-          in: query
-          required: false
-          schema:
-            type: array
-            items:
-              type: integer
-          style: form
-          explode: true
-        -
-          name: byMonthDay
-          in: query
-          required: false
-          schema:
-            type: integer
-        -
-          name: 'byMonthDay[]'
-          in: query
-          required: false
-          schema:
-            type: array
-            items:
-              type: integer
-          style: form
-          explode: true
-        -
-          name: exceptDates
-          in: query
-          required: false
-          schema:
-            type: string
-        -
-          name: 'exceptDates[]'
-          in: query
-          required: false
-          schema:
-            type: array
-            items:
-              type: string
-          style: deepObject
-          explode: true
-        -
-          name: repeatCount
-          in: query
-          required: false
-          schema:
-            type: integer
-        -
-          name: 'repeatCount[]'
-          in: query
-          required: false
-          schema:
-            type: array
-            items:
-              type: integer
-          style: form
-          explode: true
-        -
-          name: repeatFrequency
-          in: query
-          required: false
-          schema:
-            type: string
-        -
-          name: 'repeatFrequency[]'
-          in: query
-          required: false
-          schema:
-            type: array
-            items:
-              type: string
-          style: form
-          explode: true
-        -
-          name: dateCreated
-          in: query
-          required: false
-          schema:
-            type: string
-        -
-          name: 'dateCreated[]'
-          in: query
-          required: false
-          schema:
-            type: string
-        -
-          name: dateModified
-          in: query
-          required: false
-          schema:
-            type: string
-        -
-          name: 'dateModified[]'
-          in: query
-          required: false
-          schema:
-            type: string
         -
           name: page
           in: query
@@ -11043,13 +9947,13 @@ paths:
           schema:
             type: string
         -
-          name: id
+          name: calendar.id
           in: query
           required: false
           schema:
             type: string
         -
-          name: 'id[]'
+          name: 'calendar.id[]'
           in: query
           required: false
           schema:
@@ -11058,338 +9962,6 @@ paths:
               type: string
           style: form
           explode: true
-        -
-          name: name
-          in: query
-          required: false
-          schema:
-            type: string
-        -
-          name: 'name[]'
-          in: query
-          required: false
-          schema:
-            type: array
-            items:
-              type: string
-          style: form
-          explode: true
-        -
-          name: description
-          in: query
-          required: false
-          schema:
-            type: string
-        -
-          name: 'description[]'
-          in: query
-          required: false
-          schema:
-            type: array
-            items:
-              type: string
-          style: form
-          explode: true
-        -
-          name: startDate
-          in: query
-          required: false
-          schema:
-            type: string
-        -
-          name: 'startDate[]'
-          in: query
-          required: false
-          schema:
-            type: string
-        -
-          name: endDate
-          in: query
-          required: false
-          schema:
-            type: string
-        -
-          name: 'endDate[]'
-          in: query
-          required: false
-          schema:
-            type: string
-        -
-          name: location
-          in: query
-          required: false
-          schema:
-            type: string
-        -
-          name: 'location[]'
-          in: query
-          required: false
-          schema:
-            type: array
-            items:
-              type: string
-          style: form
-          explode: true
-        -
-          name: class
-          in: query
-          required: false
-          schema:
-            type: string
-        -
-          name: 'class[]'
-          in: query
-          required: false
-          schema:
-            type: array
-            items:
-              type: string
-          style: form
-          explode: true
-        -
-          name: geo
-          in: query
-          required: false
-          schema:
-            type: string
-        -
-          name: 'geo[]'
-          in: query
-          required: false
-          schema:
-            type: array
-            items:
-              type: string
-          style: form
-          explode: true
-        -
-          name: organiser
-          in: query
-          required: false
-          schema:
-            type: string
-        -
-          name: 'organiser[]'
-          in: query
-          required: false
-          schema:
-            type: array
-            items:
-              type: string
-          style: form
-          explode: true
-        -
-          name: status
-          in: query
-          required: false
-          schema:
-            type: string
-        -
-          name: 'status[]'
-          in: query
-          required: false
-          schema:
-            type: array
-            items:
-              type: string
-          style: form
-          explode: true
-        -
-          name: summary
-          in: query
-          required: false
-          schema:
-            type: string
-        -
-          name: 'summary[]'
-          in: query
-          required: false
-          schema:
-            type: array
-            items:
-              type: string
-          style: form
-          explode: true
-        -
-          name: duration
-          in: query
-          required: false
-          schema:
-            type: string
-        -
-          name: 'duration[]'
-          in: query
-          required: false
-          schema:
-            type: array
-            items:
-              type: string
-          style: form
-          explode: true
-        -
-          name: contact
-          in: query
-          required: false
-          schema:
-            type: string
-        -
-          name: 'contact[]'
-          in: query
-          required: false
-          schema:
-            type: array
-            items:
-              type: string
-          style: form
-          explode: true
-        -
-          name: seq
-          in: query
-          required: false
-          schema:
-            type: integer
-        -
-          name: 'seq[]'
-          in: query
-          required: false
-          schema:
-            type: array
-            items:
-              type: integer
-          style: form
-          explode: true
-        -
-          name: priority
-          in: query
-          required: false
-          schema:
-            type: integer
-        -
-          name: 'priority[]'
-          in: query
-          required: false
-          schema:
-            type: array
-            items:
-              type: integer
-          style: form
-          explode: true
-        -
-          name: attendees
-          in: query
-          required: false
-          schema:
-            type: string
-        -
-          name: 'attendees[]'
-          in: query
-          required: false
-          schema:
-            type: array
-            items:
-              type: string
-          style: deepObject
-          explode: true
-        -
-          name: attachments
-          in: query
-          required: false
-          schema:
-            type: string
-        -
-          name: 'attachments[]'
-          in: query
-          required: false
-          schema:
-            type: array
-            items:
-              type: string
-          style: deepObject
-          explode: true
-        -
-          name: categories
-          in: query
-          required: false
-          schema:
-            type: string
-        -
-          name: 'categories[]'
-          in: query
-          required: false
-          schema:
-            type: array
-            items:
-              type: string
-          style: deepObject
-          explode: true
-        -
-          name: comments
-          in: query
-          required: false
-          schema:
-            type: string
-        -
-          name: 'comments[]'
-          in: query
-          required: false
-          schema:
-            type: array
-            items:
-              type: string
-          style: deepObject
-          explode: true
-        -
-          name: completed
-          in: query
-          required: false
-          schema:
-            type: string
-        -
-          name: 'completed[]'
-          in: query
-          required: false
-          schema:
-            type: string
-        -
-          name: percentageDone
-          in: query
-          required: false
-          schema:
-            type: integer
-        -
-          name: 'percentageDone[]'
-          in: query
-          required: false
-          schema:
-            type: array
-            items:
-              type: integer
-          style: form
-          explode: true
-        -
-          name: dateCreated
-          in: query
-          required: false
-          schema:
-            type: string
-        -
-          name: 'dateCreated[]'
-          in: query
-          required: false
-          schema:
-            type: string
-        -
-          name: dateModified
-          in: query
-          required: false
-          schema:
-            type: string
-        -
-          name: 'dateModified[]'
-          in: query
-          required: false
-          schema:
-            type: string
         -
           name: page
           in: query
@@ -14581,767 +13153,6 @@ components:
         schedule:
           $ref: '#/components/schemas/Schedule:jsonld-write'
 definitions:
-  Event-read:
-    properties:
-      id:
-        description: 'The UUID identifier of this resource'
-        type: string
-        example: e2984465-190a-4562-829e-a8cca81aa35d
-        format: uuid
-      name:
-        description: 'The name of this RequestType'
-        type: string
-        example: 'My RequestType'
-        maxLength: 255
-      description:
-        description: 'An short description of this Event'
-        type: string
-        example: 'This is the best Event ever'
-        maxLength: 2550
-      startDate:
-        description: 'The moment this event starts'
-        type: string
-        example: '2020-04-16 14:13:23'
-        format: date-time
-      endDate:
-        description: 'The moment this event ends'
-        type: string
-        example: '2020-04-16 14:13:23'
-        format: date-time
-      location:
-        description: 'The location of this event'
-        type: string
-        example: 'Dam 1, Amsterdam'
-        maxLength: 255
-      class:
-        description: 'The security class of this event.'
-        type: string
-        example: PUBLIC
-        maxLength: 255
-      geo:
-        description: 'The coordinates of this event.'
-        type: string
-        example: '81.15147,10.36374,42.26'
-        maxLength: 255
-      organizer:
-        description: 'The organiser of this event linked to with an url.'
-        type: string
-        example: conduction.nl
-        maxLength: 255
-      status:
-        description: 'The status of this event.'
-        type: string
-        example: Confirmed
-        maxLength: 255
-      summary:
-        description: 'The summary of this event.'
-        type: string
-        example: 'This is the best event ever.'
-        maxLength: 255
-      transp:
-        description: 'The determination if the event should block the duration of the event for participants.'
-        type: string
-        example: Transparent
-        maxLength: 255
-      duration:
-        description: 'The duration of this event.'
-        type: \DateInterval
-        example: P0M3
-      contact:
-        description: 'Url of this person'
-        type: string
-        example: 'https://con.example.org'
-        format: url
-      seq:
-        description: 'The version number of this event.'
-        type: int
-        example: '1'
-      priority:
-        description: 'The priority of this event ranging from 1 (high) to 9 (low).'
-        type: int
-        example: '1'
-      attendees:
-        description: 'The urls of the attendees of this event.'
-        type: array
-        example: 'https://con.example.com, https://con.example2.com'
-      attachments:
-        description: 'The urls of the attachments of this event.'
-        type: array
-        example: 'https://example.org, https://example2.org'
-      categories:
-        description: 'The urls of the catergories this event belongs to.'
-        type: array
-        example: 'https://con.example.com, https://con.example2.com'
-      comments:
-        description: 'The urls of the comments that belong to this event.'
-        type: array
-        example: 'https://con.example.com, https://con.example2.com'
-      dateCreated:
-        description: 'The moment this resource was created'
-        type: \DateTime
-      dateModified:
-        description: 'The moment this resource last Modified'
-        type: \Datetime
-      schedule:
-        description: 'An optional Schedule to which this event belongs'
-        type: \Schedule
-      calendar:
-        description: 'The Calendar to wich this event belongs'
-        type: \Calendar
-      related: []
-      resources: []
-      alarms: []
-      journal: []
-    required:
-      - name
-      - startDate
-      - endDate
-  Event-write:
-    properties:
-      name:
-        description: 'The name of this RequestType'
-        type: string
-        example: 'My RequestType'
-        maxLength: 255
-      description:
-        description: 'An short description of this Event'
-        type: string
-        example: 'This is the best Event ever'
-        maxLength: 2550
-      startDate:
-        description: 'The moment this event starts'
-        type: string
-        example: '2020-04-16 14:13:23'
-        format: date-time
-      endDate:
-        description: 'The moment this event ends'
-        type: string
-        example: '2020-04-16 14:13:23'
-        format: date-time
-      location:
-        description: 'The location of this event'
-        type: string
-        example: 'Dam 1, Amsterdam'
-        maxLength: 255
-      class:
-        description: 'The security class of this event.'
-        type: string
-        example: PUBLIC
-        maxLength: 255
-      geo:
-        description: 'The coordinates of this event.'
-        type: string
-        example: '81.15147,10.36374,42.26'
-        maxLength: 255
-      organizer:
-        description: 'The organiser of this event linked to with an url.'
-        type: string
-        example: conduction.nl
-        maxLength: 255
-      status:
-        description: 'The status of this event.'
-        type: string
-        example: Confirmed
-        maxLength: 255
-      summary:
-        description: 'The summary of this event.'
-        type: string
-        example: 'This is the best event ever.'
-        maxLength: 255
-      transp:
-        description: 'The determination if the event should block the duration of the event for participants.'
-        type: string
-        example: Transparent
-        maxLength: 255
-      duration:
-        description: 'The duration of this event.'
-        type: \DateInterval
-        example: P0M3
-      contact:
-        description: 'Url of this person'
-        type: string
-        example: 'https://con.example.org'
-        format: url
-      seq:
-        description: 'The version number of this event.'
-        type: int
-        example: '1'
-      priority:
-        description: 'The priority of this event ranging from 1 (high) to 9 (low).'
-        type: int
-        example: '1'
-      attendees:
-        description: 'The urls of the attendees of this event.'
-        type: array
-        example: 'https://con.example.com, https://con.example2.com'
-      attachments:
-        description: 'The urls of the attachments of this event.'
-        type: array
-        example: 'https://example.org, https://example2.org'
-      categories:
-        description: 'The urls of the catergories this event belongs to.'
-        type: array
-        example: 'https://con.example.com, https://con.example2.com'
-      comments:
-        description: 'The urls of the comments that belong to this event.'
-        type: array
-        example: 'https://con.example.com, https://con.example2.com'
-      schedule:
-        description: 'An optional Schedule to which this event belongs'
-        type: \Schedule
-      calendar:
-        description: 'The Calendar to wich this event belongs'
-        type: \Calendar
-      related: []
-      resources: []
-      alarms: []
-      journal: []
-    required:
-      - name
-      - startDate
-      - endDate
-  Freebusy-read:
-    properties:
-      id:
-        description: 'The UUID identifier of this resource'
-        type: string
-        example: e2984465-190a-4562-829e-a8cca81aa35d
-        format: uuid
-      description:
-        description: 'An short description of this Event'
-        type: string
-        example: 'This is the best Event ever'
-        maxLength: 2550
-      attendee:
-        description: 'The urls of the attendees of this event.'
-        type: string
-        example: 'https://con.example.com'
-        format: url
-        maxLength: 255
-      comments:
-        description: 'The urls of the comments that belong to this event.'
-        type: array
-        example: 'https://con.example.com, https://con.example2.com'
-      contact:
-        description: 'Url of this person'
-        type: string
-        example: 'https://con.example.org'
-        format: url
-      startDate:
-        description: 'The moment this event starts'
-        type: string
-        example: '2020-04-16 14:13:23'
-        format: date-time
-      endDate:
-        description: 'The moment this event ends'
-        type: string
-        example: '2020-04-16 14:13:23'
-        format: date-time
-      duration:
-        description: 'The duration of this event.'
-        type: \DateInterval
-        example: '2'
-      organiser:
-        description: 'The organiser of this event linked to with an url.'
-        type: string
-        example: conduction.nl
-        maxLength: 255
-      freebusy:
-        description: 'The determination of the type freebusy. **FREE**, **BUSY**'
-        type: string
-        example: FREE
-      dateCreated:
-        description: 'The moment this resource was created'
-        type: \DateTime
-      dateModified:
-        description: 'The moment this resource last Modified'
-        type: \DateTime
-      calendar: []
-      schedule: []
-    required:
-      - startDate
-      - endDate
-  Freebusy-write:
-    properties:
-      description:
-        description: 'An short description of this Event'
-        type: string
-        example: 'This is the best Event ever'
-        maxLength: 2550
-      attendee:
-        description: 'The urls of the attendees of this event.'
-        type: string
-        example: 'https://con.example.com'
-        format: url
-        maxLength: 255
-      comments:
-        description: 'The urls of the comments that belong to this event.'
-        type: array
-        example: 'https://con.example.com, https://con.example2.com'
-      contact:
-        description: 'Url of this person'
-        type: string
-        example: 'https://con.example.org'
-        format: url
-      startDate:
-        description: 'The moment this event starts'
-        type: string
-        example: '2020-04-16 14:13:23'
-        format: date-time
-      endDate:
-        description: 'The moment this event ends'
-        type: string
-        example: '2020-04-16 14:13:23'
-        format: date-time
-      duration:
-        description: 'The duration of this event.'
-        type: \DateInterval
-        example: '2'
-      organiser:
-        description: 'The organiser of this event linked to with an url.'
-        type: string
-        example: conduction.nl
-        maxLength: 255
-      freebusy:
-        description: 'The determination of the type freebusy. **FREE**, **BUSY**'
-        type: string
-        example: FREE
-      calendar: []
-      schedule: []
-    required:
-      - startDate
-      - endDate
-  Journal-read:
-    properties:
-      id:
-        description: 'The UUID identifier of this resource'
-        type: string
-        example: e2984465-190a-4562-829e-a8cca81aa35d
-        format: uuid
-      name:
-        description: 'The name of this RequestType'
-        type: string
-        example: 'My RequestType'
-        maxLength: 255
-      description:
-        description: 'An short description of this Event'
-        type: string
-        example: 'This is the best Event ever'
-        maxLength: 2550
-      startDate:
-        description: 'The moment this event starts'
-        type: string
-        example: '2020-04-16 14:13:23'
-        format: date-time
-      endDate:
-        description: 'The moment this event ends'
-        type: string
-        example: '2020-04-16 14:13:23'
-        format: date-time
-      class:
-        description: 'The security class of this event.'
-        type: string
-        example: PUBLIC
-        maxLength: 255
-      organiser:
-        description: 'The organiser of this event linked to with an url.'
-        type: string
-        example: conduction.nl
-        maxLength: 255
-      status:
-        description: 'The status of this event.'
-        type: string
-        example: Confirmed
-        maxLength: 255
-      summary:
-        description: 'The summary of this event.'
-        type: string
-        example: 'This is the best event ever.'
-        maxLength: 255
-      transp:
-        description: 'The determination if the event should block the duration of the event for participants.'
-        type: string
-        example: Transparent
-        maxLength: 255
-      duration:
-        description: 'The duration of this event.'
-        type: \DateInterval
-        example: '2'
-      seq:
-        description: 'The version number of this event.'
-        type: int
-        example: '1'
-      priority:
-        description: 'The priority of this event ranging from 1 (high) to 9 (low).'
-        type: int
-        example: '1'
-      attendees:
-        description: 'The urls of the attendees of this event.'
-        type: array
-        example: 'https://con.example.com, https://con.example2.com'
-      attachments:
-        description: 'The urls of the attachments of this event.'
-        type: array
-        example: 'https://example.org, https://example2.org'
-      categories:
-        description: 'The urls of the catergories this event belongs to.'
-        type: array
-        example: 'https://con.example.com, https://con.example2.com'
-      comments:
-        description: 'The urls of the comments that belong to this event.'
-        type: array
-        example: 'https://con.example.com, https://con.example2.com'
-      dateCreated:
-        description: 'The moment this resource was created'
-        type: \DateTime
-      dateModified:
-        description: 'The moment this resource last Modified'
-        type: \DateTime
-      calendar: []
-      event: []
-    required:
-      - name
-      - startDate
-      - endDate
-  Journal-write:
-    properties:
-      name:
-        description: 'The name of this RequestType'
-        type: string
-        example: 'My RequestType'
-        maxLength: 255
-      description:
-        description: 'An short description of this Event'
-        type: string
-        example: 'This is the best Event ever'
-        maxLength: 2550
-      startDate:
-        description: 'The moment this event starts'
-        type: string
-        example: '2020-04-16 14:13:23'
-        format: date-time
-      endDate:
-        description: 'The moment this event ends'
-        type: string
-        example: '2020-04-16 14:13:23'
-        format: date-time
-      class:
-        description: 'The security class of this event.'
-        type: string
-        example: PUBLIC
-        maxLength: 255
-      organiser:
-        description: 'The organiser of this event linked to with an url.'
-        type: string
-        example: conduction.nl
-        maxLength: 255
-      status:
-        description: 'The status of this event.'
-        type: string
-        example: Confirmed
-        maxLength: 255
-      summary:
-        description: 'The summary of this event.'
-        type: string
-        example: 'This is the best event ever.'
-        maxLength: 255
-      transp:
-        description: 'The determination if the event should block the duration of the event for participants.'
-        type: string
-        example: Transparent
-        maxLength: 255
-      duration:
-        description: 'The duration of this event.'
-        type: \DateInterval
-        example: '2'
-      seq:
-        description: 'The version number of this event.'
-        type: int
-        example: '1'
-      priority:
-        description: 'The priority of this event ranging from 1 (high) to 9 (low).'
-        type: int
-        example: '1'
-      attendees:
-        description: 'The urls of the attendees of this event.'
-        type: array
-        example: 'https://con.example.com, https://con.example2.com'
-      attachments:
-        description: 'The urls of the attachments of this event.'
-        type: array
-        example: 'https://example.org, https://example2.org'
-      categories:
-        description: 'The urls of the catergories this event belongs to.'
-        type: array
-        example: 'https://con.example.com, https://con.example2.com'
-      comments:
-        description: 'The urls of the comments that belong to this event.'
-        type: array
-        example: 'https://con.example.com, https://con.example2.com'
-      calendar: []
-      event: []
-    required:
-      - name
-      - startDate
-      - endDate
-  Todo-read:
-    properties:
-      id:
-        description: 'The UUID identifier of this resource'
-        type: string
-        example: e2984465-190a-4562-829e-a8cca81aa35d
-        format: uuid
-      name:
-        description: 'The name of this RequestType'
-        type: string
-        example: 'My RequestType'
-        maxLength: 255
-      description:
-        description: 'An short description of this Event'
-        type: string
-        example: 'This is the best Event ever'
-        maxLength: 2550
-      startDate:
-        description: 'The moment this event starts'
-        type: string
-        example: '2020-04-16 14:13:23'
-        format: date-time
-      endDate:
-        description: 'The moment this event ends'
-        type: string
-        example: '2020-04-16 14:13:23'
-        format: date-time
-      location:
-        description: 'The location of this event'
-        type: string
-        example: 'Dam 1, Amsterdam'
-        maxLength: 255
-      class:
-        description: 'The security class of this event.'
-        type: string
-        example: PUBLIC
-        maxLength: 255
-      geo:
-        description: 'The coordinates of this event.'
-        type: string
-        example: '81.15147,10.36374,42.26'
-        maxLength: 255
-      organiser:
-        description: 'The organiser of this event linked to with an url.'
-        type: string
-        example: conduction.nl
-        maxLength: 255
-      status:
-        description: 'The status of this evemt.'
-        type: string
-        example: Confirmed
-        maxLength: 255
-      summary:
-        description: 'The summary of this event.'
-        type: string
-        example: 'This is the best event ever.'
-        maxLength: 255
-      duration:
-        description: 'The duration of this event.'
-        type: \DateInterval
-        example: '2'
-      contact:
-        description: 'Url of this person'
-        type: string
-        example: 'https://con.example.org'
-        format: url
-      seq:
-        description: 'The version number of this event.'
-        type: int
-        example: '1'
-      priority:
-        description: 'The priority of this event ranging from 1 (high) to 9 (low).'
-        type: int
-        example: '1'
-      attendees:
-        description: 'The urls of the attendees of this event.'
-        type: array
-        example: 'https://con.example.com, https://con.example2.com'
-      attachments:
-        description: 'The urls of the attachments of this event.'
-        type: array
-        example: 'https://example.org, https://example2.org'
-      categories:
-        description: 'The urls of the catergories this event belongs to.'
-        type: array
-        example: 'https://con.example.com, https://con.example2.com'
-      comments:
-        description: 'The urls of the comments that belong to this event.'
-        type: array
-        example: 'https://con.example.com, https://con.example2.com'
-      completed:
-        description: 'The date and time a to-do is completed.'
-        type: string
-        example: '2020-04-16 14:13:23'
-        format: date-time
-      percentageDone:
-        description: 'The percentage of a to-do that has been comepleted.'
-        type: int
-        example: 40%
-      dateCreated:
-        description: 'The moment this resource was created'
-        type: \Datetime
-      dateModified:
-        description: 'The moment this resource last Modified'
-        type: \Datetime
-      resources: []
-      alarm: []
-      calendar: []
-      schedule: []
-    required:
-      - name
-      - startDate
-      - endDate
-  Todo-write:
-    properties:
-      name:
-        description: 'The name of this RequestType'
-        type: string
-        example: 'My RequestType'
-        maxLength: 255
-      description:
-        description: 'An short description of this Event'
-        type: string
-        example: 'This is the best Event ever'
-        maxLength: 2550
-      startDate:
-        description: 'The moment this event starts'
-        type: string
-        example: '2020-04-16 14:13:23'
-        format: date-time
-      endDate:
-        description: 'The moment this event ends'
-        type: string
-        example: '2020-04-16 14:13:23'
-        format: date-time
-      location:
-        description: 'The location of this event'
-        type: string
-        example: 'Dam 1, Amsterdam'
-        maxLength: 255
-      class:
-        description: 'The security class of this event.'
-        type: string
-        example: PUBLIC
-        maxLength: 255
-      geo:
-        description: 'The coordinates of this event.'
-        type: string
-        example: '81.15147,10.36374,42.26'
-        maxLength: 255
-      organiser:
-        description: 'The organiser of this event linked to with an url.'
-        type: string
-        example: conduction.nl
-        maxLength: 255
-      status:
-        description: 'The status of this evemt.'
-        type: string
-        example: Confirmed
-        maxLength: 255
-      summary:
-        description: 'The summary of this event.'
-        type: string
-        example: 'This is the best event ever.'
-        maxLength: 255
-      duration:
-        description: 'The duration of this event.'
-        type: \DateInterval
-        example: '2'
-      contact:
-        description: 'Url of this person'
-        type: string
-        example: 'https://con.example.org'
-        format: url
-      seq:
-        description: 'The version number of this event.'
-        type: int
-        example: '1'
-      priority:
-        description: 'The priority of this event ranging from 1 (high) to 9 (low).'
-        type: int
-        example: '1'
-      attendees:
-        description: 'The urls of the attendees of this event.'
-        type: array
-        example: 'https://con.example.com, https://con.example2.com'
-      attachments:
-        description: 'The urls of the attachments of this event.'
-        type: array
-        example: 'https://example.org, https://example2.org'
-      categories:
-        description: 'The urls of the catergories this event belongs to.'
-        type: array
-        example: 'https://con.example.com, https://con.example2.com'
-      comments:
-        description: 'The urls of the comments that belong to this event.'
-        type: array
-        example: 'https://con.example.com, https://con.example2.com'
-      completed:
-        description: 'The date and time a to-do is completed.'
-        type: string
-        example: '2020-04-16 14:13:23'
-        format: date-time
-      percentageDone:
-        description: 'The percentage of a to-do that has been comepleted.'
-        type: int
-        example: 40%
-      resources: []
-      alarm: []
-      calendar: []
-      schedule: []
-    required:
-      - name
-      - startDate
-      - endDate
-  Resource-read:
-    properties:
-      id:
-        description: 'The UUID identifier of this resource'
-        type: string
-        example: e2984465-190a-4562-829e-a8cca81aa35d
-        format: uuid
-      name:
-        description: 'The name of this RequestType'
-        type: string
-        example: 'My RequestType'
-        maxLength: 255
-      description:
-        description: 'An short description of this Event'
-        type: string
-        example: 'This is the best Event ever'
-        maxLength: 2550
-      dateCreated:
-        description: 'The moment this resource was created'
-        type: \Datetime
-      dateModified:
-        description: 'The moment this resource last Modified'
-        type: \Datetime
-      events: []
-      todos: []
-    required:
-      - name
-  Resource-write:
-    properties:
-      name:
-        description: 'The name of this RequestType'
-        type: string
-        example: 'My RequestType'
-        maxLength: 255
-      description:
-        description: 'An short description of this Event'
-        type: string
-        example: 'This is the best Event ever'
-        maxLength: 2550
-      events: []
-      todos: []
-    required:
-      - name
   Alarm-read:
     properties:
       id:
@@ -15537,12 +13348,12 @@ definitions:
         description: 'The moment this request was created'
         type: string
         format: date-time
-        example: '2020-04-16 14:13:23'
+        example: '2020-04-17 07:18:06'
       dateModified:
         description: 'The moment this request last Modified'
         type: string
         format: date-time
-        example: '2020-04-16 14:13:23'
+        example: '2020-04-17 07:18:06'
     required: []
   AuditTrail-write:
     properties:
@@ -15552,6 +13363,676 @@ definitions:
         example: 'This log line looks suspicius'
         maxLength: 2555
     required: []
+  Calendar-read:
+    properties:
+      id:
+        description: 'The UUID identifier of this resource'
+        type: string
+        example: e2984465-190a-4562-829e-a8cca81aa35d
+        format: uuid
+      name:
+        description: 'The name of this Calendar'
+        type: string
+        example: 'My Calendar'
+        maxLength: 255
+      description:
+        description: 'An short description of this Calendar'
+        type: string
+        example: 'This is the best Calendar ever'
+        maxLength: 2550
+      timeZone:
+        description: 'The time zone of this calendar'
+        type: string
+        example: CET
+        maxLength: 5
+        minLength: 3
+      dateCreated:
+        description: 'The moment this resource was created'
+        type: \Datetime
+      dateModified:
+        description: 'The moment this resource last Modified'
+        type: \Datetime
+      events:
+        description: 'Events that belong to this Calendar'
+        type: array
+      schedules:
+        description: 'Schedules that belong to this Calendar'
+        type: array
+      freebusies: []
+      journals: []
+      todos: []
+    required:
+      - name
+      - timeZone
+  Calendar-write:
+    properties:
+      name:
+        description: 'The name of this Calendar'
+        type: string
+        example: 'My Calendar'
+        maxLength: 255
+      description:
+        description: 'An short description of this Calendar'
+        type: string
+        example: 'This is the best Calendar ever'
+        maxLength: 2550
+      timeZone:
+        description: 'The time zone of this calendar'
+        type: string
+        example: CET
+        maxLength: 5
+        minLength: 3
+      events:
+        description: 'Events that belong to this Calendar'
+        type: array
+      schedules:
+        description: 'Schedules that belong to this Calendar'
+        type: array
+      freebusies: []
+      journals: []
+      todos: []
+    required:
+      - name
+      - timeZone
+  ChangeLog-read:
+    properties:
+      id:
+        description: 'The UUID identifier of this object'
+        type: string
+        example: e2984465-190a-4562-829e-a8cca81aa35d
+        format: uuid
+      note:
+        description: 'A note conserning this log lin'
+        type: string
+        example: 'This log line is suspicius'
+        maxLength: 2555
+      action:
+        description: ''
+        type: string
+      objectId:
+        description: ''
+        type: string
+      objectClass:
+        description: ''
+        type: string
+      version:
+        description: ''
+        type: int
+      data:
+        description: ''
+        type: array
+      username:
+        description: ''
+        type: string
+      session:
+        description: 'The moment this request was created'
+        type: \sting
+        maxLength: 255
+      dateCreated:
+        description: 'The moment this request was created'
+        type: string
+        format: date-time
+        example: '2020-04-17 07:18:06'
+      dateModified:
+        description: 'The moment this request last Modified'
+        type: string
+        format: date-time
+        example: '2020-04-17 07:18:06'
+    required: []
+  ChangeLog-write:
+    properties:
+      note:
+        description: 'A note conserning this log lin'
+        type: string
+        example: 'This log line is suspicius'
+        maxLength: 2555
+    required: []
+  Event-read:
+    properties:
+      id:
+        description: 'The UUID identifier of this resource'
+        type: string
+        example: e2984465-190a-4562-829e-a8cca81aa35d
+        format: uuid
+      name:
+        description: 'The name of this RequestType'
+        type: string
+        example: 'My RequestType'
+        maxLength: 255
+      description:
+        description: 'An short description of this Event'
+        type: string
+        example: 'This is the best Event ever'
+        maxLength: 2550
+      startDate:
+        description: 'The moment this event starts'
+        type: string
+        example: '2020-04-17 07:18:06'
+        format: date-time
+      endDate:
+        description: 'The moment this event ends'
+        type: string
+        example: '2020-04-17 07:18:06'
+        format: date-time
+      location:
+        description: 'The location of this event'
+        type: string
+        example: 'Dam 1, Amsterdam'
+        maxLength: 255
+      class:
+        description: 'The security class of this event.'
+        type: string
+        example: PUBLIC
+        maxLength: 255
+      geo:
+        description: 'The coordinates of this event.'
+        type: string
+        example: '81.15147,10.36374,42.26'
+        maxLength: 255
+      organizer:
+        description: 'The organiser of this event linked to with an url.'
+        type: string
+        example: conduction.nl
+        maxLength: 255
+      status:
+        description: 'The status of this event.'
+        type: string
+        example: Confirmed
+        maxLength: 255
+      summary:
+        description: 'The summary of this event.'
+        type: string
+        example: 'This is the best event ever.'
+        maxLength: 255
+      transp:
+        description: 'The determination if the event should block the duration of the event for participants.'
+        type: string
+        example: Transparent
+        maxLength: 255
+      duration:
+        description: 'The duration of this event.'
+        type: \DateInterval
+        example: P0M3
+      contact:
+        description: 'Url of this person'
+        type: string
+        example: 'https://con.example.org'
+        format: url
+      seq:
+        description: 'The version number of this event.'
+        type: int
+        example: '1'
+      priority:
+        description: 'The priority of this event ranging from 1 (high) to 9 (low).'
+        type: int
+        example: '1'
+      attendees:
+        description: 'The urls of the attendees of this event.'
+        type: array
+        example: 'https://con.example.com, https://con.example2.com'
+      attachments:
+        description: 'The urls of the attachments of this event.'
+        type: array
+        example: 'https://example.org, https://example2.org'
+      categories:
+        description: 'The urls of the catergories this event belongs to.'
+        type: array
+        example: 'https://con.example.com, https://con.example2.com'
+      comments:
+        description: 'The urls of the comments that belong to this event.'
+        type: array
+        example: 'https://con.example.com, https://con.example2.com'
+      dateCreated:
+        description: 'The moment this resource was created'
+        type: \DateTime
+      dateModified:
+        description: 'The moment this resource last Modified'
+        type: \Datetime
+      schedule:
+        description: 'An optional Schedule to which this event belongs'
+        type: \Schedule
+      calendar:
+        description: 'The Calendar to wich this event belongs'
+        type: \Calendar
+      related: []
+      resources: []
+      alarms: []
+      journal: []
+    required:
+      - name
+      - startDate
+      - endDate
+  Event-write:
+    properties:
+      name:
+        description: 'The name of this RequestType'
+        type: string
+        example: 'My RequestType'
+        maxLength: 255
+      description:
+        description: 'An short description of this Event'
+        type: string
+        example: 'This is the best Event ever'
+        maxLength: 2550
+      startDate:
+        description: 'The moment this event starts'
+        type: string
+        example: '2020-04-17 07:18:06'
+        format: date-time
+      endDate:
+        description: 'The moment this event ends'
+        type: string
+        example: '2020-04-17 07:18:06'
+        format: date-time
+      location:
+        description: 'The location of this event'
+        type: string
+        example: 'Dam 1, Amsterdam'
+        maxLength: 255
+      class:
+        description: 'The security class of this event.'
+        type: string
+        example: PUBLIC
+        maxLength: 255
+      geo:
+        description: 'The coordinates of this event.'
+        type: string
+        example: '81.15147,10.36374,42.26'
+        maxLength: 255
+      organizer:
+        description: 'The organiser of this event linked to with an url.'
+        type: string
+        example: conduction.nl
+        maxLength: 255
+      status:
+        description: 'The status of this event.'
+        type: string
+        example: Confirmed
+        maxLength: 255
+      summary:
+        description: 'The summary of this event.'
+        type: string
+        example: 'This is the best event ever.'
+        maxLength: 255
+      transp:
+        description: 'The determination if the event should block the duration of the event for participants.'
+        type: string
+        example: Transparent
+        maxLength: 255
+      duration:
+        description: 'The duration of this event.'
+        type: \DateInterval
+        example: P0M3
+      contact:
+        description: 'Url of this person'
+        type: string
+        example: 'https://con.example.org'
+        format: url
+      seq:
+        description: 'The version number of this event.'
+        type: int
+        example: '1'
+      priority:
+        description: 'The priority of this event ranging from 1 (high) to 9 (low).'
+        type: int
+        example: '1'
+      attendees:
+        description: 'The urls of the attendees of this event.'
+        type: array
+        example: 'https://con.example.com, https://con.example2.com'
+      attachments:
+        description: 'The urls of the attachments of this event.'
+        type: array
+        example: 'https://example.org, https://example2.org'
+      categories:
+        description: 'The urls of the catergories this event belongs to.'
+        type: array
+        example: 'https://con.example.com, https://con.example2.com'
+      comments:
+        description: 'The urls of the comments that belong to this event.'
+        type: array
+        example: 'https://con.example.com, https://con.example2.com'
+      schedule:
+        description: 'An optional Schedule to which this event belongs'
+        type: \Schedule
+      calendar:
+        description: 'The Calendar to wich this event belongs'
+        type: \Calendar
+      related: []
+      resources: []
+      alarms: []
+      journal: []
+    required:
+      - name
+      - startDate
+      - endDate
+  Freebusy-read:
+    properties:
+      id:
+        description: 'The UUID identifier of this resource'
+        type: string
+        example: e2984465-190a-4562-829e-a8cca81aa35d
+        format: uuid
+      description:
+        description: 'An short description of this Event'
+        type: string
+        example: 'This is the best Event ever'
+        maxLength: 2550
+      attendee:
+        description: 'The urls of the attendees of this event.'
+        type: string
+        example: 'https://con.example.com'
+        format: url
+        maxLength: 255
+      comments:
+        description: 'The urls of the comments that belong to this event.'
+        type: array
+        example: 'https://con.example.com, https://con.example2.com'
+      contact:
+        description: 'Url of this person'
+        type: string
+        example: 'https://con.example.org'
+        format: url
+      startDate:
+        description: 'The moment this event starts'
+        type: string
+        example: '2020-04-17 07:18:06'
+        format: date-time
+      endDate:
+        description: 'The moment this event ends'
+        type: string
+        example: '2020-04-17 07:18:06'
+        format: date-time
+      duration:
+        description: 'The duration of this event.'
+        type: \DateInterval
+        example: '2'
+      organiser:
+        description: 'The organiser of this event linked to with an url.'
+        type: string
+        example: conduction.nl
+        maxLength: 255
+      freebusy:
+        description: 'The determination of the type freebusy. **FREE**, **BUSY**'
+        type: string
+        example: FREE
+      dateCreated:
+        description: 'The moment this resource was created'
+        type: \DateTime
+      dateModified:
+        description: 'The moment this resource last Modified'
+        type: \DateTime
+      calendar: []
+      schedule: []
+    required:
+      - startDate
+      - endDate
+  Freebusy-write:
+    properties:
+      description:
+        description: 'An short description of this Event'
+        type: string
+        example: 'This is the best Event ever'
+        maxLength: 2550
+      attendee:
+        description: 'The urls of the attendees of this event.'
+        type: string
+        example: 'https://con.example.com'
+        format: url
+        maxLength: 255
+      comments:
+        description: 'The urls of the comments that belong to this event.'
+        type: array
+        example: 'https://con.example.com, https://con.example2.com'
+      contact:
+        description: 'Url of this person'
+        type: string
+        example: 'https://con.example.org'
+        format: url
+      startDate:
+        description: 'The moment this event starts'
+        type: string
+        example: '2020-04-17 07:18:06'
+        format: date-time
+      endDate:
+        description: 'The moment this event ends'
+        type: string
+        example: '2020-04-17 07:18:06'
+        format: date-time
+      duration:
+        description: 'The duration of this event.'
+        type: \DateInterval
+        example: '2'
+      organiser:
+        description: 'The organiser of this event linked to with an url.'
+        type: string
+        example: conduction.nl
+        maxLength: 255
+      freebusy:
+        description: 'The determination of the type freebusy. **FREE**, **BUSY**'
+        type: string
+        example: FREE
+      calendar: []
+      schedule: []
+    required:
+      - startDate
+      - endDate
+  Journal-read:
+    properties:
+      id:
+        description: 'The UUID identifier of this resource'
+        type: string
+        example: e2984465-190a-4562-829e-a8cca81aa35d
+        format: uuid
+      name:
+        description: 'The name of this RequestType'
+        type: string
+        example: 'My RequestType'
+        maxLength: 255
+      description:
+        description: 'An short description of this Event'
+        type: string
+        example: 'This is the best Event ever'
+        maxLength: 2550
+      startDate:
+        description: 'The moment this event starts'
+        type: string
+        example: '2020-04-17 07:18:06'
+        format: date-time
+      endDate:
+        description: 'The moment this event ends'
+        type: string
+        example: '2020-04-17 07:18:06'
+        format: date-time
+      class:
+        description: 'The security class of this event.'
+        type: string
+        example: PUBLIC
+        maxLength: 255
+      organiser:
+        description: 'The organiser of this event linked to with an url.'
+        type: string
+        example: conduction.nl
+        maxLength: 255
+      status:
+        description: 'The status of this event.'
+        type: string
+        example: Confirmed
+        maxLength: 255
+      summary:
+        description: 'The summary of this event.'
+        type: string
+        example: 'This is the best event ever.'
+        maxLength: 255
+      transp:
+        description: 'The determination if the event should block the duration of the event for participants.'
+        type: string
+        example: Transparent
+        maxLength: 255
+      duration:
+        description: 'The duration of this event.'
+        type: \DateInterval
+        example: '2'
+      seq:
+        description: 'The version number of this event.'
+        type: int
+        example: '1'
+      priority:
+        description: 'The priority of this event ranging from 1 (high) to 9 (low).'
+        type: int
+        example: '1'
+      attendees:
+        description: 'The urls of the attendees of this event.'
+        type: array
+        example: 'https://con.example.com, https://con.example2.com'
+      attachments:
+        description: 'The urls of the attachments of this event.'
+        type: array
+        example: 'https://example.org, https://example2.org'
+      categories:
+        description: 'The urls of the catergories this event belongs to.'
+        type: array
+        example: 'https://con.example.com, https://con.example2.com'
+      comments:
+        description: 'The urls of the comments that belong to this event.'
+        type: array
+        example: 'https://con.example.com, https://con.example2.com'
+      dateCreated:
+        description: 'The moment this resource was created'
+        type: \DateTime
+      dateModified:
+        description: 'The moment this resource last Modified'
+        type: \DateTime
+      calendar: []
+      event: []
+    required:
+      - name
+      - startDate
+      - endDate
+  Journal-write:
+    properties:
+      name:
+        description: 'The name of this RequestType'
+        type: string
+        example: 'My RequestType'
+        maxLength: 255
+      description:
+        description: 'An short description of this Event'
+        type: string
+        example: 'This is the best Event ever'
+        maxLength: 2550
+      startDate:
+        description: 'The moment this event starts'
+        type: string
+        example: '2020-04-17 07:18:06'
+        format: date-time
+      endDate:
+        description: 'The moment this event ends'
+        type: string
+        example: '2020-04-17 07:18:06'
+        format: date-time
+      class:
+        description: 'The security class of this event.'
+        type: string
+        example: PUBLIC
+        maxLength: 255
+      organiser:
+        description: 'The organiser of this event linked to with an url.'
+        type: string
+        example: conduction.nl
+        maxLength: 255
+      status:
+        description: 'The status of this event.'
+        type: string
+        example: Confirmed
+        maxLength: 255
+      summary:
+        description: 'The summary of this event.'
+        type: string
+        example: 'This is the best event ever.'
+        maxLength: 255
+      transp:
+        description: 'The determination if the event should block the duration of the event for participants.'
+        type: string
+        example: Transparent
+        maxLength: 255
+      duration:
+        description: 'The duration of this event.'
+        type: \DateInterval
+        example: '2'
+      seq:
+        description: 'The version number of this event.'
+        type: int
+        example: '1'
+      priority:
+        description: 'The priority of this event ranging from 1 (high) to 9 (low).'
+        type: int
+        example: '1'
+      attendees:
+        description: 'The urls of the attendees of this event.'
+        type: array
+        example: 'https://con.example.com, https://con.example2.com'
+      attachments:
+        description: 'The urls of the attachments of this event.'
+        type: array
+        example: 'https://example.org, https://example2.org'
+      categories:
+        description: 'The urls of the catergories this event belongs to.'
+        type: array
+        example: 'https://con.example.com, https://con.example2.com'
+      comments:
+        description: 'The urls of the comments that belong to this event.'
+        type: array
+        example: 'https://con.example.com, https://con.example2.com'
+      calendar: []
+      event: []
+    required:
+      - name
+      - startDate
+      - endDate
+  Resource-read:
+    properties:
+      id:
+        description: 'The UUID identifier of this resource'
+        type: string
+        example: e2984465-190a-4562-829e-a8cca81aa35d
+        format: uuid
+      name:
+        description: 'The name of this RequestType'
+        type: string
+        example: 'My RequestType'
+        maxLength: 255
+      description:
+        description: 'An short description of this Event'
+        type: string
+        example: 'This is the best Event ever'
+        maxLength: 2550
+      dateCreated:
+        description: 'The moment this resource was created'
+        type: \Datetime
+      dateModified:
+        description: 'The moment this resource last Modified'
+        type: \Datetime
+      events: []
+      todos: []
+    required:
+      - name
+  Resource-write:
+    properties:
+      name:
+        description: 'The name of this RequestType'
+        type: string
+        example: 'My RequestType'
+        maxLength: 255
+      description:
+        description: 'An short description of this Event'
+        type: string
+        example: 'This is the best Event ever'
+        maxLength: 2550
+      events: []
+      todos: []
+    required:
+      - name
   Schedule-read:
     properties:
       id:
@@ -15665,7 +14146,7 @@ definitions:
         type: \ArrayCollection
     required:
       - name
-  Calendar-read:
+  Todo-read:
     properties:
       id:
         description: 'The UUID identifier of this resource'
@@ -15673,123 +14154,238 @@ definitions:
         example: e2984465-190a-4562-829e-a8cca81aa35d
         format: uuid
       name:
-        description: 'The name of this Calendar'
+        description: 'The name of this RequestType'
         type: string
-        example: 'My Calendar'
+        example: 'My RequestType'
         maxLength: 255
       description:
-        description: 'An short description of this Calendar'
+        description: 'An short description of this Event'
         type: string
-        example: 'This is the best Calendar ever'
+        example: 'This is the best Event ever'
         maxLength: 2550
-      timeZone:
-        description: 'The time zone of this calendar'
+      startDate:
+        description: 'The moment this event starts'
         type: string
-        example: CET
-        maxLength: 5
-        minLength: 3
+        example: '2020-04-17 07:18:06'
+        format: date-time
+      endDate:
+        description: 'The moment this event ends'
+        type: string
+        example: '2020-04-17 07:18:06'
+        format: date-time
+      location:
+        description: 'The location of this event'
+        type: string
+        example: 'Dam 1, Amsterdam'
+        maxLength: 255
+      class:
+        description: 'The security class of this event.'
+        type: string
+        example: PUBLIC
+        maxLength: 255
+      geo:
+        description: 'The coordinates of this event.'
+        type: string
+        example: '81.15147,10.36374,42.26'
+        maxLength: 255
+      organiser:
+        description: 'The organiser of this event linked to with an url.'
+        type: string
+        example: conduction.nl
+        maxLength: 255
+      status:
+        description: 'The status of this evemt.'
+        type: string
+        example: Confirmed
+        maxLength: 255
+      summary:
+        description: 'The summary of this event.'
+        type: string
+        example: 'This is the best event ever.'
+        maxLength: 255
+      duration:
+        description: 'The duration of this event.'
+        type: \DateInterval
+        example: '2'
+      contact:
+        description: 'Url of this person'
+        type: string
+        example: 'https://con.example.org'
+        format: url
+      seq:
+        description: 'The version number of this event.'
+        type: int
+        example: '1'
+      priority:
+        description: 'The priority of this event ranging from 1 (high) to 9 (low).'
+        type: int
+        example: '1'
+      attendees:
+        description: 'The urls of the attendees of this event.'
+        type: array
+        example: 'https://con.example.com, https://con.example2.com'
+      attachments:
+        description: 'The urls of the attachments of this event.'
+        type: array
+        example: 'https://example.org, https://example2.org'
+      categories:
+        description: 'The urls of the catergories this event belongs to.'
+        type: array
+        example: 'https://con.example.com, https://con.example2.com'
+      comments:
+        description: 'The urls of the comments that belong to this event.'
+        type: array
+        example: 'https://con.example.com, https://con.example2.com'
+      completed:
+        description: 'The date and time a to-do is completed.'
+        type: string
+        example: '2020-04-17 07:18:06'
+        format: date-time
+      percentageDone:
+        description: 'The percentage of a to-do that has been comepleted.'
+        type: int
+        example: 40%
       dateCreated:
         description: 'The moment this resource was created'
         type: \Datetime
       dateModified:
         description: 'The moment this resource last Modified'
         type: \Datetime
-      events:
-        description: 'Events that belong to this Calendar'
-        type: array
-      schedules:
-        description: 'Schedules that belong to this Calendar'
-        type: array
-      freebusies: []
-      journals: []
-      todos: []
+      resources: []
+      alarm: []
+      calendar: []
+      schedule: []
     required:
       - name
-      - timeZone
-  Calendar-write:
+      - startDate
+      - endDate
+  Todo-write:
     properties:
       name:
-        description: 'The name of this Calendar'
+        description: 'The name of this RequestType'
         type: string
-        example: 'My Calendar'
+        example: 'My RequestType'
         maxLength: 255
       description:
-        description: 'An short description of this Calendar'
+        description: 'An short description of this Event'
         type: string
-        example: 'This is the best Calendar ever'
+        example: 'This is the best Event ever'
         maxLength: 2550
-      timeZone:
-        description: 'The time zone of this calendar'
+      startDate:
+        description: 'The moment this event starts'
         type: string
-        example: CET
-        maxLength: 5
-        minLength: 3
-      events:
-        description: 'Events that belong to this Calendar'
+        example: '2020-04-17 07:18:06'
+        format: date-time
+      endDate:
+        description: 'The moment this event ends'
+        type: string
+        example: '2020-04-17 07:18:06'
+        format: date-time
+      location:
+        description: 'The location of this event'
+        type: string
+        example: 'Dam 1, Amsterdam'
+        maxLength: 255
+      class:
+        description: 'The security class of this event.'
+        type: string
+        example: PUBLIC
+        maxLength: 255
+      geo:
+        description: 'The coordinates of this event.'
+        type: string
+        example: '81.15147,10.36374,42.26'
+        maxLength: 255
+      organiser:
+        description: 'The organiser of this event linked to with an url.'
+        type: string
+        example: conduction.nl
+        maxLength: 255
+      status:
+        description: 'The status of this evemt.'
+        type: string
+        example: Confirmed
+        maxLength: 255
+      summary:
+        description: 'The summary of this event.'
+        type: string
+        example: 'This is the best event ever.'
+        maxLength: 255
+      duration:
+        description: 'The duration of this event.'
+        type: \DateInterval
+        example: '2'
+      contact:
+        description: 'Url of this person'
+        type: string
+        example: 'https://con.example.org'
+        format: url
+      seq:
+        description: 'The version number of this event.'
+        type: int
+        example: '1'
+      priority:
+        description: 'The priority of this event ranging from 1 (high) to 9 (low).'
+        type: int
+        example: '1'
+      attendees:
+        description: 'The urls of the attendees of this event.'
         type: array
-      schedules:
-        description: 'Schedules that belong to this Calendar'
+        example: 'https://con.example.com, https://con.example2.com'
+      attachments:
+        description: 'The urls of the attachments of this event.'
         type: array
-      freebusies: []
-      journals: []
-      todos: []
+        example: 'https://example.org, https://example2.org'
+      categories:
+        description: 'The urls of the catergories this event belongs to.'
+        type: array
+        example: 'https://con.example.com, https://con.example2.com'
+      comments:
+        description: 'The urls of the comments that belong to this event.'
+        type: array
+        example: 'https://con.example.com, https://con.example2.com'
+      completed:
+        description: 'The date and time a to-do is completed.'
+        type: string
+        example: '2020-04-17 07:18:06'
+        format: date-time
+      percentageDone:
+        description: 'The percentage of a to-do that has been comepleted.'
+        type: int
+        example: 40%
+      resources: []
+      alarm: []
+      calendar: []
+      schedule: []
     required:
       - name
-      - timeZone
-  ChangeLog-read:
-    properties:
-      id:
-        description: 'The UUID identifier of this object'
-        type: string
-        example: e2984465-190a-4562-829e-a8cca81aa35d
-        format: uuid
-      note:
-        description: 'A note conserning this log lin'
-        type: string
-        example: 'This log line is suspicius'
-        maxLength: 2555
-      action:
-        description: ''
-        type: string
-      objectId:
-        description: ''
-        type: string
-      objectClass:
-        description: ''
-        type: string
-      version:
-        description: ''
-        type: int
-      data:
-        description: ''
-        type: array
-      username:
-        description: ''
-        type: string
-      session:
-        description: 'The moment this request was created'
-        type: \sting
-        maxLength: 255
-      dateCreated:
-        description: 'The moment this request was created'
-        type: string
-        format: date-time
-        example: '2020-04-16 14:13:23'
-      dateModified:
-        description: 'The moment this request last Modified'
-        type: string
-        format: date-time
-        example: '2020-04-16 14:13:23'
-    required: []
-  ChangeLog-write:
-    properties:
-      note:
-        description: 'A note conserning this log lin'
-        type: string
-        example: 'This log line is suspicius'
-        maxLength: 2555
-    required: []
+      - startDate
+      - endDate
 tags:
+  -
+    name: Alarm
+    description: |
+      Used to describe alarms for Events and Todos.
+      
+      
+  -
+    name: AuditTrail
+    description: |
+      An resource representing a log line.
+      
+      This entity represents a product that can be ordered via the OrderRegistratieComponent.
+  -
+    name: Calendar
+    description: |
+      A Calendar is a collection of events tied to an unque person or resource.
+      
+      
+  -
+    name: ChangeLog
+    description: |
+      An resource representing a log line.
+      
+      This entity represents a product that can be ordered via the OrderRegistratieComponent.
   -
     name: Event
     description: |
@@ -15809,29 +14405,11 @@ tags:
       
       
   -
-    name: Todo
-    description: |
-      A to-do from an event.
-      
-      
-  -
     name: Resource
     description: |
       Describes resources that can be needed for an event.
       
       
-  -
-    name: Alarm
-    description: |
-      Used to describe alarms for Events and Todos.
-      
-      
-  -
-    name: AuditTrail
-    description: |
-      An resource representing a log line.
-      
-      This entity represents a product that can be ordered via the OrderRegistratieComponent.
   -
     name: Schedule
     description: |
@@ -15839,32 +14417,26 @@ tags:
       
       
   -
-    name: Calendar
+    name: Todo
     description: |
-      A Calendar is a collection of events tied to an unque person or resource.
+      A to-do from an event.
       
       
-  -
-    name: ChangeLog
-    description: |
-      An resource representing a log line.
-      
-      This entity represents a product that can be ordered via the OrderRegistratieComponent.
 securityDefinitions:
   JWT-Oauth:
     type: oauth2
     authorizationUrl: 'http://petstore.swagger.io/api/oauth/dialog'
     flow: implicit
     scopes:
-      read: 'read right to the ChangeLog resource'
-      write: 'write right to the ChangeLog resource'
+      read: 'read right to the Todo resource'
+      write: 'write right to the Todo resource'
   JWT-Token:
     type: apiKey
     in: header
     name: Authorization
     scopes:
-      read: 'read right to the ChangeLog resource'
-      write: 'write right to the ChangeLog resource'
+      read: 'read right to the Todo resource'
+      write: 'write right to the Todo resource'
 host: irc.zaakonline.nl
 servers:
   -
