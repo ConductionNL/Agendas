@@ -77,6 +77,7 @@ class Event
     /**
      * @var string The name of this RequestType
      *
+     * @Gedmo\Versioned
      * @example My RequestType
      *
      * @Assert\NotNull
@@ -91,6 +92,7 @@ class Event
     /**
      * @var string An short description of this Event
      *
+     * @Gedmo\Versioned
      * @example This is the best Event ever
      *
      * @Assert\Length(
@@ -104,6 +106,7 @@ class Event
     /**
      * @var DateTime The moment this event starts
      *
+     * @Gedmo\Versioned
      * @example 30-11-2019 15:00:00
      *
      * @Assert\DateTime
@@ -116,6 +119,7 @@ class Event
     /**
      * @var Datetime The moment this event ends
      *
+     * @Gedmo\Versioned
      * @example 3-11-2019 20:00:00
      *
      * @Assert\DateTime
@@ -128,6 +132,7 @@ class Event
     /**
      * @var string The location of this event
      *
+     * @Gedmo\Versioned
      * @example Dam 1, Amsterdam
      *
      * @Assert\Length(
@@ -160,6 +165,7 @@ class Event
     /**
      * @var string The security class of this event.
      *
+     * @Gedmo\Versioned
      * @example PUBLIC
      *
      * @Assert\Length(
@@ -173,6 +179,7 @@ class Event
     /**
      * @var string The coordinates of this event.
      *
+     * @Gedmo\Versioned
      * @example 81.15147,10.36374,42.26
      *
      * @Assert\Length(
@@ -186,6 +193,7 @@ class Event
     /**
      * @var string The organiser of this event linked to with an url.
      *
+     * @Gedmo\Versioned
      * @example conduction.nl
      *
      * @Assert\Length(
@@ -199,6 +207,7 @@ class Event
     /**
      * @var string The status of this event.
      *
+     * @Gedmo\Versioned
      * @example Confirmed
      *
      * @Assert\Length(
@@ -212,6 +221,7 @@ class Event
     /**
      * @var string The summary of this event.
      *
+     * @Gedmo\Versioned
      * @example This is the best event ever.
      *
      * @Assert\Length(
@@ -225,6 +235,7 @@ class Event
     /**
      * @var string The determination if the event should block the duration of the event for participants.
      *
+     * @Gedmo\Versioned
      * @example Transparent
      *
      * @Assert\Length(
@@ -238,6 +249,7 @@ class Event
     /**
      * @var DateInterval The duration of this event.
      *
+     * @Gedmo\Versioned
      * @example P0M3
      *
      * @Groups({"read","write"})
@@ -248,6 +260,7 @@ class Event
     /**
      * @var string Url of this person
      *
+     * @Gedmo\Versioned
      * @example https://con.example.org
      *
      * @Assert\Url
@@ -259,6 +272,7 @@ class Event
     /**
      * @var int The version number of this event.
      *
+     * @Gedmo\Versioned
      * @example 1
      *
      * @Assert\Type("int")
@@ -269,6 +283,7 @@ class Event
     /**
      * @var int The priority of this event ranging from 1 (high) to 9 (low).
      *
+     * @Gedmo\Versioned
      * @example 1
      *
      * @Assert\Type("int")
@@ -281,6 +296,7 @@ class Event
     /**
      * @var array The urls of the attendees of this event.
      *
+     * @Gedmo\Versioned
      * @example https://con.example.com, https://con.example2.com
      *
      * @Groups({"read","write"})
@@ -291,6 +307,7 @@ class Event
     /**
      * @var array The urls of the attachments of this event.
      *
+     * @Gedmo\Versioned
      * @example https://example.org, https://example2.org
      *
      * @Groups({"read","write"})
@@ -301,6 +318,7 @@ class Event
     /**
      * @var array The urls of the catergories this event belongs to.
      *
+     * @Gedmo\Versioned
      * @example https://con.example.com, https://con.example2.com
      *
      * @Groups({"read","write"})
@@ -311,6 +329,7 @@ class Event
     /**
      * @var array The urls of the comments that belong to this event.
      *
+     * @Gedmo\Versioned
      * @example https://con.example.com, https://con.example2.com
      *
      * @Groups({"read","write"})
