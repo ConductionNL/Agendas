@@ -272,6 +272,38 @@ paths:
           style: form
           explode: true
         -
+          name: event.calendar.id
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'event.calendar.id[]'
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
+        -
+          name: todo.calendar.id
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'todo.calendar.id[]'
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
+        -
           name: page
           in: query
           required: false
@@ -10492,6 +10524,7 @@ components:
           externalDocs:
             url: 'http://schema.org/identifier'
           type: string
+          format: uuid
         name:
           description: 'The name of this RequestType'
           type: string
@@ -10506,10 +10539,10 @@ components:
           type: string
         trigger:
           description: 'The time the alarm should trigger relative to the start time of the related event.'
-          type: string
+          $ref: '#/components/schemas/DateInterval-read'
         duration:
           description: 'The time until the alarm repeats.'
-          type: string
+          $ref: '#/components/schemas/DateInterval-read'
         repeat:
           description: 'The number of times the alarm repeats.'
           type: integer
@@ -10555,10 +10588,10 @@ components:
           type: string
         trigger:
           description: 'The time the alarm should trigger relative to the start time of the related event.'
-          type: string
+          $ref: '#/components/schemas/DateInterval-write'
         duration:
           description: 'The time until the alarm repeats.'
-          type: string
+          $ref: '#/components/schemas/DateInterval-write'
         repeat:
           description: 'The number of times the alarm repeats.'
           type: integer
@@ -10585,6 +10618,7 @@ components:
           externalDocs:
             url: 'http://schema.org/identifier'
           type: string
+          format: uuid
         name:
           description: 'The name of this RequestType'
           type: string
@@ -10599,10 +10633,10 @@ components:
           type: string
         trigger:
           description: 'The time the alarm should trigger relative to the start time of the related event.'
-          type: string
+          $ref: '#/components/schemas/DateInterval:jsonld-read'
         duration:
           description: 'The time until the alarm repeats.'
-          type: string
+          $ref: '#/components/schemas/DateInterval:jsonld-read'
         repeat:
           description: 'The number of times the alarm repeats.'
           type: integer
@@ -10657,10 +10691,10 @@ components:
           type: string
         trigger:
           description: 'The time the alarm should trigger relative to the start time of the related event.'
-          type: string
+          $ref: '#/components/schemas/DateInterval:jsonld-write'
         duration:
           description: 'The time until the alarm repeats.'
-          type: string
+          $ref: '#/components/schemas/DateInterval:jsonld-write'
         repeat:
           description: 'The number of times the alarm repeats.'
           type: integer
@@ -10678,6 +10712,7 @@ components:
           externalDocs:
             url: 'http://schema.org/identifier'
           type: string
+          format: uuid
         request:
           readOnly: true
           description: 'The id of the request within that application'
@@ -10808,6 +10843,7 @@ components:
           externalDocs:
             url: 'http://schema.org/identifier'
           type: string
+          format: uuid
         request:
           readOnly: true
           description: 'The id of the request within that application'
@@ -10939,6 +10975,7 @@ components:
           externalDocs:
             url: 'http://schema.org/identifier'
           type: string
+          format: uuid
         name:
           description: 'The name of this Calendar'
           type: string
@@ -11040,6 +11077,7 @@ components:
           externalDocs:
             url: 'http://schema.org/identifier'
           type: string
+          format: uuid
         name:
           description: 'The name of this Calendar'
           type: string
@@ -11141,6 +11179,7 @@ components:
           externalDocs:
             url: 'http://schema.org/identifier'
           type: string
+          format: uuid
         action:
           readOnly: true
           type: string
@@ -11201,6 +11240,7 @@ components:
           externalDocs:
             url: 'http://schema.org/identifier'
           type: string
+          format: uuid
         action:
           readOnly: true
           type: string
@@ -11252,6 +11292,34 @@ components:
         '@type':
           readOnly: true
           type: string
+    DateInterval-read:
+      type: object
+    DateInterval-write:
+      type: object
+    'DateInterval:jsonld-read':
+      type: object
+      properties:
+        '@context':
+          readOnly: true
+          type: string
+        '@id':
+          readOnly: true
+          type: string
+        '@type':
+          readOnly: true
+          type: string
+    'DateInterval:jsonld-write':
+      type: object
+      properties:
+        '@context':
+          readOnly: true
+          type: string
+        '@id':
+          readOnly: true
+          type: string
+        '@type':
+          readOnly: true
+          type: string
     Event-read:
       type: object
       description: 'An event happening at a certain time and location, such as a concert, lecture, meeting or festival.'
@@ -11264,6 +11332,7 @@ components:
           externalDocs:
             url: 'http://schema.org/identifier'
           type: string
+          format: uuid
         name:
           description: 'The name of this RequestType'
           type: string
@@ -11311,7 +11380,7 @@ components:
           type: string
         duration:
           description: 'The duration of this event.'
-          type: string
+          $ref: '#/components/schemas/DateInterval-read'
         contact:
           description: 'Url of this person'
           externalDocs:
@@ -11431,7 +11500,7 @@ components:
           type: string
         duration:
           description: 'The duration of this event.'
-          type: string
+          $ref: '#/components/schemas/DateInterval-write'
         contact:
           description: 'Url of this person'
           externalDocs:
@@ -11499,6 +11568,7 @@ components:
           externalDocs:
             url: 'http://schema.org/identifier'
           type: string
+          format: uuid
         name:
           description: 'The name of this RequestType'
           type: string
@@ -11546,7 +11616,7 @@ components:
           type: string
         duration:
           description: 'The duration of this event.'
-          type: string
+          $ref: '#/components/schemas/DateInterval:jsonld-read'
         contact:
           description: 'Url of this person'
           externalDocs:
@@ -11675,7 +11745,7 @@ components:
           type: string
         duration:
           description: 'The duration of this event.'
-          type: string
+          $ref: '#/components/schemas/DateInterval:jsonld-write'
         contact:
           description: 'Url of this person'
           externalDocs:
@@ -11732,6 +11802,7 @@ components:
           externalDocs:
             url: 'http://schema.org/identifier'
           type: string
+          format: uuid
         description:
           description: 'An short description of this Event'
           type: string
@@ -11857,6 +11928,7 @@ components:
           externalDocs:
             url: 'http://schema.org/identifier'
           type: string
+          format: uuid
         description:
           description: 'An short description of this Event'
           type: string
@@ -11982,6 +12054,7 @@ components:
           externalDocs:
             url: 'http://schema.org/identifier'
           type: string
+          format: uuid
         name:
           description: 'The name of this RequestType'
           type: string
@@ -12017,7 +12090,7 @@ components:
           type: string
         duration:
           description: 'The duration of this event.'
-          type: string
+          $ref: '#/components/schemas/DateInterval-read'
         seq:
           description: 'The version number of this event.'
           type: integer
@@ -12106,7 +12179,7 @@ components:
           type: string
         duration:
           description: 'The duration of this event.'
-          type: string
+          $ref: '#/components/schemas/DateInterval-write'
         seq:
           description: 'The version number of this event.'
           type: integer
@@ -12157,6 +12230,7 @@ components:
           externalDocs:
             url: 'http://schema.org/identifier'
           type: string
+          format: uuid
         name:
           description: 'The name of this RequestType'
           type: string
@@ -12192,7 +12266,7 @@ components:
           type: string
         duration:
           description: 'The duration of this event.'
-          type: string
+          $ref: '#/components/schemas/DateInterval:jsonld-read'
         seq:
           description: 'The version number of this event.'
           type: integer
@@ -12290,7 +12364,7 @@ components:
           type: string
         duration:
           description: 'The duration of this event.'
-          type: string
+          $ref: '#/components/schemas/DateInterval:jsonld-write'
         seq:
           description: 'The version number of this event.'
           type: integer
@@ -12332,6 +12406,7 @@ components:
           externalDocs:
             url: 'http://schema.org/identifier'
           type: string
+          format: uuid
         name:
           description: 'The name of this RequestType'
           type: string
@@ -12397,6 +12472,7 @@ components:
           externalDocs:
             url: 'http://schema.org/identifier'
           type: string
+          format: uuid
         name:
           description: 'The name of this RequestType'
           type: string
@@ -12464,6 +12540,7 @@ components:
           externalDocs:
             url: 'http://schema.org/identifier'
           type: string
+          format: uuid
         name:
           description: 'The name of this Schedule'
           type: string
@@ -12593,6 +12670,7 @@ components:
           externalDocs:
             url: 'http://schema.org/identifier'
           type: string
+          format: uuid
         name:
           description: 'The name of this Schedule'
           type: string
@@ -12720,6 +12798,7 @@ components:
           externalDocs:
             url: 'http://schema.org/identifier'
           type: string
+          format: uuid
         name:
           description: 'The name of this RequestType'
           type: string
@@ -12758,7 +12837,7 @@ components:
           type: string
         duration:
           description: 'The duration of this event.'
-          type: string
+          $ref: '#/components/schemas/DateInterval-read'
         contact:
           description: 'Url of this person'
           externalDocs:
@@ -12870,7 +12949,7 @@ components:
           type: string
         duration:
           description: 'The duration of this event.'
-          type: string
+          $ref: '#/components/schemas/DateInterval-write'
         contact:
           description: 'Url of this person'
           externalDocs:
@@ -12941,6 +13020,7 @@ components:
           externalDocs:
             url: 'http://schema.org/identifier'
           type: string
+          format: uuid
         name:
           description: 'The name of this RequestType'
           type: string
@@ -12979,7 +13059,7 @@ components:
           type: string
         duration:
           description: 'The duration of this event.'
-          type: string
+          $ref: '#/components/schemas/DateInterval:jsonld-read'
         contact:
           description: 'Url of this person'
           externalDocs:
@@ -13100,7 +13180,7 @@ components:
           type: string
         duration:
           description: 'The duration of this event.'
-          type: string
+          $ref: '#/components/schemas/DateInterval:jsonld-write'
         contact:
           description: 'Url of this person'
           externalDocs:
@@ -13348,12 +13428,12 @@ definitions:
         description: 'The moment this request was created'
         type: string
         format: date-time
-        example: '2020-04-17 07:18:06'
+        example: '2020-04-21 10:01:23'
       dateModified:
         description: 'The moment this request last Modified'
         type: string
         format: date-time
-        example: '2020-04-17 07:18:06'
+        example: '2020-04-21 10:01:23'
     required: []
   AuditTrail-write:
     properties:
@@ -13472,12 +13552,12 @@ definitions:
         description: 'The moment this request was created'
         type: string
         format: date-time
-        example: '2020-04-17 07:18:06'
+        example: '2020-04-21 10:01:23'
       dateModified:
         description: 'The moment this request last Modified'
         type: string
         format: date-time
-        example: '2020-04-17 07:18:06'
+        example: '2020-04-21 10:01:23'
     required: []
   ChangeLog-write:
     properties:
@@ -13507,12 +13587,12 @@ definitions:
       startDate:
         description: 'The moment this event starts'
         type: string
-        example: '2020-04-17 07:18:06'
+        example: '2020-04-21 10:01:23'
         format: date-time
       endDate:
         description: 'The moment this event ends'
         type: string
-        example: '2020-04-17 07:18:06'
+        example: '2020-04-21 10:01:23'
         format: date-time
       location:
         description: 'The location of this event'
@@ -13617,12 +13697,12 @@ definitions:
       startDate:
         description: 'The moment this event starts'
         type: string
-        example: '2020-04-17 07:18:06'
+        example: '2020-04-21 10:01:23'
         format: date-time
       endDate:
         description: 'The moment this event ends'
         type: string
-        example: '2020-04-17 07:18:06'
+        example: '2020-04-21 10:01:23'
         format: date-time
       location:
         description: 'The location of this event'
@@ -13736,12 +13816,12 @@ definitions:
       startDate:
         description: 'The moment this event starts'
         type: string
-        example: '2020-04-17 07:18:06'
+        example: '2020-04-21 10:01:23'
         format: date-time
       endDate:
         description: 'The moment this event ends'
         type: string
-        example: '2020-04-17 07:18:06'
+        example: '2020-04-21 10:01:23'
         format: date-time
       duration:
         description: 'The duration of this event.'
@@ -13792,12 +13872,12 @@ definitions:
       startDate:
         description: 'The moment this event starts'
         type: string
-        example: '2020-04-17 07:18:06'
+        example: '2020-04-21 10:01:23'
         format: date-time
       endDate:
         description: 'The moment this event ends'
         type: string
-        example: '2020-04-17 07:18:06'
+        example: '2020-04-21 10:01:23'
         format: date-time
       duration:
         description: 'The duration of this event.'
@@ -13837,12 +13917,12 @@ definitions:
       startDate:
         description: 'The moment this event starts'
         type: string
-        example: '2020-04-17 07:18:06'
+        example: '2020-04-21 10:01:23'
         format: date-time
       endDate:
         description: 'The moment this event ends'
         type: string
-        example: '2020-04-17 07:18:06'
+        example: '2020-04-21 10:01:23'
         format: date-time
       class:
         description: 'The security class of this event.'
@@ -13924,12 +14004,12 @@ definitions:
       startDate:
         description: 'The moment this event starts'
         type: string
-        example: '2020-04-17 07:18:06'
+        example: '2020-04-21 10:01:23'
         format: date-time
       endDate:
         description: 'The moment this event ends'
         type: string
-        example: '2020-04-17 07:18:06'
+        example: '2020-04-21 10:01:23'
         format: date-time
       class:
         description: 'The security class of this event.'
@@ -14166,12 +14246,12 @@ definitions:
       startDate:
         description: 'The moment this event starts'
         type: string
-        example: '2020-04-17 07:18:06'
+        example: '2020-04-21 10:01:23'
         format: date-time
       endDate:
         description: 'The moment this event ends'
         type: string
-        example: '2020-04-17 07:18:06'
+        example: '2020-04-21 10:01:23'
         format: date-time
       location:
         description: 'The location of this event'
@@ -14239,7 +14319,7 @@ definitions:
       completed:
         description: 'The date and time a to-do is completed.'
         type: string
-        example: '2020-04-17 07:18:06'
+        example: '2020-04-21 10:01:23'
         format: date-time
       percentageDone:
         description: 'The percentage of a to-do that has been comepleted.'
@@ -14274,12 +14354,12 @@ definitions:
       startDate:
         description: 'The moment this event starts'
         type: string
-        example: '2020-04-17 07:18:06'
+        example: '2020-04-21 10:01:23'
         format: date-time
       endDate:
         description: 'The moment this event ends'
         type: string
-        example: '2020-04-17 07:18:06'
+        example: '2020-04-21 10:01:23'
         format: date-time
       location:
         description: 'The location of this event'
@@ -14347,7 +14427,7 @@ definitions:
       completed:
         description: 'The date and time a to-do is completed.'
         type: string
-        example: '2020-04-17 07:18:06'
+        example: '2020-04-21 10:01:23'
         format: date-time
       percentageDone:
         description: 'The percentage of a to-do that has been comepleted.'
