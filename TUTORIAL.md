@@ -10,8 +10,6 @@ What do you need for this tutorial?
 ## Before you begin
 For the steps considering the generation of resources (or entities as symfony calls them) an example resource a availale, feel free to [take a look](https://github.com/ConductionNL/Proto-component-commonground/blob/master/api/src/Entity/ExampleEntity.php) at it if you have trouble figuring out the code.
 
-
-
 ## Setting up your enviroment
 
 You can install docker-desktop from [the docker website](https://hub.docker.com/editions/community/docker-ce-desktop-windows). 

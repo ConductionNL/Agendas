@@ -2,22 +2,19 @@
 
 namespace App\Subscriber;
 
-use ApiPlatform\Core\EventListener\EventPriorities;
-use ApiPlatform\Core\Bridge\Doctrine\Orm\Paginator;
 use ApiPlatform\Core\Api\Entrypoint;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Paginator;
+use ApiPlatform\Core\EventListener\EventPriorities;
+use App\Entity\AuditTrail;
+use App\Service\NLXLogService;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpKernel\Event\GetResponseForControllerResultEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Serializer\SerializerInterface;
-
-use App\Entity\AuditTrail;
-use App\Service\NLXLogService;
 
 class AuditSubscriber implements EventSubscriberInterface
 {
@@ -37,41 +34,56 @@ class AuditSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-        		KernelEvents::VIEW => ['LogRequest', EventPriorities::PRE_SERIALIZE],
+            KernelEvents::VIEW => ['LogRequest', EventPriorities::PRE_SERIALIZE],
         ];
     }
 
     public function LogRequest(GetResponseForControllerResultEvent $event)
     {
         $result = $event->getControllerResult();
-
+        $request = $event->getRequest();
+        $responce = $event->getResponse();
         $session = new Session();
+
         //$session->start();
         // See: https://docs.nlx.io/further-reading/transaction-logs/
 
         $log = new AuditTrail();
-        $log->setApplication($event->getRequest()->headers->get('X-NLX-Application-Id'));
-        $log->setRequest($event->getRequest()->headers->get('X-NLX-Request-Id'));
-        $log->setUser($event->getRequest()->headers->get('X-NLX-Request-User-Id'));
-        $log->setSubject($event->getRequest()->headers->get('X-NLX-Request-Subject-Identifier'));
-        $log->setProcess($event->getRequest()->headers->get('X-NLX-Request-Process-Id'));
-        $log->setDataElements($event->getRequest()->headers->get('X-NLX-Request-Data-Elements'));
-        $log->setDataSubjects($event->getRequest()->headers->get('X-NLX-Request-Data-Subject'));
-        $log->setRoute($event->getRequest()->attributes->get('_route'));
-        $log->setEndpoint($event->getRequest()->getPathInfo());
-        $log->setMethod($event->getRequest()->getMethod());
-        $log->setAccept($event->getRequest()->headers->get('Accept'));
-        $log->setContentType($event->getRequest()->headers->get('Content-Type'));
-        $log->setContent($event->getRequest()->getContent());
-        $log->setIp($event->getRequest()->getClientIp());
+        $log->setApplication($request->headers->get('X-NLX-Application-Id'));
+        $log->setRequest($request->headers->get('X-NLX-Request-Id'));
+        $log->setUser($request->headers->get('X-NLX-Request-User-Id'));
+        $log->setSubject($request->headers->get('X-NLX-Request-Subject-Identifier'));
+        $log->setProcess($request->headers->get('X-NLX-Request-Process-Id'));
+        $log->setRoute($request->attributes->get('_route'));
+        $log->setEndpoint($request->getPathInfo());
+        $log->setMethod($request->getMethod());
+        $log->setAccept($request->headers->get('Accept'));
+        $log->setContentType($request->headers->get('Content-Type'));
+        $log->setContent($request->getContent());
+        $log->setIp($request->getClientIp());
         $log->setSession($session->getId());
+        $log->setHeaders($request->headers->all());
 
-        // 
-        if(!$result instanceof Paginator && !$result instanceof Entrypoint) {
-        	$log->setResource($result->getid());
-        	$log->setResourceType($this->em->getMetadataFactory()->getMetadataFor(get_class($result))->getName());
+        if ($event->getRequest()->headers->get('X-NLX-Request-Data-Elements')) {
+            $log->setDataElements(explode(',', $event->getRequest()->headers->get('X-NLX-Request-Data-Elements')));
         }
-        
+        if ($event->getRequest()->headers->get('X-NLX-Request-Data-Subject')) {
+            $log->setDataSubjects(explode(',', $event->getRequest()->headers->get('X-NLX-Request-Data-Subject')));
+        }
+
+        //
+        if ($result != null && !$result instanceof Paginator && !$result instanceof Entrypoint && !is_array($result)) {
+
+            $log->setResource($result->getid());
+            $log->setResourceType($this->em->getMetadataFactory()->getMetadataFor(get_class($result))->getName());
+        }
+
+        // Responce loging
+        //$log->setStatusCode($responce->getStatusCode());
+        //$log->setNotFound($responce->isNotFound());
+        //$log->setForbidden($responce->isForbidden());
+        //$log->setOk($responce->isOk());
+
         $this->em->persist($log);
         $this->em->flush($log);
 
@@ -86,21 +98,21 @@ class AuditSubscriber implements EventSubscriberInterface
 
         //return $result;
     }
-    
+
     /**
      * @param EntityManager $em
      * @param string|object $class
      *
-     * @return boolean
+     * @return bool
      */
-    function isEntity(EntityManager $em, $class)
+    public function isEntity(EntityManager $em, $class)
     {
-    	if (is_object($class)) {
-    		$class = ($class instanceof Proxy)
-    		? get_parent_class($class)
-    		: get_class($class);
-    	}
-    	
-    	return ! $em->getMetadataFactory()->isTransient($class);
+        if (is_object($class)) {
+            $class = ($class instanceof Proxy)
+            ? get_parent_class($class)
+            : get_class($class);
+        }
+
+        return !$em->getMetadataFactory()->isTransient($class);
     }
 }

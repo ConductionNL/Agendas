@@ -12,6 +12,7 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\DateFilter;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Serializer\Annotation\MaxDepth;
@@ -49,11 +50,11 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * )
  * @ORM\Entity(repositoryClass="App\Repository\ScheduleRepository")
  * @Gedmo\Loggable(logEntryClass="App\Entity\ChangeLog")
- * 
+ *
  * @ApiFilter(BooleanFilter::class)
  * @ApiFilter(OrderFilter::class)
  * @ApiFilter(DateFilter::class, strategy=DateFilter::EXCLUDE_NULL)
- * @ApiFilter(SearchFilter::class)
+ * @ApiFilter(SearchFilter::class,properties={"calendar.id":"exact"})
  */
 class Schedule
 {
@@ -74,6 +75,7 @@ class Schedule
     /**
      * @var string The name of this Schedule
      *
+     * @Gedmo\Versioned
      * @example My Schedule
      *
      * @Assert\NotNull
@@ -88,6 +90,7 @@ class Schedule
     /**
      * @var string An short description of this Schedule
      *
+     * @Gedmo\Versioned
      * @example This is the best Schedule ever
      *
      * @Assert\Length(
@@ -101,6 +104,7 @@ class Schedule
     /**
      * @var string Defines the day(s) of the week on which a recurring Event takes place. Sunday is both 0 and 7.
      *
+     * @Gedmo\Versioned
      * @example 1
      *
      * @Assert\Range(
@@ -116,6 +120,7 @@ class Schedule
     /**
      * @var string Defines the month(s) of the year on which a recurring Event takes place. Specified as an Integer between 1-12. January is 1.
      *
+     * @Gedmo\Versioned
      * @example 1
      *
      * @Assert\Range(
@@ -131,6 +136,7 @@ class Schedule
     /**
      * @var string Defines the day(s) of the month on which a recurring Event takes place. Specified as an Integer between 1-31.
      *
+     * @Gedmo\Versioned
      * @example 1
      *
      * @Assert\Range(
@@ -144,17 +150,9 @@ class Schedule
     private $byMonthDay;
 
     /**
-     * @var string The that belong to or are coused by this Schedule
-     *
-     * @MaxDepth(1)
-     * @Groups({"read","write"})
-     * @ORM\OneToMany(targetEntity="App\Entity\Event", mappedBy="schedule")
-     */
-    private $events;
-
-    /**
      * @var string Defines the day(s) of the month on which a recurring Event takes place. Specified as an Integer between 1-31.
      *
+     * @Gedmo\Versioned
      * @example 30
      *
      * @Groups({"read","write"})
@@ -165,6 +163,7 @@ class Schedule
     /**
      * @var int Defines the number of times a recurring Event will take place
      *
+     * @Gedmo\Versioned
      * @example 10
      *
      * @Assert\Type("integer")
@@ -176,6 +175,7 @@ class Schedule
     /**
      * @var string Defines the frequency at which Events will occur according to a schedule Schedule. The intervals between events should be defined as a [Duration](https://en.wikipedia.org/wiki/ISO_8601#Durations) of time.
      *
+     * @Gedmo\Versioned
      * @example PT1M
      *
      * @Assert\Length(
@@ -197,6 +197,16 @@ class Schedule
     private $calendar;
 
     /**
+     * @var ArrayCollection The events that belong to or are caused by this Schedule
+     *
+     * @MaxDepth(1)
+     * @Groups({"read","write"})
+     * @ORM\OneToMany(targetEntity="App\Entity\Event", mappedBy="schedule")
+     */
+    private $events;
+
+    /**
+     * @var ArrayCollection The freebusies that belong to or are caused by this Schedule
      * @Groups({"read","write"})
      * @ORM\OneToMany(targetEntity="App\Entity\Freebusy", mappedBy="schedule")
      * @MaxDepth(1)
@@ -204,12 +214,13 @@ class Schedule
     private $freebusies;
 
     /**
+     * @var ArrayCollection The todos that belong to or are caused by this Schedule
      * @Groups({"read","write"})
      * @ORM\OneToMany(targetEntity="App\Entity\Todo", mappedBy="schedule")
      * @MaxDepth(1)
      */
     private $todos;
-    
+
     /**
      * @var Datetime $dateCreated The moment this resource was created
      *
@@ -218,12 +229,12 @@ class Schedule
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $dateCreated;
-    
+
     /**
      * @var Datetime $dateModified  The moment this resource last Modified
      *
      * @Groups({"read"})
-     * @Gedmo\Timestampable(on="create")
+     * @Gedmo\Timestampable(on="update")
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $dateModified;
@@ -235,7 +246,7 @@ class Schedule
         $this->todos = new ArrayCollection();
     }
 
-    public function getId(): ?string
+    public function getId(): ?Uuid
     {
         return $this->id;
     }
@@ -440,28 +451,28 @@ class Schedule
 
         return $this;
     }
-    
+
     public function getDateCreated(): ?\DateTimeInterface
     {
     	return $this->dateCreated;
     }
-    
+
     public function setDateCreated(\DateTimeInterface $dateCreated): self
     {
     	$this->dateCreated= $dateCreated;
-    	
+
     	return $this;
     }
-    
+
     public function getDateModified(): ?\DateTimeInterface
     {
     	return $this->dateModified;
     }
-    
+
     public function setDateModified(\DateTimeInterface $dateModified): self
     {
     	$this->dateModified = $dateModified;
-    	
+
     	return $this;
     }
 }

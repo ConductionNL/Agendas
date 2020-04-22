@@ -9,7 +9,10 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\DateFilter;
 
+use DateInterval;
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
+use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Serializer\Annotation\MaxDepth;
@@ -46,16 +49,14 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *     )
  * @ORM\Entity(repositoryClass="App\Repository\FreebusyRepository")
  * @Gedmo\Loggable(logEntryClass="App\Entity\ChangeLog")
- * 
+ *
  * @ApiFilter(BooleanFilter::class)
  * @ApiFilter(OrderFilter::class)
  * @ApiFilter(DateFilter::class, strategy=DateFilter::EXCLUDE_NULL)
- * @ApiFilter(SearchFilter::class)
+ * @ApiFilter(SearchFilter::class, properties={"calendar.id": "exact"})
  */
 class Freebusy
 {
-    private $id;
-
     /**
      * @var UuidInterface The UUID identifier of this resource
      *
@@ -68,32 +69,22 @@ class Freebusy
      * @ORM\GeneratedValue(strategy="CUSTOM")
      * @ORM\CustomIdGenerator(class="Ramsey\Uuid\Doctrine\UuidGenerator")
      *
-     * @todo Automated ?
-     *
-     * @var string The url of this event.
-     *
-     * @example conduction.nl
-     *
-     * @Assert\Length(
-     *      max = 255
-     * )
-     * @Assert\NotNull
-     * @Groups({"read","write"})
-     * @ORM\Column(type="string", length=255)
      */
-    private $url;
 
+    private $id;
     /**
      * @var string An short description of this Event
      *
      * @example This is the best Event ever
      *
+     * @Gedmo\Versioned
      * @Assert\Length(
      *      max = 2550
      * )
      * @Groups({"read","write"})
      * @ORM\Column(type="text", nullable=true)
      */
+
     private $description;
 
     /**
@@ -101,24 +92,24 @@ class Freebusy
      *
      * @example https://con.example.com
      *
+     * @Gedmo\Versioned
      * @Assert\Url
      * @Assert\Length(
      *     max = 255
      * )
-     * @Assert\NotNull
      * @Groups({"read","write"})
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $attendee;
 
     /**
      * @var array The urls of the comments that belong to this event.
      *
+     * @Gedmo\Versioned
      * @example https://con.example.com, https://con.example2.com
      *
-     * @Assert\Url
      * @Groups({"read","write"})
-     * @ORM\Column(type="array")
+     * @ORM\Column(type="array", nullable=true)
      */
     private $comments = [];
 
@@ -126,11 +117,10 @@ class Freebusy
      * @var string Url of this person
      *
      * @example https://con.example.org
-     *
-     * @Assert\NotNull
+     * @Gedmo\Versioned
      * @Assert\Url
      * @Groups({"read","write"})
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $contact;
 
@@ -138,37 +128,36 @@ class Freebusy
      * @var DateTime The moment this event starts
      *
      * @example 30-11-2019 15:00:00
+     * @Gedmo\Versioned
      *
      * @Assert\DateTime
      * @Assert\NotNull
      * @Groups({"read","write"})
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private $startDate;
 
     /**
-     * @var Datetime The moment this event ends
+     * @var DateTime The moment this event ends
      *
      * @example 3-11-2019 20:00:00
+     * @Gedmo\Versioned
      *
      * @Assert\DateTime
      * @Assert\NotNull
      * @Groups({"read","write"})
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private $endDate;
 
     /**
-     * @todo Automated ?
-     *
-     * @var string The duration of this event.
+     * @var DateInterval The duration of this event.
      *
      * @example 2
+     * @Gedmo\Versioned
      *
-     * @Assert\Type("int")
-     * @Assert\NotBlank
      * @Groups({"read","write"})
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $duration;
 
@@ -176,23 +165,23 @@ class Freebusy
      * @var string The organiser of this event linked to with an url.
      *
      * @example conduction.nl
+     * @Gedmo\Versioned
      *
      * @Assert\Length(
      *      max = 255
      * )
-     * @Assert\NotBlank
      * @Groups({"read","write"})
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $organiser;
     /**
-     * @var string The determination of the type freebusy.
+     * @var string The determination of the type freebusy. **FREE**, **BUSY**
+     * @Gedmo\Versioned
      *
      * @example FREE
-     *
-     * @Assert\NotNull
+     * @Assert\Choice({"FREE","BUSY"})
      * @Groups({"read","write"})
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $freebusy;
 
@@ -210,40 +199,28 @@ class Freebusy
      * @MaxDepth(1)
      */
     private $schedule;
-    
+
     /**
-     * @var Datetime $dateCreated The moment this resource was created
+     * @var DateTime $dateCreated The moment this resource was created
      *
      * @Groups({"read"})
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $dateCreated;
-    
+
     /**
-     * @var Datetime $dateModified  The moment this resource last Modified
+     * @var DateTime $dateModified  The moment this resource last Modified
      *
      * @Groups({"read"})
-     * @Gedmo\Timestampable(on="create")
+     * @Gedmo\Timestampable(on="update")
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $dateModified;
 
-    public function getId(): ?string
+    public function getId(): ?Uuid
     {
         return $this->id;
-    }
-
-    public function getUrl(): ?string
-    {
-        return $this->url;
-    }
-
-    public function setUrl(string $url): self
-    {
-        $this->url = $url;
-
-        return $this;
     }
 
     public function getDescription(): ?string
@@ -318,12 +295,12 @@ class Freebusy
         return $this;
     }
 
-    public function getDuration(): ?int
+    public function getDuration(): ?DateInterval
     {
         return $this->duration;
     }
 
-    public function setDuration(int $duration): self
+    public function setDuration(DateInterval $duration): self
     {
         $this->duration = $duration;
 
@@ -377,28 +354,28 @@ class Freebusy
 
         return $this;
     }
-    
+
     public function getDateCreated(): ?\DateTimeInterface
     {
     	return $this->dateCreated;
     }
-    
+
     public function setDateCreated(\DateTimeInterface $dateCreated): self
     {
     	$this->dateCreated= $dateCreated;
-    	
+
     	return $this;
     }
-    
+
     public function getDateModified(): ?\DateTimeInterface
     {
     	return $this->dateModified;
     }
-    
+
     public function setDateModified(\DateTimeInterface $dateModified): self
     {
     	$this->dateModified = $dateModified;
-    	
+
     	return $this;
     }
 }

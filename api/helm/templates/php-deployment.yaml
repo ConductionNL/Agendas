@@ -72,6 +72,16 @@ spec:
                 configMapKeyRef:
                   name: {{ template "fullname" . }}
                   key: debug
+            - name: APP_TYPE
+              valueFrom:
+                  configMapKeyRef:
+                      name: {{ template "fullname" . }}
+                      key: app-type
+            - name: APP_ID
+              valueFrom:
+                    configMapKeyRef:
+                        name: {{ template "fullname" . }}
+                        key: app-id
             - name: APP_DEMO
               valueFrom:
                 configMapKeyRef:
@@ -82,6 +92,27 @@ spec:
                 configMapKeyRef:
                   name: {{ template "fullname" . }}
                   key: app-domains-json
+
+            - name: APP_REPRO
+              valueFrom:
+                  configMapKeyRef:
+                      name: {{ template "fullname" . }}
+                      key: app-repro
+            - name: APP_CONTAINER
+              valueFrom:
+                  configMapKeyRef:
+                      name: {{ template "fullname" . }}
+                      key: app-container
+            - name: APP_DOMAIN
+              valueFrom:
+                  configMapKeyRef:
+                      name: {{ template "fullname" . }}
+                      key: app-domain
+            - name: APP_CASH
+              valueFrom:
+                  configMapKeyRef:
+                      name: {{ template "fullname" . }}
+                      key: cache      
             # organization
             - name: ORGANIZATION_NAME
               valueFrom:
