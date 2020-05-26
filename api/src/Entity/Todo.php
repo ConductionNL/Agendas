@@ -50,7 +50,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *     },
  *     )
  * @ORM\Entity(repositoryClass="App\Repository\TodoRepository")
- * @Gedmo\Loggable(logEntryClass="App\Entity\ChangeLog")
+ * @Gedmo\Loggable(logEntryClass="Conduction\CommonGroundBundle\Entity\ChangeLog")
  *
  * @ApiFilter(BooleanFilter::class)
  * @ApiFilter(OrderFilter::class)
