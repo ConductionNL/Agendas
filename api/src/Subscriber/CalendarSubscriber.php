@@ -3,12 +3,11 @@
 namespace App\Subscriber;
 
 use ApiPlatform\Core\EventListener\EventPriorities;
-use App\Entity\AuditTrail;
 use App\Entity\Event;
 use App\Entity\Journal;
 use App\Entity\Todo;
 use App\Service\CalendarService;
-use App\Service\NLXLogService;
+use Conduction\CommonGroundBundle\Service\NLXLogService;
 use Doctrine\DBAL\Schema\View;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;

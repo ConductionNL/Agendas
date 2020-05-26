@@ -10531,35 +10531,45 @@ components:
         description:
           description: 'An short description of this Event'
           type: string
+          nullable: true
         summary:
           description: 'The summary of this event.'
           type: string
+          nullable: true
         action:
           description: 'The action of the alarm. **AUDIO**, **DISPLAY**, **EMAIL**, **PROCEDURE**'
           type: string
         trigger:
           description: 'The time the alarm should trigger relative to the start time of the related event.'
-          $ref: '#/components/schemas/DateInterval-read'
+          type: string
+          format: duration
         duration:
           description: 'The time until the alarm repeats.'
-          $ref: '#/components/schemas/DateInterval-read'
+          type: string
+          format: duration
         repeat:
           description: 'The number of times the alarm repeats.'
           type: integer
         event:
-          $ref: '#/components/schemas/Event-read'
+          nullable: true
+          anyOf:
+            -
+              $ref: '#/components/schemas/Event-read'
         todo:
-          $ref: '#/components/schemas/Todo-read'
+          nullable: true
+          anyOf:
+            -
+              $ref: '#/components/schemas/Todo-read'
         dateCreated:
-          readOnly: true
           description: 'The moment this resource was created'
           type: string
           format: date-time
+          nullable: true
         dateModified:
-          readOnly: true
           description: 'The moment this resource last Modified'
           type: string
           format: date-time
+          nullable: true
       required:
         - name
         - action
@@ -10580,25 +10590,35 @@ components:
         description:
           description: 'An short description of this Event'
           type: string
+          nullable: true
         summary:
           description: 'The summary of this event.'
           type: string
+          nullable: true
         action:
           description: 'The action of the alarm. **AUDIO**, **DISPLAY**, **EMAIL**, **PROCEDURE**'
           type: string
         trigger:
           description: 'The time the alarm should trigger relative to the start time of the related event.'
-          $ref: '#/components/schemas/DateInterval-write'
+          type: string
+          format: duration
         duration:
           description: 'The time until the alarm repeats.'
-          $ref: '#/components/schemas/DateInterval-write'
+          type: string
+          format: duration
         repeat:
           description: 'The number of times the alarm repeats.'
           type: integer
         event:
-          $ref: '#/components/schemas/Event-write'
+          nullable: true
+          anyOf:
+            -
+              $ref: '#/components/schemas/Event-write'
         todo:
-          $ref: '#/components/schemas/Todo-write'
+          nullable: true
+          anyOf:
+            -
+              $ref: '#/components/schemas/Todo-write'
     'Alarm:jsonld-read':
       type: object
       description: 'Used to describe alarms for Events and Todos.'
@@ -10625,35 +10645,45 @@ components:
         description:
           description: 'An short description of this Event'
           type: string
+          nullable: true
         summary:
           description: 'The summary of this event.'
           type: string
+          nullable: true
         action:
           description: 'The action of the alarm. **AUDIO**, **DISPLAY**, **EMAIL**, **PROCEDURE**'
           type: string
         trigger:
           description: 'The time the alarm should trigger relative to the start time of the related event.'
-          $ref: '#/components/schemas/DateInterval:jsonld-read'
+          type: string
+          format: duration
         duration:
           description: 'The time until the alarm repeats.'
-          $ref: '#/components/schemas/DateInterval:jsonld-read'
+          type: string
+          format: duration
         repeat:
           description: 'The number of times the alarm repeats.'
           type: integer
         event:
-          $ref: '#/components/schemas/Event:jsonld-read'
+          nullable: true
+          anyOf:
+            -
+              $ref: '#/components/schemas/Event:jsonld-read'
         todo:
-          $ref: '#/components/schemas/Todo:jsonld-read'
+          nullable: true
+          anyOf:
+            -
+              $ref: '#/components/schemas/Todo:jsonld-read'
         dateCreated:
-          readOnly: true
           description: 'The moment this resource was created'
           type: string
           format: date-time
+          nullable: true
         dateModified:
-          readOnly: true
           description: 'The moment this resource last Modified'
           type: string
           format: date-time
+          nullable: true
       required:
         - name
         - action
@@ -10683,25 +10713,35 @@ components:
         description:
           description: 'An short description of this Event'
           type: string
+          nullable: true
         summary:
           description: 'The summary of this event.'
           type: string
+          nullable: true
         action:
           description: 'The action of the alarm. **AUDIO**, **DISPLAY**, **EMAIL**, **PROCEDURE**'
           type: string
         trigger:
           description: 'The time the alarm should trigger relative to the start time of the related event.'
-          $ref: '#/components/schemas/DateInterval:jsonld-write'
+          type: string
+          format: duration
         duration:
           description: 'The time until the alarm repeats.'
-          $ref: '#/components/schemas/DateInterval:jsonld-write'
+          type: string
+          format: duration
         repeat:
           description: 'The number of times the alarm repeats.'
           type: integer
         event:
-          $ref: '#/components/schemas/Event:jsonld-write'
+          nullable: true
+          anyOf:
+            -
+              $ref: '#/components/schemas/Event:jsonld-write'
         todo:
-          $ref: '#/components/schemas/Todo:jsonld-write'
+          nullable: true
+          anyOf:
+            -
+              $ref: '#/components/schemas/Todo:jsonld-write'
     AuditTrail-read:
       type: object
       description: 'An resource representing a log line.'
@@ -10713,114 +10753,113 @@ components:
             url: 'http://schema.org/identifier'
           type: string
           format: uuid
+        application:
+          writeOnly: true
+          description: 'The application that made the request'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: string
+          nullable: true
         request:
-          readOnly: true
           description: 'The id of the request within that application'
           externalDocs:
             url: 'http://schema.org/url'
           type: string
+          nullable: true
         user:
-          readOnly: true
           description: 'The user on behalf of wich the request was made'
           externalDocs:
             url: 'http://schema.org/url'
           type: string
+          nullable: true
         subject:
-          readOnly: true
           description: '???'
           type: string
+          nullable: true
         process:
-          readOnly: true
           description: 'The procces on behalf of wich the request was made'
           type: string
+          nullable: true
         dataElements:
-          readOnly: true
           description: 'The moment this request was created'
           type: array
           items:
             type: string
+          nullable: true
         dataSubjects:
-          readOnly: true
           description: 'The moment this request was created'
           type: array
           items:
             type: string
+          nullable: true
         resource:
-          readOnly: true
           description: 'The resource that was requested'
           type: string
+          nullable: true
         resourceType:
-          readOnly: true
           description: 'The type of the resource that was requested'
           type: string
+          nullable: true
         route:
-          readOnly: true
           description: 'The moment this request was created'
           type: string
         endpoint:
-          readOnly: true
           description: 'The endpoint that the request was made to'
           type: string
         method:
-          readOnly: true
           description: 'The method that was used'
           type: string
         accept:
-          readOnly: true
           description: 'The contentType that was reqousted'
           type: string
         contentType:
-          readOnly: true
           description: 'The contentType that was suplieds'
           type: string
         content:
-          readOnly: true
           description: 'The moment this request was created'
           type: string
+          nullable: true
         ip:
-          readOnly: true
           description: 'The moment this request was created'
           type: string
         session:
-          readOnly: true
           description: 'The moment this request was created'
           type: string
         headers:
-          readOnly: true
           description: 'The headers supplied by client'
           type: array
           items:
             type: string
         statusCode:
-          readOnly: true
           description: 'The status code returned to client'
           type: integer
+          nullable: true
         notFound:
-          readOnly: true
           description: 'Whether or not the reqousted endpoint was found'
           type: boolean
+          nullable: true
         forbidden:
-          readOnly: true
           description: 'Whether or not the client was allowed to the reqousted endpoint'
           type: boolean
+          nullable: true
         ok:
-          readOnly: true
           description: 'Whether or not there where any problems'
           type: boolean
+          nullable: true
         dateCreated:
-          readOnly: true
           description: 'The moment this request was created'
           externalDocs:
             url: 'http://schema.org/DateTime'
           type: string
           format: date-time
+          nullable: true
         dateModified:
-          readOnly: true
           description: 'The moment this request last Modified'
           externalDocs:
             url: 'http://schema.org/DateTime'
           type: string
           format: date-time
+          nullable: true
     AuditTrail-write:
       type: object
       description: 'An resource representing a log line.'
@@ -10844,114 +10883,113 @@ components:
             url: 'http://schema.org/identifier'
           type: string
           format: uuid
+        application:
+          writeOnly: true
+          description: 'The application that made the request'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: string
+          nullable: true
         request:
-          readOnly: true
           description: 'The id of the request within that application'
           externalDocs:
             url: 'http://schema.org/url'
           type: string
+          nullable: true
         user:
-          readOnly: true
           description: 'The user on behalf of wich the request was made'
           externalDocs:
             url: 'http://schema.org/url'
           type: string
+          nullable: true
         subject:
-          readOnly: true
           description: '???'
           type: string
+          nullable: true
         process:
-          readOnly: true
           description: 'The procces on behalf of wich the request was made'
           type: string
+          nullable: true
         dataElements:
-          readOnly: true
           description: 'The moment this request was created'
           type: array
           items:
             type: string
+          nullable: true
         dataSubjects:
-          readOnly: true
           description: 'The moment this request was created'
           type: array
           items:
             type: string
+          nullable: true
         resource:
-          readOnly: true
           description: 'The resource that was requested'
           type: string
+          nullable: true
         resourceType:
-          readOnly: true
           description: 'The type of the resource that was requested'
           type: string
+          nullable: true
         route:
-          readOnly: true
           description: 'The moment this request was created'
           type: string
         endpoint:
-          readOnly: true
           description: 'The endpoint that the request was made to'
           type: string
         method:
-          readOnly: true
           description: 'The method that was used'
           type: string
         accept:
-          readOnly: true
           description: 'The contentType that was reqousted'
           type: string
         contentType:
-          readOnly: true
           description: 'The contentType that was suplieds'
           type: string
         content:
-          readOnly: true
           description: 'The moment this request was created'
           type: string
+          nullable: true
         ip:
-          readOnly: true
           description: 'The moment this request was created'
           type: string
         session:
-          readOnly: true
           description: 'The moment this request was created'
           type: string
         headers:
-          readOnly: true
           description: 'The headers supplied by client'
           type: array
           items:
             type: string
         statusCode:
-          readOnly: true
           description: 'The status code returned to client'
           type: integer
+          nullable: true
         notFound:
-          readOnly: true
           description: 'Whether or not the reqousted endpoint was found'
           type: boolean
+          nullable: true
         forbidden:
-          readOnly: true
           description: 'Whether or not the client was allowed to the reqousted endpoint'
           type: boolean
+          nullable: true
         ok:
-          readOnly: true
           description: 'Whether or not there where any problems'
           type: boolean
+          nullable: true
         dateCreated:
-          readOnly: true
           description: 'The moment this request was created'
           externalDocs:
             url: 'http://schema.org/DateTime'
           type: string
           format: date-time
+          nullable: true
         dateModified:
-          readOnly: true
           description: 'The moment this request last Modified'
           externalDocs:
             url: 'http://schema.org/DateTime'
           type: string
           format: date-time
+          nullable: true
     'AuditTrail:jsonld-write':
       type: object
       description: 'An resource representing a log line.'
@@ -10982,6 +11020,7 @@ components:
         description:
           description: 'An short description of this Calendar'
           type: string
+          nullable: true
         events:
           description: 'Events that belong to this Calendar'
           type: array
@@ -11008,15 +11047,15 @@ components:
           items:
             $ref: '#/components/schemas/Todo-read'
         dateCreated:
-          readOnly: true
           description: 'The moment this resource was created'
           type: string
           format: date-time
+          nullable: true
         dateModified:
-          readOnly: true
           description: 'The moment this resource last Modified'
           type: string
           format: date-time
+          nullable: true
       required:
         - name
         - timeZone
@@ -11033,6 +11072,7 @@ components:
         description:
           description: 'An short description of this Calendar'
           type: string
+          nullable: true
         events:
           description: 'Events that belong to this Calendar'
           type: array
@@ -11084,6 +11124,7 @@ components:
         description:
           description: 'An short description of this Calendar'
           type: string
+          nullable: true
         events:
           description: 'Events that belong to this Calendar'
           type: array
@@ -11110,15 +11151,15 @@ components:
           items:
             $ref: '#/components/schemas/Todo:jsonld-read'
         dateCreated:
-          readOnly: true
           description: 'The moment this resource was created'
           type: string
           format: date-time
+          nullable: true
         dateModified:
-          readOnly: true
           description: 'The moment this resource last Modified'
           type: string
           format: date-time
+          nullable: true
       required:
         - name
         - timeZone
@@ -11144,6 +11185,7 @@ components:
         description:
           description: 'An short description of this Calendar'
           type: string
+          nullable: true
         events:
           description: 'Events that belong to this Calendar'
           type: array
@@ -11181,43 +11223,40 @@ components:
           type: string
           format: uuid
         action:
-          readOnly: true
           type: string
         objectId:
-          readOnly: true
           type: string
+          nullable: true
         objectClass:
-          readOnly: true
           type: string
         version:
-          readOnly: true
           type: integer
         data:
-          readOnly: true
           type: array
           items:
             type: string
+          nullable: true
         username:
-          readOnly: true
           type: string
+          nullable: true
         session:
-          readOnly: true
           description: 'The moment this request was created'
           type: string
+          nullable: true
         dateCreated:
-          readOnly: true
           description: 'The moment this request was created'
           externalDocs:
             url: 'http://schema.org/DateTime'
           type: string
           format: date-time
+          nullable: true
         dateModified:
-          readOnly: true
           description: 'The moment this request last Modified'
           externalDocs:
             url: 'http://schema.org/DateTime'
           type: string
           format: date-time
+          nullable: true
     ChangeLog-write:
       type: object
       description: 'An resource representing a log line.'
@@ -11242,74 +11281,43 @@ components:
           type: string
           format: uuid
         action:
-          readOnly: true
           type: string
         objectId:
-          readOnly: true
           type: string
+          nullable: true
         objectClass:
-          readOnly: true
           type: string
         version:
-          readOnly: true
           type: integer
         data:
-          readOnly: true
           type: array
           items:
             type: string
+          nullable: true
         username:
-          readOnly: true
           type: string
+          nullable: true
         session:
-          readOnly: true
           description: 'The moment this request was created'
           type: string
+          nullable: true
         dateCreated:
-          readOnly: true
           description: 'The moment this request was created'
           externalDocs:
             url: 'http://schema.org/DateTime'
           type: string
           format: date-time
+          nullable: true
         dateModified:
-          readOnly: true
           description: 'The moment this request last Modified'
           externalDocs:
             url: 'http://schema.org/DateTime'
           type: string
           format: date-time
+          nullable: true
     'ChangeLog:jsonld-write':
       type: object
       description: 'An resource representing a log line.'
-      properties:
-        '@context':
-          readOnly: true
-          type: string
-        '@id':
-          readOnly: true
-          type: string
-        '@type':
-          readOnly: true
-          type: string
-    DateInterval-read:
-      type: object
-    DateInterval-write:
-      type: object
-    'DateInterval:jsonld-read':
-      type: object
-      properties:
-        '@context':
-          readOnly: true
-          type: string
-        '@id':
-          readOnly: true
-          type: string
-        '@type':
-          readOnly: true
-          type: string
-    'DateInterval:jsonld-write':
-      type: object
       properties:
         '@context':
           readOnly: true
@@ -11339,6 +11347,7 @@ components:
         description:
           description: 'An short description of this Event'
           type: string
+          nullable: true
         startDate:
           description: 'The moment this event starts'
           externalDocs:
@@ -11354,38 +11363,51 @@ components:
         location:
           description: 'The location of this event'
           type: string
+          nullable: true
         schedule:
           description: 'An optional Schedule to which this event belongs'
-          $ref: '#/components/schemas/Schedule-read'
+          nullable: true
+          anyOf:
+            -
+              $ref: '#/components/schemas/Schedule-read'
         calendar:
           description: 'The Calendar to wich this event belongs'
           $ref: '#/components/schemas/Calendar-read'
         class:
           description: 'The security class of this event.'
           type: string
+          nullable: true
         geo:
           description: 'The coordinates of this event.'
           type: string
+          nullable: true
         organizer:
           description: 'The organiser of this event linked to with an url.'
           type: string
+          nullable: true
         status:
           description: 'The status of this event.'
           type: string
+          nullable: true
         summary:
           description: 'The summary of this event.'
           type: string
+          nullable: true
         transp:
           description: 'The determination if the event should block the duration of the event for participants.'
           type: string
+          nullable: true
         duration:
           description: 'The duration of this event.'
-          $ref: '#/components/schemas/DateInterval-read'
+          type: string
+          format: duration
+          nullable: true
         contact:
           description: 'Url of this person'
           externalDocs:
             url: 'http://schema.org/url'
           type: string
+          nullable: true
         seq:
           description: 'The version number of this event.'
           type: integer
@@ -11426,17 +11448,20 @@ components:
           items:
             $ref: '#/components/schemas/Alarm-read'
         journal:
-          $ref: '#/components/schemas/Journal-read'
+          nullable: true
+          anyOf:
+            -
+              $ref: '#/components/schemas/Journal-read'
         dateCreated:
-          readOnly: true
           description: 'The moment this resource was created'
           type: string
           format: date-time
+          nullable: true
         dateModified:
-          readOnly: true
           description: 'The moment this resource last Modified'
           type: string
           format: date-time
+          nullable: true
       required:
         - name
         - startDate
@@ -11459,6 +11484,7 @@ components:
         description:
           description: 'An short description of this Event'
           type: string
+          nullable: true
         startDate:
           description: 'The moment this event starts'
           externalDocs:
@@ -11474,38 +11500,51 @@ components:
         location:
           description: 'The location of this event'
           type: string
+          nullable: true
         schedule:
           description: 'An optional Schedule to which this event belongs'
-          $ref: '#/components/schemas/Schedule-write'
+          nullable: true
+          anyOf:
+            -
+              $ref: '#/components/schemas/Schedule-write'
         calendar:
           description: 'The Calendar to wich this event belongs'
           $ref: '#/components/schemas/Calendar-write'
         class:
           description: 'The security class of this event.'
           type: string
+          nullable: true
         geo:
           description: 'The coordinates of this event.'
           type: string
+          nullable: true
         organizer:
           description: 'The organiser of this event linked to with an url.'
           type: string
+          nullable: true
         status:
           description: 'The status of this event.'
           type: string
+          nullable: true
         summary:
           description: 'The summary of this event.'
           type: string
+          nullable: true
         transp:
           description: 'The determination if the event should block the duration of the event for participants.'
           type: string
+          nullable: true
         duration:
           description: 'The duration of this event.'
-          $ref: '#/components/schemas/DateInterval-write'
+          type: string
+          format: duration
+          nullable: true
         contact:
           description: 'Url of this person'
           externalDocs:
             url: 'http://schema.org/url'
           type: string
+          nullable: true
         seq:
           description: 'The version number of this event.'
           type: integer
@@ -11546,7 +11585,10 @@ components:
           items:
             $ref: '#/components/schemas/Alarm-write'
         journal:
-          $ref: '#/components/schemas/Journal-write'
+          nullable: true
+          anyOf:
+            -
+              $ref: '#/components/schemas/Journal-write'
     'Event:jsonld-read':
       type: object
       description: 'An event happening at a certain time and location, such as a concert, lecture, meeting or festival.'
@@ -11575,6 +11617,7 @@ components:
         description:
           description: 'An short description of this Event'
           type: string
+          nullable: true
         startDate:
           description: 'The moment this event starts'
           externalDocs:
@@ -11590,38 +11633,51 @@ components:
         location:
           description: 'The location of this event'
           type: string
+          nullable: true
         schedule:
           description: 'An optional Schedule to which this event belongs'
-          $ref: '#/components/schemas/Schedule:jsonld-read'
+          nullable: true
+          anyOf:
+            -
+              $ref: '#/components/schemas/Schedule:jsonld-read'
         calendar:
           description: 'The Calendar to wich this event belongs'
           $ref: '#/components/schemas/Calendar:jsonld-read'
         class:
           description: 'The security class of this event.'
           type: string
+          nullable: true
         geo:
           description: 'The coordinates of this event.'
           type: string
+          nullable: true
         organizer:
           description: 'The organiser of this event linked to with an url.'
           type: string
+          nullable: true
         status:
           description: 'The status of this event.'
           type: string
+          nullable: true
         summary:
           description: 'The summary of this event.'
           type: string
+          nullable: true
         transp:
           description: 'The determination if the event should block the duration of the event for participants.'
           type: string
+          nullable: true
         duration:
           description: 'The duration of this event.'
-          $ref: '#/components/schemas/DateInterval:jsonld-read'
+          type: string
+          format: duration
+          nullable: true
         contact:
           description: 'Url of this person'
           externalDocs:
             url: 'http://schema.org/url'
           type: string
+          nullable: true
         seq:
           description: 'The version number of this event.'
           type: integer
@@ -11662,17 +11718,20 @@ components:
           items:
             $ref: '#/components/schemas/Alarm:jsonld-read'
         journal:
-          $ref: '#/components/schemas/Journal:jsonld-read'
+          nullable: true
+          anyOf:
+            -
+              $ref: '#/components/schemas/Journal:jsonld-read'
         dateCreated:
-          readOnly: true
           description: 'The moment this resource was created'
           type: string
           format: date-time
+          nullable: true
         dateModified:
-          readOnly: true
           description: 'The moment this resource last Modified'
           type: string
           format: date-time
+          nullable: true
       required:
         - name
         - startDate
@@ -11704,6 +11763,7 @@ components:
         description:
           description: 'An short description of this Event'
           type: string
+          nullable: true
         startDate:
           description: 'The moment this event starts'
           externalDocs:
@@ -11719,38 +11779,51 @@ components:
         location:
           description: 'The location of this event'
           type: string
+          nullable: true
         schedule:
           description: 'An optional Schedule to which this event belongs'
-          $ref: '#/components/schemas/Schedule:jsonld-write'
+          nullable: true
+          anyOf:
+            -
+              $ref: '#/components/schemas/Schedule:jsonld-write'
         calendar:
           description: 'The Calendar to wich this event belongs'
           $ref: '#/components/schemas/Calendar:jsonld-write'
         class:
           description: 'The security class of this event.'
           type: string
+          nullable: true
         geo:
           description: 'The coordinates of this event.'
           type: string
+          nullable: true
         organizer:
           description: 'The organiser of this event linked to with an url.'
           type: string
+          nullable: true
         status:
           description: 'The status of this event.'
           type: string
+          nullable: true
         summary:
           description: 'The summary of this event.'
           type: string
+          nullable: true
         transp:
           description: 'The determination if the event should block the duration of the event for participants.'
           type: string
+          nullable: true
         duration:
           description: 'The duration of this event.'
-          $ref: '#/components/schemas/DateInterval:jsonld-write'
+          type: string
+          format: duration
+          nullable: true
         contact:
           description: 'Url of this person'
           externalDocs:
             url: 'http://schema.org/url'
           type: string
+          nullable: true
         seq:
           description: 'The version number of this event.'
           type: integer
@@ -11791,7 +11864,10 @@ components:
           items:
             $ref: '#/components/schemas/Alarm:jsonld-write'
         journal:
-          $ref: '#/components/schemas/Journal:jsonld-write'
+          nullable: true
+          anyOf:
+            -
+              $ref: '#/components/schemas/Journal:jsonld-write'
     Freebusy-read:
       type: object
       description: 'This entity checks if a person is free or busy for a event.'
@@ -11806,56 +11882,68 @@ components:
         description:
           description: 'An short description of this Event'
           type: string
+          nullable: true
         attendee:
           description: 'The urls of the attendees of this event.'
           externalDocs:
             url: 'http://schema.org/url'
           type: string
+          nullable: true
         comments:
           description: 'The urls of the comments that belong to this event.'
           type: array
           items:
             type: string
+          nullable: true
         contact:
           description: 'Url of this person'
           externalDocs:
             url: 'http://schema.org/url'
           type: string
+          nullable: true
         startDate:
           description: 'The moment this event starts'
           externalDocs:
             url: 'http://schema.org/DateTime'
           type: string
           format: date-time
+          nullable: true
         endDate:
           description: 'The moment this event ends'
           externalDocs:
             url: 'http://schema.org/DateTime'
           type: string
           format: date-time
+          nullable: true
         duration:
           description: 'The duration of this event.'
           type: string
+          nullable: true
         organiser:
           description: 'The organiser of this event linked to with an url.'
           type: string
+          nullable: true
         freebusy:
           description: 'The determination of the type freebusy. **FREE**, **BUSY**'
           type: string
+          nullable: true
         calendar:
           $ref: '#/components/schemas/Calendar-read'
         schedule:
-          $ref: '#/components/schemas/Schedule-read'
+          nullable: true
+          anyOf:
+            -
+              $ref: '#/components/schemas/Schedule-read'
         dateCreated:
-          readOnly: true
           description: 'The moment this resource was created'
           type: string
           format: date-time
+          nullable: true
         dateModified:
-          readOnly: true
           description: 'The moment this resource last Modified'
           type: string
           format: date-time
+          nullable: true
       required:
         - startDate
         - endDate
@@ -11866,46 +11954,58 @@ components:
         description:
           description: 'An short description of this Event'
           type: string
+          nullable: true
         attendee:
           description: 'The urls of the attendees of this event.'
           externalDocs:
             url: 'http://schema.org/url'
           type: string
+          nullable: true
         comments:
           description: 'The urls of the comments that belong to this event.'
           type: array
           items:
             type: string
+          nullable: true
         contact:
           description: 'Url of this person'
           externalDocs:
             url: 'http://schema.org/url'
           type: string
+          nullable: true
         startDate:
           description: 'The moment this event starts'
           externalDocs:
             url: 'http://schema.org/DateTime'
           type: string
           format: date-time
+          nullable: true
         endDate:
           description: 'The moment this event ends'
           externalDocs:
             url: 'http://schema.org/DateTime'
           type: string
           format: date-time
+          nullable: true
         duration:
           description: 'The duration of this event.'
           type: string
+          nullable: true
         organiser:
           description: 'The organiser of this event linked to with an url.'
           type: string
+          nullable: true
         freebusy:
           description: 'The determination of the type freebusy. **FREE**, **BUSY**'
           type: string
+          nullable: true
         calendar:
           $ref: '#/components/schemas/Calendar-write'
         schedule:
-          $ref: '#/components/schemas/Schedule-write'
+          nullable: true
+          anyOf:
+            -
+              $ref: '#/components/schemas/Schedule-write'
       required:
         - startDate
         - endDate
@@ -11932,56 +12032,68 @@ components:
         description:
           description: 'An short description of this Event'
           type: string
+          nullable: true
         attendee:
           description: 'The urls of the attendees of this event.'
           externalDocs:
             url: 'http://schema.org/url'
           type: string
+          nullable: true
         comments:
           description: 'The urls of the comments that belong to this event.'
           type: array
           items:
             type: string
+          nullable: true
         contact:
           description: 'Url of this person'
           externalDocs:
             url: 'http://schema.org/url'
           type: string
+          nullable: true
         startDate:
           description: 'The moment this event starts'
           externalDocs:
             url: 'http://schema.org/DateTime'
           type: string
           format: date-time
+          nullable: true
         endDate:
           description: 'The moment this event ends'
           externalDocs:
             url: 'http://schema.org/DateTime'
           type: string
           format: date-time
+          nullable: true
         duration:
           description: 'The duration of this event.'
           type: string
+          nullable: true
         organiser:
           description: 'The organiser of this event linked to with an url.'
           type: string
+          nullable: true
         freebusy:
           description: 'The determination of the type freebusy. **FREE**, **BUSY**'
           type: string
+          nullable: true
         calendar:
           $ref: '#/components/schemas/Calendar:jsonld-read'
         schedule:
-          $ref: '#/components/schemas/Schedule:jsonld-read'
+          nullable: true
+          anyOf:
+            -
+              $ref: '#/components/schemas/Schedule:jsonld-read'
         dateCreated:
-          readOnly: true
           description: 'The moment this resource was created'
           type: string
           format: date-time
+          nullable: true
         dateModified:
-          readOnly: true
           description: 'The moment this resource last Modified'
           type: string
           format: date-time
+          nullable: true
       required:
         - startDate
         - endDate
@@ -12001,46 +12113,58 @@ components:
         description:
           description: 'An short description of this Event'
           type: string
+          nullable: true
         attendee:
           description: 'The urls of the attendees of this event.'
           externalDocs:
             url: 'http://schema.org/url'
           type: string
+          nullable: true
         comments:
           description: 'The urls of the comments that belong to this event.'
           type: array
           items:
             type: string
+          nullable: true
         contact:
           description: 'Url of this person'
           externalDocs:
             url: 'http://schema.org/url'
           type: string
+          nullable: true
         startDate:
           description: 'The moment this event starts'
           externalDocs:
             url: 'http://schema.org/DateTime'
           type: string
           format: date-time
+          nullable: true
         endDate:
           description: 'The moment this event ends'
           externalDocs:
             url: 'http://schema.org/DateTime'
           type: string
           format: date-time
+          nullable: true
         duration:
           description: 'The duration of this event.'
           type: string
+          nullable: true
         organiser:
           description: 'The organiser of this event linked to with an url.'
           type: string
+          nullable: true
         freebusy:
           description: 'The determination of the type freebusy. **FREE**, **BUSY**'
           type: string
+          nullable: true
         calendar:
           $ref: '#/components/schemas/Calendar:jsonld-write'
         schedule:
-          $ref: '#/components/schemas/Schedule:jsonld-write'
+          nullable: true
+          anyOf:
+            -
+              $ref: '#/components/schemas/Schedule:jsonld-write'
       required:
         - startDate
         - endDate
@@ -12061,6 +12185,7 @@ components:
         description:
           description: 'An short description of this Event'
           type: string
+          nullable: true
         startDate:
           description: 'The moment this event starts'
           externalDocs:
@@ -12076,21 +12201,28 @@ components:
         class:
           description: 'The security class of this event.'
           type: string
+          nullable: true
         organiser:
           description: 'The organiser of this event linked to with an url.'
           type: string
+          nullable: true
         status:
           description: 'The status of this event.'
           type: string
+          nullable: true
         summary:
           description: 'The summary of this event.'
           type: string
+          nullable: true
         transp:
           description: 'The determination if the event should block the duration of the event for participants.'
           type: string
+          nullable: true
         duration:
           description: 'The duration of this event.'
-          $ref: '#/components/schemas/DateInterval-read'
+          type: string
+          format: duration
+          nullable: true
         seq:
           description: 'The version number of this event.'
           type: integer
@@ -12102,17 +12234,20 @@ components:
           type: array
           items:
             type: string
+          nullable: true
         attachments:
           readOnly: true
           description: 'The urls of the attachments of this event.'
           type: array
           items:
             type: string
+          nullable: true
         categories:
           description: 'The urls of the catergories this event belongs to.'
           type: array
           items:
             type: string
+          nullable: true
         comments:
           description: 'The urls of the comments that belong to this event.'
           type: array
@@ -12121,17 +12256,20 @@ components:
         calendar:
           $ref: '#/components/schemas/Calendar-read'
         event:
-          $ref: '#/components/schemas/Event-read'
+          nullable: true
+          anyOf:
+            -
+              $ref: '#/components/schemas/Event-read'
         dateCreated:
-          readOnly: true
           description: 'The moment this resource was created'
           type: string
           format: date-time
+          nullable: true
         dateModified:
-          readOnly: true
           description: 'The moment this resource last Modified'
           type: string
           format: date-time
+          nullable: true
       required:
         - name
         - startDate
@@ -12150,6 +12288,7 @@ components:
         description:
           description: 'An short description of this Event'
           type: string
+          nullable: true
         startDate:
           description: 'The moment this event starts'
           externalDocs:
@@ -12165,21 +12304,28 @@ components:
         class:
           description: 'The security class of this event.'
           type: string
+          nullable: true
         organiser:
           description: 'The organiser of this event linked to with an url.'
           type: string
+          nullable: true
         status:
           description: 'The status of this event.'
           type: string
+          nullable: true
         summary:
           description: 'The summary of this event.'
           type: string
+          nullable: true
         transp:
           description: 'The determination if the event should block the duration of the event for participants.'
           type: string
+          nullable: true
         duration:
           description: 'The duration of this event.'
-          $ref: '#/components/schemas/DateInterval-write'
+          type: string
+          format: duration
+          nullable: true
         seq:
           description: 'The version number of this event.'
           type: integer
@@ -12191,17 +12337,20 @@ components:
           type: array
           items:
             type: string
+          nullable: true
         attachments:
           readOnly: true
           description: 'The urls of the attachments of this event.'
           type: array
           items:
             type: string
+          nullable: true
         categories:
           description: 'The urls of the catergories this event belongs to.'
           type: array
           items:
             type: string
+          nullable: true
         comments:
           description: 'The urls of the comments that belong to this event.'
           type: array
@@ -12210,7 +12359,10 @@ components:
         calendar:
           $ref: '#/components/schemas/Calendar-write'
         event:
-          $ref: '#/components/schemas/Event-write'
+          nullable: true
+          anyOf:
+            -
+              $ref: '#/components/schemas/Event-write'
     'Journal:jsonld-read':
       type: object
       description: 'A journal from an event.'
@@ -12237,6 +12389,7 @@ components:
         description:
           description: 'An short description of this Event'
           type: string
+          nullable: true
         startDate:
           description: 'The moment this event starts'
           externalDocs:
@@ -12252,21 +12405,28 @@ components:
         class:
           description: 'The security class of this event.'
           type: string
+          nullable: true
         organiser:
           description: 'The organiser of this event linked to with an url.'
           type: string
+          nullable: true
         status:
           description: 'The status of this event.'
           type: string
+          nullable: true
         summary:
           description: 'The summary of this event.'
           type: string
+          nullable: true
         transp:
           description: 'The determination if the event should block the duration of the event for participants.'
           type: string
+          nullable: true
         duration:
           description: 'The duration of this event.'
-          $ref: '#/components/schemas/DateInterval:jsonld-read'
+          type: string
+          format: duration
+          nullable: true
         seq:
           description: 'The version number of this event.'
           type: integer
@@ -12278,17 +12438,20 @@ components:
           type: array
           items:
             type: string
+          nullable: true
         attachments:
           readOnly: true
           description: 'The urls of the attachments of this event.'
           type: array
           items:
             type: string
+          nullable: true
         categories:
           description: 'The urls of the catergories this event belongs to.'
           type: array
           items:
             type: string
+          nullable: true
         comments:
           description: 'The urls of the comments that belong to this event.'
           type: array
@@ -12297,17 +12460,20 @@ components:
         calendar:
           $ref: '#/components/schemas/Calendar:jsonld-read'
         event:
-          $ref: '#/components/schemas/Event:jsonld-read'
+          nullable: true
+          anyOf:
+            -
+              $ref: '#/components/schemas/Event:jsonld-read'
         dateCreated:
-          readOnly: true
           description: 'The moment this resource was created'
           type: string
           format: date-time
+          nullable: true
         dateModified:
-          readOnly: true
           description: 'The moment this resource last Modified'
           type: string
           format: date-time
+          nullable: true
       required:
         - name
         - startDate
@@ -12335,6 +12501,7 @@ components:
         description:
           description: 'An short description of this Event'
           type: string
+          nullable: true
         startDate:
           description: 'The moment this event starts'
           externalDocs:
@@ -12350,21 +12517,28 @@ components:
         class:
           description: 'The security class of this event.'
           type: string
+          nullable: true
         organiser:
           description: 'The organiser of this event linked to with an url.'
           type: string
+          nullable: true
         status:
           description: 'The status of this event.'
           type: string
+          nullable: true
         summary:
           description: 'The summary of this event.'
           type: string
+          nullable: true
         transp:
           description: 'The determination if the event should block the duration of the event for participants.'
           type: string
+          nullable: true
         duration:
           description: 'The duration of this event.'
-          $ref: '#/components/schemas/DateInterval:jsonld-write'
+          type: string
+          format: duration
+          nullable: true
         seq:
           description: 'The version number of this event.'
           type: integer
@@ -12376,17 +12550,20 @@ components:
           type: array
           items:
             type: string
+          nullable: true
         attachments:
           readOnly: true
           description: 'The urls of the attachments of this event.'
           type: array
           items:
             type: string
+          nullable: true
         categories:
           description: 'The urls of the catergories this event belongs to.'
           type: array
           items:
             type: string
+          nullable: true
         comments:
           description: 'The urls of the comments that belong to this event.'
           type: array
@@ -12395,7 +12572,10 @@ components:
         calendar:
           $ref: '#/components/schemas/Calendar:jsonld-write'
         event:
-          $ref: '#/components/schemas/Event:jsonld-write'
+          nullable: true
+          anyOf:
+            -
+              $ref: '#/components/schemas/Event:jsonld-write'
     Resource-read:
       type: object
       description: 'Describes resources that can be needed for an event.'
@@ -12413,6 +12593,7 @@ components:
         description:
           description: 'An short description of this Event'
           type: string
+          nullable: true
         events:
           type: array
           items:
@@ -12422,15 +12603,15 @@ components:
           items:
             $ref: '#/components/schemas/Todo-read'
         dateCreated:
-          readOnly: true
           description: 'The moment this resource was created'
           type: string
           format: date-time
+          nullable: true
         dateModified:
-          readOnly: true
           description: 'The moment this resource last Modified'
           type: string
           format: date-time
+          nullable: true
       required:
         - name
     Resource-write:
@@ -12445,6 +12626,7 @@ components:
         description:
           description: 'An short description of this Event'
           type: string
+          nullable: true
         events:
           type: array
           items:
@@ -12479,6 +12661,7 @@ components:
         description:
           description: 'An short description of this Event'
           type: string
+          nullable: true
         events:
           type: array
           items:
@@ -12488,15 +12671,15 @@ components:
           items:
             $ref: '#/components/schemas/Todo:jsonld-read'
         dateCreated:
-          readOnly: true
           description: 'The moment this resource was created'
           type: string
           format: date-time
+          nullable: true
         dateModified:
-          readOnly: true
           description: 'The moment this resource last Modified'
           type: string
           format: date-time
+          nullable: true
       required:
         - name
     'Resource:jsonld-write':
@@ -12520,6 +12703,7 @@ components:
         description:
           description: 'An short description of this Event'
           type: string
+          nullable: true
         events:
           type: array
           items:
@@ -12547,26 +12731,33 @@ components:
         description:
           description: 'An short description of this Schedule'
           type: string
+          nullable: true
         byDay:
           description: 'Defines the day(s) of the week on which a recurring Event takes place. Sunday is both 0 and 7.'
           type: integer
+          nullable: true
         byMonth:
           description: 'Defines the month(s) of the year on which a recurring Event takes place. Specified as an Integer between 1-12. January is 1.'
           type: integer
+          nullable: true
         byMonthDay:
           description: 'Defines the day(s) of the month on which a recurring Event takes place. Specified as an Integer between 1-31.'
           type: integer
+          nullable: true
         exceptDates:
           description: 'Defines the day(s) of the month on which a recurring Event takes place. Specified as an Integer between 1-31.'
           type: array
           items:
             type: string
+          nullable: true
         repeatCount:
           description: 'Defines the number of times a recurring Event will take place'
           type: integer
+          nullable: true
         repeatFrequency:
           description: 'Defines the frequency at which Events will occur according to a schedule Schedule. The intervals between events should be defined as a [Duration](https://en.wikipedia.org/wiki/ISO_8601#Durations) of time.'
           type: string
+          nullable: true
         calendar:
           description: 'The Calendar to wich this Schedule belongs'
           $ref: '#/components/schemas/Calendar-read'
@@ -12586,15 +12777,15 @@ components:
           items:
             $ref: '#/components/schemas/Todo-read'
         dateCreated:
-          readOnly: true
           description: 'The moment this resource was created'
           type: string
           format: date-time
+          nullable: true
         dateModified:
-          readOnly: true
           description: 'The moment this resource last Modified'
           type: string
           format: date-time
+          nullable: true
       required:
         - name
     Schedule-write:
@@ -12611,26 +12802,33 @@ components:
         description:
           description: 'An short description of this Schedule'
           type: string
+          nullable: true
         byDay:
           description: 'Defines the day(s) of the week on which a recurring Event takes place. Sunday is both 0 and 7.'
           type: integer
+          nullable: true
         byMonth:
           description: 'Defines the month(s) of the year on which a recurring Event takes place. Specified as an Integer between 1-12. January is 1.'
           type: integer
+          nullable: true
         byMonthDay:
           description: 'Defines the day(s) of the month on which a recurring Event takes place. Specified as an Integer between 1-31.'
           type: integer
+          nullable: true
         exceptDates:
           description: 'Defines the day(s) of the month on which a recurring Event takes place. Specified as an Integer between 1-31.'
           type: array
           items:
             type: string
+          nullable: true
         repeatCount:
           description: 'Defines the number of times a recurring Event will take place'
           type: integer
+          nullable: true
         repeatFrequency:
           description: 'Defines the frequency at which Events will occur according to a schedule Schedule. The intervals between events should be defined as a [Duration](https://en.wikipedia.org/wiki/ISO_8601#Durations) of time.'
           type: string
+          nullable: true
         calendar:
           description: 'The Calendar to wich this Schedule belongs'
           $ref: '#/components/schemas/Calendar-write'
@@ -12677,26 +12875,33 @@ components:
         description:
           description: 'An short description of this Schedule'
           type: string
+          nullable: true
         byDay:
           description: 'Defines the day(s) of the week on which a recurring Event takes place. Sunday is both 0 and 7.'
           type: integer
+          nullable: true
         byMonth:
           description: 'Defines the month(s) of the year on which a recurring Event takes place. Specified as an Integer between 1-12. January is 1.'
           type: integer
+          nullable: true
         byMonthDay:
           description: 'Defines the day(s) of the month on which a recurring Event takes place. Specified as an Integer between 1-31.'
           type: integer
+          nullable: true
         exceptDates:
           description: 'Defines the day(s) of the month on which a recurring Event takes place. Specified as an Integer between 1-31.'
           type: array
           items:
             type: string
+          nullable: true
         repeatCount:
           description: 'Defines the number of times a recurring Event will take place'
           type: integer
+          nullable: true
         repeatFrequency:
           description: 'Defines the frequency at which Events will occur according to a schedule Schedule. The intervals between events should be defined as a [Duration](https://en.wikipedia.org/wiki/ISO_8601#Durations) of time.'
           type: string
+          nullable: true
         calendar:
           description: 'The Calendar to wich this Schedule belongs'
           $ref: '#/components/schemas/Calendar:jsonld-read'
@@ -12716,15 +12921,15 @@ components:
           items:
             $ref: '#/components/schemas/Todo:jsonld-read'
         dateCreated:
-          readOnly: true
           description: 'The moment this resource was created'
           type: string
           format: date-time
+          nullable: true
         dateModified:
-          readOnly: true
           description: 'The moment this resource last Modified'
           type: string
           format: date-time
+          nullable: true
       required:
         - name
     'Schedule:jsonld-write':
@@ -12750,26 +12955,33 @@ components:
         description:
           description: 'An short description of this Schedule'
           type: string
+          nullable: true
         byDay:
           description: 'Defines the day(s) of the week on which a recurring Event takes place. Sunday is both 0 and 7.'
           type: integer
+          nullable: true
         byMonth:
           description: 'Defines the month(s) of the year on which a recurring Event takes place. Specified as an Integer between 1-12. January is 1.'
           type: integer
+          nullable: true
         byMonthDay:
           description: 'Defines the day(s) of the month on which a recurring Event takes place. Specified as an Integer between 1-31.'
           type: integer
+          nullable: true
         exceptDates:
           description: 'Defines the day(s) of the month on which a recurring Event takes place. Specified as an Integer between 1-31.'
           type: array
           items:
             type: string
+          nullable: true
         repeatCount:
           description: 'Defines the number of times a recurring Event will take place'
           type: integer
+          nullable: true
         repeatFrequency:
           description: 'Defines the frequency at which Events will occur according to a schedule Schedule. The intervals between events should be defined as a [Duration](https://en.wikipedia.org/wiki/ISO_8601#Durations) of time.'
           type: string
+          nullable: true
         calendar:
           description: 'The Calendar to wich this Schedule belongs'
           $ref: '#/components/schemas/Calendar:jsonld-write'
@@ -12805,6 +13017,7 @@ components:
         description:
           description: 'An short description of this Event'
           type: string
+          nullable: true
         startDate:
           description: 'The moment this event starts'
           externalDocs:
@@ -12820,29 +13033,38 @@ components:
         location:
           description: 'The location of this event'
           type: string
+          nullable: true
         class:
           description: 'The security class of this event.'
           type: string
+          nullable: true
         geo:
           description: 'The coordinates of this event.'
           type: string
+          nullable: true
         organiser:
           description: 'The organiser of this event linked to with an url.'
           type: string
+          nullable: true
         status:
           description: 'The status of this evemt.'
           type: string
+          nullable: true
         summary:
           description: 'The summary of this event.'
           type: string
+          nullable: true
         duration:
           description: 'The duration of this event.'
-          $ref: '#/components/schemas/DateInterval-read'
+          type: string
+          format: duration
+          nullable: true
         contact:
           description: 'Url of this person'
           externalDocs:
             url: 'http://schema.org/url'
           type: string
+          nullable: true
         seq:
           description: 'The version number of this event.'
           type: integer
@@ -12854,28 +13076,33 @@ components:
           type: array
           items:
             type: string
+          nullable: true
         attachments:
           readOnly: true
           description: 'The urls of the attachments of this event.'
           type: array
           items:
             type: string
+          nullable: true
         categories:
           description: 'The urls of the catergories this event belongs to.'
           type: array
           items:
             type: string
+          nullable: true
         comments:
           description: 'The urls of the comments that belong to this event.'
           type: array
           items:
             type: string
+          nullable: true
         completed:
           description: 'The date and time a to-do is completed.'
           externalDocs:
             url: 'http://schema.org/DateTime'
           type: string
           format: date-time
+          nullable: true
         percentageDone:
           description: 'The percentage of a to-do that has been comepleted.'
           type: integer
@@ -12884,21 +13111,27 @@ components:
           items:
             $ref: '#/components/schemas/Resource-read'
         alarm:
-          $ref: '#/components/schemas/Alarm-read'
+          nullable: true
+          anyOf:
+            -
+              $ref: '#/components/schemas/Alarm-read'
         calendar:
           $ref: '#/components/schemas/Calendar-read'
         schedule:
-          $ref: '#/components/schemas/Schedule-read'
+          nullable: true
+          anyOf:
+            -
+              $ref: '#/components/schemas/Schedule-read'
         dateCreated:
-          readOnly: true
           description: 'The moment this resource was created'
           type: string
           format: date-time
+          nullable: true
         dateModified:
-          readOnly: true
           description: 'The moment this resource last Modified'
           type: string
           format: date-time
+          nullable: true
       required:
         - name
         - startDate
@@ -12917,6 +13150,7 @@ components:
         description:
           description: 'An short description of this Event'
           type: string
+          nullable: true
         startDate:
           description: 'The moment this event starts'
           externalDocs:
@@ -12932,29 +13166,38 @@ components:
         location:
           description: 'The location of this event'
           type: string
+          nullable: true
         class:
           description: 'The security class of this event.'
           type: string
+          nullable: true
         geo:
           description: 'The coordinates of this event.'
           type: string
+          nullable: true
         organiser:
           description: 'The organiser of this event linked to with an url.'
           type: string
+          nullable: true
         status:
           description: 'The status of this evemt.'
           type: string
+          nullable: true
         summary:
           description: 'The summary of this event.'
           type: string
+          nullable: true
         duration:
           description: 'The duration of this event.'
-          $ref: '#/components/schemas/DateInterval-write'
+          type: string
+          format: duration
+          nullable: true
         contact:
           description: 'Url of this person'
           externalDocs:
             url: 'http://schema.org/url'
           type: string
+          nullable: true
         seq:
           description: 'The version number of this event.'
           type: integer
@@ -12966,28 +13209,33 @@ components:
           type: array
           items:
             type: string
+          nullable: true
         attachments:
           readOnly: true
           description: 'The urls of the attachments of this event.'
           type: array
           items:
             type: string
+          nullable: true
         categories:
           description: 'The urls of the catergories this event belongs to.'
           type: array
           items:
             type: string
+          nullable: true
         comments:
           description: 'The urls of the comments that belong to this event.'
           type: array
           items:
             type: string
+          nullable: true
         completed:
           description: 'The date and time a to-do is completed.'
           externalDocs:
             url: 'http://schema.org/DateTime'
           type: string
           format: date-time
+          nullable: true
         percentageDone:
           description: 'The percentage of a to-do that has been comepleted.'
           type: integer
@@ -12996,11 +13244,17 @@ components:
           items:
             $ref: '#/components/schemas/Resource-write'
         alarm:
-          $ref: '#/components/schemas/Alarm-write'
+          nullable: true
+          anyOf:
+            -
+              $ref: '#/components/schemas/Alarm-write'
         calendar:
           $ref: '#/components/schemas/Calendar-write'
         schedule:
-          $ref: '#/components/schemas/Schedule-write'
+          nullable: true
+          anyOf:
+            -
+              $ref: '#/components/schemas/Schedule-write'
     'Todo:jsonld-read':
       type: object
       description: 'A to-do from an event.'
@@ -13027,6 +13281,7 @@ components:
         description:
           description: 'An short description of this Event'
           type: string
+          nullable: true
         startDate:
           description: 'The moment this event starts'
           externalDocs:
@@ -13042,29 +13297,38 @@ components:
         location:
           description: 'The location of this event'
           type: string
+          nullable: true
         class:
           description: 'The security class of this event.'
           type: string
+          nullable: true
         geo:
           description: 'The coordinates of this event.'
           type: string
+          nullable: true
         organiser:
           description: 'The organiser of this event linked to with an url.'
           type: string
+          nullable: true
         status:
           description: 'The status of this evemt.'
           type: string
+          nullable: true
         summary:
           description: 'The summary of this event.'
           type: string
+          nullable: true
         duration:
           description: 'The duration of this event.'
-          $ref: '#/components/schemas/DateInterval:jsonld-read'
+          type: string
+          format: duration
+          nullable: true
         contact:
           description: 'Url of this person'
           externalDocs:
             url: 'http://schema.org/url'
           type: string
+          nullable: true
         seq:
           description: 'The version number of this event.'
           type: integer
@@ -13076,28 +13340,33 @@ components:
           type: array
           items:
             type: string
+          nullable: true
         attachments:
           readOnly: true
           description: 'The urls of the attachments of this event.'
           type: array
           items:
             type: string
+          nullable: true
         categories:
           description: 'The urls of the catergories this event belongs to.'
           type: array
           items:
             type: string
+          nullable: true
         comments:
           description: 'The urls of the comments that belong to this event.'
           type: array
           items:
             type: string
+          nullable: true
         completed:
           description: 'The date and time a to-do is completed.'
           externalDocs:
             url: 'http://schema.org/DateTime'
           type: string
           format: date-time
+          nullable: true
         percentageDone:
           description: 'The percentage of a to-do that has been comepleted.'
           type: integer
@@ -13106,21 +13375,27 @@ components:
           items:
             $ref: '#/components/schemas/Resource:jsonld-read'
         alarm:
-          $ref: '#/components/schemas/Alarm:jsonld-read'
+          nullable: true
+          anyOf:
+            -
+              $ref: '#/components/schemas/Alarm:jsonld-read'
         calendar:
           $ref: '#/components/schemas/Calendar:jsonld-read'
         schedule:
-          $ref: '#/components/schemas/Schedule:jsonld-read'
+          nullable: true
+          anyOf:
+            -
+              $ref: '#/components/schemas/Schedule:jsonld-read'
         dateCreated:
-          readOnly: true
           description: 'The moment this resource was created'
           type: string
           format: date-time
+          nullable: true
         dateModified:
-          readOnly: true
           description: 'The moment this resource last Modified'
           type: string
           format: date-time
+          nullable: true
       required:
         - name
         - startDate
@@ -13148,6 +13423,7 @@ components:
         description:
           description: 'An short description of this Event'
           type: string
+          nullable: true
         startDate:
           description: 'The moment this event starts'
           externalDocs:
@@ -13163,29 +13439,38 @@ components:
         location:
           description: 'The location of this event'
           type: string
+          nullable: true
         class:
           description: 'The security class of this event.'
           type: string
+          nullable: true
         geo:
           description: 'The coordinates of this event.'
           type: string
+          nullable: true
         organiser:
           description: 'The organiser of this event linked to with an url.'
           type: string
+          nullable: true
         status:
           description: 'The status of this evemt.'
           type: string
+          nullable: true
         summary:
           description: 'The summary of this event.'
           type: string
+          nullable: true
         duration:
           description: 'The duration of this event.'
-          $ref: '#/components/schemas/DateInterval:jsonld-write'
+          type: string
+          format: duration
+          nullable: true
         contact:
           description: 'Url of this person'
           externalDocs:
             url: 'http://schema.org/url'
           type: string
+          nullable: true
         seq:
           description: 'The version number of this event.'
           type: integer
@@ -13197,28 +13482,33 @@ components:
           type: array
           items:
             type: string
+          nullable: true
         attachments:
           readOnly: true
           description: 'The urls of the attachments of this event.'
           type: array
           items:
             type: string
+          nullable: true
         categories:
           description: 'The urls of the catergories this event belongs to.'
           type: array
           items:
             type: string
+          nullable: true
         comments:
           description: 'The urls of the comments that belong to this event.'
           type: array
           items:
             type: string
+          nullable: true
         completed:
           description: 'The date and time a to-do is completed.'
           externalDocs:
             url: 'http://schema.org/DateTime'
           type: string
           format: date-time
+          nullable: true
         percentageDone:
           description: 'The percentage of a to-do that has been comepleted.'
           type: integer
@@ -13227,11 +13517,17 @@ components:
           items:
             $ref: '#/components/schemas/Resource:jsonld-write'
         alarm:
-          $ref: '#/components/schemas/Alarm:jsonld-write'
+          nullable: true
+          anyOf:
+            -
+              $ref: '#/components/schemas/Alarm:jsonld-write'
         calendar:
           $ref: '#/components/schemas/Calendar:jsonld-write'
         schedule:
-          $ref: '#/components/schemas/Schedule:jsonld-write'
+          nullable: true
+          anyOf:
+            -
+              $ref: '#/components/schemas/Schedule:jsonld-write'
 definitions:
   Alarm-read:
     properties:
@@ -13324,6 +13620,77 @@ definitions:
       - action
       - trigger
       - duration
+  Calendar-read:
+    properties:
+      id:
+        description: 'The UUID identifier of this resource'
+        type: string
+        example: e2984465-190a-4562-829e-a8cca81aa35d
+        format: uuid
+      name:
+        description: 'The name of this Calendar'
+        type: string
+        example: 'My Calendar'
+        maxLength: 255
+      description:
+        description: 'An short description of this Calendar'
+        type: string
+        example: 'This is the best Calendar ever'
+        maxLength: 2550
+      timeZone:
+        description: 'The time zone of this calendar'
+        type: string
+        example: CET
+        maxLength: 5
+        minLength: 3
+      dateCreated:
+        description: 'The moment this resource was created'
+        type: \Datetime
+      dateModified:
+        description: 'The moment this resource last Modified'
+        type: \Datetime
+      events:
+        description: 'Events that belong to this Calendar'
+        type: array
+      schedules:
+        description: 'Schedules that belong to this Calendar'
+        type: array
+      freebusies: []
+      journals: []
+      todos: []
+    required:
+      - name
+      - timeZone
+  Calendar-write:
+    properties:
+      name:
+        description: 'The name of this Calendar'
+        type: string
+        example: 'My Calendar'
+        maxLength: 255
+      description:
+        description: 'An short description of this Calendar'
+        type: string
+        example: 'This is the best Calendar ever'
+        maxLength: 2550
+      timeZone:
+        description: 'The time zone of this calendar'
+        type: string
+        example: CET
+        maxLength: 5
+        minLength: 3
+      events:
+        description: 'Events that belong to this Calendar'
+        type: array
+      schedules:
+        description: 'Schedules that belong to this Calendar'
+        type: array
+      freebusies: []
+      journals: []
+      todos: []
+    required:
+      - name
+      - timeZone
   Event-read:
     properties:
       id:
@@ -13349,7 +13716,7 @@ definitions:
       endDate:
         description: 'The moment this event ends'
         type: string
-        example: '2020-04-22 11:05:56'
+        example: '2020-05-25 13:43:54'
         format: date-time
       location:
         description: 'The location of this event'
@@ -13543,190 +13910,6 @@ definitions:
       - name
       - startDate
       - endDate
-  Schedule-read:
-    properties:
-      id:
-        description: 'The UUID identifier of this resource'
-        type: string
-        example: e2984465-190a-4562-829e-a8cca81aa35d
-        format: uuid
-      name:
-        description: 'The name of this Schedule'
-        type: string
-        example: 'My Schedule'
-        maxLength: 255
-      description:
-        description: 'An short description of this Schedule'
-        type: string
-        example: 'This is the best Schedule ever'
-        maxLength: 2550
-      byDay:
-        description: 'Defines the day(s) of the week on which a recurring Event takes place. Sunday is both 0 and 7.'
-        type: string
-        example: '1'
-      byMonth:
-        description: 'Defines the month(s) of the year on which a recurring Event takes place. Specified as an Integer between 1-12. January is 1.'
-        type: string
-        example: '1'
-      byMonthDay:
-        description: 'Defines the day(s) of the month on which a recurring Event takes place. Specified as an Integer between 1-31.'
-        type: string
-        example: '1'
-      exceptDates:
-        description: 'Defines the day(s) of the month on which a recurring Event takes place. Specified as an Integer between 1-31.'
-        type: string
-        example: '30'
-      repeatCount:
-        description: 'Defines the number of times a recurring Event will take place'
-        type: int
-        example: '10'
-      repeatFrequency:
-        description: 'Defines the frequency at which Events will occur according to a schedule Schedule. The intervals between events should be defined as a [Duration](https://en.wikipedia.org/wiki/ISO_8601#Durations) of time.'
-        type: string
-        example: PT1M
-        maxLength: 255
-      dateCreated:
-        description: 'The moment this resource was created'
-        type: \Datetime
-      dateModified:
-        description: 'The moment this resource last Modified'
-        type: \Datetime
-      calendar:
-        description: 'The Calendar to wich this Schedule belongs'
-        type: string
-      events:
-        description: 'The events that belong to or are caused by this Schedule'
-        type: \ArrayCollection
-      freebusies:
-        description: 'The freebusies that belong to or are caused by this Schedule'
-        type: \ArrayCollection
-      todos:
-        description: 'The todos that belong to or are caused by this Schedule'
-        type: \ArrayCollection
-    required:
-      - name
-  Schedule-write:
-    properties:
-      name:
-        description: 'The name of this Schedule'
-        type: string
-        example: 'My Schedule'
-        maxLength: 255
-      description:
-        description: 'An short description of this Schedule'
-        type: string
-        example: 'This is the best Schedule ever'
-        maxLength: 2550
-      byDay:
-        description: 'Defines the day(s) of the week on which a recurring Event takes place. Sunday is both 0 and 7.'
-        type: string
-        example: '1'
-      byMonth:
-        description: 'Defines the month(s) of the year on which a recurring Event takes place. Specified as an Integer between 1-12. January is 1.'
-        type: string
-        example: '1'
-      byMonthDay:
-        description: 'Defines the day(s) of the month on which a recurring Event takes place. Specified as an Integer between 1-31.'
-        type: string
-        example: '1'
-      exceptDates:
-        description: 'Defines the day(s) of the month on which a recurring Event takes place. Specified as an Integer between 1-31.'
-        type: string
-        example: '30'
-      repeatCount:
-        description: 'Defines the number of times a recurring Event will take place'
-        type: int
-        example: '10'
-      repeatFrequency:
-        description: 'Defines the frequency at which Events will occur according to a schedule Schedule. The intervals between events should be defined as a [Duration](https://en.wikipedia.org/wiki/ISO_8601#Durations) of time.'
-        type: string
-        example: PT1M
-        maxLength: 255
-      calendar:
-        description: 'The Calendar to wich this Schedule belongs'
-        type: string
-      events:
-        description: 'The events that belong to or are caused by this Schedule'
-        type: \ArrayCollection
-      freebusies:
-        description: 'The freebusies that belong to or are caused by this Schedule'
-        type: \ArrayCollection
-      todos:
-        description: 'The todos that belong to or are caused by this Schedule'
-        type: \ArrayCollection
-    required:
-      - name
-  Calendar-read:
-    properties:
-      id:
-        description: 'The UUID identifier of this resource'
-        type: string
-        example: e2984465-190a-4562-829e-a8cca81aa35d
-        format: uuid
-      name:
-        description: 'The name of this Calendar'
-        type: string
-        example: 'My Calendar'
-        maxLength: 255
-      description:
-        description: 'An short description of this Calendar'
-        type: string
-        example: 'This is the best Calendar ever'
-        maxLength: 2550
-      timeZone:
-        description: 'The time zone of this calendar'
-        type: string
-        example: CET
-        maxLength: 5
-        minLength: 3
-      dateCreated:
-        description: 'The moment this resource was created'
-        type: \Datetime
-      dateModified:
-        description: 'The moment this resource last Modified'
-        type: \Datetime
-      events:
-        description: 'Events that belong to this Calendar'
-        type: array
-      schedules:
-        description: 'Schedules that belong to this Calendar'
-        type: array
-      freebusies: []
-      journals: []
-      todos: []
-    required:
-      - name
-      - timeZone
-  Calendar-write:
-    properties:
-      name:
-        description: 'The name of this Calendar'
-        type: string
-        example: 'My Calendar'
-        maxLength: 255
-      description:
-        description: 'An short description of this Calendar'
-        type: string
-        example: 'This is the best Calendar ever'
-        maxLength: 2550
-      timeZone:
-        description: 'The time zone of this calendar'
-        type: string
-        example: CET
-        maxLength: 5
-        minLength: 3
-      events:
-        description: 'Events that belong to this Calendar'
-        type: array
-      schedules:
-        description: 'Schedules that belong to this Calendar'
-        type: array
-      freebusies: []
-      journals: []
-      todos: []
-    required:
-      - name
-      - timeZone
   Freebusy-read:
     properties:
       id:
@@ -14011,221 +14194,6 @@ definitions:
       - name
       - startDate
       - endDate
-  Todo-read:
-    properties:
-      id:
-        description: 'The UUID identifier of this resource'
-        type: string
-        example: e2984465-190a-4562-829e-a8cca81aa35d
-        format: uuid
-      name:
-        description: 'The name of this RequestType'
-        type: string
-        example: 'My RequestType'
-        maxLength: 255
-      description:
-        description: 'An short description of this Event'
-        type: string
-        example: 'This is the best Event ever'
-        maxLength: 2550
-      startDate:
-        description: 'The moment this event starts'
-        type: string
-        example: '2020-04-22 11:05:56'
-        format: date-time
-      endDate:
-        description: 'The moment this event ends'
-        type: string
-        example: '2020-04-22 11:05:56'
-        format: date-time
-      location:
-        description: 'The location of this event'
-        type: string
-        example: 'Dam 1, Amsterdam'
-        maxLength: 255
-      class:
-        description: 'The security class of this event.'
-        type: string
-        example: PUBLIC
-        maxLength: 255
-      geo:
-        description: 'The coordinates of this event.'
-        type: string
-        example: '81.15147,10.36374,42.26'
-        maxLength: 255
-      organiser:
-        description: 'The organiser of this event linked to with an url.'
-        type: string
-        example: conduction.nl
-        maxLength: 255
-      status:
-        description: 'The status of this evemt.'
-        type: string
-        example: Confirmed
-        maxLength: 255
-      summary:
-        description: 'The summary of this event.'
-        type: string
-        example: 'This is the best event ever.'
-        maxLength: 255
-      duration:
-        description: 'The duration of this event.'
-        type: \DateInterval
-        example: '2'
-      contact:
-        description: 'Url of this person'
-        type: string
-        example: 'https://con.example.org'
-        format: url
-      seq:
-        description: 'The version number of this event.'
-        type: int
-        example: '1'
-      priority:
-        description: 'The priority of this event ranging from 1 (high) to 9 (low).'
-        type: int
-        example: '1'
-      attendees:
-        description: 'The urls of the attendees of this event.'
-        type: array
-        example: 'https://con.example.com, https://con.example2.com'
-      attachments:
-        description: 'The urls of the attachments of this event.'
-        type: array
-        example: 'https://example.org, https://example2.org'
-      categories:
-        description: 'The urls of the catergories this event belongs to.'
-        type: array
-        example: 'https://con.example.com, https://con.example2.com'
-      comments:
-        description: 'The urls of the comments that belong to this event.'
-        type: array
-        example: 'https://con.example.com, https://con.example2.com'
-      completed:
-        description: 'The date and time a to-do is completed.'
-        type: string
-        example: '2020-04-22 11:05:56'
-        format: date-time
-      percentageDone:
-        description: 'The percentage of a to-do that has been comepleted.'
-        type: int
-        example: 40%
-      dateCreated:
-        description: 'The moment this resource was created'
-        type: \Datetime
-      dateModified:
-        description: 'The moment this resource last Modified'
-        type: \Datetime
-      resources: []
-      alarm: []
-      calendar: []
-      schedule: []
-    required:
-      - name
-      - startDate
-      - endDate
-  Todo-write:
-    properties:
-      name:
-        description: 'The name of this RequestType'
-        type: string
-        example: 'My RequestType'
-        maxLength: 255
-      description:
-        description: 'An short description of this Event'
-        type: string
-        example: 'This is the best Event ever'
-        maxLength: 2550
-      startDate:
-        description: 'The moment this event starts'
-        type: string
-        example: '2020-04-22 11:05:56'
-        format: date-time
-      endDate:
-        description: 'The moment this event ends'
-        type: string
-        example: '2020-04-22 11:05:56'
-        format: date-time
-      location:
-        description: 'The location of this event'
-        type: string
-        example: 'Dam 1, Amsterdam'
-        maxLength: 255
-      class:
-        description: 'The security class of this event.'
-        type: string
-        example: PUBLIC
-        maxLength: 255
-      geo:
-        description: 'The coordinates of this event.'
-        type: string
-        example: '81.15147,10.36374,42.26'
-        maxLength: 255
-      organiser:
-        description: 'The organiser of this event linked to with an url.'
-        type: string
-        example: conduction.nl
-        maxLength: 255
-      status:
-        description: 'The status of this evemt.'
-        type: string
-        example: Confirmed
-        maxLength: 255
-      summary:
-        description: 'The summary of this event.'
-        type: string
-        example: 'This is the best event ever.'
-        maxLength: 255
-      duration:
-        description: 'The duration of this event.'
-        type: \DateInterval
-        example: '2'
-      contact:
-        description: 'Url of this person'
-        type: string
-        example: 'https://con.example.org'
-        format: url
-      seq:
-        description: 'The version number of this event.'
-        type: int
-        example: '1'
-      priority:
-        description: 'The priority of this event ranging from 1 (high) to 9 (low).'
-        type: int
-        example: '1'
-      attendees:
-        description: 'The urls of the attendees of this event.'
-        type: array
-        example: 'https://con.example.com, https://con.example2.com'
-      attachments:
-        description: 'The urls of the attachments of this event.'
-        type: array
-        example: 'https://example.org, https://example2.org'
-      categories:
-        description: 'The urls of the catergories this event belongs to.'
-        type: array
-        example: 'https://con.example.com, https://con.example2.com'
-      comments:
-        description: 'The urls of the comments that belong to this event.'
-        type: array
-        example: 'https://con.example.com, https://con.example2.com'
-      completed:
-        description: 'The date and time a to-do is completed.'
-        type: string
-        example: '2020-04-22 11:05:56'
-        format: date-time
-      percentageDone:
-        description: 'The percentage of a to-do that has been comepleted.'
-        type: int
-        example: 40%
-      resources: []
-      alarm: []
-      calendar: []
-      schedule: []
-    required:
-      - name
-      - startDate
-      - endDate
   Resource-read:
     properties:
       id:
@@ -14269,6 +14237,453 @@ definitions:
       todos: []
     required:
       - name
+  Schedule-read:
+    properties:
+      id:
+        description: 'The UUID identifier of this resource'
+        type: string
+        example: e2984465-190a-4562-829e-a8cca81aa35d
+        format: uuid
+      name:
+        description: 'The name of this Schedule'
+        type: string
+        example: 'My Schedule'
+        maxLength: 255
+      description:
+        description: 'An short description of this Schedule'
+        type: string
+        example: 'This is the best Schedule ever'
+        maxLength: 2550
+      byDay:
+        description: 'Defines the day(s) of the week on which a recurring Event takes place. Sunday is both 0 and 7.'
+        type: string
+        example: '1'
+      byMonth:
+        description: 'Defines the month(s) of the year on which a recurring Event takes place. Specified as an Integer between 1-12. January is 1.'
+        type: string
+        example: '1'
+      byMonthDay:
+        description: 'Defines the day(s) of the month on which a recurring Event takes place. Specified as an Integer between 1-31.'
+        type: string
+        example: '1'
+      exceptDates:
+        description: 'Defines the day(s) of the month on which a recurring Event takes place. Specified as an Integer between 1-31.'
+        type: string
+        example: '30'
+      repeatCount:
+        description: 'Defines the number of times a recurring Event will take place'
+        type: int
+        example: '10'
+      repeatFrequency:
+        description: 'Defines the frequency at which Events will occur according to a schedule Schedule. The intervals between events should be defined as a [Duration](https://en.wikipedia.org/wiki/ISO_8601#Durations) of time.'
+        type: string
+        example: PT1M
+        maxLength: 255
+      dateCreated:
+        description: 'The moment this resource was created'
+        type: \Datetime
+      dateModified:
+        description: 'The moment this resource last Modified'
+        type: \Datetime
+      calendar:
+        description: 'The Calendar to wich this Schedule belongs'
+        type: string
+      events:
+        description: 'The events that belong to or are caused by this Schedule'
+        type: \ArrayCollection
+      freebusies:
+        description: 'The freebusies that belong to or are caused by this Schedule'
+        type: \ArrayCollection
+      todos:
+        description: 'The todos that belong to or are caused by this Schedule'
+        type: \ArrayCollection
+    required:
+      - name
+  Schedule-write:
+    properties:
+      name:
+        description: 'The name of this Schedule'
+        type: string
+        example: 'My Schedule'
+        maxLength: 255
+      description:
+        description: 'An short description of this Schedule'
+        type: string
+        example: 'This is the best Schedule ever'
+        maxLength: 2550
+      byDay:
+        description: 'Defines the day(s) of the week on which a recurring Event takes place. Sunday is both 0 and 7.'
+        type: string
+        example: '1'
+      byMonth:
+        description: 'Defines the month(s) of the year on which a recurring Event takes place. Specified as an Integer between 1-12. January is 1.'
+        type: string
+        example: '1'
+      byMonthDay:
+        description: 'Defines the day(s) of the month on which a recurring Event takes place. Specified as an Integer between 1-31.'
+        type: string
+        example: '1'
+      exceptDates:
+        description: 'Defines the day(s) of the month on which a recurring Event takes place. Specified as an Integer between 1-31.'
+        type: string
+        example: '30'
+      repeatCount:
+        description: 'Defines the number of times a recurring Event will take place'
+        type: int
+        example: '10'
+      repeatFrequency:
+        description: 'Defines the frequency at which Events will occur according to a schedule Schedule. The intervals between events should be defined as a [Duration](https://en.wikipedia.org/wiki/ISO_8601#Durations) of time.'
+        type: string
+        example: PT1M
+        maxLength: 255
+      calendar:
+        description: 'The Calendar to wich this Schedule belongs'
+        type: string
+      events:
+        description: 'The events that belong to or are caused by this Schedule'
+        type: \ArrayCollection
+      freebusies:
+        description: 'The freebusies that belong to or are caused by this Schedule'
+        type: \ArrayCollection
+      todos:
+        description: 'The todos that belong to or are caused by this Schedule'
+        type: \ArrayCollection
+    required:
+      - name
+  Todo-read:
+    properties:
+      id:
+        description: 'The UUID identifier of this resource'
+        type: string
+        example: e2984465-190a-4562-829e-a8cca81aa35d
+        format: uuid
+      name:
+        description: 'The name of this RequestType'
+        type: string
+        example: 'My RequestType'
+        maxLength: 255
+      description:
+        description: 'An short description of this Event'
+        type: string
+        example: 'This is the best Event ever'
+        maxLength: 2550
+      startDate:
+        description: 'The moment this event starts'
+        type: string
+        example: '2020-05-25 13:43:54'
+        format: date-time
+      endDate:
+        description: 'The moment this event ends'
+        type: string
+        example: '2020-04-22 11:05:56'
+        format: date-time
+      location:
+        description: 'The location of this event'
+        type: string
+        example: 'Dam 1, Amsterdam'
+        maxLength: 255
+      class:
+        description: 'The security class of this event.'
+        type: string
+        example: PUBLIC
+        maxLength: 255
+      geo:
+        description: 'The coordinates of this event.'
+        type: string
+        example: '81.15147,10.36374,42.26'
+        maxLength: 255
+      organiser:
+        description: 'The organiser of this event linked to with an url.'
+        type: string
+        example: conduction.nl
+        maxLength: 255
+      status:
+        description: 'The status of this evemt.'
+        type: string
+        example: Confirmed
+        maxLength: 255
+      summary:
+        description: 'The summary of this event.'
+        type: string
+        example: 'This is the best event ever.'
+        maxLength: 255
+      duration:
+        description: 'The duration of this event.'
+        type: \DateInterval
+        example: '2'
+      contact:
+        description: 'Url of this person'
+        type: string
+        example: 'https://con.example.org'
+        format: url
+      seq:
+        description: 'The version number of this event.'
+        type: int
+        example: '1'
+      priority:
+        description: 'The priority of this event ranging from 1 (high) to 9 (low).'
+        type: int
+        example: '1'
+      attendees:
+        description: 'The urls of the attendees of this event.'
+        type: array
+        example: 'https://con.example.com, https://con.example2.com'
+      attachments:
+        description: 'The urls of the attachments of this event.'
+        type: array
+        example: 'https://example.org, https://example2.org'
+      categories:
+        description: 'The urls of the catergories this event belongs to.'
+        type: array
+        example: 'https://con.example.com, https://con.example2.com'
+      comments:
+        description: 'The urls of the comments that belong to this event.'
+        type: array
+        example: 'https://con.example.com, https://con.example2.com'
+      completed:
+        description: 'The date and time a to-do is completed.'
+        type: string
+        example: '2020-05-25 13:43:54'
+        format: date-time
+      percentageDone:
+        description: 'The percentage of a to-do that has been comepleted.'
+        type: int
+        example: 40%
+      dateCreated:
+        description: 'The moment this resource was created'
+        type: \Datetime
+      dateModified:
+        description: 'The moment this resource last Modified'
+        type: \Datetime
+      resources: []
+      alarm: []
+      calendar: []
+      schedule: []
+    required:
+      - name
+      - startDate
+      - endDate
+  Todo-write:
+    properties:
+      name:
+        description: 'The name of this RequestType'
+        type: string
+        example: 'My RequestType'
+        maxLength: 255
+      description:
+        description: 'An short description of this Event'
+        type: string
+        example: 'This is the best Event ever'
+        maxLength: 2550
+      startDate:
+        description: 'The moment this event starts'
+        type: string
+        example: '2020-05-25 13:43:54'
+        format: date-time
+      endDate:
+        description: 'The moment this event ends'
+        type: string
+        example: '2020-05-25 13:43:54'
+        format: date-time
+      location:
+        description: 'The location of this event'
+        type: string
+        example: 'Dam 1, Amsterdam'
+        maxLength: 255
+      class:
+        description: 'The security class of this event.'
+        type: string
+        example: PUBLIC
+        maxLength: 255
+      geo:
+        description: 'The coordinates of this event.'
+        type: string
+        example: '81.15147,10.36374,42.26'
+        maxLength: 255
+      organiser:
+        description: 'The organiser of this event linked to with an url.'
+        type: string
+        example: conduction.nl
+        maxLength: 255
+      status:
+        description: 'The status of this evemt.'
+        type: string
+        example: Confirmed
+        maxLength: 255
+      summary:
+        description: 'The summary of this event.'
+        type: string
+        example: 'This is the best event ever.'
+        maxLength: 255
+      duration:
+        description: 'The duration of this event.'
+        type: \DateInterval
+        example: '2'
+      contact:
+        description: 'Url of this person'
+        type: string
+        example: 'https://con.example.org'
+        format: url
+      seq:
+        description: 'The version number of this event.'
+        type: int
+        example: '1'
+      priority:
+        description: 'The priority of this event ranging from 1 (high) to 9 (low).'
+        type: int
+        example: '1'
+      attendees:
+        description: 'The urls of the attendees of this event.'
+        type: array
+        example: 'https://con.example.com, https://con.example2.com'
+      attachments:
+        description: 'The urls of the attachments of this event.'
+        type: array
+        example: 'https://example.org, https://example2.org'
+      categories:
+        description: 'The urls of the catergories this event belongs to.'
+        type: array
+        example: 'https://con.example.com, https://con.example2.com'
+      comments:
+        description: 'The urls of the comments that belong to this event.'
+        type: array
+        example: 'https://con.example.com, https://con.example2.com'
+      completed:
+        description: 'The date and time a to-do is completed.'
+        type: string
+        example: '2020-04-22 11:05:56'
+        format: date-time
+      percentageDone:
+        description: 'The percentage of a to-do that has been comepleted.'
+        type: int
+        example: 40%
+      resources: []
+      alarm: []
+      calendar: []
+      schedule: []
+    required:
+      - name
+      - startDate
+      - endDate
+  AuditTrail-read:
+    properties:
+      id:
+        description: 'The UUID identifier of this object'
+        type: string
+        example: e2984465-190a-4562-829e-a8cca81aa35d
+        format: uuid
+      note:
+        description: 'A note conserning this log lin'
+        type: string
+        example: 'This log line looks suspicius'
+        maxLength: 2555
+      application:
+        description: 'The application that made the request'
+        type: string
+        format: url
+        maxLength: 255
+      request:
+        description: 'The id of the request within that application'
+        type: string
+        format: url
+        maxLength: 255
+      user:
+        description: 'The user on behalf of wich the request was made'
+        type: string
+        format: url
+        maxLength: 255
+      subject:
+        description: '???'
+        type: string
+        maxLength: 255
+      process:
+        description: 'The procces on behalf of wich the request was made'
+        type: string
+        maxLength: 255
+      dataElements:
+        description: 'The moment this request was created'
+        type: array
+      dataSubjects:
+        description: 'The moment this request was created'
+        type: array
+      resource:
+        description: 'The resource that was requested'
+        type: string
+        maxLength: 255
+      resourceType:
+        description: 'The type of the resource that was requested'
+        type: string
+        maxLength: 255
+      route:
+        description: 'The moment this request was created'
+        type: string
+        maxLength: 255
+      endpoint:
+        description: 'The endpoint that the request was made to'
+        type: string
+        maxLength: 255
+      method:
+        description: 'The method that was used'
+        type: string
+        maxLength: 255
+      accept:
+        description: 'The contentType that was reqousted'
+        type: string
+        maxLength: 255
+      contentType:
+        description: 'The contentType that was suplieds'
+        type: string
+        maxLength: 255
+      content:
+        description: 'The moment this request was created'
+        type: string
+        maxLength: 2555
+      ip:
+        description: 'The moment this request was created'
+        type: string
+        maxLength: 255
+      session:
+        description: 'The moment this request was created'
+        type: string
+        maxLength: 255
+      headers:
+        description: 'The headers supplied by client'
+        type: array
+      statusCode:
+        description: 'The status code returned to client'
+        type: int
+        example: '200'
+      notFound:
+        description: 'Whether or not the reqousted endpoint was found'
+        type: bool
+        example: 'false'
+      forbidden:
+        description: 'Whether or not the client was allowed to the reqousted endpoint'
+        type: bool
+        example: 'false'
+      ok:
+        description: 'Whether or not there where any problems'
+        type: bool
+        example: 'true'
+      dateCreated:
+        description: 'The moment this request was created'
+        type: string
+        format: date-time
+        example: '2020-05-25 13:43:54'
+      dateModified:
+        description: 'The moment this request last Modified'
+        type: string
+        format: date-time
+        example: '2020-05-25 13:43:54'
+    required: []
+  AuditTrail-write:
+    properties:
+      note:
+        description: 'A note conserning this log lin'
+        type: string
+        example: 'This log line looks suspicius'
+        maxLength: 2555
+    required: []
   ChangeLog-read:
     properties:
       id:
@@ -14301,18 +14716,18 @@ definitions:
         type: string
       session:
         description: 'The moment this request was created'
-        type: \sting
+        type: string
         maxLength: 255
       dateCreated:
         description: 'The moment this request was created'
         type: string
         format: date-time
-        example: '2020-04-22 11:05:56'
+        example: '2020-05-25 13:43:54'
       dateModified:
         description: 'The moment this request last Modified'
         type: string
         format: date-time
-        example: '2020-04-22 11:05:56'
+        example: '2020-05-25 13:43:54'
     required: []
   ChangeLog-write:
     properties:
@@ -14320,125 +14735,6 @@ definitions:
         description: 'A note conserning this log lin'
         type: string
         example: 'This log line is suspicius'
-        maxLength: 2555
-    required: []
-  AuditTrail-read:
-    properties:
-      id:
-        description: 'The UUID identifier of this object'
-        type: string
-        example: e2984465-190a-4562-829e-a8cca81aa35d
-        format: uuid
-      note:
-        description: 'A note conserning this log lin'
-        type: string
-        example: 'This log line looks suspicius'
-        maxLength: 2555
-      application:
-        description: 'The application that made the request'
-        type: string
-        format: url
-        maxLength: 255
-      request:
-        description: 'The id of the request within that application'
-        type: string
-        format: url
-        maxLength: 255
-      user:
-        description: 'The user on behalf of wich the request was made'
-        type: string
-        format: url
-        maxLength: 255
-      subject:
-        description: '???'
-        type: \sting
-        maxLength: 255
-      process:
-        description: 'The procces on behalf of wich the request was made'
-        type: \sting
-        maxLength: 255
-      dataElements:
-        description: 'The moment this request was created'
-        type: array
-      dataSubjects:
-        description: 'The moment this request was created'
-        type: array
-      resource:
-        description: 'The resource that was requested'
-        type: \sting
-        maxLength: 255
-      resourceType:
-        description: 'The type of the resource that was requested'
-        type: \sting
-        maxLength: 255
-      route:
-        description: 'The moment this request was created'
-        type: \sting
-        maxLength: 255
-      endpoint:
-        description: 'The endpoint that the request was made to'
-        type: \sting
-        maxLength: 255
-      method:
-        description: 'The method that was used'
-        type: \sting
-        maxLength: 255
-      accept:
-        description: 'The contentType that was reqousted'
-        type: \sting
-        maxLength: 255
-      contentType:
-        description: 'The contentType that was suplieds'
-        type: \sting
-        maxLength: 255
-      content:
-        description: 'The moment this request was created'
-        type: \sting
-        maxLength: 2555
-      ip:
-        description: 'The moment this request was created'
-        type: \sting
-        maxLength: 255
-      session:
-        description: 'The moment this request was created'
-        type: string
-        maxLength: 255
-      headers:
-        description: 'The headers supplied by client'
-        type: array
-      statusCode:
-        description: 'The status code returned to client'
-        type: int
-        example: '200'
-      notFound:
-        description: 'Whether or not the reqousted endpoint was found'
-        type: bool
-        example: 'false'
-      forbidden:
-        description: 'Whether or not the client was allowed to the reqousted endpoint'
-        type: bool
-        example: 'false'
-      ok:
-        description: 'Whether or not there where any problems'
-        type: bool
-        example: 'true'
-      dateCreated:
-        description: 'The moment this request was created'
-        type: string
-        format: date-time
-        example: '2020-04-22 11:05:56'
-      dateModified:
-        description: 'The moment this request last Modified'
-        type: string
-        format: date-time
-        example: '2020-04-22 11:05:56'
-    required: []
-  AuditTrail-write:
-    properties:
-      note:
-        description: 'A note conserning this log lin'
-        type: string
-        example: 'This log line looks suspicius'
         maxLength: 2555
     required: []
 tags:
@@ -14449,21 +14745,15 @@ tags:
       
       
   -
-    name: Event
-    description: |
-      An event happening at a certain time and location, such as a concert, lecture, meeting or festival.
-      
-      
-  -
-    name: Schedule
-    description: |
-      A schedule defines a repeating time period used to describe a regularly occurring Event. At a minimum a schedule will specify repeatFrequency which describes the interval between occurences of the event. Additional information can be provided to specify the schedule more precisely. This includes identifying the day(s) of the week or month when the recurring event will take place, in addition to its start and end time. Schedules may also have start and end dates to indicate when they are active, e.g. to define a limited calendar of events.
-      
-      
-  -
     name: Calendar
     description: |
       A Calendar is a collection of events tied to an unque person or resource.
+      
+      
+  -
+    name: Event
+    description: |
+      An event happening at a certain time and location, such as a concert, lecture, meeting or festival.
       
       
   -
@@ -14479,25 +14769,31 @@ tags:
       
       
   -
-    name: Todo
-    description: |
-      A to-do from an event.
-      
-      
-  -
     name: Resource
     description: |
       Describes resources that can be needed for an event.
       
       
   -
-    name: ChangeLog
+    name: Schedule
+    description: |
+      A schedule defines a repeating time period used to describe a regularly occurring Event. At a minimum a schedule will specify repeatFrequency which describes the interval between occurences of the event. Additional information can be provided to specify the schedule more precisely. This includes identifying the day(s) of the week or month when the recurring event will take place, in addition to its start and end time. Schedules may also have start and end dates to indicate when they are active, e.g. to define a limited calendar of events.
+      
+      
+  -
+    name: Todo
+    description: |
+      A to-do from an event.
+      
+      
+  -
+    name: AuditTrail
     description: |
       An resource representing a log line.
       
       This entity represents a product that can be ordered via the OrderRegistratieComponent.
   -
-    name: AuditTrail
+    name: ChangeLog
     description: |
       An resource representing a log line.
       
@@ -14508,15 +14804,15 @@ securityDefinitions:
     authorizationUrl: 'http://petstore.swagger.io/api/oauth/dialog'
     flow: implicit
     scopes:
-      read: 'read right to the AuditTrail resource'
-      write: 'write right to the AuditTrail resource'
+      read: 'read right to the ChangeLog resource'
+      write: 'write right to the ChangeLog resource'
   JWT-Token:
     type: apiKey
     in: header
     name: Authorization
     scopes:
-      read: 'read right to the AuditTrail resource'
-      write: 'write right to the AuditTrail resource'
+      read: 'read right to the ChangeLog resource'
+      write: 'write right to the ChangeLog resource'
 host: irc.zaakonline.nl
 servers:
   -
@@ -14534,7 +14830,7 @@ x-commonground:
       url: 'https://github.com/ConductionNL'
       email: info@conduction.nl
     -
-      name: 'Gemeente ''s-Hertogenbosch'
+      name: 'Gemeente "s-Hertogenbosch'
       url: 'https://github.com/gemeenteshertogenbosch'
       email: info@s-hertogenbosch.nl/
     -
