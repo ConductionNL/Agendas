@@ -2,21 +2,20 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\BooleanFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\DateFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
-use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\DateFilter;
-
 use DateInterval;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Serializer\Annotation\MaxDepth;
 use Symfony\Component\Validator\Constraints as Assert;
-use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Used to describe alarms for Events and Todos.
@@ -74,6 +73,7 @@ class Alarm
      * @var string The name of this RequestType
      *
      * @Gedmo\Versioned
+     *
      * @example My RequestType
      *
      * @Assert\NotNull
@@ -89,6 +89,7 @@ class Alarm
      * @var string An short description of this Event
      *
      * @Gedmo\Versioned
+     *
      * @example This is the best Event ever
      *
      * @Assert\Length(
@@ -103,6 +104,7 @@ class Alarm
      * @var string The summary of this event.
      *
      * @Gedmo\Versioned
+     *
      * @example This is the best event ever.
      *
      * @Assert\Length(
@@ -117,6 +119,7 @@ class Alarm
      * @var string The action of the alarm. **AUDIO**, **DISPLAY**, **EMAIL**, **PROCEDURE**
      *
      * @Gedmo\Versioned
+     *
      * @example AUDIO
      *
      * @Assert\Choice(
@@ -132,6 +135,7 @@ class Alarm
      * @var DateInterval The time the alarm should trigger relative to the start time of the related event.
      *
      * @Gedmo\Versioned
+     *
      * @example PT30M
      *
      * @Assert\NotNull
@@ -144,6 +148,7 @@ class Alarm
      * @var DateInterval The time until the alarm repeats.
      *
      * @Gedmo\Versioned
+     *
      * @example PT30M
      *
      * @Assert\NotNull
@@ -156,6 +161,7 @@ class Alarm
      * @var int The number of times the alarm repeats.
      *
      * @Gedmo\Versioned
+     *
      * @example 4
      *
      * @Assert\Type("int")
@@ -179,7 +185,7 @@ class Alarm
     private $todo;
 
     /**
-     * @var Datetime $dateCreated The moment this resource was created
+     * @var Datetime The moment this resource was created
      *
      * @Groups({"read"})
      * @Gedmo\Timestampable(on="create")
@@ -188,7 +194,7 @@ class Alarm
     private $dateCreated;
 
     /**
-     * @var Datetime $dateModified  The moment this resource last Modified
+     * @var Datetime The moment this resource last Modified
      *
      * @Groups({"read"})
      * @Gedmo\Timestampable(on="update")
@@ -311,25 +317,25 @@ class Alarm
 
     public function getDateCreated(): ?\DateTimeInterface
     {
-    	return $this->dateCreated;
+        return $this->dateCreated;
     }
 
     public function setDateCreated(\DateTimeInterface $dateCreated): self
     {
-    	$this->dateCreated= $dateCreated;
+        $this->dateCreated = $dateCreated;
 
-    	return $this;
+        return $this;
     }
 
     public function getDateModified(): ?\DateTimeInterface
     {
-    	return $this->dateModified;
+        return $this->dateModified;
     }
 
     public function setDateModified(\DateTimeInterface $dateModified): self
     {
-    	$this->dateModified = $dateModified;
+        $this->dateModified = $dateModified;
 
-    	return $this;
+        return $this;
     }
 }
