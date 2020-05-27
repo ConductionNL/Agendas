@@ -8,12 +8,10 @@ use App\Entity\Journal;
 use App\Entity\Todo;
 use App\Service\CalendarService;
 use Conduction\CommonGroundBundle\Service\NLXLogService;
-use Doctrine\DBAL\Schema\View;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Event\GetResponseForControllerResultEvent;
 use Symfony\Component\HttpKernel\Event\ViewEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Serializer\SerializerInterface;
@@ -73,27 +71,26 @@ class CalendarSubscriber implements EventSubscriberInterface
                 $renderType = 'json';
         }
 
-       if($result instanceof Event){
-           $this->calendarService->updateEvent($result, $method, $this->em);
-       }
-       if($result instanceof Todo){
-           $this->calendarService->updateTodo($result, $method, $this->em);
-       }
-       if($result instanceof Journal){
-           $this->calendarService->updateJournal($result, $method, $this->em);
-       }
-
+        if ($result instanceof Event) {
+            $this->calendarService->updateEvent($result, $method, $this->em);
+        }
+        if ($result instanceof Todo) {
+            $this->calendarService->updateTodo($result, $method, $this->em);
+        }
+        if ($result instanceof Journal) {
+            $this->calendarService->updateJournal($result, $method, $this->em);
+        }
 
         $response = $this->serializer->serialize(
             $result,
             $renderType,
             ['enable_max_depth'=> true]
         );
-       if($method == 'PUT'){
-           $status = Response::HTTP_OK;
-       }else{
-           $status = Response::HTTP_CREATED;
-       }
+        if ($method == 'PUT') {
+            $status = Response::HTTP_OK;
+        } else {
+            $status = Response::HTTP_CREATED;
+        }
 
         // Creating a response
         $response = new Response(
