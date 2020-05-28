@@ -41,7 +41,7 @@ class WestfrieslandFixtures extends Fixture
         $WognumKreekland->setId($id);
         $manager->persist($WognumKreekland);
         $manager->flush();
-        $WognumKreekland = $manager->getRepository('App:Organization')->findOneBy(['id'=> $id]);
+        $WognumKreekland = $manager->getRepository('App:Calendar')->findOneBy(['id'=> $id]);
 
         // Events voor Calendar Wognum (Kreekland)
         // TestEvent 1
@@ -56,7 +56,7 @@ class WestfrieslandFixtures extends Fixture
         $TestEvent1->setId($id);
         $manager->persist($TestEvent1);
         $manager->flush();
-        $TestEvent1 = $manager->getRepository('App:Organization')->findOneBy(['id'=> $id]);
+        $TestEvent1 = $manager->getRepository('App:Event')->findOneBy(['id'=> $id]);
 
         // TestEvent 2
         $id = Uuid::fromString('262ee715-3d82-4c15-a2a8-5da2627ccb92');
@@ -70,7 +70,7 @@ class WestfrieslandFixtures extends Fixture
         $TestEvent2->setId($id);
         $manager->persist($TestEvent2);
         $manager->flush();
-        $TestEvent2 = $manager->getRepository('App:Organization')->findOneBy(['id'=> $id]);
+        $TestEvent2 = $manager->getRepository('App:Event')->findOneBy(['id'=> $id]);
 
         // TestEvent 3
         $id = Uuid::fromString('29bcef2e-0f0b-487a-a7bb-09ee2114c630');
@@ -84,7 +84,7 @@ class WestfrieslandFixtures extends Fixture
         $TestEvent3->setId($id);
         $manager->persist($TestEvent3);
         $manager->flush();
-        $TestEvent3 = $manager->getRepository('App:Organization')->findOneBy(['id'=> $id]);
+        $TestEvent3 = $manager->getRepository('App:Event')->findOneBy(['id'=> $id]);
 
         // TestEvent 4
         $id = Uuid::fromString('29bcef2e-0f0b-487a-a7bb-09ee2114c630');
@@ -98,7 +98,7 @@ class WestfrieslandFixtures extends Fixture
         $TestEvent4->setId($id);
         $manager->persist($TestEvent4);
         $manager->flush();
-        $TestEvent4 = $manager->getRepository('App:Organization')->findOneBy(['id'=> $id]);
+        $TestEvent4 = $manager->getRepository('App:Event')->findOneBy(['id'=> $id]);
 
         $manager->flush();
     }
