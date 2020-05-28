@@ -412,6 +412,11 @@ class Event
     {
         return $this->id;
     }
+    public function setId(UuidInterface $id):self
+    {
+        $this->id = $id;
+        return $this;
+    }
 
     public function getName(): ?string
     {
