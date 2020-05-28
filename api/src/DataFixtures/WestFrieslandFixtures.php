@@ -32,7 +32,7 @@ class WestFrieslandFixtures extends Fixture
         //urls moeten nog naar de volgende notatie: $section1->setProperties(["{$this->commonGroundService->getComponent('vtc')['location']}/properties/8f9adb13-d5e0-40de-a08c-a2ce5a648b1e"]);
 
         // Calendar Wognum (Kreekland)
-        $id = Uuid::fromString('2885fad3-56de-47ee-a817-5d5bc007f87e');
+        $id = Uuid::fromString('ab69a95d-f46c-4b3f-9027-9f25fd9bbb5f');
         $WognumKreekland = new Calendar();
         $WognumKreekland->setName('Calendar Wognum (Kreekland)');
         $WognumKreekland->setDescription('Calendar voor begraafplaats Wognum (Kreekland) in gemeente Medemblik');
