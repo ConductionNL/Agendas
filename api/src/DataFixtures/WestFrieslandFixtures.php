@@ -87,7 +87,7 @@ class WestFrieslandFixtures extends Fixture
         $TestEvent3 = $manager->getRepository('App:Event')->findOneBy(['id'=> $id]);
 
         // TestEvent 4
-        $id = Uuid::fromString('29bcef2e-0f0b-487a-a7bb-09ee2114c630');
+        $id = Uuid::fromString('d105897c-6dee-41b3-9424-c5fe538c967f');
         $TestEvent4 = new Event();
         $TestEvent4->setName('20:00-22:00, 2020-06-12');
         $TestEvent4->setDescription('Event 20:00-22:00, 2020-06-12 voor calendar Wognum (Kreekland)');
