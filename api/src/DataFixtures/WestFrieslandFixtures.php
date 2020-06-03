@@ -32,29 +32,137 @@ class WestFrieslandFixtures extends Fixture
         //urls moeten nog naar de volgende notatie: $section1->setProperties(["{$this->commonGroundService->getComponent('vtc')['location']}/properties/8f9adb13-d5e0-40de-a08c-a2ce5a648b1e"]);
 
         //Gemeente SED:
-        // Calendar Wognum (Kreekland)
-        $id = Uuid::fromString('2885fad3-56de-47ee-a817-5d5bc007f87e');
-        $WognumKreekland = new Calendar();
-        $WognumKreekland->setName('Calendar Wognum (Kreekland)');
-        $WognumKreekland->setDescription('Calendar voor begraafplaats Wognum (Kreekland) in gemeente Medemblik');
-        $WognumKreekland->setTimeZone('CET');
-        $manager->persist($WognumKreekland);
-        $WognumKreekland->setId($id);
-        $manager->persist($WognumKreekland);
+        // Calendar Streekweg in Hoogkarspel
+        $id = Uuid::fromString('ab69a95d-f46c-4b3f-9027-9f25fd9bbb5f');
+        $StreekwegInHoogkarspel = new Calendar();
+        $StreekwegInHoogkarspel->setName('Calendar Streekweg in Hoogkarspel');
+        $StreekwegInHoogkarspel->setDescription('Calendar voor begraafplaats Streekweg in Hoogkarspel in gemeente SED');
+        $StreekwegInHoogkarspel->setTimeZone('CET');
+        $manager->persist($StreekwegInHoogkarspel);
+        $StreekwegInHoogkarspel->setId($id);
+        $manager->persist($StreekwegInHoogkarspel);
         $manager->flush();
-        $WognumKreekland = $manager->getRepository('App:Calendar')->findOneBy(['id'=> $id]);
+        $StreekwegInHoogkarspel = $manager->getRepository('App:Calendar')->findOneBy(['id'=> $id]);
 
-        // Calendar Wognum (Kreekland)
-        $id = Uuid::fromString('2885fad3-56de-47ee-a817-5d5bc007f87e');
-        $WognumKreekland = new Calendar();
-        $WognumKreekland->setName('Calendar Wognum (Kreekland)');
-        $WognumKreekland->setDescription('Calendar voor begraafplaats Wognum (Kreekland) in gemeente Medemblik');
-        $WognumKreekland->setTimeZone('CET');
-        $manager->persist($WognumKreekland);
-        $WognumKreekland->setId($id);
-        $manager->persist($WognumKreekland);
+        // Calendar Algemene Begraafplaats "Rustoord"
+        $id = Uuid::fromString('f4fa187b-c807-4e20-afda-dff758d68cae');
+        $AlgemeneBegraafplaatsRustoord = new Calendar();
+        $AlgemeneBegraafplaatsRustoord->setName('Calendar Algemene Begraafplaats "Rustoord"');
+        $AlgemeneBegraafplaatsRustoord->setDescription('Calendar voor begraafplaats Algemene Begraafplaats "Rustoord" in gemeente SED');
+        $AlgemeneBegraafplaatsRustoord->setTimeZone('CET');
+        $manager->persist($AlgemeneBegraafplaatsRustoord);
+        $AlgemeneBegraafplaatsRustoord->setId($id);
+        $manager->persist($AlgemeneBegraafplaatsRustoord);
         $manager->flush();
-        $WognumKreekland = $manager->getRepository('App:Calendar')->findOneBy(['id'=> $id]);
+        $AlgemeneBegraafplaatsRustoord = $manager->getRepository('App:Calendar')->findOneBy(['id'=> $id]);
+
+        // Calendar Westerkerkweg in Venhuizen
+        $id = Uuid::fromString('ed397496-1faf-48b1-890c-f9afb74645d4');
+        $WesterkerkwegInVenhuizen = new Calendar();
+        $WesterkerkwegInVenhuizen->setName('Calendar Westerkerkweg in Venhuizen');
+        $WesterkerkwegInVenhuizen->setDescription('Calendar voor begraafplaats Westerkerkweg in Venhuizen in gemeente SED');
+        $WesterkerkwegInVenhuizen->setTimeZone('CET');
+        $manager->persist($WesterkerkwegInVenhuizen);
+        $WesterkerkwegInVenhuizen->setId($id);
+        $manager->persist($WesterkerkwegInVenhuizen);
+        $manager->flush();
+        $WesterkerkwegInVenhuizen = $manager->getRepository('App:Calendar')->findOneBy(['id'=> $id]);
+
+        // Calendar Schoollaan in Hem
+        $id = Uuid::fromString('4eb1880d-96cb-4f50-8499-e55c61816974');
+        $SchoollaanInHem = new Calendar();
+        $SchoollaanInHem->setName('Calendar Schoollaan in Hem');
+        $SchoollaanInHem->setDescription('Calendar voor begraafplaats Schoollaan in Hem in gemeente SED');
+        $SchoollaanInHem->setTimeZone('CET');
+        $manager->persist($SchoollaanInHem);
+        $SchoollaanInHem->setId($id);
+        $manager->persist($SchoollaanInHem);
+        $manager->flush();
+        $SchoollaanInHem = $manager->getRepository('App:Calendar')->findOneBy(['id'=> $id]);
+
+        // Calendar Molenwei in Hoogkarspel
+        $id = Uuid::fromString('da41a5ff-43fe-4256-83c1-e064e7b3c4a6');
+        $MolenweiInHoogkarspel = new Calendar();
+        $MolenweiInHoogkarspel->setName('Calendar Molenwei in Hoogkarspel');
+        $MolenweiInHoogkarspel->setDescription('Calendar voor begraafplaats Molenwei in Hoogkarspel in gemeente SED');
+        $MolenweiInHoogkarspel->setTimeZone('CET');
+        $manager->persist($MolenweiInHoogkarspel);
+        $MolenweiInHoogkarspel->setId($id);
+        $manager->persist($MolenweiInHoogkarspel);
+        $manager->flush();
+        $MolenweiInHoogkarspel = $manager->getRepository('App:Calendar')->findOneBy(['id'=> $id]);
+
+        // Calendar Raadhuisplein in Hoogkarspel
+        $id = Uuid::fromString('e16fd87d-3484-45fe-ad7c-d894ce454e35');
+        $RaadhuispleinInHoogkarspel = new Calendar();
+        $RaadhuispleinInHoogkarspel->setName('Calendar Raadhuisplein in Hoogkarspel');
+        $RaadhuispleinInHoogkarspel->setDescription('Calendar voor begraafplaats Raadhuisplein in Hoogkarspel in gemeente SED');
+        $RaadhuispleinInHoogkarspel->setTimeZone('CET');
+        $manager->persist($RaadhuispleinInHoogkarspel);
+        $RaadhuispleinInHoogkarspel->setId($id);
+        $manager->persist($RaadhuispleinInHoogkarspel);
+        $manager->flush();
+        $RaadhuispleinInHoogkarspel = $manager->getRepository('App:Calendar')->findOneBy(['id'=> $id]);
+
+        // Calendar Begraafplaats in Oosterleek
+        $id = Uuid::fromString('3712f885-1d43-4e19-8b40-e39e885d66ac');
+        $BegraafplaatsInOosterleek = new Calendar();
+        $BegraafplaatsInOosterleek->setName('Calendar Begraafplaats in Oosterleek');
+        $BegraafplaatsInOosterleek->setDescription('Calendar voor begraafplaats Begraafplaats in Oosterleek in gemeente SED');
+        $BegraafplaatsInOosterleek->setTimeZone('CET');
+        $manager->persist($BegraafplaatsInOosterleek);
+        $BegraafplaatsInOosterleek->setId($id);
+        $manager->persist($BegraafplaatsInOosterleek);
+        $manager->flush();
+        $BegraafplaatsInOosterleek = $manager->getRepository('App:Calendar')->findOneBy(['id'=> $id]);
+
+        // Calendar Dorpsweg in Schellinkhout
+        $id = Uuid::fromString('417cb133-161d-4799-93b5-bc7ac3a4f51b');
+        $DorpswegInSchellinkhout = new Calendar();
+        $DorpswegInSchellinkhout->setName('Calendar Dorpsweg in Schellinkhout');
+        $DorpswegInSchellinkhout->setDescription('Calendar voor begraafplaats Dorpsweg in Schellinkhout in gemeente SED');
+        $DorpswegInSchellinkhout->setTimeZone('CET');
+        $manager->persist($DorpswegInSchellinkhout);
+        $DorpswegInSchellinkhout->setId($id);
+        $manager->persist($DorpswegInSchellinkhout);
+        $manager->flush();
+        $DorpswegInSchellinkhout = $manager->getRepository('App:Calendar')->findOneBy(['id'=> $id]);
+
+        // Calendar Kerkbuurt in Wijdenes
+        $id = Uuid::fromString('d0f3ed79-acd9-4eaa-8b84-88b6fc150a47');
+        $KerkbuurtInWijdenes = new Calendar();
+        $KerkbuurtInWijdenes->setName('Calendar Kerkbuurt in Wijdenes');
+        $KerkbuurtInWijdenes->setDescription('Calendar voor begraafplaats Kerkbuurt in Wijdenes in gemeente SED');
+        $KerkbuurtInWijdenes->setTimeZone('CET');
+        $manager->persist($KerkbuurtInWijdenes);
+        $KerkbuurtInWijdenes->setId($id);
+        $manager->persist($KerkbuurtInWijdenes);
+        $manager->flush();
+        $KerkbuurtInWijdenes = $manager->getRepository('App:Calendar')->findOneBy(['id'=> $id]);
+
+        // Calendar Gemeentelijke begraafplaats
+        $id = Uuid::fromString('7ae61cae-fa4f-4efd-aa85-8767602c7680');
+        $GemeentelijkeBegraafplaats = new Calendar();
+        $GemeentelijkeBegraafplaats->setName('Calendar Gemeentelijke begraafplaats');
+        $GemeentelijkeBegraafplaats->setDescription('Calendar voor begraafplaats Gemeentelijke begraafplaats in gemeente SED');
+        $GemeentelijkeBegraafplaats->setTimeZone('CET');
+        $manager->persist($GemeentelijkeBegraafplaats);
+        $GemeentelijkeBegraafplaats->setId($id);
+        $manager->persist($GemeentelijkeBegraafplaats);
+        $manager->flush();
+        $GemeentelijkeBegraafplaats = $manager->getRepository('App:Calendar')->findOneBy(['id'=> $id]);
+
+        // Calendar Gemeentelijke begraafplaats
+        $id = Uuid::fromString('7ae61cae-fa4f-4efd-aa85-8767602c7680');
+        $GemeentelijkeBegraafplaats = new Calendar();
+        $GemeentelijkeBegraafplaats->setName('Calendar Gemeentelijke begraafplaats');
+        $GemeentelijkeBegraafplaats->setDescription('Calendar voor begraafplaats Gemeentelijke begraafplaats in gemeente SED');
+        $GemeentelijkeBegraafplaats->setTimeZone('CET');
+        $manager->persist($GemeentelijkeBegraafplaats);
+        $GemeentelijkeBegraafplaats->setId($id);
+        $manager->persist($GemeentelijkeBegraafplaats);
+        $manager->flush();
+        $GemeentelijkeBegraafplaats = $manager->getRepository('App:Calendar')->findOneBy(['id'=> $id]);
 
 
         //Gemeente Hoorn:
@@ -374,56 +482,151 @@ class WestFrieslandFixtures extends Fixture
 
 
         //Gemeente Koggenland:
-        // Calendar Wognum (Kreekland)
-        $id = Uuid::fromString('2885fad3-56de-47ee-a817-5d5bc007f87e');
-        $WognumKreekland = new Calendar();
-        $WognumKreekland->setName('Calendar Wognum (Kreekland)');
-        $WognumKreekland->setDescription('Calendar voor begraafplaats Wognum (Kreekland) in gemeente Medemblik');
-        $WognumKreekland->setTimeZone('CET');
-        $manager->persist($WognumKreekland);
-        $WognumKreekland->setId($id);
-        $manager->persist($WognumKreekland);
+        // Calendar Avenhorn
+        $id = Uuid::fromString('837f45f7-6419-4175-888e-f7b4c56cfede');
+        $Avenhorn = new Calendar();
+        $Avenhorn->setName('Calendar Avenhorn');
+        $Avenhorn->setDescription('Calendar voor begraafplaats Avenhorn in gemeente Koggenland');
+        $Avenhorn->setTimeZone('CET');
+        $manager->persist($Avenhorn);
+        $Avenhorn->setId($id);
+        $manager->persist($Avenhorn);
         $manager->flush();
-        $WognumKreekland = $manager->getRepository('App:Calendar')->findOneBy(['id'=> $id]);
+        $Avenhorn = $manager->getRepository('App:Calendar')->findOneBy(['id'=> $id]);
 
-        // Calendar Wognum (Kreekland)
-        $id = Uuid::fromString('2885fad3-56de-47ee-a817-5d5bc007f87e');
-        $WognumKreekland = new Calendar();
-        $WognumKreekland->setName('Calendar Wognum (Kreekland)');
-        $WognumKreekland->setDescription('Calendar voor begraafplaats Wognum (Kreekland) in gemeente Medemblik');
-        $WognumKreekland->setTimeZone('CET');
-        $manager->persist($WognumKreekland);
-        $WognumKreekland->setId($id);
-        $manager->persist($WognumKreekland);
+        // Calendar Berkhout
+        $id = Uuid::fromString('7efbbbce-7bd0-4b02-896a-23957c841f32');
+        $Berkhout = new Calendar();
+        $Berkhout->setName('Calendar Berkhout');
+        $Berkhout->setDescription('Calendar voor begraafplaats Berkhout in gemeente Koggenland');
+        $Berkhout->setTimeZone('CET');
+        $manager->persist($Berkhout);
+        $Berkhout->setId($id);
+        $manager->persist($Berkhout);
         $manager->flush();
-        $WognumKreekland = $manager->getRepository('App:Calendar')->findOneBy(['id'=> $id]);
+        $Berkhout = $manager->getRepository('App:Calendar')->findOneBy(['id'=> $id]);
+
+        // Calendar Oudendijk
+        $id = Uuid::fromString('87d6ca22-1982-4b7e-bf9a-6c2b8542e6ee');
+        $Oudendijk = new Calendar();
+        $Oudendijk->setName('Calendar Oudendijk');
+        $Oudendijk->setDescription('Calendar voor begraafplaats Oudendijk in gemeente Koggenland');
+        $Oudendijk->setTimeZone('CET');
+        $manager->persist($Oudendijk);
+        $Oudendijk->setId($id);
+        $manager->persist($Oudendijk);
+        $manager->flush();
+        $Oudendijk = $manager->getRepository('App:Calendar')->findOneBy(['id'=> $id]);
+
+        // Calendar Grosthuizen
+        $id = Uuid::fromString('362d9c05-7b31-47e8-ae98-e5e1e8a45d1f');
+        $Grosthuizen = new Calendar();
+        $Grosthuizen->setName('Calendar Grosthuizen');
+        $Grosthuizen->setDescription('Calendar voor begraafplaats Grosthuizen in gemeente Koggenland');
+        $Grosthuizen->setTimeZone('CET');
+        $manager->persist($Grosthuizen);
+        $Grosthuizen->setId($id);
+        $manager->persist($Grosthuizen);
+        $manager->flush();
+        $Grosthuizen = $manager->getRepository('App:Calendar')->findOneBy(['id'=> $id]);
+
+        // Calendar Ursem
+        $id = Uuid::fromString('abb520b0-73da-4604-b72c-b26cecda556c');
+        $Ursem = new Calendar();
+        $Ursem->setName('Calendar Ursem');
+        $Ursem->setDescription('Calendar voor begraafplaats Ursem in gemeente Koggenland');
+        $Ursem->setTimeZone('CET');
+        $manager->persist($Ursem);
+        $Ursem->setId($id);
+        $manager->persist($Ursem);
+        $manager->flush();
+        $Ursem = $manager->getRepository('App:Calendar')->findOneBy(['id'=> $id]);
+
+        // Calendar Hensbroek
+        $id = Uuid::fromString('3f40dc8f-2b63-429d-b677-a006e2863f66');
+        $Hensbroek = new Calendar();
+        $Hensbroek->setName('Calendar Hensbroek');
+        $Hensbroek->setDescription('Calendar voor begraafplaats Hensbroek in gemeente Koggenland');
+        $Hensbroek->setTimeZone('CET');
+        $manager->persist($Hensbroek);
+        $Hensbroek->setId($id);
+        $manager->persist($Hensbroek);
+        $manager->flush();
+        $Hensbroek = $manager->getRepository('App:Calendar')->findOneBy(['id'=> $id]);
+
+        // Calendar Obdam
+        $id = Uuid::fromString('c09c8b68-7721-4276-a92b-15f45c25a8d8');
+        $Obdam = new Calendar();
+        $Obdam->setName('Calendar Obdam');
+        $Obdam->setDescription('Calendar voor begraafplaats Obdam in gemeente Koggenland');
+        $Obdam->setTimeZone('CET');
+        $manager->persist($Obdam);
+        $Obdam->setId($id);
+        $manager->persist($Obdam);
+        $manager->flush();
+        $Obdam = $manager->getRepository('App:Calendar')->findOneBy(['id'=> $id]);
 
 
         //Gemeente Opmeer:
-        // Calendar Wognum (Kreekland)
-        $id = Uuid::fromString('2885fad3-56de-47ee-a817-5d5bc007f87e');
-        $WognumKreekland = new Calendar();
-        $WognumKreekland->setName('Calendar Wognum (Kreekland)');
-        $WognumKreekland->setDescription('Calendar voor begraafplaats Wognum (Kreekland) in gemeente Medemblik');
-        $WognumKreekland->setTimeZone('CET');
-        $manager->persist($WognumKreekland);
-        $WognumKreekland->setId($id);
-        $manager->persist($WognumKreekland);
+        // Calendar Aartswoud
+        $id = Uuid::fromString('a03f8321-a02f-497e-993c-00677aee2566');
+        $Aartswoud = new Calendar();
+        $Aartswoud->setName('Calendar Aartswoud');
+        $Aartswoud->setDescription('Calendar voor begraafplaats Aartswoud in gemeente Opmeer');
+        $Aartswoud->setTimeZone('CET');
+        $manager->persist($Aartswoud);
+        $Aartswoud->setId($id);
+        $manager->persist($Aartswoud);
         $manager->flush();
-        $WognumKreekland = $manager->getRepository('App:Calendar')->findOneBy(['id'=> $id]);
+        $Aartswoud = $manager->getRepository('App:Calendar')->findOneBy(['id'=> $id]);
 
-        // Calendar Wognum (Kreekland)
-        $id = Uuid::fromString('2885fad3-56de-47ee-a817-5d5bc007f87e');
-        $WognumKreekland = new Calendar();
-        $WognumKreekland->setName('Calendar Wognum (Kreekland)');
-        $WognumKreekland->setDescription('Calendar voor begraafplaats Wognum (Kreekland) in gemeente Medemblik');
-        $WognumKreekland->setTimeZone('CET');
-        $manager->persist($WognumKreekland);
-        $WognumKreekland->setId($id);
-        $manager->persist($WognumKreekland);
+        // Calendar Spanbroek
+        $id = Uuid::fromString('9066d1c3-01fc-41b6-b7da-799be71390cd');
+        $Spanbroek = new Calendar();
+        $Spanbroek->setName('Calendar Spanbroek');
+        $Spanbroek->setDescription('Calendar voor begraafplaats Spanbroek in gemeente Opmeer');
+        $Spanbroek->setTimeZone('CET');
+        $manager->persist($Spanbroek);
+        $Spanbroek->setId($id);
+        $manager->persist($Spanbroek);
         $manager->flush();
-        $WognumKreekland = $manager->getRepository('App:Calendar')->findOneBy(['id'=> $id]);
+        $Spanbroek = $manager->getRepository('App:Calendar')->findOneBy(['id'=> $id]);
 
+        // Calendar Opmeer
+        $id = Uuid::fromString('e56fdbad-b97a-46fc-85f3-232ff8721055');
+        $Opmeer = new Calendar();
+        $Opmeer->setName('Calendar Opmeer');
+        $Opmeer->setDescription('Calendar voor begraafplaats Opmeer in gemeente Opmeer');
+        $Opmeer->setTimeZone('CET');
+        $manager->persist($Opmeer);
+        $Opmeer->setId($id);
+        $manager->persist($Opmeer);
+        $manager->flush();
+        $Opmeer = $manager->getRepository('App:Calendar')->findOneBy(['id'=> $id]);
+
+        // Calendar Hoogwoud
+        $id = Uuid::fromString('53c8905a-b77f-449b-8bb1-9b77f4c05ace');
+        $Hoogwoud = new Calendar();
+        $Hoogwoud->setName('Calendar Hoogwoud');
+        $Hoogwoud->setDescription('Calendar voor begraafplaats Hoogwoud in gemeente Opmeer');
+        $Hoogwoud->setTimeZone('CET');
+        $manager->persist($Hoogwoud);
+        $Hoogwoud->setId($id);
+        $manager->persist($Hoogwoud);
+        $manager->flush();
+        $Hoogwoud = $manager->getRepository('App:Calendar')->findOneBy(['id'=> $id]);
+
+        // Calendar De Weere
+        $id = Uuid::fromString('2e9e5014-73d7-483b-b21f-1c3f51250ce4');
+        $DeWeere = new Calendar();
+        $DeWeere->setName('Calendar De Weere');
+        $DeWeere->setDescription('Calendar voor begraafplaats De Weere in gemeente Opmeer');
+        $DeWeere->setTimeZone('CET');
+        $manager->persist($DeWeere);
+        $DeWeere->setId($id);
+        $manager->persist($DeWeere);
+        $manager->flush();
+        $DeWeere = $manager->getRepository('App:Calendar')->findOneBy(['id'=> $id]);
 
 
         // Events voor Calendar Wognum (Kreekland)
