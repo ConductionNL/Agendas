@@ -2,10 +2,19 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\BooleanFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\DateFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use DateInterval;
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Serializer\Annotation\MaxDepth;
@@ -16,9 +25,36 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ApiResource(
  *     normalizationContext={"groups"={"read"}, "enable_max_depth"=true},
- *     denormalizationContext={"groups"={"write"}, "enable_max_depth"=true}
+ *     denormalizationContext={"groups"={"write"}, "enable_max_depth"=true},
+ *     itemOperations={
+ *          "get",
+ *          "put",
+ *          "delete",
+ *          "get_change_logs"={
+ *              "path"="/todoes/{id}/change_log",
+ *              "method"="get",
+ *              "swagger_context" = {
+ *                  "summary"="Changelogs",
+ *                  "description"="Gets al the change logs for this resource"
+ *              }
+ *          },
+ *          "get_audit_trail"={
+ *              "path"="/todoes/{id}/audit_trail",
+ *              "method"="get",
+ *              "swagger_context" = {
+ *                  "summary"="Audittrail",
+ *                  "description"="Gets the audit trail for this resource"
+ *              }
+ *          }
+ *     },
  *     )
  * @ORM\Entity(repositoryClass="App\Repository\TodoRepository")
+ * @Gedmo\Loggable(logEntryClass="Conduction\CommonGroundBundle\Entity\ChangeLog")
+ *
+ * @ApiFilter(BooleanFilter::class)
+ * @ApiFilter(OrderFilter::class)
+ * @ApiFilter(DateFilter::class, strategy=DateFilter::EXCLUDE_NULL)
+ * @ApiFilter(SearchFilter::class, properties={"calendar.id":"exact"})
  */
 class Todo
 {
@@ -39,6 +75,8 @@ class Todo
     /**
      * @var string The name of this RequestType
      *
+     * @Gedmo\Versioned
+     *
      * @example My RequestType
      *
      * @Assert\NotNull
@@ -53,6 +91,8 @@ class Todo
     /**
      * @var string An short description of this Event
      *
+     * @Gedmo\Versioned
+     *
      * @example This is the best Event ever
      *
      * @Assert\Length(
@@ -66,6 +106,8 @@ class Todo
     /**
      * @var DateTime The moment this event starts
      *
+     * @Gedmo\Versioned
+     *
      * @example 30-11-2019 15:00:00
      *
      * @Assert\DateTime
@@ -77,6 +119,8 @@ class Todo
 
     /**
      * @var Datetime The moment this event ends
+     *
+     * @Gedmo\Versioned
      *
      * @example 3-11-2019 20:00:00
      *
@@ -90,47 +134,37 @@ class Todo
     /**
      * @var string The location of this event
      *
+     * @Gedmo\Versioned
+     *
      * @example Dam 1, Amsterdam
      *
      * @Assert\Length(
      *      max = 255
      * )
-     * @Assert\NotBlank
      * @Groups({"read","write"})
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $location;
 
     /**
      * @var string The security class of this event.
      *
+     * @Gedmo\Versioned
+     *
      * @example PUBLIC
      *
      * @Assert\Length(
      *      max = 255
      * )
-     * @Assert\NotBlank
      * @Groups({"read","write"})
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $class;
 
     /**
-     * @todo Automated ?
-     *
-     * @var string The creation in datetime of this event.
-     *
-     * @example 16-12-2019 15:08:26
-     *
-     * @Assert\DateTime
-     * @Assert\NotBlank
-     * @Groups({"read","write"})
-     * @ORM\Column(type="datetime")
-     */
-    private $created;
-
-    /**
      * @var string The coordinates of this event.
+     *
+     * @Gedmo\Versioned
      *
      * @example 81.15147,10.36374,42.26
      *
@@ -138,200 +172,178 @@ class Todo
      *      max = 255
      * )
      * @Groups({"read","write"})
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $geo;
 
     /**
-     * @todo Automated ?
-     *
-     * @var datetime The last modification of this event in datetime.
-     *
-     * @example 16-12-2019 15:14:34
-     *
-     * @Assert\DateTime
-     * @Assert\NotBlank
-     * @Groups({"read","write"})
-     * @ORM\Column(type="datetime")
-     */
-    private $lastMod;
-
-    /**
      * @var string The organiser of this event linked to with an url.
+     *
+     * @Gedmo\Versioned
      *
      * @example conduction.nl
      *
      * @Assert\Length(
      *      max = 255
      * )
-     * @Assert\NotBlank
      * @Groups({"read","write"})
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $organiser;
 
     /**
      * @var string The status of this evemt.
      *
+     * @Gedmo\Versioned
+     *
      * @example Confirmed
      *
      * @Assert\Length(
      *      max = 255
      * )
-     * @Assert\NotBlank
      * @Groups({"read","write"})
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $status;
 
     /**
      * @var string The summary of this event.
      *
+     * @Gedmo\Versioned
+     *
      * @example This is the best event ever.
      *
      * @Assert\Length(
      *      max = 255
      * )
-     * @Assert\NotBlank
      * @Groups({"read","write"})
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $summary;
 
     /**
-     * @todo Automated ?
+     * @var DateInterval The duration of this event.
      *
-     * @var string The url of this event.
-     *
-     * @example conduction.nl
-     *
-     * @Assert\Length(
-     *      max = 255
-     * )
-     * @Assert\NotBlank
-     * @Groups({"read","write"})
-     * @ORM\Column(type="string", length=255)
-     */
-    private $url;
-
-    /**
-     * @todo Automated ?
-     *
-     * @var string The duration of this event.
+     * @Gedmo\Versioned
      *
      * @example 2
      *
-     * @Assert\Type("int")
-     * @Assert\NotBlank
      * @Groups({"read","write"})
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="dateinterval", nullable=true)
      */
     private $duration;
 
     /**
      * @var string Url of this person
      *
+     * @Gedmo\Versioned
+     *
      * @example https://con.example.org
      *
-     * @Assert\NotNull
      * @Assert\Url
      * @Groups({"read","write"})
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $contact;
 
     /**
-     * @todo Automated ?
-     *
      * @var int The version number of this event.
      *
-     * @example 1.0
-     *
-     * @Assert\Type("int")
-     * @Assert\NotBlank
-     * @Groups({"read","write"})
-     * @ORM\Column(type="integer")
-     */
-    private $seq;
-    /**
-     * @var int The priority of this event ranging from 1 (high) to 9 (low).
+     * @Gedmo\Versioned
      *
      * @example 1
      *
      * @Assert\Type("int")
-     * @Assert\NotBlank
      * @Groups({"read","write"})
      * @ORM\Column(type="integer")
      */
-    private $priority;
+    private $seq = 1;
+    /**
+     * @var int The priority of this event ranging from 1 (high) to 9 (low).
+     *
+     * @Gedmo\Versioned
+     *
+     * @example 1
+     *
+     * @Assert\Type("int")
+     * @Groups({"read","write"})
+     * @ORM\Column(type="integer")
+     */
+    private $priority = 9;
 
     /**
      * @var array The urls of the attendees of this event.
      *
+     * @Gedmo\Versioned
+     *
      * @example https://con.example.com, https://con.example2.com
      *
-     * @Assert\Url
      * @Groups({"read","write"})
-     * @ORM\Column(type="array")
+     * @ORM\Column(type="array", nullable=true)
      */
     private $attendees = [];
 
     /**
      * @var array The urls of the attachments of this event.
      *
+     * @Gedmo\Versioned
+     *
      * @example https://example.org, https://example2.org
      *
-     * @Assert\Url
      * @Groups({"read","write"})
-     * @ORM\Column(type="array")
+     * @ORM\Column(type="array", nullable=true)
      */
     private $attachments = [];
 
     /**
      * @var array The urls of the catergories this event belongs to.
      *
+     * @Gedmo\Versioned
+     *
      * @example https://con.example.com, https://con.example2.com
      *
-     * @Assert\Url
      * @Groups({"read","write"})
-     * @ORM\Column(type="array")
+     * @ORM\Column(type="array", nullable=true)
      */
     private $categories = [];
 
     /**
      * @var array The urls of the comments that belong to this event.
      *
+     * @Gedmo\Versioned
+     *
      * @example https://con.example.com, https://con.example2.com
      *
-     * @Assert\Url
      * @Groups({"read","write"})
-     * @ORM\Column(type="array")
+     * @ORM\Column(type="array", nullable=true)
      */
     private $comments = [];
 
     /**
-     * @var datetime The date and time a to-do is completed.
+     * @var DateTime The date and time a to-do is completed.
+     *
+     * @Gedmo\Versioned
      *
      * @example 10-12-2019 15:00:00
      *
-     * @Assert\NotNull
      * @Assert\DateTime
      * @Groups({"read","write"})
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private $completed;
 
     /**
      * @var int The percentage of a to-do that has been comepleted.
      *
+     * @Gedmo\Versioned
+     *
      * @example 40%
      *
      * @Assert\Type("int")
-     * @Assert\NotNull
      * @Groups({"read","write"})
      * @ORM\Column(type="integer")
      */
-    private $percentageDone;
+    private $percentageDone = 0;
 
     /**
      * @Groups({"read","write"})
@@ -362,12 +374,30 @@ class Todo
      */
     private $schedule;
 
+    /**
+     * @var Datetime The moment this resource was created
+     *
+     * @Groups({"read"})
+     * @Gedmo\Timestampable(on="create")
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $dateCreated;
+
+    /**
+     * @var Datetime The moment this resource last Modified
+     *
+     * @Groups({"read"})
+     * @Gedmo\Timestampable(on="update")
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $dateModified;
+
     public function __construct()
     {
         $this->resources = new ArrayCollection();
     }
 
-    public function getId(): ?string
+    public function getId(): ?Uuid
     {
         return $this->id;
     }
@@ -528,12 +558,12 @@ class Todo
         return $this;
     }
 
-    public function getDuration(): ?int
+    public function getDuration(): ?DateInterval
     {
         return $this->duration;
     }
 
-    public function setDuration(int $duration): self
+    public function setDuration(DateInterval $duration): self
     {
         $this->duration = $duration;
 
@@ -714,6 +744,30 @@ class Todo
     public function setSchedule(?Schedule $schedule): self
     {
         $this->schedule = $schedule;
+
+        return $this;
+    }
+
+    public function getDateCreated(): ?\DateTimeInterface
+    {
+        return $this->dateCreated;
+    }
+
+    public function setDateCreated(\DateTimeInterface $dateCreated): self
+    {
+        $this->dateCreated = $dateCreated;
+
+        return $this;
+    }
+
+    public function getDateModified(): ?\DateTimeInterface
+    {
+        return $this->dateModified;
+    }
+
+    public function setDateModified(\DateTimeInterface $dateModified): self
+    {
+        $this->dateModified = $dateModified;
 
         return $this;
     }

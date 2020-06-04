@@ -2,8 +2,17 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\BooleanFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\DateFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use DateInterval;
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Serializer\Annotation\MaxDepth;
@@ -14,9 +23,36 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ApiResource(
  *     normalizationContext={"groups"={"read"}, "enable_max_depth"=true},
- *     denormalizationContext={"groups"={"write"}, "enable_max_depth"=true}
+ *     denormalizationContext={"groups"={"write"}, "enable_max_depth"=true},
+ *     itemOperations={
+ *          "get",
+ *          "put",
+ *          "delete",
+ *          "get_change_logs"={
+ *              "path"="/journals/{id}/change_log",
+ *              "method"="get",
+ *              "swagger_context" = {
+ *                  "summary"="Changelogs",
+ *                  "description"="Gets al the change logs for this resource"
+ *              }
+ *          },
+ *          "get_audit_trail"={
+ *              "path"="/journals/{id}/audit_trail",
+ *              "method"="get",
+ *              "swagger_context" = {
+ *                  "summary"="Audittrail",
+ *                  "description"="Gets the audit trail for this resource"
+ *              }
+ *          }
+ *     },
  *     )
  * @ORM\Entity(repositoryClass="App\Repository\JournalRepository")
+ * @Gedmo\Loggable(logEntryClass="Conduction\CommonGroundBundle\Entity\ChangeLog")
+ *
+ * @ApiFilter(BooleanFilter::class)
+ * @ApiFilter(OrderFilter::class)
+ * @ApiFilter(DateFilter::class, strategy=DateFilter::EXCLUDE_NULL)
+ * @ApiFilter(SearchFilter::class, properties={"calendar.id":"exact"})
  */
 class Journal
 {
@@ -37,6 +73,8 @@ class Journal
     /**
      * @var string The name of this RequestType
      *
+     * @Gedmo\Versioned
+     *
      * @example My RequestType
      *
      * @Assert\NotNull
@@ -51,6 +89,8 @@ class Journal
     /**
      * @var string An short description of this Event
      *
+     * @Gedmo\Versioned
+     *
      * @example This is the best Event ever
      *
      * @Assert\Length(
@@ -64,6 +104,8 @@ class Journal
     /**
      * @var DateTime The moment this event starts
      *
+     * @Gedmo\Versioned
+     *
      * @example 30-11-2019 15:00:00
      *
      * @Assert\DateTime
@@ -75,6 +117,8 @@ class Journal
 
     /**
      * @var Datetime The moment this event ends
+     *
+     * @Gedmo\Versioned
      *
      * @example 3-11-2019 20:00:00
      *
@@ -88,195 +132,158 @@ class Journal
     /**
      * @var string The security class of this event.
      *
+     * @Gedmo\Versioned
+     *
      * @example PUBLIC
      *
      * @Assert\Length(
      *      max = 255
      * )
-     * @Assert\NotBlank
      * @Groups({"read","write"})
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $class;
 
     /**
-     * @todo Automated ?
-     *
-     * @var string The creation in datetime of this event.
-     *
-     * @example 16-12-2019 15:08:26
-     *
-     * @Assert\DateTime
-     * @Assert\NotBlank
-     * @Groups({"read","write"})
-     * @ORM\Column(type="datetime")
-     */
-    private $created;
-
-    /**
-     * @todo Automated ?
-     *
-     * @var datetime The last modification of this event in datetime.
-     *
-     * @example 16-12-2019 15:14:34
-     *
-     * @Assert\DateTime
-     * @Assert\NotBlank
-     * @Groups({"read","write"})
-     * @ORM\Column(type="datetime")
-     */
-    private $lastMod;
-
-    /**
      * @var string The organiser of this event linked to with an url.
+     *
+     * @Gedmo\Versioned
      *
      * @example conduction.nl
      *
      * @Assert\Length(
      *      max = 255
      * )
-     * @Assert\NotBlank
      * @Groups({"read","write"})
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $organiser;
 
     /**
-     * @var string The status of this evemt.
+     * @var string The status of this event.
+     *
+     * @Gedmo\Versioned
      *
      * @example Confirmed
      *
      * @Assert\Length(
      *      max = 255
      * )
-     * @Assert\NotBlank
      * @Groups({"read","write"})
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $status;
 
     /**
      * @var string The summary of this event.
      *
+     * @Gedmo\Versioned
+     *
      * @example This is the best event ever.
      *
      * @Assert\Length(
      *      max = 255
      * )
-     * @Assert\NotBlank
      * @Groups({"read","write"})
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $summary;
 
     /**
      * @var string The determination if the event should block the duration of the event for participants.
      *
+     * @Gedmo\Versioned
+     *
      * @example Transparent
      *
      * @Assert\Length(
      *      max = 255
      * )
-     * @Assert\NotBlank
      * @Groups({"read","write"})
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $transp;
 
     /**
-     * @todo Automated ?
+     * @var DateInterval The duration of this event.
      *
-     * @var string The url of this event.
-     *
-     * @example conduction.nl
-     *
-     * @Assert\Length(
-     *      max = 255
-     * )
-     * @Assert\NotBlank
-     * @Groups({"read","write"})
-     * @ORM\Column(type="string", length=255)
-     */
-    private $url;
-
-    /**
-     * @todo Automated ?
-     *
-     * @var string The duration of this event.
+     * @Gedmo\Versioned
      *
      * @example 2
      *
-     * @Assert\Type("int")
-     * @Assert\NotBlank
      * @Groups({"read","write"})
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="dateinterval", nullable=true)
      */
     private $duration;
 
     /**
-     * @todo Automated ?
-     *
      * @var int The version number of this event.
      *
-     * @example 1.0
-     *
-     * @Assert\Type("int")
-     * @Assert\NotBlank
-     * @Groups({"read","write"})
-     * @ORM\Column(type="integer")
-     */
-    private $seq;
-    /**
-     * @var int The priority of this event ranging from 1 (high) to 9 (low).
+     * @Gedmo\Versioned
      *
      * @example 1
      *
      * @Assert\Type("int")
-     * @Assert\NotBlank
      * @Groups({"read","write"})
      * @ORM\Column(type="integer")
      */
-    private $priority;
+    private $seq = 1;
+    /**
+     * @var int The priority of this event ranging from 1 (high) to 9 (low).
+     *
+     * @Gedmo\Versioned
+     *
+     * @example 1
+     *
+     * @Assert\Type("int")
+     * @Groups({"read","write"})
+     * @ORM\Column(type="integer")
+     */
+    private $priority = 9;
 
     /**
      * @var array The urls of the attendees of this event.
      *
+     * @Gedmo\Versioned
+     *
      * @example https://con.example.com, https://con.example2.com
      *
-     * @Assert\Url
      * @Groups({"read","write"})
-     * @ORM\Column(type="array")
+     * @ORM\Column(type="array", nullable=true)
      */
     private $attendees = [];
 
     /**
      * @var array The urls of the attachments of this event.
      *
+     * @Gedmo\Versioned
+     *
      * @example https://example.org, https://example2.org
      *
-     * @Assert\Url
      * @Groups({"read","write"})
-     * @ORM\Column(type="array")
+     * @ORM\Column(type="array", nullable=true)
      */
     private $attachments = [];
 
     /**
      * @var array The urls of the catergories this event belongs to.
      *
+     * @Gedmo\Versioned
+     *
      * @example https://con.example.com, https://con.example2.com
      *
-     * @Assert\Url
      * @Groups({"read","write"})
-     * @ORM\Column(type="array")
+     * @ORM\Column(type="array", nullable=true)
      */
     private $categories = [];
 
     /**
      * @var array The urls of the comments that belong to this event.
      *
+     * @Gedmo\Versioned
+     *
      * @example https://con.example.com, https://con.example2.com
      *
-     * @Assert\Url
      * @Groups({"read","write"})
      * @ORM\Column(type="array")
      */
@@ -297,7 +304,25 @@ class Journal
      */
     private $event;
 
-    public function getId(): ?int
+    /**
+     * @var DateTime The moment this resource was created
+     *
+     * @Groups({"read"})
+     * @Gedmo\Timestampable(on="create")
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $dateCreated;
+
+    /**
+     * @var DateTime The moment this resource last Modified
+     *
+     * @Groups({"read"})
+     * @Gedmo\Timestampable(on="update")
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $dateModified;
+
+    public function getId(): ?Uuid
     {
         return $this->id;
     }
@@ -367,25 +392,6 @@ class Journal
         return $this->created;
     }
 
-    public function setCreated(string $created): self
-    {
-        $this->created = $created;
-
-        return $this;
-    }
-
-    public function getLastMod(): ?string
-    {
-        return $this->lastMod;
-    }
-
-    public function setLastMod(string $lastMod): self
-    {
-        $this->lastMod = $lastMod;
-
-        return $this;
-    }
-
     public function getOrganiser(): ?string
     {
         return $this->organiser;
@@ -434,24 +440,12 @@ class Journal
         return $this;
     }
 
-    public function getUrl(): ?string
-    {
-        return $this->url;
-    }
-
-    public function setUrl(string $url): self
-    {
-        $this->url = $url;
-
-        return $this;
-    }
-
-    public function getDuration(): ?int
+    public function getDuration(): ?DateInterval
     {
         return $this->duration;
     }
 
-    public function setDuration(int $duration): self
+    public function setDuration(DateInterval $duration): self
     {
         $this->duration = $duration;
 
@@ -550,6 +544,30 @@ class Journal
     public function setEvent(?Event $event): self
     {
         $this->event = $event;
+
+        return $this;
+    }
+
+    public function getDateCreated(): ?\DateTimeInterface
+    {
+        return $this->dateCreated;
+    }
+
+    public function setDateCreated(\DateTimeInterface $dateCreated): self
+    {
+        $this->dateCreated = $dateCreated;
+
+        return $this;
+    }
+
+    public function getDateModified(): ?\DateTimeInterface
+    {
+        return $this->dateModified;
+    }
+
+    public function setDateModified(\DateTimeInterface $dateModified): self
+    {
+        $this->dateModified = $dateModified;
 
         return $this;
     }

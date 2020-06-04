@@ -2,10 +2,19 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\BooleanFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\DateFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use DateInterval;
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Serializer\Annotation\MaxDepth;
@@ -17,9 +26,36 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ApiResource(
  *       iri="https://schema.org/Event",
  *     normalizationContext={"groups"={"read"}, "enable_max_depth"=true},
- *     denormalizationContext={"groups"={"write"}, "enable_max_depth"=true}
+ *     denormalizationContext={"groups"={"write"}, "enable_max_depth"=true},
+ *     itemOperations={
+ *          "get",
+ *          "put",
+ *          "delete",
+ *          "get_change_logs"={
+ *              "path"="/events/{id}/change_log",
+ *              "method"="get",
+ *              "swagger_context" = {
+ *                  "summary"="Changelogs",
+ *                  "description"="Gets al the change logs for this resource"
+ *              }
+ *          },
+ *          "get_audit_trail"={
+ *              "path"="/events/{id}/audit_trail",
+ *              "method"="get",
+ *              "swagger_context" = {
+ *                  "summary"="Audittrail",
+ *                  "description"="Gets the audit trail for this resource"
+ *              }
+ *          }
+ *     },
  * )
  * @ORM\Entity(repositoryClass="App\Repository\EventRepository")
+ * @Gedmo\Loggable(logEntryClass="Conduction\CommonGroundBundle\Entity\ChangeLog")
+ *
+ * @ApiFilter(BooleanFilter::class)
+ * @ApiFilter(OrderFilter::class)
+ * @ApiFilter(DateFilter::class, strategy=DateFilter::EXCLUDE_NULL)
+ * @ApiFilter(SearchFilter::class, properties={"calendar.id":"exact"})
  */
 class Event
 {
@@ -40,6 +76,8 @@ class Event
     /**
      * @var string The name of this RequestType
      *
+     * @Gedmo\Versioned
+     *
      * @example My RequestType
      *
      * @Assert\NotNull
@@ -54,6 +92,8 @@ class Event
     /**
      * @var string An short description of this Event
      *
+     * @Gedmo\Versioned
+     *
      * @example This is the best Event ever
      *
      * @Assert\Length(
@@ -67,6 +107,8 @@ class Event
     /**
      * @var DateTime The moment this event starts
      *
+     * @Gedmo\Versioned
+     *
      * @example 30-11-2019 15:00:00
      *
      * @Assert\DateTime
@@ -78,6 +120,8 @@ class Event
 
     /**
      * @var Datetime The moment this event ends
+     *
+     * @Gedmo\Versioned
      *
      * @example 3-11-2019 20:00:00
      *
@@ -91,19 +135,20 @@ class Event
     /**
      * @var string The location of this event
      *
+     * @Gedmo\Versioned
+     *
      * @example Dam 1, Amsterdam
      *
      * @Assert\Length(
      *      max = 255
      * )
-     * @Assert\NotBlank
      * @Groups({"read","write"})
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $location;
 
     /**
-     * @var string An optional Schedule to which this event belongs
+     * @var Schedule An optional Schedule to which this event belongs
      *
      * @MaxDepth(1)
      * @Groups({"read","write"})
@@ -112,7 +157,7 @@ class Event
     private $schedule;
 
     /**
-     * @var string The Calendar to wich this event belongs
+     * @var Calendar The Calendar to wich this event belongs
      *
      * @MaxDepth(1)
      * @Groups({"read","write"})
@@ -124,33 +169,22 @@ class Event
     /**
      * @var string The security class of this event.
      *
+     * @Gedmo\Versioned
+     *
      * @example PUBLIC
      *
      * @Assert\Length(
      *      max = 255
      * )
-     * @Assert\NotBlank
      * @Groups({"read","write"})
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $class;
 
     /**
-     * @todo Automated ?
-     *
-     * @var string The creation in datetime of this event.
-     *
-     * @example 16-12-2019 15:08:26
-     *
-     * @Assert\DateTime
-     * @Assert\NotBlank
-     * @Groups({"read","write"})
-     * @ORM\Column(type="datetime")
-     */
-    private $created;
-
-    /**
      * @var string The coordinates of this event.
+     *
+     * @Gedmo\Versioned
      *
      * @example 81.15147,10.36374,42.26
      *
@@ -158,137 +192,111 @@ class Event
      *      max = 255
      * )
      * @Groups({"read","write"})
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $geo;
 
     /**
-     * @todo Automated ?
-     *
-     * @var datetime The last modification of this event in datetime.
-     *
-     * @example 16-12-2019 15:14:34
-     *
-     * @Assert\DateTime
-     * @Assert\NotBlank
-     * @Groups({"read","write"})
-     * @ORM\Column(type="datetime")
-     */
-    private $lastMod;
-
-    /**
      * @var string The organiser of this event linked to with an url.
+     *
+     * @Gedmo\Versioned
      *
      * @example conduction.nl
      *
      * @Assert\Length(
      *      max = 255
      * )
-     * @Assert\NotBlank
      * @Groups({"read","write"})
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $organiser;
+    private $organizer;
 
     /**
-     * @var string The status of this evemt.
+     * @var string The status of this event.
+     *
+     * @Gedmo\Versioned
      *
      * @example Confirmed
      *
      * @Assert\Length(
      *      max = 255
      * )
-     * @Assert\NotBlank
      * @Groups({"read","write"})
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $status;
 
     /**
      * @var string The summary of this event.
      *
+     * @Gedmo\Versioned
+     *
      * @example This is the best event ever.
      *
      * @Assert\Length(
      *      max = 255
      * )
-     * @Assert\NotBlank
      * @Groups({"read","write"})
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255,nullable=true)
      */
     private $summary;
 
     /**
      * @var string The determination if the event should block the duration of the event for participants.
      *
+     * @Gedmo\Versioned
+     *
      * @example Transparent
      *
      * @Assert\Length(
      *      max = 255
      * )
-     * @Assert\NotBlank
      * @Groups({"read","write"})
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $transp;
 
     /**
-     * @todo Automated ?
+     * @var DateInterval The duration of this event.
      *
-     * @var string The url of this event.
+     * @Gedmo\Versioned
      *
-     * @example conduction.nl
+     * @example P0M3
      *
-     * @Assert\Length(
-     *      max = 255
-     * )
-     * @Assert\NotBlank
      * @Groups({"read","write"})
-     * @ORM\Column(type="string", length=255)
-     */
-    private $url;
-
-    /**
-     * @todo Automated ?
-     *
-     * @var string The duration of this event.
-     *
-     * @example 2
-     *
-     * @Assert\Type("int")
-     * @Assert\NotBlank
-     * @Groups({"read","write"})
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="dateinterval", nullable=true)
      */
     private $duration;
 
     /**
      * @var string Url of this person
      *
+     * @Gedmo\Versioned
+     *
      * @example https://con.example.org
      *
-     * @Assert\NotNull
      * @Assert\Url
      * @Groups({"read","write"})
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $contact;
 
     /**
-     * @todo Automated ?
-     *
      * @var int The version number of this event.
      *
-     * @example 1.0
+     * @Gedmo\Versioned
+     *
+     * @example 1
      *
      * @Assert\Type("int")
-     * @Assert\NotBlank
      * @Groups({"read","write"})
      * @ORM\Column(type="integer")
      */
-    private $seq;
+    private $seq = 1;
     /**
      * @var int The priority of this event ranging from 1 (high) to 9 (low).
+     *
+     * @Gedmo\Versioned
      *
      * @example 1
      *
@@ -297,14 +305,15 @@ class Event
      * @Groups({"read","write"})
      * @ORM\Column(type="integer")
      */
-    private $priority;
+    private $priority = 9;
 
     /**
      * @var array The urls of the attendees of this event.
      *
+     * @Gedmo\Versioned
+     *
      * @example https://con.example.com, https://con.example2.com
      *
-     * @Assert\Url
      * @Groups({"read","write"})
      * @ORM\Column(type="array")
      */
@@ -313,9 +322,10 @@ class Event
     /**
      * @var array The urls of the attachments of this event.
      *
+     * @Gedmo\Versioned
+     *
      * @example https://example.org, https://example2.org
      *
-     * @Assert\Url
      * @Groups({"read","write"})
      * @ORM\Column(type="array")
      */
@@ -324,9 +334,10 @@ class Event
     /**
      * @var array The urls of the catergories this event belongs to.
      *
+     * @Gedmo\Versioned
+     *
      * @example https://con.example.com, https://con.example2.com
      *
-     * @Assert\Url
      * @Groups({"read","write"})
      * @ORM\Column(type="array")
      */
@@ -335,9 +346,10 @@ class Event
     /**
      * @var array The urls of the comments that belong to this event.
      *
+     * @Gedmo\Versioned
+     *
      * @example https://con.example.com, https://con.example2.com
      *
-     * @Assert\Url
      * @Groups({"read","write"})
      * @ORM\Column(type="array")
      */
@@ -371,6 +383,24 @@ class Event
      */
     private $journal;
 
+    /**
+     * @var DateTime The moment this resource was created
+     *
+     * @Groups({"read"})
+     * @Gedmo\Timestampable(on="create")
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $dateCreated;
+
+    /**
+     * @var Datetime The moment this resource last Modified
+     *
+     * @Groups({"read"})
+     * @Gedmo\Timestampable(on="update")
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $dateModified;
+
     public function __construct()
     {
         $this->related = new ArrayCollection();
@@ -378,9 +408,14 @@ class Event
         $this->alarms = new ArrayCollection();
     }
 
-    public function getId(): ?string
+    public function getId(): ?Uuid
     {
         return $this->id;
+    }
+    public function setId(UuidInterface $id):self
+    {
+        $this->id = $id;
+        return $this;
     }
 
     public function getName(): ?string
@@ -479,18 +514,6 @@ class Event
         return $this;
     }
 
-    public function getCreated(): ?string
-    {
-        return $this->created;
-    }
-
-    public function setCreated(string $created): self
-    {
-        $this->created = $created;
-
-        return $this;
-    }
-
     public function getGeo(): ?string
     {
         return $this->geo;
@@ -503,26 +526,14 @@ class Event
         return $this;
     }
 
-    public function getLastMod(): ?string
+    public function getOrganizer(): ?string
     {
-        return $this->lastMod;
+        return $this->organizer;
     }
 
-    public function setLastMod(string $lastMod): self
+    public function setOrganizer(string $organizer): self
     {
-        $this->lastMod = $lastMod;
-
-        return $this;
-    }
-
-    public function getOrganiser(): ?string
-    {
-        return $this->organiser;
-    }
-
-    public function setOrganiser(string $organiser): self
-    {
-        $this->organiser = $organiser;
+        $this->organizer = $organizer;
 
         return $this;
     }
@@ -563,24 +574,12 @@ class Event
         return $this;
     }
 
-    public function getUrl(): ?string
-    {
-        return $this->url;
-    }
-
-    public function setUrl(string $url): self
-    {
-        $this->url = $url;
-
-        return $this;
-    }
-
-    public function getDuration(): ?int
+    public function getDuration(): ?DateInterval
     {
         return $this->duration;
     }
 
-    public function setDuration(int $duration): self
+    public function setDuration(DateInterval $duration): self
     {
         $this->duration = $duration;
 
@@ -604,7 +603,7 @@ class Event
         return $this->seq;
     }
 
-    public function setSeq(int $seq): self
+    public function setSeq(?int $seq): self
     {
         $this->seq = $seq;
 
@@ -616,7 +615,7 @@ class Event
         return $this->priority;
     }
 
-    public function setPriority(int $priority): self
+    public function setPriority(?int $priority): self
     {
         $this->priority = $priority;
 
@@ -770,6 +769,30 @@ class Event
         if ($newEvent !== $journal->getEvent()) {
             $journal->setEvent($newEvent);
         }
+
+        return $this;
+    }
+
+    public function getDateCreated(): ?\DateTimeInterface
+    {
+        return $this->dateCreated;
+    }
+
+    public function setDateCreated(\DateTimeInterface $dateCreated): self
+    {
+        $this->dateCreated = $dateCreated;
+
+        return $this;
+    }
+
+    public function getDateModified(): ?\DateTimeInterface
+    {
+        return $this->dateModified;
+    }
+
+    public function setDateModified(\DateTimeInterface $dateModified): self
+    {
+        $this->dateModified = $dateModified;
 
         return $this;
     }
