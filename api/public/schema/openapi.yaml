@@ -10,7 +10,7 @@ info:
     - Version: V.0.1
     - Repository: [online](https://github.com/ConductionNL/agendaservice) / [zip](https://github.com/ConductionNL/agendaservice/archive/master.zip)
     - Docker Image: [online](https://hub.docker.com/repository/docker/conduction/arc-php) 
-    - Datamodel: [postman](/schema/arc.postman_collection.json) / [oas](/schema/openapi.yaml) / [pdf](/schema/datamodel.pdf) / [mwb](/schema/datamodel.mwb) 
+    - Datamodel: [postman](/schema/arc.postman_collection.json) / [oas](/schema/openapi.yaml) / [pdf](/schema/datamodel.pdf) / [modelio (zip)](/schema/Datamodel_Modelio.zip) 
     
     'Naast deze JSON rest API is er ook een [graphql](/graphql) interface beschikbaar.'         
     
@@ -13711,12 +13711,12 @@ definitions:
       startDate:
         description: 'The moment this event starts'
         type: string
-        example: '2020-04-22 11:05:56'
+        example: '2020-06-04 13:47:15'
         format: date-time
       endDate:
         description: 'The moment this event ends'
         type: string
-        example: '2020-05-25 13:43:54'
+        example: '2020-06-04 13:47:15'
         format: date-time
       location:
         description: 'The location of this event'
@@ -13821,12 +13821,12 @@ definitions:
       startDate:
         description: 'The moment this event starts'
         type: string
-        example: '2020-04-22 11:05:56'
+        example: '2020-06-04 13:47:15'
         format: date-time
       endDate:
         description: 'The moment this event ends'
         type: string
-        example: '2020-04-22 11:05:56'
+        example: '2020-06-04 13:47:15'
         format: date-time
       location:
         description: 'The location of this event'
@@ -13940,12 +13940,12 @@ definitions:
       startDate:
         description: 'The moment this event starts'
         type: string
-        example: '2020-04-22 11:05:56'
+        example: '2020-06-04 13:47:15'
         format: date-time
       endDate:
         description: 'The moment this event ends'
         type: string
-        example: '2020-04-22 11:05:56'
+        example: '2020-06-04 13:47:15'
         format: date-time
       duration:
         description: 'The duration of this event.'
@@ -13996,12 +13996,12 @@ definitions:
       startDate:
         description: 'The moment this event starts'
         type: string
-        example: '2020-04-22 11:05:56'
+        example: '2020-06-04 13:47:15'
         format: date-time
       endDate:
         description: 'The moment this event ends'
         type: string
-        example: '2020-04-22 11:05:56'
+        example: '2020-06-04 13:47:15'
         format: date-time
       duration:
         description: 'The duration of this event.'
@@ -14041,12 +14041,12 @@ definitions:
       startDate:
         description: 'The moment this event starts'
         type: string
-        example: '2020-04-22 11:05:56'
+        example: '2020-06-04 13:47:15'
         format: date-time
       endDate:
         description: 'The moment this event ends'
         type: string
-        example: '2020-04-22 11:05:56'
+        example: '2020-06-04 13:47:15'
         format: date-time
       class:
         description: 'The security class of this event.'
@@ -14128,12 +14128,12 @@ definitions:
       startDate:
         description: 'The moment this event starts'
         type: string
-        example: '2020-04-22 11:05:56'
+        example: '2020-06-04 13:47:15'
         format: date-time
       endDate:
         description: 'The moment this event ends'
         type: string
-        example: '2020-04-22 11:05:56'
+        example: '2020-06-04 13:47:15'
         format: date-time
       class:
         description: 'The security class of this event.'
@@ -14370,12 +14370,12 @@ definitions:
       startDate:
         description: 'The moment this event starts'
         type: string
-        example: '2020-05-25 13:43:54'
+        example: '2020-06-04 13:47:15'
         format: date-time
       endDate:
         description: 'The moment this event ends'
         type: string
-        example: '2020-04-22 11:05:56'
+        example: '2020-06-04 13:47:15'
         format: date-time
       location:
         description: 'The location of this event'
@@ -14443,7 +14443,7 @@ definitions:
       completed:
         description: 'The date and time a to-do is completed.'
         type: string
-        example: '2020-05-25 13:43:54'
+        example: '2020-06-04 13:47:15'
         format: date-time
       percentageDone:
         description: 'The percentage of a to-do that has been comepleted.'
@@ -14478,12 +14478,12 @@ definitions:
       startDate:
         description: 'The moment this event starts'
         type: string
-        example: '2020-05-25 13:43:54'
+        example: '2020-06-04 13:47:15'
         format: date-time
       endDate:
         description: 'The moment this event ends'
         type: string
-        example: '2020-05-25 13:43:54'
+        example: '2020-06-04 13:47:15'
         format: date-time
       location:
         description: 'The location of this event'
@@ -14551,7 +14551,7 @@ definitions:
       completed:
         description: 'The date and time a to-do is completed.'
         type: string
-        example: '2020-04-22 11:05:56'
+        example: '2020-06-04 13:47:15'
         format: date-time
       percentageDone:
         description: 'The percentage of a to-do that has been comepleted.'
@@ -14669,12 +14669,12 @@ definitions:
         description: 'The moment this request was created'
         type: string
         format: date-time
-        example: '2020-05-25 13:43:54'
+        example: '2020-06-04 13:47:15'
       dateModified:
         description: 'The moment this request last Modified'
         type: string
         format: date-time
-        example: '2020-05-25 13:43:54'
+        example: '2020-06-04 13:47:15'
     required: []
   AuditTrail-write:
     properties:
@@ -14722,12 +14722,12 @@ definitions:
         description: 'The moment this request was created'
         type: string
         format: date-time
-        example: '2020-05-25 13:43:54'
+        example: '2020-06-04 13:47:15'
       dateModified:
         description: 'The moment this request last Modified'
         type: string
         format: date-time
-        example: '2020-05-25 13:43:54'
+        example: '2020-06-04 13:47:15'
     required: []
   ChangeLog-write:
     properties:
