@@ -164,7 +164,6 @@ class WestFrieslandFixtures extends Fixture
         $manager->flush();
         $GemeentelijkeBegraafplaats = $manager->getRepository('App:Calendar')->findOneBy(['id'=> $id]);
 
-
         //Gemeente Hoorn:
         // Calendar Zuiderveld
         $id = Uuid::fromString('9678886f-bfcc-41d4-a42b-4ae47769c23d');
@@ -213,7 +212,6 @@ class WestFrieslandFixtures extends Fixture
         $manager->persist($Zwaag);
         $manager->flush();
         $Zwaag = $manager->getRepository('App:Calendar')->findOneBy(['id'=> $id]);
-
 
         // Gemeente Medemblik:
         // Calendar Abbekerk (nieuw)
@@ -480,7 +478,6 @@ class WestFrieslandFixtures extends Fixture
         $manager->flush();
         $KleineZomerdijk = $manager->getRepository('App:Calendar')->findOneBy(['id'=> $id]);
 
-
         //Gemeente Koggenland:
         // Calendar Avenhorn
         $id = Uuid::fromString('837f45f7-6419-4175-888e-f7b4c56cfede');
@@ -566,7 +563,6 @@ class WestFrieslandFixtures extends Fixture
         $manager->flush();
         $Obdam = $manager->getRepository('App:Calendar')->findOneBy(['id'=> $id]);
 
-
         //Gemeente Opmeer:
         // Calendar Aartswoud
         $id = Uuid::fromString('a03f8321-a02f-497e-993c-00677aee2566');
@@ -627,7 +623,6 @@ class WestFrieslandFixtures extends Fixture
         $manager->persist($DeWeere);
         $manager->flush();
         $DeWeere = $manager->getRepository('App:Calendar')->findOneBy(['id'=> $id]);
-
 
         // Events voor Calendar Wognum (Kreekland)
         // TestEvent 1
