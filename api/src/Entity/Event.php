@@ -412,9 +412,11 @@ class Event
     {
         return $this->id;
     }
-    public function setId(UuidInterface $id):self
+
+    public function setId(UuidInterface $id): self
     {
         $this->id = $id;
+
         return $this;
     }
 
