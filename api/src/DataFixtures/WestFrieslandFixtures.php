@@ -152,19 +152,6 @@ class WestFrieslandFixtures extends Fixture
         $manager->flush();
         $GemeentelijkeBegraafplaats = $manager->getRepository('App:Calendar')->findOneBy(['id'=> $id]);
 
-        // Calendar Gemeentelijke begraafplaats
-        $id = Uuid::fromString('7ae61cae-fa4f-4efd-aa85-8767602c7680');
-        $GemeentelijkeBegraafplaats = new Calendar();
-        $GemeentelijkeBegraafplaats->setName('Calendar Gemeentelijke begraafplaats');
-        $GemeentelijkeBegraafplaats->setDescription('Calendar voor begraafplaats Gemeentelijke begraafplaats in gemeente SED');
-        $GemeentelijkeBegraafplaats->setTimeZone('CET');
-        $manager->persist($GemeentelijkeBegraafplaats);
-        $GemeentelijkeBegraafplaats->setId($id);
-        $manager->persist($GemeentelijkeBegraafplaats);
-        $manager->flush();
-        $GemeentelijkeBegraafplaats = $manager->getRepository('App:Calendar')->findOneBy(['id'=> $id]);
-
-
         //Gemeente Hoorn:
         // Calendar Zuiderveld
         $id = Uuid::fromString('9678886f-bfcc-41d4-a42b-4ae47769c23d');
