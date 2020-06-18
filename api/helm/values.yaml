@@ -14,7 +14,7 @@ settings:
   repro: https://github.com/ConductionNL/agendaservice
   demo: arc.zaakonline.nl
   container: https://hub.docker.com/repository/docker/conduction/arc-php
-  domain: conduction.nl
+  domain: dev
   subdomain: arc
   organisationName: Conduction
   email: info@conduction.nl
