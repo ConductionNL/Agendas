@@ -2,22 +2,21 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\BooleanFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\DateFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
-use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\DateFilter;
-
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Serializer\Annotation\MaxDepth;
 use Symfony\Component\Validator\Constraints as Assert;
-use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * A schedule defines a repeating time period used to describe a regularly occurring Event. At a minimum a schedule will specify repeatFrequency which describes the interval between occurences of the event. Additional information can be provided to specify the schedule more precisely. This includes identifying the day(s) of the week or month when the recurring event will take place, in addition to its start and end time. Schedules may also have start and end dates to indicate when they are active, e.g. to define a limited calendar of events.
@@ -49,7 +48,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *     },
  * )
  * @ORM\Entity(repositoryClass="App\Repository\ScheduleRepository")
- * @Gedmo\Loggable(logEntryClass="App\Entity\ChangeLog")
+ * @Gedmo\Loggable(logEntryClass="Conduction\CommonGroundBundle\Entity\ChangeLog")
  *
  * @ApiFilter(BooleanFilter::class)
  * @ApiFilter(OrderFilter::class)
@@ -76,6 +75,7 @@ class Schedule
      * @var string The name of this Schedule
      *
      * @Gedmo\Versioned
+     *
      * @example My Schedule
      *
      * @Assert\NotNull
@@ -91,6 +91,7 @@ class Schedule
      * @var string An short description of this Schedule
      *
      * @Gedmo\Versioned
+     *
      * @example This is the best Schedule ever
      *
      * @Assert\Length(
@@ -105,6 +106,7 @@ class Schedule
      * @var string Defines the day(s) of the week on which a recurring Event takes place. Sunday is both 0 and 7.
      *
      * @Gedmo\Versioned
+     *
      * @example 1
      *
      * @Assert\Range(
@@ -121,6 +123,7 @@ class Schedule
      * @var string Defines the month(s) of the year on which a recurring Event takes place. Specified as an Integer between 1-12. January is 1.
      *
      * @Gedmo\Versioned
+     *
      * @example 1
      *
      * @Assert\Range(
@@ -137,6 +140,7 @@ class Schedule
      * @var string Defines the day(s) of the month on which a recurring Event takes place. Specified as an Integer between 1-31.
      *
      * @Gedmo\Versioned
+     *
      * @example 1
      *
      * @Assert\Range(
@@ -153,6 +157,7 @@ class Schedule
      * @var string Defines the day(s) of the month on which a recurring Event takes place. Specified as an Integer between 1-31.
      *
      * @Gedmo\Versioned
+     *
      * @example 30
      *
      * @Groups({"read","write"})
@@ -164,6 +169,7 @@ class Schedule
      * @var int Defines the number of times a recurring Event will take place
      *
      * @Gedmo\Versioned
+     *
      * @example 10
      *
      * @Assert\Type("integer")
@@ -176,6 +182,7 @@ class Schedule
      * @var string Defines the frequency at which Events will occur according to a schedule Schedule. The intervals between events should be defined as a [Duration](https://en.wikipedia.org/wiki/ISO_8601#Durations) of time.
      *
      * @Gedmo\Versioned
+     *
      * @example PT1M
      *
      * @Assert\Length(
@@ -222,7 +229,7 @@ class Schedule
     private $todos;
 
     /**
-     * @var Datetime $dateCreated The moment this resource was created
+     * @var Datetime The moment this resource was created
      *
      * @Groups({"read"})
      * @Gedmo\Timestampable(on="create")
@@ -231,7 +238,7 @@ class Schedule
     private $dateCreated;
 
     /**
-     * @var Datetime $dateModified  The moment this resource last Modified
+     * @var Datetime The moment this resource last Modified
      *
      * @Groups({"read"})
      * @Gedmo\Timestampable(on="update")
@@ -454,25 +461,25 @@ class Schedule
 
     public function getDateCreated(): ?\DateTimeInterface
     {
-    	return $this->dateCreated;
+        return $this->dateCreated;
     }
 
     public function setDateCreated(\DateTimeInterface $dateCreated): self
     {
-    	$this->dateCreated= $dateCreated;
+        $this->dateCreated = $dateCreated;
 
-    	return $this;
+        return $this;
     }
 
     public function getDateModified(): ?\DateTimeInterface
     {
-    	return $this->dateModified;
+        return $this->dateModified;
     }
 
     public function setDateModified(\DateTimeInterface $dateModified): self
     {
-    	$this->dateModified = $dateModified;
+        $this->dateModified = $dateModified;
 
-    	return $this;
+        return $this;
     }
 }

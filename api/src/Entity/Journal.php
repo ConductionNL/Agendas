@@ -2,22 +2,21 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\BooleanFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\DateFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
-use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\DateFilter;
-
 use DateInterval;
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Serializer\Annotation\MaxDepth;
 use Symfony\Component\Validator\Constraints as Assert;
-use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * A journal from an event.
@@ -48,7 +47,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *     },
  *     )
  * @ORM\Entity(repositoryClass="App\Repository\JournalRepository")
- * @Gedmo\Loggable(logEntryClass="App\Entity\ChangeLog")
+ * @Gedmo\Loggable(logEntryClass="Conduction\CommonGroundBundle\Entity\ChangeLog")
  *
  * @ApiFilter(BooleanFilter::class)
  * @ApiFilter(OrderFilter::class)
@@ -75,6 +74,7 @@ class Journal
      * @var string The name of this RequestType
      *
      * @Gedmo\Versioned
+     *
      * @example My RequestType
      *
      * @Assert\NotNull
@@ -90,6 +90,7 @@ class Journal
      * @var string An short description of this Event
      *
      * @Gedmo\Versioned
+     *
      * @example This is the best Event ever
      *
      * @Assert\Length(
@@ -104,6 +105,7 @@ class Journal
      * @var DateTime The moment this event starts
      *
      * @Gedmo\Versioned
+     *
      * @example 30-11-2019 15:00:00
      *
      * @Assert\DateTime
@@ -117,6 +119,7 @@ class Journal
      * @var Datetime The moment this event ends
      *
      * @Gedmo\Versioned
+     *
      * @example 3-11-2019 20:00:00
      *
      * @Assert\DateTime
@@ -130,6 +133,7 @@ class Journal
      * @var string The security class of this event.
      *
      * @Gedmo\Versioned
+     *
      * @example PUBLIC
      *
      * @Assert\Length(
@@ -144,6 +148,7 @@ class Journal
      * @var string The organiser of this event linked to with an url.
      *
      * @Gedmo\Versioned
+     *
      * @example conduction.nl
      *
      * @Assert\Length(
@@ -158,6 +163,7 @@ class Journal
      * @var string The status of this event.
      *
      * @Gedmo\Versioned
+     *
      * @example Confirmed
      *
      * @Assert\Length(
@@ -172,6 +178,7 @@ class Journal
      * @var string The summary of this event.
      *
      * @Gedmo\Versioned
+     *
      * @example This is the best event ever.
      *
      * @Assert\Length(
@@ -186,6 +193,7 @@ class Journal
      * @var string The determination if the event should block the duration of the event for participants.
      *
      * @Gedmo\Versioned
+     *
      * @example Transparent
      *
      * @Assert\Length(
@@ -200,6 +208,7 @@ class Journal
      * @var DateInterval The duration of this event.
      *
      * @Gedmo\Versioned
+     *
      * @example 2
      *
      * @Groups({"read","write"})
@@ -211,6 +220,7 @@ class Journal
      * @var int The version number of this event.
      *
      * @Gedmo\Versioned
+     *
      * @example 1
      *
      * @Assert\Type("int")
@@ -222,6 +232,7 @@ class Journal
      * @var int The priority of this event ranging from 1 (high) to 9 (low).
      *
      * @Gedmo\Versioned
+     *
      * @example 1
      *
      * @Assert\Type("int")
@@ -234,6 +245,7 @@ class Journal
      * @var array The urls of the attendees of this event.
      *
      * @Gedmo\Versioned
+     *
      * @example https://con.example.com, https://con.example2.com
      *
      * @Groups({"read","write"})
@@ -245,6 +257,7 @@ class Journal
      * @var array The urls of the attachments of this event.
      *
      * @Gedmo\Versioned
+     *
      * @example https://example.org, https://example2.org
      *
      * @Groups({"read","write"})
@@ -256,6 +269,7 @@ class Journal
      * @var array The urls of the catergories this event belongs to.
      *
      * @Gedmo\Versioned
+     *
      * @example https://con.example.com, https://con.example2.com
      *
      * @Groups({"read","write"})
@@ -267,6 +281,7 @@ class Journal
      * @var array The urls of the comments that belong to this event.
      *
      * @Gedmo\Versioned
+     *
      * @example https://con.example.com, https://con.example2.com
      *
      * @Groups({"read","write"})
@@ -290,7 +305,7 @@ class Journal
     private $event;
 
     /**
-     * @var DateTime $dateCreated The moment this resource was created
+     * @var DateTime The moment this resource was created
      *
      * @Groups({"read"})
      * @Gedmo\Timestampable(on="create")
@@ -299,7 +314,7 @@ class Journal
     private $dateCreated;
 
     /**
-     * @var DateTime $dateModified  The moment this resource last Modified
+     * @var DateTime The moment this resource last Modified
      *
      * @Groups({"read"})
      * @Gedmo\Timestampable(on="update")
@@ -535,25 +550,25 @@ class Journal
 
     public function getDateCreated(): ?\DateTimeInterface
     {
-    	return $this->dateCreated;
+        return $this->dateCreated;
     }
 
     public function setDateCreated(\DateTimeInterface $dateCreated): self
     {
-    	$this->dateCreated= $dateCreated;
+        $this->dateCreated = $dateCreated;
 
-    	return $this;
+        return $this;
     }
 
     public function getDateModified(): ?\DateTimeInterface
     {
-    	return $this->dateModified;
+        return $this->dateModified;
     }
 
     public function setDateModified(\DateTimeInterface $dateModified): self
     {
-    	$this->dateModified = $dateModified;
+        $this->dateModified = $dateModified;
 
-    	return $this;
+        return $this;
     }
 }
