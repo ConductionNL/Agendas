@@ -616,10 +616,10 @@ class WestFrieslandFixtures extends Fixture
         // TestEvent 1
         $id = Uuid::fromString('1e7e181c-6f9c-4937-8f9b-2ea35e4e7d75');
         $TestEvent1 = new Event();
-        $TestEvent1->setName('10:00-12:00, 2020-06-04');
-        $TestEvent1->setDescription('Event 10:00-12:00, 2020-06-04 voor calendar Wognum (Kreekland)');
-        $TestEvent1->setStartDate(new \DateTime('2020-06-04T10:00:00+00:00'));
-        $TestEvent1->setEndDate(new \DateTime('2020-06-04T12:00:00+00:00'));
+        $TestEvent1->setName('10:00-12:00, 2020-06-22');
+        $TestEvent1->setDescription('Event 10:00-12:00, 2020-06-22 voor calendar Wognum (Kreekland)');
+        $TestEvent1->setStartDate(new \DateTime('2020-06-22T10:00:00+00:00'));
+        $TestEvent1->setEndDate(new \DateTime('2020-06-22T12:00:00+00:00'));
         $TestEvent1->setCalendar($WognumKreekland);
         $manager->persist($TestEvent1);
         $TestEvent1->setId($id);
@@ -630,10 +630,10 @@ class WestFrieslandFixtures extends Fixture
         // TestEvent 2
         $id = Uuid::fromString('262ee715-3d82-4c15-a2a8-5da2627ccb92');
         $TestEvent2 = new Event();
-        $TestEvent2->setName('14:30-16:30, 2020-06-04');
-        $TestEvent2->setDescription('Event 14:30-16:30, 2020-06-04 voor calendar Wognum (Kreekland)');
-        $TestEvent2->setStartDate(new \DateTime('2020-06-04T14:30:00+00:00'));
-        $TestEvent2->setEndDate(new \DateTime('2020-06-04T16:30:00+00:00'));
+        $TestEvent2->setName('14:30-16:30, 2020-06-22');
+        $TestEvent2->setDescription('Event 14:30-16:30, 2020-06-22 voor calendar Wognum (Kreekland)');
+        $TestEvent2->setStartDate(new \DateTime('2020-06-22T14:30:00+00:00'));
+        $TestEvent2->setEndDate(new \DateTime('2020-06-22T16:30:00+00:00'));
         $TestEvent2->setCalendar($WognumKreekland);
         $manager->persist($TestEvent2);
         $TestEvent2->setId($id);
@@ -644,10 +644,10 @@ class WestFrieslandFixtures extends Fixture
         // TestEvent 3
         $id = Uuid::fromString('29bcef2e-0f0b-487a-a7bb-09ee2114c630');
         $TestEvent3 = new Event();
-        $TestEvent3->setName('14:30-16:30, 2020-06-10');
-        $TestEvent3->setDescription('Event 14:30-16:30, 2020-06-10 voor calendar Wognum (Kreekland)');
-        $TestEvent3->setStartDate(new \DateTime('2020-06-10T14:30:00+00:00'));
-        $TestEvent3->setEndDate(new \DateTime('2020-06-10T16:30:00+00:00'));
+        $TestEvent3->setName('14:30-16:30, 2020-06-25');
+        $TestEvent3->setDescription('Event 14:30-16:30, 2020-06-25 voor calendar Wognum (Kreekland)');
+        $TestEvent3->setStartDate(new \DateTime('2020-06-25T14:30:00+00:00'));
+        $TestEvent3->setEndDate(new \DateTime('2020-06-25T16:30:00+00:00'));
         $TestEvent3->setCalendar($WognumKreekland);
         $manager->persist($TestEvent3);
         $TestEvent3->setId($id);
@@ -658,16 +658,158 @@ class WestFrieslandFixtures extends Fixture
         // TestEvent 4
         $id = Uuid::fromString('d105897c-6dee-41b3-9424-c5fe538c967f');
         $TestEvent4 = new Event();
-        $TestEvent4->setName('20:00-22:00, 2020-06-12');
-        $TestEvent4->setDescription('Event 20:00-22:00, 2020-06-12 voor calendar Wognum (Kreekland)');
-        $TestEvent4->setStartDate(new \DateTime('2020-06-12T20:00:00+00:00'));
-        $TestEvent4->setEndDate(new \DateTime('2020-06-12T22:00:00+00:00'));
+        $TestEvent4->setName('20:00-22:00, 2020-06-30');
+        $TestEvent4->setDescription('Event 20:00-22:00, 2020-06-30 voor calendar Wognum (Kreekland)');
+        $TestEvent4->setStartDate(new \DateTime('2020-06-30T20:00:00+00:00'));
+        $TestEvent4->setEndDate(new \DateTime('2020-06-30T22:00:00+00:00'));
         $TestEvent4->setCalendar($WognumKreekland);
         $manager->persist($TestEvent4);
         $TestEvent4->setId($id);
         $manager->persist($TestEvent4);
         $manager->flush();
         $TestEvent4 = $manager->getRepository('App:Event')->findOneBy(['id'=> $id]);
+
+        // TestEvent 5
+        $id = Uuid::fromString('4b2957d6-2a9a-4d0c-bbd1-80733d9c21c5');
+        $TestEvent5 = new Event();
+        $TestEvent5->setName('11:00-13:00, 2020-07-03');
+        $TestEvent5->setDescription('Event 11:00-13:00, 2020-07-03 voor calendar Wognum (Kreekland)');
+        $TestEvent5->setStartDate(new \DateTime('2020-07-03T11:00:00+00:00'));
+        $TestEvent5->setEndDate(new \DateTime('2020-07-03T13:00:00+00:00'));
+        $TestEvent5->setCalendar($WognumKreekland);
+        $manager->persist($TestEvent5);
+        $TestEvent5->setId($id);
+        $manager->persist($TestEvent5);
+        $manager->flush();
+        $TestEvent5 = $manager->getRepository('App:Event')->findOneBy(['id'=> $id]);
+
+        // TestEvent 6
+        $id = Uuid::fromString('9c7b8b48-2b62-49b9-86d1-056c2128d873');
+        $TestEvent6 = new Event();
+        $TestEvent6->setName('20:00-22:00, 2020-07-03');
+        $TestEvent6->setDescription('Event 20:00-22:00, 2020-07-03 voor calendar Wognum (Kreekland)');
+        $TestEvent6->setStartDate(new \DateTime('2020-07-03T20:00:00+00:00'));
+        $TestEvent6->setEndDate(new \DateTime('2020-07-03T22:00:00+00:00'));
+        $TestEvent6->setCalendar($WognumKreekland);
+        $manager->persist($TestEvent6);
+        $TestEvent6->setId($id);
+        $manager->persist($TestEvent6);
+        $manager->flush();
+        $TestEvent6 = $manager->getRepository('App:Event')->findOneBy(['id'=> $id]);
+
+        $manager->flush();
+
+        // TestEvent 7
+        $id = Uuid::fromString('8abfbd9a-6e9d-4c7d-986a-2bf5ad66f7f8');
+        $TestEvent7 = new Event();
+        $TestEvent7->setName('15:00-17:00, 2020-07-08');
+        $TestEvent7->setDescription('Event 15:00-17:00, 2020-07-08 voor calendar Wognum (Kreekland)');
+        $TestEvent7->setStartDate(new \DateTime('2020-07-08T15:00:00+00:00'));
+        $TestEvent7->setEndDate(new \DateTime('2020-07-08T17:00:00+00:00'));
+        $TestEvent7->setCalendar($WognumKreekland);
+        $manager->persist($TestEvent7);
+        $TestEvent7->setId($id);
+        $manager->persist($TestEvent7);
+        $manager->flush();
+        $TestEvent7 = $manager->getRepository('App:Event')->findOneBy(['id'=> $id]);
+
+        // TestEvent 8
+        $id = Uuid::fromString('6499cbee-8ba1-4edd-9454-d1da38f47230');
+        $TestEvent8 = new Event();
+        $TestEvent8->setName('20:00-22:00, 2020-07-08');
+        $TestEvent8->setDescription('Event 20:00-22:00, 2020-07-08 voor calendar Wognum (Kreekland)');
+        $TestEvent8->setStartDate(new \DateTime('2020-07-08T20:00:00+00:00'));
+        $TestEvent8->setEndDate(new \DateTime('2020-07-08T22:00:00+00:00'));
+        $TestEvent8->setCalendar($WognumKreekland);
+        $manager->persist($TestEvent8);
+        $TestEvent8->setId($id);
+        $manager->persist($TestEvent8);
+        $manager->flush();
+        $TestEvent8 = $manager->getRepository('App:Event')->findOneBy(['id'=> $id]);
+
+        // TestEvent 9
+        $id = Uuid::fromString('1eabf64a-da1c-4e2e-a68e-127bd22a7205');
+        $TestEvent9 = new Event();
+        $TestEvent9->setName('18:00-20:00, 2020-07-11');
+        $TestEvent9->setDescription('Event 18:00-20:00, 2020-07-11 voor calendar Wognum (Kreekland)');
+        $TestEvent9->setStartDate(new \DateTime('2020-07-11T18:00:00+00:00'));
+        $TestEvent9->setEndDate(new \DateTime('2020-07-11T20:00:00+00:00'));
+        $TestEvent9->setCalendar($WognumKreekland);
+        $manager->persist($TestEvent9);
+        $TestEvent9->setId($id);
+        $manager->persist($TestEvent9);
+        $manager->flush();
+        $TestEvent9 = $manager->getRepository('App:Event')->findOneBy(['id'=> $id]);
+
+        // TestEvent 10
+        $id = Uuid::fromString('ce8cc6a2-5914-4955-92d7-f48be036e55b');
+        $TestEvent10 = new Event();
+        $TestEvent10->setName('20:00-22:00, 2020-07-14');
+        $TestEvent10->setDescription('Event 20:00-22:00, 2020-07-14 voor calendar Wognum (Kreekland)');
+        $TestEvent10->setStartDate(new \DateTime('2020-07-14T20:00:00+00:00'));
+        $TestEvent10->setEndDate(new \DateTime('2020-07-14T22:00:00+00:00'));
+        $TestEvent10->setCalendar($WognumKreekland);
+        $manager->persist($TestEvent10);
+        $TestEvent10->setId($id);
+        $manager->persist($TestEvent10);
+        $manager->flush();
+        $TestEvent10 = $manager->getRepository('App:Event')->findOneBy(['id'=> $id]);
+
+        // TestEvent 11
+        $id = Uuid::fromString('7fa0925e-3fd7-47e5-996e-bd097768a56c');
+        $TestEvent11 = new Event();
+        $TestEvent11->setName('15:00-17:00, 2020-07-17');
+        $TestEvent11->setDescription('Event 15:00-17:00, 2020-07-17 voor calendar Wognum (Kreekland)');
+        $TestEvent11->setStartDate(new \DateTime('2020-07-17T15:00:00+00:00'));
+        $TestEvent11->setEndDate(new \DateTime('2020-07-17T17:00:00+00:00'));
+        $TestEvent11->setCalendar($WognumKreekland);
+        $manager->persist($TestEvent11);
+        $TestEvent11->setId($id);
+        $manager->persist($TestEvent11);
+        $manager->flush();
+        $TestEvent11 = $manager->getRepository('App:Event')->findOneBy(['id'=> $id]);
+
+        // TestEvent 12
+        $id = Uuid::fromString('0131c5c6-3585-45e8-8726-46ea5d39aab1');
+        $TestEvent12 = new Event();
+        $TestEvent12->setName('11:00-13:00, 2020-07-23');
+        $TestEvent12->setDescription('Event 11:00-13:00, 2020-07-23 voor calendar Wognum (Kreekland)');
+        $TestEvent12->setStartDate(new \DateTime('2020-07-23T11:00:00+00:00'));
+        $TestEvent12->setEndDate(new \DateTime('2020-07-23T13:00:00+00:00'));
+        $TestEvent12->setCalendar($WognumKreekland);
+        $manager->persist($TestEvent12);
+        $TestEvent12->setId($id);
+        $manager->persist($TestEvent12);
+        $manager->flush();
+        $TestEvent12 = $manager->getRepository('App:Event')->findOneBy(['id'=> $id]);
+
+        // TestEvent 13
+        $id = Uuid::fromString('ae623e0e-ba0e-48d6-9979-251f45b72c82');
+        $TestEvent13 = new Event();
+        $TestEvent13->setName('11:00-13:00, 2020-07-27');
+        $TestEvent13->setDescription('Event 11:00-13:00, 2020-07-27 voor calendar Wognum (Kreekland)');
+        $TestEvent13->setStartDate(new \DateTime('2020-07-27T11:00:00+00:00'));
+        $TestEvent13->setEndDate(new \DateTime('2020-07-27T13:00:00+00:00'));
+        $TestEvent13->setCalendar($WognumKreekland);
+        $manager->persist($TestEvent13);
+        $TestEvent13->setId($id);
+        $manager->persist($TestEvent13);
+        $manager->flush();
+        $TestEvent13 = $manager->getRepository('App:Event')->findOneBy(['id'=> $id]);
+
+        // TestEvent 14
+        $id = Uuid::fromString('2f359508-fea9-45de-a02e-599df8b59d8b');
+        $TestEvent14 = new Event();
+        $TestEvent14->setName('20:00-22:00, 2020-07-30');
+        $TestEvent14->setDescription('Event 20:00-22:00, 2020-07-30 voor calendar Wognum (Kreekland)');
+        $TestEvent14->setStartDate(new \DateTime('2020-07-30T20:00:00+00:00'));
+        $TestEvent14->setEndDate(new \DateTime('2020-07-30T22:00:00+00:00'));
+        $TestEvent14->setCalendar($WognumKreekland);
+        $manager->persist($TestEvent14);
+        $TestEvent14->setId($id);
+        $manager->persist($TestEvent14);
+        $manager->flush();
+        $TestEvent14 = $manager->getRepository('App:Event')->findOneBy(['id'=> $id]);
 
         $manager->flush();
     }
