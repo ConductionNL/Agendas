@@ -44,7 +44,7 @@ class ZuiddrechtFixtures extends Fixture
         $id = Uuid::fromString('7fd885e9-f274-4e55-9167-66167f70d474');
         $calendar = new Calendar();
         $calendar->setName('Nieuwe gemeentelijke begraafplaats');
-        $calendar->setDescription('Calendar voor begraafplaats Algemene Begraafplaats "Rustoord" in gemeente SED');
+        $calendar->setDescription('Calendar voor Nieuwe gemeentelijke begraafplaats');
         $calendar->setTimeZone('CET');
         $manager->persist($calendar);
         $calendar->setId($id);
