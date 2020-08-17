@@ -4,6 +4,7 @@ namespace App\DataFixtures;
 
 use App\Entity\Calendar;
 use App\Entity\Event;
+use Conduction\CommonGroundBundle\Service\CommonGroundService;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use Ramsey\Uuid\Uuid;
@@ -12,10 +13,15 @@ use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 class WestFrieslandFixtures extends Fixture
 {
     private $params;
+    /**
+     * @var CommonGroundService
+     */
+    private $commonGroundService;
 
-    public function __construct(ParameterBagInterface $params)
+    public function __construct(ParameterBagInterface $params, CommonGroundService $commonGroundService)
     {
         $this->params = $params;
+        $this->commonGroundService = $commonGroundService;
     }
 
     public function load(ObjectManager $manager)

@@ -12,7 +12,7 @@ info:
     - Docker Image: [online](https://hub.docker.com/repository/docker/conduction/arc-php) 
     - Datamodel: [postman](/schema/arc.postman_collection.json) / [oas](/schema/openapi.yaml) / [pdf](/schema/datamodel.pdf) / [modelio (zip)](/schema/Datamodel_Modelio.zip) 
     
-    'Naast deze JSON rest API is er ook een [graphql](/graphql) interface beschikbaar.'         
+    Naast deze JSON rest API is er ook een [graphql](/graphql) interface beschikbaar.         
     
 paths:
   /alarms:
@@ -2227,6 +2227,24 @@ paths:
               - asc
               - desc
         -
+          name: 'order[organization]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[resource]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
           name: 'order[timeZone]'
           in: query
           required: false
@@ -4118,6 +4136,24 @@ paths:
               - desc
         -
           name: 'order[description]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[organization]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[resource]'
           in: query
           required: false
           schema:
@@ -11111,6 +11147,18 @@ components:
           description: 'An short description of this Calendar'
           type: string
           nullable: true
+        organization:
+          description: 'A specific commonground organisation'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: string
+          nullable: true
+        resource:
+          description: 'A specific commonground resource'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: string
+          nullable: true
         events:
           description: 'Events that belong to this Calendar'
           type: array
@@ -11148,12 +11196,16 @@ components:
           nullable: true
       required:
         - name
+        - organization
+        - resource
         - timeZone
     Calendar-write:
       type: object
       description: 'A Calendar is a collection of events tied to an unque person or resource.'
       required:
         - name
+        - organization
+        - resource
         - timeZone
       properties:
         name:
@@ -11161,6 +11213,18 @@ components:
           type: string
         description:
           description: 'An short description of this Calendar'
+          type: string
+          nullable: true
+        organization:
+          description: 'A specific commonground organisation'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: string
+          nullable: true
+        resource:
+          description: 'A specific commonground resource'
+          externalDocs:
+            url: 'http://schema.org/url'
           type: string
           nullable: true
         events:
@@ -11215,6 +11279,18 @@ components:
           description: 'An short description of this Calendar'
           type: string
           nullable: true
+        organization:
+          description: 'A specific commonground organisation'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: string
+          nullable: true
+        resource:
+          description: 'A specific commonground resource'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: string
+          nullable: true
         events:
           description: 'Events that belong to this Calendar'
           type: array
@@ -11252,12 +11328,16 @@ components:
           nullable: true
       required:
         - name
+        - organization
+        - resource
         - timeZone
     'Calendar:jsonld-write':
       type: object
       description: 'A Calendar is a collection of events tied to an unque person or resource.'
       required:
         - name
+        - organization
+        - resource
         - timeZone
       properties:
         '@context':
@@ -11274,6 +11354,18 @@ components:
           type: string
         description:
           description: 'An short description of this Calendar'
+          type: string
+          nullable: true
+        organization:
+          description: 'A specific commonground organisation'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: string
+          nullable: true
+        resource:
+          description: 'A specific commonground resource'
+          externalDocs:
+            url: 'http://schema.org/url'
           type: string
           nullable: true
         events:
@@ -11438,6 +11530,18 @@ components:
           description: 'An short description of this Event'
           type: string
           nullable: true
+        organization:
+          description: 'A specific commonground organisation'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: string
+          nullable: true
+        resource:
+          description: 'A specific commonground resource'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: string
+          nullable: true
         startDate:
           description: 'The moment this event starts'
           externalDocs:
@@ -11554,6 +11658,8 @@ components:
           nullable: true
       required:
         - name
+        - organization
+        - resource
         - startDate
         - endDate
         - priority
@@ -11564,6 +11670,8 @@ components:
         url: 'https://schema.org/Event'
       required:
         - name
+        - organization
+        - resource
         - startDate
         - endDate
         - priority
@@ -11573,6 +11681,18 @@ components:
           type: string
         description:
           description: 'An short description of this Event'
+          type: string
+          nullable: true
+        organization:
+          description: 'A specific commonground organisation'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: string
+          nullable: true
+        resource:
+          description: 'A specific commonground resource'
+          externalDocs:
+            url: 'http://schema.org/url'
           type: string
           nullable: true
         startDate:
@@ -11708,6 +11828,18 @@ components:
           description: 'An short description of this Event'
           type: string
           nullable: true
+        organization:
+          description: 'A specific commonground organisation'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: string
+          nullable: true
+        resource:
+          description: 'A specific commonground resource'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: string
+          nullable: true
         startDate:
           description: 'The moment this event starts'
           externalDocs:
@@ -11824,6 +11956,8 @@ components:
           nullable: true
       required:
         - name
+        - organization
+        - resource
         - startDate
         - endDate
         - priority
@@ -11834,6 +11968,8 @@ components:
         url: 'https://schema.org/Event'
       required:
         - name
+        - organization
+        - resource
         - startDate
         - endDate
         - priority
@@ -11852,6 +11988,18 @@ components:
           type: string
         description:
           description: 'An short description of this Event'
+          type: string
+          nullable: true
+        organization:
+          description: 'A specific commonground organisation'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: string
+          nullable: true
+        resource:
+          description: 'A specific commonground resource'
+          externalDocs:
+            url: 'http://schema.org/url'
           type: string
           nullable: true
         startDate:
@@ -13727,15 +13875,25 @@ definitions:
         type: string
         example: 'This is the best Event ever'
         maxLength: 2550
+      organization:
+        description: 'A specific commonground organisation'
+        type: string
+        example: 'https://wrc.zaakonline.nl/organisations/16353702-4614-42ff-92af-7dd11c8eef9f'
+        format: url
+      resource:
+        description: 'A specific commonground resource'
+        type: string
+        example: 'https://wrc.zaakonline.nl/organisations/16353702-4614-42ff-92af-7dd11c8eef9f'
+        format: url
       startDate:
         description: 'The moment this event starts'
         type: string
-        example: '2020-06-18 10:57:51'
+        example: '2020-08-17 06:25:16'
         format: date-time
       endDate:
         description: 'The moment this event ends'
         type: string
-        example: '2020-06-18 10:57:51'
+        example: '2020-08-17 06:25:16'
         format: date-time
       location:
         description: 'The location of this event'
@@ -13823,6 +13981,8 @@ definitions:
       journal: []
     required:
       - name
+      - organization
+      - resource
       - startDate
       - endDate
   Event-write:
@@ -13837,15 +13997,25 @@ definitions:
         type: string
         example: 'This is the best Event ever'
         maxLength: 2550
+      organization:
+        description: 'A specific commonground organisation'
+        type: string
+        example: 'https://wrc.zaakonline.nl/organisations/16353702-4614-42ff-92af-7dd11c8eef9f'
+        format: url
+      resource:
+        description: 'A specific commonground resource'
+        type: string
+        example: 'https://wrc.zaakonline.nl/organisations/16353702-4614-42ff-92af-7dd11c8eef9f'
+        format: url
       startDate:
         description: 'The moment this event starts'
         type: string
-        example: '2020-06-18 10:57:51'
+        example: '2020-08-17 06:25:16'
         format: date-time
       endDate:
         description: 'The moment this event ends'
         type: string
-        example: '2020-06-18 10:57:51'
+        example: '2020-08-17 06:25:16'
         format: date-time
       location:
         description: 'The location of this event'
@@ -13927,6 +14097,8 @@ definitions:
       journal: []
     required:
       - name
+      - organization
+      - resource
       - startDate
       - endDate
   Schedule-read:
@@ -14059,6 +14231,16 @@ definitions:
         type: string
         example: 'This is the best Calendar ever'
         maxLength: 2550
+      organization:
+        description: 'A specific commonground organisation'
+        type: string
+        example: 'https://wrc.zaakonline.nl/organisations/16353702-4614-42ff-92af-7dd11c8eef9f'
+        format: url
+      resource:
+        description: 'A specific commonground resource'
+        type: string
+        example: 'https://wrc.zaakonline.nl/organisations/16353702-4614-42ff-92af-7dd11c8eef9f'
+        format: url
       timeZone:
         description: 'The time zone of this calendar'
         type: string
@@ -14082,6 +14264,8 @@ definitions:
       todos: []
     required:
       - name
+      - organization
+      - resource
       - timeZone
   Calendar-write:
     properties:
@@ -14095,6 +14279,16 @@ definitions:
         type: string
         example: 'This is the best Calendar ever'
         maxLength: 2550
+      organization:
+        description: 'A specific commonground organisation'
+        type: string
+        example: 'https://wrc.zaakonline.nl/organisations/16353702-4614-42ff-92af-7dd11c8eef9f'
+        format: url
+      resource:
+        description: 'A specific commonground resource'
+        type: string
+        example: 'https://wrc.zaakonline.nl/organisations/16353702-4614-42ff-92af-7dd11c8eef9f'
+        format: url
       timeZone:
         description: 'The time zone of this calendar'
         type: string
@@ -14112,6 +14306,8 @@ definitions:
       todos: []
     required:
       - name
+      - organization
+      - resource
       - timeZone
   Freebusy-read:
     properties:
@@ -14143,12 +14339,12 @@ definitions:
       startDate:
         description: 'The moment this event starts'
         type: string
-        example: '2020-06-18 10:57:51'
+        example: '2020-08-17 06:25:16'
         format: date-time
       endDate:
         description: 'The moment this event ends'
         type: string
-        example: '2020-06-18 10:57:51'
+        example: '2020-08-17 06:25:16'
         format: date-time
       duration:
         description: 'The duration of this event.'
@@ -14199,12 +14395,12 @@ definitions:
       startDate:
         description: 'The moment this event starts'
         type: string
-        example: '2020-06-18 10:57:51'
+        example: '2020-08-17 06:25:16'
         format: date-time
       endDate:
         description: 'The moment this event ends'
         type: string
-        example: '2020-06-18 10:57:51'
+        example: '2020-08-17 06:25:16'
         format: date-time
       duration:
         description: 'The duration of this event.'
@@ -14244,12 +14440,12 @@ definitions:
       startDate:
         description: 'The moment this event starts'
         type: string
-        example: '2020-06-18 10:57:51'
+        example: '2020-08-17 06:25:16'
         format: date-time
       endDate:
         description: 'The moment this event ends'
         type: string
-        example: '2020-06-18 10:57:51'
+        example: '2020-08-17 06:25:16'
         format: date-time
       class:
         description: 'The security class of this event.'
@@ -14331,12 +14527,12 @@ definitions:
       startDate:
         description: 'The moment this event starts'
         type: string
-        example: '2020-06-18 10:57:51'
+        example: '2020-08-17 06:25:16'
         format: date-time
       endDate:
         description: 'The moment this event ends'
         type: string
-        example: '2020-06-18 10:57:51'
+        example: '2020-08-17 06:25:16'
         format: date-time
       class:
         description: 'The security class of this event.'
@@ -14417,12 +14613,12 @@ definitions:
       startDate:
         description: 'The moment this event starts'
         type: string
-        example: '2020-06-18 10:57:51'
+        example: '2020-08-17 06:25:16'
         format: date-time
       endDate:
         description: 'The moment this event ends'
         type: string
-        example: '2020-06-18 10:57:51'
+        example: '2020-08-17 06:25:16'
         format: date-time
       location:
         description: 'The location of this event'
@@ -14490,7 +14686,7 @@ definitions:
       completed:
         description: 'The date and time a to-do is completed.'
         type: string
-        example: '2020-06-18 10:57:51'
+        example: '2020-08-17 06:25:16'
         format: date-time
       percentageDone:
         description: 'The percentage of a to-do that has been comepleted.'
@@ -14525,12 +14721,12 @@ definitions:
       startDate:
         description: 'The moment this event starts'
         type: string
-        example: '2020-06-18 10:57:51'
+        example: '2020-08-17 06:25:16'
         format: date-time
       endDate:
         description: 'The moment this event ends'
         type: string
-        example: '2020-06-18 10:57:51'
+        example: '2020-08-17 06:25:16'
         format: date-time
       location:
         description: 'The location of this event'
@@ -14598,7 +14794,7 @@ definitions:
       completed:
         description: 'The date and time a to-do is completed.'
         type: string
-        example: '2020-06-18 10:57:51'
+        example: '2020-08-17 06:25:16'
         format: date-time
       percentageDone:
         description: 'The percentage of a to-do that has been comepleted.'
@@ -14693,12 +14889,12 @@ definitions:
         description: 'The moment this request was created'
         type: string
         format: date-time
-        example: '2020-06-18 10:57:51'
+        example: '2020-08-17 06:25:16'
       dateModified:
         description: 'The moment this request last Modified'
         type: string
         format: date-time
-        example: '2020-06-18 10:57:51'
+        example: '2020-08-17 06:25:16'
     required: []
   ChangeLog-write:
     properties:
@@ -14812,12 +15008,12 @@ definitions:
         description: 'The moment this request was created'
         type: string
         format: date-time
-        example: '2020-06-18 10:57:51'
+        example: '2020-08-17 06:25:16'
       dateModified:
         description: 'The moment this request last Modified'
         type: string
         format: date-time
-        example: '2020-06-18 10:57:51'
+        example: '2020-08-17 06:25:16'
     required: []
   AuditTrail-write:
     properties:
