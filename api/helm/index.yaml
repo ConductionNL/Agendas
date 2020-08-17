@@ -3,14 +3,14 @@ entries:
   arc:
   - apiVersion: v1
     appVersion: V.0.1
-    created: "2020-06-18T10:55:55.649980246Z"
-    description: '&#039;Naast deze JSON rest API is er ook een [graphql](/graphql)
-      interface beschikbaar.&#039;'
-    digest: 03fdd27573183f7eaaa0e3476de951dba4f3224985b098efa78e542e3cb7e007
+    created: "2020-08-17T06:24:27.7683201Z"
+    description: Naast deze JSON rest API is er ook een [graphql](/graphql) interface
+      beschikbaar.
+    digest: 8fd4378b811d34d5d2b647041a609e56469cbe801412ced5bc5ea2f193d69145
     home: arc.zaakonline.nl
     icon: arc.zaakonline.nl
     name: arc
     urls:
     - arc-0.1.0.tgz
     version: 0.1.0
-generated: "2020-06-18T10:55:55.645611946Z"
+generated: "2020-08-17T06:24:27.7628538Z"
