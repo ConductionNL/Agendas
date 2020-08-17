@@ -111,7 +111,6 @@ class Calendar
      * @example https://wrc.zaakonline.nl/organisations/16353702-4614-42ff-92af-7dd11c8eef9f
      *
      * @Gedmo\Versioned
-     * @Assert\NotNull
      * @Assert\Url
      * @Groups({"read", "write"})
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -124,7 +123,6 @@ class Calendar
      * @example https://wrc.zaakonline.nl/organisations/16353702-4614-42ff-92af-7dd11c8eef9f
      *
      * @Gedmo\Versioned
-     * @Assert\NotNull
      * @Assert\Url
      * @Groups({"read", "write"})
      * @ORM\Column(type="string", length=255, nullable=true)
