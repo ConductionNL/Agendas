@@ -4,6 +4,7 @@ namespace App\DataFixtures;
 
 use App\Entity\Calendar;
 use App\Entity\Event;
+use Conduction\CommonGroundBundle\Service\CommonGroundService;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use Ramsey\Uuid\Uuid;
@@ -12,10 +13,15 @@ use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 class ZuiddrechtFixtures extends Fixture
 {
     private $params;
+    /**
+     * @var CommonGroundService
+     */
+    private $commonGroundService;
 
-    public function __construct(ParameterBagInterface $params)
+    public function __construct(ParameterBagInterface $params, CommonGroundService $commonGroundService)
     {
         $this->params = $params;
+        $this->commonGroundService = $commonGroundService;
     }
 
     public function load(ObjectManager $manager)
@@ -32,7 +38,7 @@ class ZuiddrechtFixtures extends Fixture
         $id = Uuid::fromString('e46e6b3e-9b3a-4339-9d69-874d8dd6bc44');
         $calendar = new Calendar();
         $calendar->setName('Algemene Begraafplaats');
-        $calendar->setDescription('Calendar voor Algemene Begraafplaats'); 
+        $calendar->setDescription('Calendar voor Algemene Begraafplaats');
         $calendar->setResource($this->commonGroundService->cleanUrl(['component'=>'grc', 'type'=>'cemeteries', 'id'=>'5ff4e420-f5bc-4296-b02c-bf5b42215987']));
         $calendar->setTimeZone('CET');
         $manager->persist($calendar);
