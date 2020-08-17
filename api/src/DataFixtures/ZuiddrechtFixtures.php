@@ -27,11 +27,11 @@ class ZuiddrechtFixtures extends Fixture
             return false;
         }
 
-        // Algemene Begraafplaats "Rustoord"
+        // Algemene Begraafplaats
         $id = Uuid::fromString('e46e6b3e-9b3a-4339-9d69-874d8dd6bc44');
         $calendar = new Calendar();
-        $calendar->setName('Algemene Begraafplaats "Rustoord"');
-        $calendar->setDescription('Calendar voor begraafplaats Streekweg in Hoogkarspel in gemeente SED');
+        $calendar->setName('Algemene Begraafplaats');
+        $calendar->setDescription('Calendar voor Algemene Begraafplaats');
         $calendar->setTimeZone('CET');
         $manager->persist($calendar);
         $calendar->setId($id);
@@ -39,7 +39,7 @@ class ZuiddrechtFixtures extends Fixture
         $manager->flush();
         $calendar = $manager->getRepository('App:Calendar')->findOneBy(['id'=> $id]);
 
-        // Nieuwe gemeentelijke begraafplaats
+        //Nieuwe gemeentelijke begraafplaats
         $id = Uuid::fromString('7fd885e9-f274-4e55-9167-66167f70d474');
         $calendar = new Calendar();
         $calendar->setName('Nieuwe gemeentelijke begraafplaats');
