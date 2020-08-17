@@ -247,7 +247,6 @@ class Calendar
         return $this;
     }
 
-
     public function getOrganization(): ?string
     {
         return $this->organization;
