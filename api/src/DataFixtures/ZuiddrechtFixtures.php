@@ -39,6 +39,7 @@ class ZuiddrechtFixtures extends Fixture
         $calendar = new Calendar();
         $calendar->setName('Algemene Begraafplaats');
         $calendar->setDescription('Calendar voor Algemene Begraafplaats');
+        $calendar->setOrganization($this->commonGroundService->cleanUrl(['component'=>'wrc', 'type'=>'organizations', 'id'=>'4d1eded3-fbdf-438f-9536-8747dd8ab591']));
         $calendar->setResource($this->commonGroundService->cleanUrl(['component'=>'grc', 'type'=>'cemeteries', 'id'=>'5ff4e420-f5bc-4296-b02c-bf5b42215987']));
         $calendar->setTimeZone('CET');
         $manager->persist($calendar);
@@ -52,6 +53,7 @@ class ZuiddrechtFixtures extends Fixture
         $calendar = new Calendar();
         $calendar->setName('Nieuwe gemeentelijke begraafplaats');
         $calendar->setDescription('Calendar voor Nieuwe gemeentelijke begraafplaats');
+        $calendar->setOrganization($this->commonGroundService->cleanUrl(['component'=>'wrc', 'type'=>'organizations', 'id'=>'4d1eded3-fbdf-438f-9536-8747dd8ab591']));
         $calendar->setResource($this->commonGroundService->cleanUrl(['component'=>'grc', 'type'=>'cemeteries', 'id'=>'f1d81883-4c48-4ce6-8f43-482ba0a7226e']));
         $calendar->setTimeZone('CET');
         $manager->persist($calendar);
