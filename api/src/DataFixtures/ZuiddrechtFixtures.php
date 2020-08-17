@@ -3,7 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\Calendar;
-use App\Entity\Event;
+use Conduction\CommonGroundBundle\Service\CommonGroundService;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use Ramsey\Uuid\Uuid;
@@ -12,10 +12,15 @@ use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 class ZuiddrechtFixtures extends Fixture
 {
     private $params;
+    /**
+     * @var CommonGroundService
+     */
+    private $commonGroundService;
 
-    public function __construct(ParameterBagInterface $params)
+    public function __construct(ParameterBagInterface $params, CommonGroundService $commonGroundService)
     {
         $this->params = $params;
+        $this->commonGroundService = $commonGroundService;
     }
 
     public function load(ObjectManager $manager)
@@ -33,6 +38,8 @@ class ZuiddrechtFixtures extends Fixture
         $calendar = new Calendar();
         $calendar->setName('Algemene Begraafplaats');
         $calendar->setDescription('Calendar voor Algemene Begraafplaats');
+        $calendar->setOrganization($this->commonGroundService->cleanUrl(['component'=>'wrc', 'type'=>'organizations', 'id'=>'4d1eded3-fbdf-438f-9536-8747dd8ab591']));
+        $calendar->setResource($this->commonGroundService->cleanUrl(['component'=>'grc', 'type'=>'cemeteries', 'id'=>'5ff4e420-f5bc-4296-b02c-bf5b42215987']));
         $calendar->setTimeZone('CET');
         $manager->persist($calendar);
         $calendar->setId($id);
@@ -45,12 +52,13 @@ class ZuiddrechtFixtures extends Fixture
         $calendar = new Calendar();
         $calendar->setName('Nieuwe gemeentelijke begraafplaats');
         $calendar->setDescription('Calendar voor Nieuwe gemeentelijke begraafplaats');
+        $calendar->setOrganization($this->commonGroundService->cleanUrl(['component'=>'wrc', 'type'=>'organizations', 'id'=>'4d1eded3-fbdf-438f-9536-8747dd8ab591']));
+        $calendar->setResource($this->commonGroundService->cleanUrl(['component'=>'grc', 'type'=>'cemeteries', 'id'=>'f1d81883-4c48-4ce6-8f43-482ba0a7226e']));
         $calendar->setTimeZone('CET');
         $manager->persist($calendar);
         $calendar->setId($id);
         $manager->persist($calendar);
         $manager->flush();
         $calendar = $manager->getRepository('App:Calendar')->findOneBy(['id'=> $id]);
-
     }
 }
