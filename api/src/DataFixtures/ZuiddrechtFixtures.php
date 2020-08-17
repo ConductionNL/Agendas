@@ -27,32 +27,29 @@ class ZuiddrechtFixtures extends Fixture
             return false;
         }
 
-        //urls moeten nog naar de volgende notatie: $section1->setProperties(["{$this->commonGroundService->getComponent('vtc')['location']}/properties/8f9adb13-d5e0-40de-a08c-a2ce5a648b1e"]);
-
-        //Gemeente SED:
-        // Calendar Streekweg in Hoogkarspel
+        // Algemene Begraafplaats "Rustoord"
         $id = Uuid::fromString('e46e6b3e-9b3a-4339-9d69-874d8dd6bc44');
-        $StreekwegInHoogkarspel = new Calendar();
-        $StreekwegInHoogkarspel->setName('Algemene Begraafplaats "Rustoord"');
-        $StreekwegInHoogkarspel->setDescription('Calendar voor begraafplaats Streekweg in Hoogkarspel in gemeente SED');
-        $StreekwegInHoogkarspel->setTimeZone('CET');
-        $manager->persist($StreekwegInHoogkarspel);
-        $StreekwegInHoogkarspel->setId($id);
-        $manager->persist($StreekwegInHoogkarspel);
+        $calendar = new Calendar();
+        $calendar->setName('Algemene Begraafplaats "Rustoord"');
+        $calendar->setDescription('Calendar voor begraafplaats Streekweg in Hoogkarspel in gemeente SED');
+        $calendar->setTimeZone('CET');
+        $manager->persist($calendar);
+        $calendar->setId($id);
+        $manager->persist($calendar);
         $manager->flush();
-        $StreekwegInHoogkarspel = $manager->getRepository('App:Calendar')->findOneBy(['id'=> $id]);
+        $calendar = $manager->getRepository('App:Calendar')->findOneBy(['id'=> $id]);
 
-        // Calendar Algemene Begraafplaats "Rustoord"
+        // Nieuwe gemeentelijke begraafplaats
         $id = Uuid::fromString('7fd885e9-f274-4e55-9167-66167f70d474');
-        $AlgemeneBegraafplaatsRustoord = new Calendar();
-        $AlgemeneBegraafplaatsRustoord->setName('Nieuwe gemeentelijke begraafplaats');
-        $AlgemeneBegraafplaatsRustoord->setDescription('Calendar voor begraafplaats Algemene Begraafplaats "Rustoord" in gemeente SED');
-        $AlgemeneBegraafplaatsRustoord->setTimeZone('CET');
-        $manager->persist($AlgemeneBegraafplaatsRustoord);
-        $AlgemeneBegraafplaatsRustoord->setId($id);
-        $manager->persist($AlgemeneBegraafplaatsRustoord);
+        $calendar = new Calendar();
+        $calendar->setName('Nieuwe gemeentelijke begraafplaats');
+        $calendar->setDescription('Calendar voor begraafplaats Algemene Begraafplaats "Rustoord" in gemeente SED');
+        $calendar->setTimeZone('CET');
+        $manager->persist($calendar);
+        $calendar->setId($id);
+        $manager->persist($calendar);
         $manager->flush();
-        $AlgemeneBegraafplaatsRustoord = $manager->getRepository('App:Calendar')->findOneBy(['id'=> $id]);
+        $calendar = $manager->getRepository('App:Calendar')->findOneBy(['id'=> $id]);
 
     }
 }

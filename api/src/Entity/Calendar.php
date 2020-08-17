@@ -267,7 +267,7 @@ class Calendar
 
         return $this;
     }
-    
+
     /**
      * @return Collection|Event[]
      */
