@@ -52,7 +52,13 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ApiFilter(BooleanFilter::class)
  * @ApiFilter(OrderFilter::class)
  * @ApiFilter(DateFilter::class, strategy=DateFilter::EXCLUDE_NULL)
- * @ApiFilter(SearchFilter::class, properties={"id":"exact"})
+ * @ApiFilter(SearchFilter::class, properties={
+ *     "id":"exact",
+ *     "name":"partial",
+ *     "description":"partial",
+ *     "organization":"exact",
+ *     "resource":"exact"
+ * })
  */
 class Calendar
 {
@@ -98,6 +104,30 @@ class Calendar
      * @ORM\Column(type="text", nullable=true)
      */
     private $description;
+
+    /**
+     * @var string A specific commonground organisation
+     *
+     * @example https://wrc.zaakonline.nl/organisations/16353702-4614-42ff-92af-7dd11c8eef9f
+     *
+     * @Gedmo\Versioned
+     * @Assert\Url
+     * @Groups({"read", "write"})
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $organization;
+
+    /**
+     * @var string A specific commonground resource
+     *
+     * @example https://wrc.zaakonline.nl/organisations/16353702-4614-42ff-92af-7dd11c8eef9f
+     *
+     * @Gedmo\Versioned
+     * @Assert\Url
+     * @Groups({"read", "write"})
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $resource;
 
     /**
      * @var array Events that belong to this Calendar
@@ -213,6 +243,30 @@ class Calendar
     public function setDescription(?string $description): self
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function getOrganization(): ?string
+    {
+        return $this->organization;
+    }
+
+    public function setOrganization(string $organization): self
+    {
+        $this->organization = $organization;
+
+        return $this;
+    }
+
+    public function getResource(): ?string
+    {
+        return $this->resource;
+    }
+
+    public function setResource(string $resource): self
+    {
+        $this->resource = $resource;
 
         return $this;
     }
