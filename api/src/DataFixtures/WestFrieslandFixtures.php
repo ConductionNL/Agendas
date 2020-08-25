@@ -3,7 +3,6 @@
 namespace App\DataFixtures;
 
 use App\Entity\Calendar;
-use App\Entity\Event;
 use Conduction\CommonGroundBundle\Service\CommonGroundService;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
