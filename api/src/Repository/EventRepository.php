@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Event;
+use DateTime;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 
@@ -17,6 +18,21 @@ class EventRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Event::class);
+    }
+    public function findByPeriod(DateTime $startDate, DateTime $endDate, string $calendar){
+        return $this->createQueryBuilder('e')
+            ->andWhere('e.endDate >= :startDate')
+            ->andWhere('e.startDate < :endDate')
+            ->orWhere('e.startDate =< :endDate')
+            ->andWhere('e.endDate > :startDate')
+            ->having('e.calendar_id = :calendar')
+            ->setParameter('startDate', $startDate)
+            ->setParameter('endDate', $endDate)
+            ->setParameter('calendar', $calendar)
+            ->orderBy('e.startDate')
+            ->setMaxResults('30')
+            ->getQuery()
+            ->getResult();
     }
 
     // /**
