@@ -5,9 +5,6 @@ namespace App\Subscriber;
 use ApiPlatform\Core\EventListener\EventPriorities;
 use App\Entity\Availability;
 use App\Entity\Calendar;
-use App\Entity\Event;
-use App\Entity\Journal;
-use App\Entity\Todo;
 use App\Service\CalendarService;
 use Conduction\CommonGroundBundle\Service\NLXLogService;
 use DateInterval;
@@ -58,17 +55,17 @@ class AvailabilitiesSubscriber implements EventSubscriberInterface
         }
         $query = $event->getRequest()->query->all();
 
-        if(!key_exists('duration', $query)){
-            throw new HttpException("Please define a duration!", 400);
+        if (!key_exists('duration', $query)) {
+            throw new HttpException('Please define a duration!', 400);
         }
-        if(!key_exists('startDate', $query)){
-            throw new HttpException("Please define a start date!", 400);
+        if (!key_exists('startDate', $query)) {
+            throw new HttpException('Please define a start date!', 400);
         }
-        if(!key_exists('endDate', $query)){
-            throw new HttpException("Please define a end date!", 400);
+        if (!key_exists('endDate', $query)) {
+            throw new HttpException('Please define a end date!', 400);
         }
-        if(!key_exists('calendar', $query)){
-            throw new HttpException("Please define a calendar!", 400);
+        if (!key_exists('calendar', $query)) {
+            throw new HttpException('Please define a calendar!', 400);
         }
 
         // Lets get the rest of the data
@@ -94,34 +91,32 @@ class AvailabilitiesSubscriber implements EventSubscriberInterface
         $endDate = new DateTime($query['endDate']);
         $duration = new DateInterval($query['duration']);
 //        var_dump($duration);
-        $calendars = $this->em->getRepository("App:Calendar")->findBy(['id'=>$query['calendar']]);
+        $calendars = $this->em->getRepository('App:Calendar')->findBy(['id'=>$query['calendar']]);
 
         $iteratingStartDate = $startDate;
         $availabilities = [];
-        while($iteratingStartDate < $endDate){
+        while ($iteratingStartDate < $endDate) {
             $availability = new Availability();
             $availability->setStartDate(clone $iteratingStartDate);
             $iteratingEndDate = clone $iteratingStartDate;
             $iteratingEndDate->add($duration);
             $availability->setEndDate(clone $iteratingEndDate);
 
-
             $criteria = Criteria::create()
-                ->andWhere(Criteria::expr()->gt('endDate',$iteratingStartDate))
+                ->andWhere(Criteria::expr()->gt('endDate', $iteratingStartDate))
                 ->andWhere(Criteria::expr()->lt('startDate', $iteratingEndDate));
 
             $entries = [];
 
-            foreach($calendars as $calendar){
-                if($calendar instanceof Calendar){
-
+            foreach ($calendars as $calendar) {
+                if ($calendar instanceof Calendar) {
                     $entries = array_merge($calendar->getEvents()->matching($criteria)->toArray(), $entries);
                     $entries = array_merge($calendar->getFreebusies()->matching($criteria)->toArray(), $entries);
                 }
             }
-            if(count($entries) > 0){
+            if (count($entries) > 0) {
                 $availability->setAvailable(false);
-            }else{
+            } else {
                 $availability->setAvailable(true);
             }
             $this->em->persist($availability);
@@ -129,25 +124,22 @@ class AvailabilitiesSubscriber implements EventSubscriberInterface
             $iteratingStartDate = $iteratingStartDate->add($duration);
         }
 
-        if(key_exists('showUnavailable',$query) && $query['showUnavailable'] == 'true'){
+        if (key_exists('showUnavailable', $query) && $query['showUnavailable'] == 'true') {
             $result = $availabilities;
-        }
-        else{
+        } else {
             $result = [];
-            foreach($availabilities as $availability){
-                if ($availability->getAvailable()){
+            foreach ($availabilities as $availability) {
+                if ($availability->getAvailable()) {
                     $result[] = $availability;
                 }
             }
         }
-
 
         $response = $this->serializer->serialize(
             $result,
             $renderType,
             ['enable_max_depth'=> true]
         );
-
 
         // Creating a response
         $response = new Response(
