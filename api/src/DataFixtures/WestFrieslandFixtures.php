@@ -27,6 +27,7 @@ class WestFrieslandFixtures extends Fixture
     public function load(ObjectManager $manager)
     {
         if (
+            !$this->params->get('app_build_all_fixtures') &&
             $this->params->get('app_domain') != 'begraven.zaakonline.nl' &&
             strpos($this->params->get('app_domain'), 'begraven.zaakonline.nl') == false &&
             $this->params->get('app_domain') != 'westfriesland.commonground.nu' &&
@@ -665,6 +666,171 @@ class WestFrieslandFixtures extends Fixture
         $manager->persist($DeWeere);
         $manager->flush();
         $DeWeere = $manager->getRepository('App:Calendar')->findOneBy(['id'=> $id]);
+
+        $manager->flush();
+
+        // Calendar Sauwerd
+        $id = Uuid::fromString('945b97e4-8add-4783-8989-f88a793d8229');
+        $sauwerd = new Calendar();
+        $sauwerd->setName('Calendar Sauwerd');
+        $sauwerd->setOrganization($this->commonGroundService->cleanUrl(['component'=>'wrc', 'type'=>'organizations', 'id'=>'79ad319b-1ff6-4e21-919b-4ea002b5f233']));
+        $sauwerd->setDescription('Calendar voor begraafplaats Sauwerd in gemeente Hogeland');
+        $sauwerd->setTimeZone('CET');
+        $manager->persist($sauwerd);
+        $sauwerd->setId($id);
+        $manager->persist($sauwerd);
+        $manager->flush();
+        $sauwerd = $manager->getRepository('App:Calendar')->findOneBy(['id'=> $id]);
+
+        $manager->flush();
+
+        // Calendar Adorp
+        $id = Uuid::fromString('5f1abeb9-3d73-484e-839c-d84eed30d448');
+        $adorp = new Calendar();
+        $adorp->setName('Calendar Sauwerd');
+        $adorp->setOrganization($this->commonGroundService->cleanUrl(['component'=>'wrc', 'type'=>'organizations', 'id'=>'79ad319b-1ff6-4e21-919b-4ea002b5f233']));
+        $adorp->setDescription('Calendar voor begraafplaats Adorp in gemeente Hogeland');
+        $adorp->setTimeZone('CET');
+        $manager->persist($adorp);
+        $adorp->setId($id);
+        $manager->persist($adorp);
+        $manager->flush();
+        $adorp = $manager->getRepository('App:Calendar')->findOneBy(['id'=> $id]);
+
+        $manager->flush();
+
+        // Calendar Winsum
+        $id = Uuid::fromString('97d49f03-0f95-4db8-b727-a1a77926bbd2');
+        $winsum = new Calendar();
+        $winsum->setName('Calendar Winsum');
+        $winsum->setOrganization($this->commonGroundService->cleanUrl(['component'=>'wrc', 'type'=>'organizations', 'id'=>'79ad319b-1ff6-4e21-919b-4ea002b5f233']));
+        $winsum->setDescription('Calendar voor begraafplaats Winsum in gemeente Hogeland');
+        $winsum->setTimeZone('CET');
+        $manager->persist($winsum);
+        $winsum->setId($id);
+        $manager->persist($winsum);
+        $manager->flush();
+        $winsum = $manager->getRepository('App:Calendar')->findOneBy(['id'=> $id]);
+
+        $manager->flush();
+
+        // Calendar Baflo
+        $id = Uuid::fromString('325b1400-3269-4226-af82-2a64bfefd338');
+        $baflo = new Calendar();
+        $baflo->setName('Calendar Baflo');
+        $baflo->setOrganization($this->commonGroundService->cleanUrl(['component'=>'wrc', 'type'=>'organizations', 'id'=>'79ad319b-1ff6-4e21-919b-4ea002b5f233']));
+        $baflo->setDescription('Calendar voor begraafplaats Baflo in gemeente Hogeland');
+        $baflo->setTimeZone('CET');
+        $manager->persist($baflo);
+        $baflo->setId($id);
+        $manager->persist($baflo);
+        $manager->flush();
+        $baflo = $manager->getRepository('App:Calendar')->findOneBy(['id'=> $id]);
+
+        $manager->flush();
+
+        // Calendar Sauwerd-oud
+        $id = Uuid::fromString('984e9dcc-9dbc-49d5-8249-6633b87aacd6');
+        $sauwerdOud = new Calendar();
+        $sauwerdOud->setName('Calendar Sauwerd-oud');
+        $sauwerdOud->setOrganization($this->commonGroundService->cleanUrl(['component'=>'wrc', 'type'=>'organizations', 'id'=>'79ad319b-1ff6-4e21-919b-4ea002b5f233']));
+        $sauwerdOud->setDescription('Calendar voor begraafplaats Sauwerd-oud in gemeente Hogeland');
+        $sauwerdOud->setTimeZone('CET');
+        $manager->persist($sauwerdOud);
+        $sauwerdOud->setId($id);
+        $manager->persist($sauwerdOud);
+        $manager->flush();
+        $sauwerdOud = $manager->getRepository('App:Calendar')->findOneBy(['id'=> $id]);
+
+        $manager->flush();
+
+        // Calendar Bedum
+        $id = Uuid::fromString('73e47b60-3987-41b5-84dd-9e3eb82d2803');
+        $bedum = new Calendar();
+        $bedum->setName('Calendar Bedum');
+        $bedum->setOrganization($this->commonGroundService->cleanUrl(['component'=>'wrc', 'type'=>'organizations', 'id'=>'79ad319b-1ff6-4e21-919b-4ea002b5f233']));
+        $bedum->setDescription('Calendar voor begraafplaats Bedum in gemeente Hogeland');
+        $bedum->setTimeZone('CET');
+        $manager->persist($bedum);
+        $bedum->setId($id);
+        $manager->persist($bedum);
+        $manager->flush();
+        $bedum = $manager->getRepository('App:Calendar')->findOneBy(['id'=> $id]);
+
+        $manager->flush();
+
+        // Calendar Noordwolde
+        $id = Uuid::fromString('b8c87efe-c328-471f-b57d-d593e159fbf3');
+        $noordwolde = new Calendar();
+        $noordwolde->setName('Calendar Noordwolde');
+        $noordwolde->setOrganization($this->commonGroundService->cleanUrl(['component'=>'wrc', 'type'=>'organizations', 'id'=>'79ad319b-1ff6-4e21-919b-4ea002b5f233']));
+        $noordwolde->setDescription('Calendar voor begraafplaats Noordwolde in gemeente Hogeland');
+        $noordwolde->setTimeZone('CET');
+        $manager->persist($noordwolde);
+        $noordwolde->setId($id);
+        $manager->persist($noordwolde);
+        $manager->flush();
+        $noordwolde = $manager->getRepository('App:Calendar')->findOneBy(['id'=> $id]);
+
+        $manager->flush();
+
+        // Calendar Onderdendam
+        $id = Uuid::fromString('2a196c44-d5ce-4da0-aafb-1850151316d4');
+        $onderdendam = new Calendar();
+        $onderdendam->setName('Calendar Onderdendam');
+        $onderdendam->setOrganization($this->commonGroundService->cleanUrl(['component'=>'wrc', 'type'=>'organizations', 'id'=>'79ad319b-1ff6-4e21-919b-4ea002b5f233']));
+        $onderdendam->setDescription('Calendar voor begraafplaats Onderdendam in gemeente Hogeland');
+        $onderdendam->setTimeZone('CET');
+        $manager->persist($onderdendam);
+        $onderdendam->setId($id);
+        $manager->persist($onderdendam);
+        $manager->flush();
+        $onderdendam = $manager->getRepository('App:Calendar')->findOneBy(['id'=> $id]);
+
+        $manager->flush();
+
+        // Calendar Westerdijkshorn
+        $id = Uuid::fromString('baf2b782-47f8-44c9-af38-efa599a4b5de');
+        $westerdijkshorn = new Calendar();
+        $westerdijkshorn->setName('Calendar Westerdijkshorn');
+        $westerdijkshorn->setOrganization($this->commonGroundService->cleanUrl(['component'=>'wrc', 'type'=>'organizations', 'id'=>'79ad319b-1ff6-4e21-919b-4ea002b5f233']));
+        $westerdijkshorn->setDescription('Calendar voor begraafplaats Westerdijkshorn in gemeente Hogeland');
+        $westerdijkshorn->setTimeZone('CET');
+        $manager->persist($westerdijkshorn);
+        $westerdijkshorn->setId($id);
+        $manager->persist($westerdijkshorn);
+        $manager->flush();
+        $westerdijkshorn = $manager->getRepository('App:Calendar')->findOneBy(['id'=> $id]);
+
+        $manager->flush();
+
+        // Calendar Zuidwolde
+        $id = Uuid::fromString('694e33a7-418c-4bbe-aa5c-03b8b44169d0');
+        $zuidwolde = new Calendar();
+        $zuidwolde->setName('Calendar Zuidwolde');
+        $zuidwolde->setOrganization($this->commonGroundService->cleanUrl(['component'=>'wrc', 'type'=>'organizations', 'id'=>'79ad319b-1ff6-4e21-919b-4ea002b5f233']));
+        $zuidwolde->setDescription('Calendar voor begraafplaats Zuidwolde in gemeente Hogeland');
+        $zuidwolde->setTimeZone('CET');
+        $manager->persist($zuidwolde);
+        $zuidwolde->setId($id);
+        $manager->persist($zuidwolde);
+        $manager->flush();
+        $zuidwolde = $manager->getRepository('App:Calendar')->findOneBy(['id'=> $id]);
+
+        $manager->flush();
+
+        // Calendar J.A.J.H. Nienhuis
+        $id = Uuid::fromString('4ba7ea93-8fe2-4520-8fcd-a221c4b201ee');
+        $nienhuis = new Calendar();
+        $nienhuis->setName('Calendar J.A.J.H. Nienhuis');
+        $nienhuis->setOrganization($this->commonGroundService->cleanUrl(['component'=>'wrc', 'type'=>'organizations', 'id'=>'79ad319b-1ff6-4e21-919b-4ea002b5f233']));
+        $nienhuis->setDescription('Calendar voor begraafplaats J.A.J.H. Nienhuis in gemeente Hogeland');
+        $nienhuis->setTimeZone('CET');
+        $manager->persist($nienhuis);
+        $nienhuis->setId($id);
+        $manager->persist($nienhuis);
+        $manager->flush();
+        $nienhuis = $manager->getRepository('App:Calendar')->findOneBy(['id'=> $id]);
 
         $manager->flush();
     }
