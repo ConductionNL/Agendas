@@ -19,7 +19,9 @@ class EventRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Event::class);
     }
-    public function findByPeriod(DateTime $startDate, DateTime $endDate, string $calendar){
+
+    public function findByPeriod(DateTime $startDate, DateTime $endDate, string $calendar)
+    {
         return $this->createQueryBuilder('e')
             ->andWhere('e.endDate >= :startDate')
             ->andWhere('e.startDate < :endDate')
