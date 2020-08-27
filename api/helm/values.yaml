@@ -9,7 +9,7 @@ settings:
   title: Agenda Component
   version: V.0.1
   id: 
-  description: 'Naast deze JSON rest API is er ook een [graphql](/graphql) interface beschikbaar.'
+  description: '&#039;Naast deze JSON rest API is er ook een [graphql](/graphql) interface beschikbaar.&#039;'
   type: component
   repro: https://github.com/ConductionNL/agendaservice
   demo: arc.zaakonline.nl
@@ -56,7 +56,7 @@ security:
 
 
 php:
-  repository: docker.io/conduction/arc-php
+  repository: docker.io/conduction/protocomponent-php
   tag: latest
   mercure:
     jwtSecret: ""
@@ -65,7 +65,7 @@ php:
   replicaCount: 2
 
 nginx:
-  repository: docker.io/conduction/arc-nginx
+  repository: docker.io/conduction/protocomponent-nginx
   tag: latest
   pullPolicy: Always
   replicaCount: 2
@@ -73,7 +73,7 @@ nginx:
 varnish:
   enabled: true
   #url: https://example.com
-  repository: docker.io/conduction/arc-varnish
+  repository: docker.io/conduction/protocomponent-varnish
   tag: latest
   pullPolicy: Always
   replicaCount: 1
