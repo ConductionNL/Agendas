@@ -255,8 +255,6 @@ class Reservation
      */
     private $totalPrice;
 
-
-
     public function getId(): ?Uuid
     {
         return $this->id;
@@ -340,6 +338,7 @@ class Reservation
 
         return $this;
     }
+
     public function getEvent(): ?Event
     {
         return $this->event;
