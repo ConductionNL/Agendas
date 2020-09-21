@@ -9,8 +9,6 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\DateFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use DateTime;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Ramsey\Uuid\Uuid;
@@ -77,13 +75,13 @@ class Reservation
      * @var string The name of this Reservation
      *
      * @example My Reservation
-     *
+     * @Assert\NotNull
      * @Gedmo\Versioned
      * @Assert\Length(
      *      max = 255
      * )
      * @Groups({"read","write"})
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255)
      */
     private $name;
 
@@ -147,6 +145,7 @@ class Reservation
     /**
      * @var array Event that is booked in this reservation
      * @Groups({"read","write"})
+     * @MaxDepth(1)
      * @ORM\OneToOne(targetEntity=Event::class, cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
      */
