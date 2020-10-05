@@ -1,18 +1,18 @@
 openapi: 3.0.2
 info:
   title: 'Agenda Component'
-  version: V.0.1
+  version: V1.0
   description: |
     API Details
     - Component: Agenda Component
     - Reference: arc
     - Enviroment: dev
-    - Version: V.0.1
+    - Version: V1.0
     - Repository: [online](https://github.com/ConductionNL/agendaservice) / [zip](https://github.com/ConductionNL/agendaservice/archive/master.zip)
     - Docker Image: [online](https://hub.docker.com/repository/docker/conduction/arc-php) 
     - Datamodel: [postman](/schema/arc.postman_collection.json) / [oas](/schema/openapi.yaml) / [pdf](/schema/datamodel.pdf) / [modelio (zip)](/schema/Datamodel_Modelio.zip) 
     
-    'Naast deze JSON rest API is er ook een [graphql](/graphql) interface beschikbaar.'         
+    Naast deze JSON rest API is er ook een [graphql](/graphql) interface beschikbaar.         
     
 paths:
   /alarms:
@@ -2113,6 +2113,737 @@ paths:
             schema:
               $ref: '#/components/schemas/AuditTrail-write'
         description: 'The updated AuditTrail resource'
+  /availabilities:
+    get:
+      tags:
+        - Availability
+      operationId: getAvailabilityCollection
+      summary: 'Retrieves the collection of Availability resources.'
+      responses:
+        200:
+          description: 'Availability collection response'
+          content:
+            application/ld+json:
+              schema:
+                type: object
+                properties:
+                  'hydra:member': { type: array, items: { $ref: '#/components/schemas/Availability:jsonld-read' } }
+                  'hydra:totalItems': { type: integer, minimum: 0 }
+                  'hydra:view': { type: object, properties: { '@id': { type: string, format: iri-reference }, '@type': { type: string }, 'hydra:first': { type: string, format: iri-reference }, 'hydra:last': { type: string, format: iri-reference }, 'hydra:next': { type: string, format: iri-reference } } }
+                  'hydra:search': { type: object, properties: { '@type': { type: string }, 'hydra:template': { type: string }, 'hydra:variableRepresentation': { type: string }, 'hydra:mapping': { type: array, items: { type: object, properties: { '@type': { type: string }, variable: { type: string }, property: { type: string }, required: { type: boolean } } } } } }
+                required:
+                  - 'hydra:member'
+            application/json+ld:
+              schema:
+                type: object
+                properties:
+                  'hydra:member': { type: array, items: { $ref: '#/components/schemas/Availability:jsonld-read' } }
+                  'hydra:totalItems': { type: integer, minimum: 0 }
+                  'hydra:view': { type: object, properties: { '@id': { type: string, format: iri-reference }, '@type': { type: string }, 'hydra:first': { type: string, format: iri-reference }, 'hydra:last': { type: string, format: iri-reference }, 'hydra:next': { type: string, format: iri-reference } } }
+                  'hydra:search': { type: object, properties: { '@type': { type: string }, 'hydra:template': { type: string }, 'hydra:variableRepresentation': { type: string }, 'hydra:mapping': { type: array, items: { type: object, properties: { '@type': { type: string }, variable: { type: string }, property: { type: string }, required: { type: boolean } } } } } }
+                required:
+                  - 'hydra:member'
+            application/hal+json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Availability-read'
+            application/json+hal:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Availability-read'
+            application/vnd.api+json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Availability-read'
+            application/json+vnd.api:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Availability-read'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Availability-read'
+            application/health+json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Availability-read'
+            application/json+health:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Availability-read'
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Availability-read'
+            application/x-yaml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Availability-read'
+            text/csv:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Availability-read'
+            text/html:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Availability-read'
+      parameters:
+        -
+          name: page
+          in: query
+          required: false
+          description: 'The collection page number'
+          schema:
+            type: integer
+            default: 1
+        -
+          name: limit
+          in: query
+          required: false
+          description: 'The number of items per page'
+          schema:
+            type: integer
+            default: 30
+            minimum: 0
+        -
+          name: Authorization
+          description: 'The JWT of the entity performing the request'
+          in: header
+        -
+          name: API-Version
+          description: 'The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)'
+          example: 1.0.1
+          in: header
+        -
+          name: X-NLX-Logrecord-ID
+          description: 'A  globally unique id of the request, which makes a request traceable throughout the network.'
+          in: header
+        -
+          name: X-NLX-Request-Process-Id
+          description: 'A process id for purpose registration (doelbinding)'
+          in: header
+        -
+          name: X-NLX-Request-Data-Elements
+          description: 'A list of requested data elements'
+          in: header
+        -
+          name: X-NLX-Request-Data-Subject
+          description: 'A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`'
+          in: header
+        -
+          name: X-NLX-Audit-Clarification
+          description: 'A clarification as to why a request has been made  (doelbinding)'
+          in: header
+        -
+          name: Link
+          description: 'A [websub](https://www.w3.org/TR/websub/#discovery) header like <https://hub.example.com/>; rel="hub"'
+          in: header
+        -
+          name: 'extend[]'
+          required: false
+          description: 'An array of nested objects to include in the return object'
+          in: query
+          schema:
+            type: array
+        -
+          name: 'fields[]'
+          required: false
+          description: 'An array of fields to return in output, wil return all fields is not supplied'
+          in: query
+          schema:
+            type: array
+        -
+          name: validOn
+          required: false
+          description: 'Returns object as valid on a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+        -
+          name: validFrom
+          required: false
+          description: 'Returns objects valid from a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+        -
+          name: validUntil
+          required: false
+          description: 'Returns objects valid until a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+      produces:
+        - application/health+json
+    post:
+      tags:
+        - Availability
+      operationId: postAvailabilityCollection
+      summary: 'Creates a Availability resource.'
+      responses:
+        201:
+          description: 'Availability resource created'
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Availability:jsonld-read'
+            application/json+ld:
+              schema:
+                $ref: '#/components/schemas/Availability:jsonld-read'
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/Availability-read'
+            application/json+hal:
+              schema:
+                $ref: '#/components/schemas/Availability-read'
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/Availability-read'
+            application/json+vnd.api:
+              schema:
+                $ref: '#/components/schemas/Availability-read'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Availability-read'
+            application/health+json:
+              schema:
+                $ref: '#/components/schemas/Availability-read'
+            application/json+health:
+              schema:
+                $ref: '#/components/schemas/Availability-read'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Availability-read'
+            application/x-yaml:
+              schema:
+                $ref: '#/components/schemas/Availability-read'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/Availability-read'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/Availability-read'
+          links:
+            GetAvailabilityItem:
+              parameters:
+                id: '$response.body#/id'
+              operationId: getAvailabilityItem
+              description: 'The `id` value returned in the response can be used as the `id` parameter in `GET /availabilities/{id}`.'
+        400:
+          description: 'Invalid input'
+        404:
+          description: 'Resource not found'
+      requestBody:
+        content:
+          application/ld+json:
+            schema:
+              $ref: '#/components/schemas/Availability:jsonld-write'
+          application/json+ld:
+            schema:
+              $ref: '#/components/schemas/Availability:jsonld-write'
+          application/hal+json:
+            schema:
+              $ref: '#/components/schemas/Availability-write'
+          application/json+hal:
+            schema:
+              $ref: '#/components/schemas/Availability-write'
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/Availability-write'
+          application/json+vnd.api:
+            schema:
+              $ref: '#/components/schemas/Availability-write'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Availability-write'
+          application/health+json:
+            schema:
+              $ref: '#/components/schemas/Availability-write'
+          application/json+health:
+            schema:
+              $ref: '#/components/schemas/Availability-write'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Availability-write'
+          application/x-yaml:
+            schema:
+              $ref: '#/components/schemas/Availability-write'
+          text/csv:
+            schema:
+              $ref: '#/components/schemas/Availability-write'
+          text/html:
+            schema:
+              $ref: '#/components/schemas/Availability-write'
+        description: 'The new Availability resource'
+      parameters:
+        -
+          name: Authorization
+          description: 'The JWT of the entity performing the request'
+          in: header
+        -
+          name: API-Version
+          description: 'The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)'
+          example: 1.0.1
+          in: header
+        -
+          name: X-NLX-Logrecord-ID
+          description: 'A  globally unique id of the request, which makes a request traceable throughout the network.'
+          in: header
+        -
+          name: X-NLX-Request-Process-Id
+          description: 'A process id for purpose registration (doelbinding)'
+          in: header
+        -
+          name: X-NLX-Request-Data-Elements
+          description: 'A list of requested data elements'
+          in: header
+        -
+          name: X-NLX-Request-Data-Subject
+          description: 'A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`'
+          in: header
+        -
+          name: X-NLX-Audit-Clarification
+          description: 'A clarification as to why a request has been made  (doelbinding)'
+          in: header
+  '/availabilities/{id}':
+    get:
+      tags:
+        - Availability
+      operationId: getAvailabilityItem
+      summary: 'Retrieves a Availability resource.'
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: string
+        -
+          name: Authorization
+          description: 'The JWT of the entity performing the request'
+          in: header
+        -
+          name: API-Version
+          description: 'The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)'
+          example: 1.0.1
+          in: header
+        -
+          name: X-NLX-Logrecord-ID
+          description: 'A  globally unique id of the request, which makes a request traceable throughout the network.'
+          in: header
+        -
+          name: X-NLX-Request-Process-Id
+          description: 'A process id for purpose registration (doelbinding)'
+          in: header
+        -
+          name: X-NLX-Request-Data-Elements
+          description: 'A list of requested data elements'
+          in: header
+        -
+          name: X-NLX-Request-Data-Subject
+          description: 'A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`'
+          in: header
+        -
+          name: X-NLX-Audit-Clarification
+          description: 'A clarification as to why a request has been made  (doelbinding)'
+          in: header
+        -
+          name: Link
+          description: 'A [websub](https://www.w3.org/TR/websub/#discovery) header like <https://hub.example.com/>; rel="hub"'
+          in: header
+        -
+          name: 'extend[]'
+          required: false
+          description: 'An array of nested objects to include in the return object'
+          in: query
+          schema:
+            type: array
+        -
+          name: 'fields[]'
+          required: false
+          description: 'An array of fields to return in output, wil return all fields is not supplied'
+          in: query
+          schema:
+            type: array
+        -
+          name: validOn
+          required: false
+          description: 'Returns object as valid on a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+        -
+          name: validFrom
+          required: false
+          description: 'Returns objects valid from a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+        -
+          name: validUntil
+          required: false
+          description: 'Returns objects valid until a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+      responses:
+        200:
+          description: 'Availability resource response'
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Availability:jsonld-read'
+            application/json+ld:
+              schema:
+                $ref: '#/components/schemas/Availability:jsonld-read'
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/Availability-read'
+            application/json+hal:
+              schema:
+                $ref: '#/components/schemas/Availability-read'
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/Availability-read'
+            application/json+vnd.api:
+              schema:
+                $ref: '#/components/schemas/Availability-read'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Availability-read'
+            application/health+json:
+              schema:
+                $ref: '#/components/schemas/Availability-read'
+            application/json+health:
+              schema:
+                $ref: '#/components/schemas/Availability-read'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Availability-read'
+            application/x-yaml:
+              schema:
+                $ref: '#/components/schemas/Availability-read'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/Availability-read'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/Availability-read'
+        404:
+          description: 'Resource not found'
+      produces:
+        - application/health+json
+    delete:
+      tags:
+        - Availability
+      operationId: deleteAvailabilityItem
+      summary: 'Removes the Availability resource.'
+      responses:
+        204:
+          description: 'Availability resource deleted'
+        404:
+          description: 'Resource not found'
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: string
+        -
+          name: Authorization
+          description: 'The JWT of the entity performing the request'
+          in: header
+        -
+          name: API-Version
+          description: 'The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)'
+          example: 1.0.1
+          in: header
+        -
+          name: X-NLX-Logrecord-ID
+          description: 'A  globally unique id of the request, which makes a request traceable throughout the network.'
+          in: header
+        -
+          name: X-NLX-Request-Process-Id
+          description: 'A process id for purpose registration (doelbinding)'
+          in: header
+        -
+          name: X-NLX-Request-Data-Elements
+          description: 'A list of requested data elements'
+          in: header
+        -
+          name: X-NLX-Request-Data-Subject
+          description: 'A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`'
+          in: header
+        -
+          name: X-NLX-Audit-Clarification
+          description: 'A clarification as to why a request has been made  (doelbinding)'
+          in: header
+    put:
+      tags:
+        - Availability
+      operationId: putAvailabilityItem
+      summary: 'Replaces the Availability resource.'
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: string
+        -
+          name: Authorization
+          description: 'The JWT of the entity performing the request'
+          in: header
+        -
+          name: API-Version
+          description: 'The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)'
+          example: 1.0.1
+          in: header
+        -
+          name: X-NLX-Logrecord-ID
+          description: 'A  globally unique id of the request, which makes a request traceable throughout the network.'
+          in: header
+        -
+          name: X-NLX-Request-Process-Id
+          description: 'A process id for purpose registration (doelbinding)'
+          in: header
+        -
+          name: X-NLX-Request-Data-Elements
+          description: 'A list of requested data elements'
+          in: header
+        -
+          name: X-NLX-Request-Data-Subject
+          description: 'A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`'
+          in: header
+        -
+          name: X-NLX-Audit-Clarification
+          description: 'A clarification as to why a request has been made  (doelbinding)'
+          in: header
+      responses:
+        200:
+          description: 'Availability resource updated'
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Availability:jsonld-read'
+            application/json+ld:
+              schema:
+                $ref: '#/components/schemas/Availability:jsonld-read'
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/Availability-read'
+            application/json+hal:
+              schema:
+                $ref: '#/components/schemas/Availability-read'
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/Availability-read'
+            application/json+vnd.api:
+              schema:
+                $ref: '#/components/schemas/Availability-read'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Availability-read'
+            application/health+json:
+              schema:
+                $ref: '#/components/schemas/Availability-read'
+            application/json+health:
+              schema:
+                $ref: '#/components/schemas/Availability-read'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Availability-read'
+            application/x-yaml:
+              schema:
+                $ref: '#/components/schemas/Availability-read'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/Availability-read'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/Availability-read'
+        400:
+          description: 'Invalid input'
+        404:
+          description: 'Resource not found'
+      requestBody:
+        content:
+          application/ld+json:
+            schema:
+              $ref: '#/components/schemas/Availability:jsonld-write'
+          application/json+ld:
+            schema:
+              $ref: '#/components/schemas/Availability:jsonld-write'
+          application/hal+json:
+            schema:
+              $ref: '#/components/schemas/Availability-write'
+          application/json+hal:
+            schema:
+              $ref: '#/components/schemas/Availability-write'
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/Availability-write'
+          application/json+vnd.api:
+            schema:
+              $ref: '#/components/schemas/Availability-write'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Availability-write'
+          application/health+json:
+            schema:
+              $ref: '#/components/schemas/Availability-write'
+          application/json+health:
+            schema:
+              $ref: '#/components/schemas/Availability-write'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Availability-write'
+          application/x-yaml:
+            schema:
+              $ref: '#/components/schemas/Availability-write'
+          text/csv:
+            schema:
+              $ref: '#/components/schemas/Availability-write'
+          text/html:
+            schema:
+              $ref: '#/components/schemas/Availability-write'
+        description: 'The updated Availability resource'
+    patch:
+      tags:
+        - Availability
+      operationId: patchAvailabilityItem
+      summary: 'Updates the Availability resource.'
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: string
+        -
+          name: Authorization
+          description: 'The JWT of the entity performing the request'
+          in: header
+        -
+          name: API-Version
+          description: 'The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)'
+          example: 1.0.1
+          in: header
+        -
+          name: X-NLX-Logrecord-ID
+          description: 'A  globally unique id of the request, which makes a request traceable throughout the network.'
+          in: header
+        -
+          name: X-NLX-Request-Process-Id
+          description: 'A process id for purpose registration (doelbinding)'
+          in: header
+        -
+          name: X-NLX-Request-Data-Elements
+          description: 'A list of requested data elements'
+          in: header
+        -
+          name: X-NLX-Request-Data-Subject
+          description: 'A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`'
+          in: header
+        -
+          name: X-NLX-Audit-Clarification
+          description: 'A clarification as to why a request has been made  (doelbinding)'
+          in: header
+      responses:
+        200:
+          description: 'Availability resource updated'
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Availability:jsonld-read'
+            application/json+ld:
+              schema:
+                $ref: '#/components/schemas/Availability:jsonld-read'
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/Availability-read'
+            application/json+hal:
+              schema:
+                $ref: '#/components/schemas/Availability-read'
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/Availability-read'
+            application/json+vnd.api:
+              schema:
+                $ref: '#/components/schemas/Availability-read'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Availability-read'
+            application/health+json:
+              schema:
+                $ref: '#/components/schemas/Availability-read'
+            application/json+health:
+              schema:
+                $ref: '#/components/schemas/Availability-read'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Availability-read'
+            application/x-yaml:
+              schema:
+                $ref: '#/components/schemas/Availability-read'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/Availability-read'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/Availability-read'
+        400:
+          description: 'Invalid input'
+        404:
+          description: 'Resource not found'
+      requestBody:
+        content:
+          application/ld+json:
+            schema:
+              $ref: '#/components/schemas/Availability:jsonld-write'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Availability-write'
+          application/hal+json:
+            schema:
+              $ref: '#/components/schemas/Availability-write'
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/Availability-write'
+          application/merge-patch+json:
+            schema:
+              $ref: '#/components/schemas/Availability-write'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Availability-write'
+          applications/x-yaml:
+            schema:
+              $ref: '#/components/schemas/Availability-write'
+          text/csv:
+            schema:
+              $ref: '#/components/schemas/Availability-write'
+          text/html:
+            schema:
+              $ref: '#/components/schemas/Availability-write'
+        description: 'The updated Availability resource'
   /calendars:
     get:
       tags:
@@ -2909,9 +3640,9 @@ paths:
   '/calendars/{id}/audit_trail':
     get:
       tags:
-        - Calendar
-      operationId: get_audit_trailCalendarItem
-      summary: 'Retrieves a Calendar resource.'
+        - Reservation
+      operationId: get_audit_trailReservationItem
+      summary: 'Retrieves a Reservation resource.'
       parameters:
         -
           name: id
@@ -2992,47 +3723,47 @@ paths:
           in: query
       responses:
         200:
-          description: 'Calendar resource response'
+          description: 'Reservation resource response'
           content:
             application/ld+json:
               schema:
-                $ref: '#/components/schemas/Calendar:jsonld-read'
+                $ref: '#/components/schemas/Reservation:jsonld-read'
             application/json+ld:
               schema:
-                $ref: '#/components/schemas/Calendar:jsonld-read'
+                $ref: '#/components/schemas/Reservation:jsonld-read'
             application/hal+json:
               schema:
-                $ref: '#/components/schemas/Calendar-read'
+                $ref: '#/components/schemas/Reservation-read'
             application/json+hal:
               schema:
-                $ref: '#/components/schemas/Calendar-read'
+                $ref: '#/components/schemas/Reservation-read'
             application/vnd.api+json:
               schema:
-                $ref: '#/components/schemas/Calendar-read'
+                $ref: '#/components/schemas/Reservation-read'
             application/json+vnd.api:
               schema:
-                $ref: '#/components/schemas/Calendar-read'
+                $ref: '#/components/schemas/Reservation-read'
             application/json:
               schema:
-                $ref: '#/components/schemas/Calendar-read'
+                $ref: '#/components/schemas/Reservation-read'
             application/health+json:
               schema:
-                $ref: '#/components/schemas/Calendar-read'
+                $ref: '#/components/schemas/Reservation-read'
             application/json+health:
               schema:
-                $ref: '#/components/schemas/Calendar-read'
+                $ref: '#/components/schemas/Reservation-read'
             application/xml:
               schema:
-                $ref: '#/components/schemas/Calendar-read'
+                $ref: '#/components/schemas/Reservation-read'
             application/x-yaml:
               schema:
-                $ref: '#/components/schemas/Calendar-read'
+                $ref: '#/components/schemas/Reservation-read'
             text/csv:
               schema:
-                $ref: '#/components/schemas/Calendar-read'
+                $ref: '#/components/schemas/Reservation-read'
             text/html:
               schema:
-                $ref: '#/components/schemas/Calendar-read'
+                $ref: '#/components/schemas/Reservation-read'
         404:
           description: 'Resource not found'
       produces:
@@ -3040,9 +3771,9 @@ paths:
   '/calendars/{id}/change_log':
     get:
       tags:
-        - Calendar
-      operationId: get_change_logsCalendarItem
-      summary: 'Retrieves a Calendar resource.'
+        - Reservation
+      operationId: get_change_logsReservationItem
+      summary: 'Retrieves a Reservation resource.'
       parameters:
         -
           name: id
@@ -3123,47 +3854,47 @@ paths:
           in: query
       responses:
         200:
-          description: 'Calendar resource response'
+          description: 'Reservation resource response'
           content:
             application/ld+json:
               schema:
-                $ref: '#/components/schemas/Calendar:jsonld-read'
+                $ref: '#/components/schemas/Reservation:jsonld-read'
             application/json+ld:
               schema:
-                $ref: '#/components/schemas/Calendar:jsonld-read'
+                $ref: '#/components/schemas/Reservation:jsonld-read'
             application/hal+json:
               schema:
-                $ref: '#/components/schemas/Calendar-read'
+                $ref: '#/components/schemas/Reservation-read'
             application/json+hal:
               schema:
-                $ref: '#/components/schemas/Calendar-read'
+                $ref: '#/components/schemas/Reservation-read'
             application/vnd.api+json:
               schema:
-                $ref: '#/components/schemas/Calendar-read'
+                $ref: '#/components/schemas/Reservation-read'
             application/json+vnd.api:
               schema:
-                $ref: '#/components/schemas/Calendar-read'
+                $ref: '#/components/schemas/Reservation-read'
             application/json:
               schema:
-                $ref: '#/components/schemas/Calendar-read'
+                $ref: '#/components/schemas/Reservation-read'
             application/health+json:
               schema:
-                $ref: '#/components/schemas/Calendar-read'
+                $ref: '#/components/schemas/Reservation-read'
             application/json+health:
               schema:
-                $ref: '#/components/schemas/Calendar-read'
+                $ref: '#/components/schemas/Reservation-read'
             application/xml:
               schema:
-                $ref: '#/components/schemas/Calendar-read'
+                $ref: '#/components/schemas/Reservation-read'
             application/x-yaml:
               schema:
-                $ref: '#/components/schemas/Calendar-read'
+                $ref: '#/components/schemas/Reservation-read'
             text/csv:
               schema:
-                $ref: '#/components/schemas/Calendar-read'
+                $ref: '#/components/schemas/Reservation-read'
             text/html:
               schema:
-                $ref: '#/components/schemas/Calendar-read'
+                $ref: '#/components/schemas/Reservation-read'
         404:
           description: 'Resource not found'
       produces:
@@ -7606,6 +8337,1034 @@ paths:
           description: 'Resource not found'
       produces:
         - application/health+json
+  /reservations:
+    get:
+      tags:
+        - Reservation
+      operationId: getReservationCollection
+      summary: 'Retrieves the collection of Reservation resources.'
+      responses:
+        200:
+          description: 'Reservation collection response'
+          content:
+            application/ld+json:
+              schema:
+                type: object
+                properties:
+                  'hydra:member': { type: array, items: { $ref: '#/components/schemas/Reservation:jsonld-read' } }
+                  'hydra:totalItems': { type: integer, minimum: 0 }
+                  'hydra:view': { type: object, properties: { '@id': { type: string, format: iri-reference }, '@type': { type: string }, 'hydra:first': { type: string, format: iri-reference }, 'hydra:last': { type: string, format: iri-reference }, 'hydra:next': { type: string, format: iri-reference } } }
+                  'hydra:search': { type: object, properties: { '@type': { type: string }, 'hydra:template': { type: string }, 'hydra:variableRepresentation': { type: string }, 'hydra:mapping': { type: array, items: { type: object, properties: { '@type': { type: string }, variable: { type: string }, property: { type: string }, required: { type: boolean } } } } } }
+                required:
+                  - 'hydra:member'
+            application/json+ld:
+              schema:
+                type: object
+                properties:
+                  'hydra:member': { type: array, items: { $ref: '#/components/schemas/Reservation:jsonld-read' } }
+                  'hydra:totalItems': { type: integer, minimum: 0 }
+                  'hydra:view': { type: object, properties: { '@id': { type: string, format: iri-reference }, '@type': { type: string }, 'hydra:first': { type: string, format: iri-reference }, 'hydra:last': { type: string, format: iri-reference }, 'hydra:next': { type: string, format: iri-reference } } }
+                  'hydra:search': { type: object, properties: { '@type': { type: string }, 'hydra:template': { type: string }, 'hydra:variableRepresentation': { type: string }, 'hydra:mapping': { type: array, items: { type: object, properties: { '@type': { type: string }, variable: { type: string }, property: { type: string }, required: { type: boolean } } } } } }
+                required:
+                  - 'hydra:member'
+            application/hal+json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Reservation-read'
+            application/json+hal:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Reservation-read'
+            application/vnd.api+json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Reservation-read'
+            application/json+vnd.api:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Reservation-read'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Reservation-read'
+            application/health+json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Reservation-read'
+            application/json+health:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Reservation-read'
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Reservation-read'
+            application/x-yaml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Reservation-read'
+            text/csv:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Reservation-read'
+            text/html:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Reservation-read'
+      parameters:
+        -
+          name: 'order[id]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[name]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[description]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[dateCreated]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[dateModified]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[underName]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[numberOfParticipants]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[provider]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[broker]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[reservationFor]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[reservationStatus]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[reservedTicket]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[programMembershipUsed]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[priceCurrency]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[totalPrice]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'dateCreated[before]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateCreated[strictly_before]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateCreated[after]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateCreated[strictly_after]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateModified[before]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateModified[strictly_before]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateModified[after]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateModified[strictly_after]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: id
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'id[]'
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
+        -
+          name: name
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'name[]'
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
+        -
+          name: description
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'description[]'
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
+        -
+          name: dateCreated
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateCreated[]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: dateModified
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateModified[]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: underName
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'underName[]'
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
+        -
+          name: numberOfParticipants
+          in: query
+          required: false
+          schema:
+            type: integer
+        -
+          name: 'numberOfParticipants[]'
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: integer
+          style: form
+          explode: true
+        -
+          name: provider
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'provider[]'
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
+        -
+          name: broker
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'broker[]'
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
+        -
+          name: reservationFor
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'reservationFor[]'
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
+        -
+          name: reservationStatus
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'reservationStatus[]'
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
+        -
+          name: reservedTicket
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'reservedTicket[]'
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
+        -
+          name: programMembershipUsed
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'programMembershipUsed[]'
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
+        -
+          name: priceCurrency
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'priceCurrency[]'
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
+        -
+          name: totalPrice
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'totalPrice[]'
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
+        -
+          name: page
+          in: query
+          required: false
+          description: 'The collection page number'
+          schema:
+            type: integer
+            default: 1
+        -
+          name: limit
+          in: query
+          required: false
+          description: 'The number of items per page'
+          schema:
+            type: integer
+            default: 30
+            minimum: 0
+        -
+          name: Authorization
+          description: 'The JWT of the entity performing the request'
+          in: header
+        -
+          name: API-Version
+          description: 'The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)'
+          example: 1.0.1
+          in: header
+        -
+          name: X-NLX-Logrecord-ID
+          description: 'A  globally unique id of the request, which makes a request traceable throughout the network.'
+          in: header
+        -
+          name: X-NLX-Request-Process-Id
+          description: 'A process id for purpose registration (doelbinding)'
+          in: header
+        -
+          name: X-NLX-Request-Data-Elements
+          description: 'A list of requested data elements'
+          in: header
+        -
+          name: X-NLX-Request-Data-Subject
+          description: 'A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`'
+          in: header
+        -
+          name: X-NLX-Audit-Clarification
+          description: 'A clarification as to why a request has been made  (doelbinding)'
+          in: header
+        -
+          name: Link
+          description: 'A [websub](https://www.w3.org/TR/websub/#discovery) header like <https://hub.example.com/>; rel="hub"'
+          in: header
+        -
+          name: 'extend[]'
+          required: false
+          description: 'An array of nested objects to include in the return object'
+          in: query
+          schema:
+            type: array
+        -
+          name: 'fields[]'
+          required: false
+          description: 'An array of fields to return in output, wil return all fields is not supplied'
+          in: query
+          schema:
+            type: array
+        -
+          name: validOn
+          required: false
+          description: 'Returns object as valid on a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+        -
+          name: validFrom
+          required: false
+          description: 'Returns objects valid from a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+        -
+          name: validUntil
+          required: false
+          description: 'Returns objects valid until a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+      produces:
+        - application/health+json
+    post:
+      tags:
+        - Reservation
+      operationId: postReservationCollection
+      summary: 'Creates a Reservation resource.'
+      responses:
+        201:
+          description: 'Reservation resource created'
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Reservation:jsonld-read'
+            application/json+ld:
+              schema:
+                $ref: '#/components/schemas/Reservation:jsonld-read'
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/Reservation-read'
+            application/json+hal:
+              schema:
+                $ref: '#/components/schemas/Reservation-read'
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/Reservation-read'
+            application/json+vnd.api:
+              schema:
+                $ref: '#/components/schemas/Reservation-read'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Reservation-read'
+            application/health+json:
+              schema:
+                $ref: '#/components/schemas/Reservation-read'
+            application/json+health:
+              schema:
+                $ref: '#/components/schemas/Reservation-read'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Reservation-read'
+            application/x-yaml:
+              schema:
+                $ref: '#/components/schemas/Reservation-read'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/Reservation-read'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/Reservation-read'
+          links:
+            GetReservationItem:
+              parameters:
+                id: '$response.body#/id'
+              operationId: getReservationItem
+              description: 'The `id` value returned in the response can be used as the `id` parameter in `GET /reservations/{id}`.'
+        400:
+          description: 'Invalid input'
+        404:
+          description: 'Resource not found'
+      requestBody:
+        content:
+          application/ld+json:
+            schema:
+              $ref: '#/components/schemas/Reservation:jsonld-write'
+          application/json+ld:
+            schema:
+              $ref: '#/components/schemas/Reservation:jsonld-write'
+          application/hal+json:
+            schema:
+              $ref: '#/components/schemas/Reservation-write'
+          application/json+hal:
+            schema:
+              $ref: '#/components/schemas/Reservation-write'
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/Reservation-write'
+          application/json+vnd.api:
+            schema:
+              $ref: '#/components/schemas/Reservation-write'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Reservation-write'
+          application/health+json:
+            schema:
+              $ref: '#/components/schemas/Reservation-write'
+          application/json+health:
+            schema:
+              $ref: '#/components/schemas/Reservation-write'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Reservation-write'
+          application/x-yaml:
+            schema:
+              $ref: '#/components/schemas/Reservation-write'
+          text/csv:
+            schema:
+              $ref: '#/components/schemas/Reservation-write'
+          text/html:
+            schema:
+              $ref: '#/components/schemas/Reservation-write'
+        description: 'The new Reservation resource'
+      parameters:
+        -
+          name: Authorization
+          description: 'The JWT of the entity performing the request'
+          in: header
+        -
+          name: API-Version
+          description: 'The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)'
+          example: 1.0.1
+          in: header
+        -
+          name: X-NLX-Logrecord-ID
+          description: 'A  globally unique id of the request, which makes a request traceable throughout the network.'
+          in: header
+        -
+          name: X-NLX-Request-Process-Id
+          description: 'A process id for purpose registration (doelbinding)'
+          in: header
+        -
+          name: X-NLX-Request-Data-Elements
+          description: 'A list of requested data elements'
+          in: header
+        -
+          name: X-NLX-Request-Data-Subject
+          description: 'A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`'
+          in: header
+        -
+          name: X-NLX-Audit-Clarification
+          description: 'A clarification as to why a request has been made  (doelbinding)'
+          in: header
+  '/reservations/{id}':
+    get:
+      tags:
+        - Reservation
+      operationId: getReservationItem
+      summary: 'Retrieves a Reservation resource.'
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: string
+        -
+          name: Authorization
+          description: 'The JWT of the entity performing the request'
+          in: header
+        -
+          name: API-Version
+          description: 'The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)'
+          example: 1.0.1
+          in: header
+        -
+          name: X-NLX-Logrecord-ID
+          description: 'A  globally unique id of the request, which makes a request traceable throughout the network.'
+          in: header
+        -
+          name: X-NLX-Request-Process-Id
+          description: 'A process id for purpose registration (doelbinding)'
+          in: header
+        -
+          name: X-NLX-Request-Data-Elements
+          description: 'A list of requested data elements'
+          in: header
+        -
+          name: X-NLX-Request-Data-Subject
+          description: 'A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`'
+          in: header
+        -
+          name: X-NLX-Audit-Clarification
+          description: 'A clarification as to why a request has been made  (doelbinding)'
+          in: header
+        -
+          name: Link
+          description: 'A [websub](https://www.w3.org/TR/websub/#discovery) header like <https://hub.example.com/>; rel="hub"'
+          in: header
+        -
+          name: 'extend[]'
+          required: false
+          description: 'An array of nested objects to include in the return object'
+          in: query
+          schema:
+            type: array
+        -
+          name: 'fields[]'
+          required: false
+          description: 'An array of fields to return in output, wil return all fields is not supplied'
+          in: query
+          schema:
+            type: array
+        -
+          name: validOn
+          required: false
+          description: 'Returns object as valid on a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+        -
+          name: validFrom
+          required: false
+          description: 'Returns objects valid from a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+        -
+          name: validUntil
+          required: false
+          description: 'Returns objects valid until a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+      responses:
+        200:
+          description: 'Reservation resource response'
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Reservation:jsonld-read'
+            application/json+ld:
+              schema:
+                $ref: '#/components/schemas/Reservation:jsonld-read'
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/Reservation-read'
+            application/json+hal:
+              schema:
+                $ref: '#/components/schemas/Reservation-read'
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/Reservation-read'
+            application/json+vnd.api:
+              schema:
+                $ref: '#/components/schemas/Reservation-read'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Reservation-read'
+            application/health+json:
+              schema:
+                $ref: '#/components/schemas/Reservation-read'
+            application/json+health:
+              schema:
+                $ref: '#/components/schemas/Reservation-read'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Reservation-read'
+            application/x-yaml:
+              schema:
+                $ref: '#/components/schemas/Reservation-read'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/Reservation-read'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/Reservation-read'
+        404:
+          description: 'Resource not found'
+      produces:
+        - application/health+json
+    put:
+      tags:
+        - Reservation
+      operationId: putReservationItem
+      summary: 'Replaces the Reservation resource.'
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: string
+        -
+          name: Authorization
+          description: 'The JWT of the entity performing the request'
+          in: header
+        -
+          name: API-Version
+          description: 'The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)'
+          example: 1.0.1
+          in: header
+        -
+          name: X-NLX-Logrecord-ID
+          description: 'A  globally unique id of the request, which makes a request traceable throughout the network.'
+          in: header
+        -
+          name: X-NLX-Request-Process-Id
+          description: 'A process id for purpose registration (doelbinding)'
+          in: header
+        -
+          name: X-NLX-Request-Data-Elements
+          description: 'A list of requested data elements'
+          in: header
+        -
+          name: X-NLX-Request-Data-Subject
+          description: 'A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`'
+          in: header
+        -
+          name: X-NLX-Audit-Clarification
+          description: 'A clarification as to why a request has been made  (doelbinding)'
+          in: header
+      responses:
+        200:
+          description: 'Reservation resource updated'
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Reservation:jsonld-read'
+            application/json+ld:
+              schema:
+                $ref: '#/components/schemas/Reservation:jsonld-read'
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/Reservation-read'
+            application/json+hal:
+              schema:
+                $ref: '#/components/schemas/Reservation-read'
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/Reservation-read'
+            application/json+vnd.api:
+              schema:
+                $ref: '#/components/schemas/Reservation-read'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Reservation-read'
+            application/health+json:
+              schema:
+                $ref: '#/components/schemas/Reservation-read'
+            application/json+health:
+              schema:
+                $ref: '#/components/schemas/Reservation-read'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Reservation-read'
+            application/x-yaml:
+              schema:
+                $ref: '#/components/schemas/Reservation-read'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/Reservation-read'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/Reservation-read'
+        400:
+          description: 'Invalid input'
+        404:
+          description: 'Resource not found'
+      requestBody:
+        content:
+          application/ld+json:
+            schema:
+              $ref: '#/components/schemas/Reservation:jsonld-write'
+          application/json+ld:
+            schema:
+              $ref: '#/components/schemas/Reservation:jsonld-write'
+          application/hal+json:
+            schema:
+              $ref: '#/components/schemas/Reservation-write'
+          application/json+hal:
+            schema:
+              $ref: '#/components/schemas/Reservation-write'
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/Reservation-write'
+          application/json+vnd.api:
+            schema:
+              $ref: '#/components/schemas/Reservation-write'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Reservation-write'
+          application/health+json:
+            schema:
+              $ref: '#/components/schemas/Reservation-write'
+          application/json+health:
+            schema:
+              $ref: '#/components/schemas/Reservation-write'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Reservation-write'
+          application/x-yaml:
+            schema:
+              $ref: '#/components/schemas/Reservation-write'
+          text/csv:
+            schema:
+              $ref: '#/components/schemas/Reservation-write'
+          text/html:
+            schema:
+              $ref: '#/components/schemas/Reservation-write'
+        description: 'The updated Reservation resource'
+    delete:
+      tags:
+        - Reservation
+      operationId: deleteReservationItem
+      summary: 'Removes the Reservation resource.'
+      responses:
+        204:
+          description: 'Reservation resource deleted'
+        404:
+          description: 'Resource not found'
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: string
+        -
+          name: Authorization
+          description: 'The JWT of the entity performing the request'
+          in: header
+        -
+          name: API-Version
+          description: 'The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)'
+          example: 1.0.1
+          in: header
+        -
+          name: X-NLX-Logrecord-ID
+          description: 'A  globally unique id of the request, which makes a request traceable throughout the network.'
+          in: header
+        -
+          name: X-NLX-Request-Process-Id
+          description: 'A process id for purpose registration (doelbinding)'
+          in: header
+        -
+          name: X-NLX-Request-Data-Elements
+          description: 'A list of requested data elements'
+          in: header
+        -
+          name: X-NLX-Request-Data-Subject
+          description: 'A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`'
+          in: header
+        -
+          name: X-NLX-Audit-Clarification
+          description: 'A clarification as to why a request has been made  (doelbinding)'
+          in: header
   /resources:
     get:
       tags:
@@ -11249,6 +13008,71 @@ components:
         '@type':
           readOnly: true
           type: string
+    Availability-read:
+      type: object
+      description: ''
+      properties:
+        id:
+          readOnly: true
+          description: 'The UUID identifier of this resource'
+          type: string
+          format: uuid
+        startDate:
+          description: 'The start of the availability block'
+          type: string
+          format: date-time
+        endDate:
+          description: 'The end of the availability block'
+          type: string
+          format: date-time
+        available:
+          description: 'Whether the block is available or not'
+          type: boolean
+    Availability-write:
+      type: object
+      description: ''
+    'Availability:jsonld-read':
+      type: object
+      description: ''
+      properties:
+        '@context':
+          readOnly: true
+          type: string
+        '@id':
+          readOnly: true
+          type: string
+        '@type':
+          readOnly: true
+          type: string
+        id:
+          readOnly: true
+          description: 'The UUID identifier of this resource'
+          type: string
+          format: uuid
+        startDate:
+          description: 'The start of the availability block'
+          type: string
+          format: date-time
+        endDate:
+          description: 'The end of the availability block'
+          type: string
+          format: date-time
+        available:
+          description: 'Whether the block is available or not'
+          type: boolean
+    'Availability:jsonld-write':
+      type: object
+      description: ''
+      properties:
+        '@context':
+          readOnly: true
+          type: string
+        '@id':
+          readOnly: true
+          type: string
+        '@type':
+          readOnly: true
+          type: string
     Calendar-read:
       type: object
       description: 'A Calendar is a collection of events tied to an unque person or resource.'
@@ -12918,6 +14742,302 @@ components:
           anyOf:
             -
               $ref: '#/components/schemas/Event:jsonld-write'
+    Reservation-read:
+      type: object
+      description: 'A Reservation is a event that is tied to an unique person or resource.'
+      properties:
+        id:
+          readOnly: true
+          description: 'The UUID identifier of this resource'
+          externalDocs:
+            url: 'http://schema.org/identifier'
+          type: string
+          format: uuid
+        name:
+          description: 'The name of this Reservation'
+          type: string
+        description:
+          description: 'An short description of this Reservation'
+          type: string
+          nullable: true
+        dateCreated:
+          description: 'The moment this resource was created'
+          type: string
+          format: date-time
+          nullable: true
+        dateModified:
+          description: 'The moment this resource last Modified'
+          type: string
+          format: date-time
+          nullable: true
+        underName:
+          description: 'The url of a person who is under name(the requester) of this reservation'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: string
+        numberOfParticipants:
+          description: 'The number of participants for this reservation'
+          type: integer
+        event:
+          description: 'Event that is booked in this reservation'
+          $ref: '#/components/schemas/Event-read'
+        provider:
+          description: 'The url of a person or organization who is the provider of this reservation'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: string
+        broker:
+          description: 'The url of a person or organization who is the broker of this reservation'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: string
+          nullable: true
+        reservationFor:
+          description: 'The thing -- flight, event, restaurant,etc. being reserved'
+          type: string
+          nullable: true
+        reservationStatus:
+          description: 'The current status of the reservation.'
+          type: string
+          nullable: true
+        reservedTicket:
+          description: 'A ticket associated with the reservation.'
+          type: string
+          nullable: true
+        programMembershipUsed:
+          description: 'Any membership in a frequent flyer, hotel loyalty program, etc. being applied to the reservation.'
+          type: string
+          nullable: true
+        priceCurrency:
+          description: 'The currency of this product in an [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) format'
+          externalDocs:
+            url: 'http://schema.org/priceCurrency'
+          type: string
+          nullable: true
+        totalPrice:
+          description: 'The total price of this reservation'
+          type: string
+          nullable: true
+      required:
+        - name
+    Reservation-write:
+      type: object
+      description: 'A Reservation is a event that is tied to an unique person or resource.'
+      required:
+        - name
+      properties:
+        name:
+          description: 'The name of this Reservation'
+          type: string
+        description:
+          description: 'An short description of this Reservation'
+          type: string
+          nullable: true
+        underName:
+          description: 'The url of a person who is under name(the requester) of this reservation'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: string
+        numberOfParticipants:
+          description: 'The number of participants for this reservation'
+          type: integer
+        event:
+          description: 'Event that is booked in this reservation'
+          $ref: '#/components/schemas/Event-write'
+        provider:
+          description: 'The url of a person or organization who is the provider of this reservation'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: string
+        broker:
+          description: 'The url of a person or organization who is the broker of this reservation'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: string
+          nullable: true
+        reservationFor:
+          description: 'The thing -- flight, event, restaurant,etc. being reserved'
+          type: string
+          nullable: true
+        reservationStatus:
+          description: 'The current status of the reservation.'
+          type: string
+          nullable: true
+        reservedTicket:
+          description: 'A ticket associated with the reservation.'
+          type: string
+          nullable: true
+        programMembershipUsed:
+          description: 'Any membership in a frequent flyer, hotel loyalty program, etc. being applied to the reservation.'
+          type: string
+          nullable: true
+        priceCurrency:
+          description: 'The currency of this product in an [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) format'
+          externalDocs:
+            url: 'http://schema.org/priceCurrency'
+          type: string
+          nullable: true
+        totalPrice:
+          description: 'The total price of this reservation'
+          type: string
+          nullable: true
+    'Reservation:jsonld-read':
+      type: object
+      description: 'A Reservation is a event that is tied to an unique person or resource.'
+      properties:
+        '@context':
+          readOnly: true
+          type: string
+        '@id':
+          readOnly: true
+          type: string
+        '@type':
+          readOnly: true
+          type: string
+        id:
+          readOnly: true
+          description: 'The UUID identifier of this resource'
+          externalDocs:
+            url: 'http://schema.org/identifier'
+          type: string
+          format: uuid
+        name:
+          description: 'The name of this Reservation'
+          type: string
+        description:
+          description: 'An short description of this Reservation'
+          type: string
+          nullable: true
+        dateCreated:
+          description: 'The moment this resource was created'
+          type: string
+          format: date-time
+          nullable: true
+        dateModified:
+          description: 'The moment this resource last Modified'
+          type: string
+          format: date-time
+          nullable: true
+        underName:
+          description: 'The url of a person who is under name(the requester) of this reservation'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: string
+        numberOfParticipants:
+          description: 'The number of participants for this reservation'
+          type: integer
+        event:
+          description: 'Event that is booked in this reservation'
+          $ref: '#/components/schemas/Event:jsonld-read'
+        provider:
+          description: 'The url of a person or organization who is the provider of this reservation'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: string
+        broker:
+          description: 'The url of a person or organization who is the broker of this reservation'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: string
+          nullable: true
+        reservationFor:
+          description: 'The thing -- flight, event, restaurant,etc. being reserved'
+          type: string
+          nullable: true
+        reservationStatus:
+          description: 'The current status of the reservation.'
+          type: string
+          nullable: true
+        reservedTicket:
+          description: 'A ticket associated with the reservation.'
+          type: string
+          nullable: true
+        programMembershipUsed:
+          description: 'Any membership in a frequent flyer, hotel loyalty program, etc. being applied to the reservation.'
+          type: string
+          nullable: true
+        priceCurrency:
+          description: 'The currency of this product in an [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) format'
+          externalDocs:
+            url: 'http://schema.org/priceCurrency'
+          type: string
+          nullable: true
+        totalPrice:
+          description: 'The total price of this reservation'
+          type: string
+          nullable: true
+      required:
+        - name
+    'Reservation:jsonld-write':
+      type: object
+      description: 'A Reservation is a event that is tied to an unique person or resource.'
+      required:
+        - name
+      properties:
+        '@context':
+          readOnly: true
+          type: string
+        '@id':
+          readOnly: true
+          type: string
+        '@type':
+          readOnly: true
+          type: string
+        name:
+          description: 'The name of this Reservation'
+          type: string
+        description:
+          description: 'An short description of this Reservation'
+          type: string
+          nullable: true
+        underName:
+          description: 'The url of a person who is under name(the requester) of this reservation'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: string
+        numberOfParticipants:
+          description: 'The number of participants for this reservation'
+          type: integer
+        event:
+          description: 'Event that is booked in this reservation'
+          $ref: '#/components/schemas/Event:jsonld-write'
+        provider:
+          description: 'The url of a person or organization who is the provider of this reservation'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: string
+        broker:
+          description: 'The url of a person or organization who is the broker of this reservation'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: string
+          nullable: true
+        reservationFor:
+          description: 'The thing -- flight, event, restaurant,etc. being reserved'
+          type: string
+          nullable: true
+        reservationStatus:
+          description: 'The current status of the reservation.'
+          type: string
+          nullable: true
+        reservedTicket:
+          description: 'A ticket associated with the reservation.'
+          type: string
+          nullable: true
+        programMembershipUsed:
+          description: 'Any membership in a frequent flyer, hotel loyalty program, etc. being applied to the reservation.'
+          type: string
+          nullable: true
+        priceCurrency:
+          description: 'The currency of this product in an [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) format'
+          externalDocs:
+            url: 'http://schema.org/priceCurrency'
+          type: string
+          nullable: true
+        totalPrice:
+          description: 'The total price of this reservation'
+          type: string
+          nullable: true
     Resource-read:
       type: object
       description: 'Describes resources that can be needed for an event.'
@@ -13962,6 +16082,21 @@ definitions:
       - action
       - trigger
       - duration
+  Availability-read:
+    properties:
+      id:
+        description: 'The UUID identifier of this resource'
+        type: \UuidInterface
+      startDate:
+        description: 'The start of the availability block'
+        type: \DateTime
+      endDate:
+        description: 'The end of the availability block'
+        type: \DateTime
+      available:
+        description: 'Whether the block is available or not'
+        type: bool
+    required: []
   Calendar-read:
     properties:
       id:
@@ -14083,12 +16218,12 @@ definitions:
       startDate:
         description: 'The moment this event starts'
         type: string
-        example: '2020-08-25 09:04:20'
+        example: '2020-10-05 14:07:27'
         format: date-time
       endDate:
         description: 'The moment this event ends'
         type: string
-        example: '2020-08-25 09:04:20'
+        example: '2020-10-05 14:07:27'
         format: date-time
       location:
         description: 'The location of this event'
@@ -14203,12 +16338,12 @@ definitions:
       startDate:
         description: 'The moment this event starts'
         type: string
-        example: '2020-08-25 09:04:20'
+        example: '2020-10-05 14:07:27'
         format: date-time
       endDate:
         description: 'The moment this event ends'
         type: string
-        example: '2020-08-25 09:04:20'
+        example: '2020-10-05 14:07:27'
         format: date-time
       location:
         description: 'The location of this event'
@@ -14322,12 +16457,12 @@ definitions:
       startDate:
         description: 'The moment this event starts'
         type: string
-        example: '2020-08-25 09:04:20'
+        example: '2020-10-05 14:07:27'
         format: date-time
       endDate:
         description: 'The moment this event ends'
         type: string
-        example: '2020-08-25 09:04:20'
+        example: '2020-10-05 14:07:27'
         format: date-time
       duration:
         description: 'The duration of this event.'
@@ -14378,12 +16513,12 @@ definitions:
       startDate:
         description: 'The moment this event starts'
         type: string
-        example: '2020-08-25 09:04:20'
+        example: '2020-10-05 14:07:27'
         format: date-time
       endDate:
         description: 'The moment this event ends'
         type: string
-        example: '2020-08-25 09:04:20'
+        example: '2020-10-05 14:07:27'
         format: date-time
       duration:
         description: 'The duration of this event.'
@@ -14423,12 +16558,12 @@ definitions:
       startDate:
         description: 'The moment this event starts'
         type: string
-        example: '2020-08-25 09:04:20'
+        example: '2020-10-05 14:07:27'
         format: date-time
       endDate:
         description: 'The moment this event ends'
         type: string
-        example: '2020-08-25 09:04:20'
+        example: '2020-10-05 14:07:27'
         format: date-time
       class:
         description: 'The security class of this event.'
@@ -14510,12 +16645,12 @@ definitions:
       startDate:
         description: 'The moment this event starts'
         type: string
-        example: '2020-08-25 09:04:20'
+        example: '2020-10-05 14:07:27'
         format: date-time
       endDate:
         description: 'The moment this event ends'
         type: string
-        example: '2020-08-25 09:04:20'
+        example: '2020-10-05 14:07:27'
         format: date-time
       class:
         description: 'The security class of this event.'
@@ -14576,6 +16711,145 @@ definitions:
       - name
       - startDate
       - endDate
+  Reservation-read:
+    properties:
+      id:
+        description: 'The UUID identifier of this resource'
+        type: string
+        example: e2984465-190a-4562-829e-a8cca81aa35d
+        format: uuid
+      name:
+        description: 'The name of this Reservation'
+        type: string
+        example: 'My Reservation'
+        maxLength: 255
+      description:
+        description: 'An short description of this Reservation'
+        type: string
+        example: 'This is the best Reservation ever'
+        maxLength: 2550
+      dateCreated:
+        description: 'The moment this resource was created'
+        type: \Datetime
+      dateModified:
+        description: 'The moment this resource last Modified'
+        type: \Datetime
+      underName:
+        description: 'The url of a person who is under name(the requester) of this reservation'
+        type: string
+        example: 'https://person/1'
+        format: url
+      numberOfParticipants:
+        description: 'The number of participants for this reservation'
+        type: int
+        example: '1'
+      provider:
+        description: 'The url of a person or organization who is the provider of this reservation'
+        type: string
+        example: 'https://organization/1'
+        format: url
+      broker:
+        description: 'The url of a person or organization who is the broker of this reservation'
+        type: string
+        example: 'https://person/1'
+        format: url
+      reservationFor:
+        description: 'The thing -- flight, event, restaurant,etc. being reserved'
+        type: string
+        example: Restaurant
+        maxLength: 255
+      reservationStatus:
+        description: 'The current status of the reservation.'
+        type: string
+        example: Complete
+        maxLength: 255
+      reservedTicket:
+        description: 'A ticket associated with the reservation.'
+        type: string
+        example: Complete
+        maxLength: 255
+      programMembershipUsed:
+        description: 'Any membership in a frequent flyer, hotel loyalty program, etc. being applied to the reservation.'
+        type: string
+        example: Complete
+        maxLength: 255
+      priceCurrency:
+        description: 'The currency of this product in an [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) format'
+        type: string
+        example: EUR
+      totalPrice:
+        description: 'The total price of this reservation'
+        type: string
+        example: '50.00'
+      event:
+        description: 'Event that is booked in this reservation'
+        type: array
+    required:
+      - name
+  Reservation-write:
+    properties:
+      name:
+        description: 'The name of this Reservation'
+        type: string
+        example: 'My Reservation'
+        maxLength: 255
+      description:
+        description: 'An short description of this Reservation'
+        type: string
+        example: 'This is the best Reservation ever'
+        maxLength: 2550
+      underName:
+        description: 'The url of a person who is under name(the requester) of this reservation'
+        type: string
+        example: 'https://person/1'
+        format: url
+      numberOfParticipants:
+        description: 'The number of participants for this reservation'
+        type: int
+        example: '1'
+      provider:
+        description: 'The url of a person or organization who is the provider of this reservation'
+        type: string
+        example: 'https://organization/1'
+        format: url
+      broker:
+        description: 'The url of a person or organization who is the broker of this reservation'
+        type: string
+        example: 'https://person/1'
+        format: url
+      reservationFor:
+        description: 'The thing -- flight, event, restaurant,etc. being reserved'
+        type: string
+        example: Restaurant
+        maxLength: 255
+      reservationStatus:
+        description: 'The current status of the reservation.'
+        type: string
+        example: Complete
+        maxLength: 255
+      reservedTicket:
+        description: 'A ticket associated with the reservation.'
+        type: string
+        example: Complete
+        maxLength: 255
+      programMembershipUsed:
+        description: 'Any membership in a frequent flyer, hotel loyalty program, etc. being applied to the reservation.'
+        type: string
+        example: Complete
+        maxLength: 255
+      priceCurrency:
+        description: 'The currency of this product in an [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) format'
+        type: string
+        example: EUR
+      totalPrice:
+        description: 'The total price of this reservation'
+        type: string
+        example: '50.00'
+      event:
+        description: 'Event that is booked in this reservation'
+        type: array
+    required:
+      - name
   Resource-read:
     properties:
       id:
@@ -14752,12 +17026,12 @@ definitions:
       startDate:
         description: 'The moment this event starts'
         type: string
-        example: '2020-08-25 09:04:20'
+        example: '2020-10-05 14:07:27'
         format: date-time
       endDate:
         description: 'The moment this event ends'
         type: string
-        example: '2020-08-25 09:04:20'
+        example: '2020-10-05 14:07:27'
         format: date-time
       location:
         description: 'The location of this event'
@@ -14825,7 +17099,7 @@ definitions:
       completed:
         description: 'The date and time a to-do is completed.'
         type: string
-        example: '2020-08-25 09:04:20'
+        example: '2020-10-05 14:07:27'
         format: date-time
       percentageDone:
         description: 'The percentage of a to-do that has been comepleted.'
@@ -14860,12 +17134,12 @@ definitions:
       startDate:
         description: 'The moment this event starts'
         type: string
-        example: '2020-08-25 09:04:20'
+        example: '2020-10-05 14:07:27'
         format: date-time
       endDate:
         description: 'The moment this event ends'
         type: string
-        example: '2020-08-25 09:04:20'
+        example: '2020-10-05 14:07:27'
         format: date-time
       location:
         description: 'The location of this event'
@@ -14933,7 +17207,7 @@ definitions:
       completed:
         description: 'The date and time a to-do is completed.'
         type: string
-        example: '2020-08-25 09:04:20'
+        example: '2020-10-05 14:07:27'
         format: date-time
       percentageDone:
         description: 'The percentage of a to-do that has been comepleted.'
@@ -15051,12 +17325,12 @@ definitions:
         description: 'The moment this request was created'
         type: string
         format: date-time
-        example: '2020-08-25 09:04:20'
+        example: '2020-10-05 14:07:27'
       dateModified:
         description: 'The moment this request last Modified'
         type: string
         format: date-time
-        example: '2020-08-25 09:04:20'
+        example: '2020-10-05 14:07:27'
     required: []
   AuditTrail-write:
     properties:
@@ -15104,12 +17378,12 @@ definitions:
         description: 'The moment this request was created'
         type: string
         format: date-time
-        example: '2020-08-25 09:04:20'
+        example: '2020-10-05 14:07:27'
       dateModified:
         description: 'The moment this request last Modified'
         type: string
         format: date-time
-        example: '2020-08-25 09:04:20'
+        example: '2020-10-05 14:07:27'
     required: []
   ChangeLog-write:
     properties:
@@ -15124,6 +17398,12 @@ tags:
     name: Alarm
     description: |
       Used to describe alarms for Events and Todos.
+      
+      
+  -
+    name: Availability
+    description: |
+      
       
       
   -
@@ -15148,6 +17428,12 @@ tags:
     name: Journal
     description: |
       A journal from an event.
+      
+      
+  -
+    name: Reservation
+    description: |
+      A Reservation is a event that is tied to an unique person or resource.
       
       
   -
