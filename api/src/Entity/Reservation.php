@@ -254,6 +254,20 @@ class Reservation
      */
     private $totalPrice;
 
+    /**
+     * @var string comment for this reservation
+     *
+     * @example We would like a table with sight at the sea
+     *
+     * @Gedmo\Versioned
+     * @Assert\Length(
+     *      max = 2550
+     * )
+     * @Groups({"read","write"})
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $comment;
+
     public function getId(): ?Uuid
     {
         return $this->id;
@@ -442,6 +456,18 @@ class Reservation
     public function setTotalPrice($totalPrice): self
     {
         $this->totalPrice = $totalPrice;
+
+        return $this;
+    }
+
+    public function getComment(): ?string
+    {
+        return $this->comment;
+    }
+
+    public function setComment(?string $comment): self
+    {
+        $this->comment = $comment;
 
         return $this;
     }
