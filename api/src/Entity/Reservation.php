@@ -321,7 +321,7 @@ class Reservation
 
     public function setUnderName(?string $underName): self
     {
-        $this->description = $underName;
+        $this->underName = $underName;
 
         return $this;
     }
@@ -343,7 +343,7 @@ class Reservation
         return $this->event;
     }
 
-    public function setEvent(Event $event): self
+    public function setEvent(?Event $event): self
     {
         $this->event = $event;
 
