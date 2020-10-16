@@ -9,7 +9,7 @@ use App\Service\CalendarService;
 use Conduction\CommonGroundBundle\Service\NLXLogService;
 use DateInterval;
 use DateTime;
-use Doctrine\Common\Collections\Criteria;
+use Doctrine\Collections\Criteria;
 use Doctrine\ORM\EntityManagerInterface;
 use SensioLabs\Security\Exception\HttpException;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
