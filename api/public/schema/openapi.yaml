@@ -12,7 +12,7 @@ info:
     - Docker Image: [online](https://hub.docker.com/repository/docker/conduction/arc-php) 
     - Datamodel: [postman](/schema/arc.postman_collection.json) / [oas](/schema/openapi.yaml) / [pdf](/schema/datamodel.pdf) / [modelio (zip)](/schema/Datamodel_Modelio.zip) 
     
-    Naast deze JSON rest API is er ook een [graphql](/graphql) interface beschikbaar.         
+    'Naast deze JSON rest API is er ook een [graphql](/graphql) interface beschikbaar.'         
     
 paths:
   /alarms:
@@ -8559,6 +8559,15 @@ paths:
               - asc
               - desc
         -
+          name: 'order[comment]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
           name: 'dateCreated[before]'
           in: query
           required: false
@@ -8607,78 +8616,6 @@ paths:
           schema:
             type: string
         -
-          name: id
-          in: query
-          required: false
-          schema:
-            type: string
-        -
-          name: 'id[]'
-          in: query
-          required: false
-          schema:
-            type: array
-            items:
-              type: string
-          style: form
-          explode: true
-        -
-          name: name
-          in: query
-          required: false
-          schema:
-            type: string
-        -
-          name: 'name[]'
-          in: query
-          required: false
-          schema:
-            type: array
-            items:
-              type: string
-          style: form
-          explode: true
-        -
-          name: description
-          in: query
-          required: false
-          schema:
-            type: string
-        -
-          name: 'description[]'
-          in: query
-          required: false
-          schema:
-            type: array
-            items:
-              type: string
-          style: form
-          explode: true
-        -
-          name: dateCreated
-          in: query
-          required: false
-          schema:
-            type: string
-        -
-          name: 'dateCreated[]'
-          in: query
-          required: false
-          schema:
-            type: string
-        -
-          name: dateModified
-          in: query
-          required: false
-          schema:
-            type: string
-        -
-          name: 'dateModified[]'
-          in: query
-          required: false
-          schema:
-            type: string
-        -
           name: underName
           in: query
           required: false
@@ -8695,22 +8632,6 @@ paths:
           style: form
           explode: true
         -
-          name: numberOfParticipants
-          in: query
-          required: false
-          schema:
-            type: integer
-        -
-          name: 'numberOfParticipants[]'
-          in: query
-          required: false
-          schema:
-            type: array
-            items:
-              type: integer
-          style: form
-          explode: true
-        -
           name: provider
           in: query
           required: false
@@ -8718,118 +8639,6 @@ paths:
             type: string
         -
           name: 'provider[]'
-          in: query
-          required: false
-          schema:
-            type: array
-            items:
-              type: string
-          style: form
-          explode: true
-        -
-          name: broker
-          in: query
-          required: false
-          schema:
-            type: string
-        -
-          name: 'broker[]'
-          in: query
-          required: false
-          schema:
-            type: array
-            items:
-              type: string
-          style: form
-          explode: true
-        -
-          name: reservationFor
-          in: query
-          required: false
-          schema:
-            type: string
-        -
-          name: 'reservationFor[]'
-          in: query
-          required: false
-          schema:
-            type: array
-            items:
-              type: string
-          style: form
-          explode: true
-        -
-          name: reservationStatus
-          in: query
-          required: false
-          schema:
-            type: string
-        -
-          name: 'reservationStatus[]'
-          in: query
-          required: false
-          schema:
-            type: array
-            items:
-              type: string
-          style: form
-          explode: true
-        -
-          name: reservedTicket
-          in: query
-          required: false
-          schema:
-            type: string
-        -
-          name: 'reservedTicket[]'
-          in: query
-          required: false
-          schema:
-            type: array
-            items:
-              type: string
-          style: form
-          explode: true
-        -
-          name: programMembershipUsed
-          in: query
-          required: false
-          schema:
-            type: string
-        -
-          name: 'programMembershipUsed[]'
-          in: query
-          required: false
-          schema:
-            type: array
-            items:
-              type: string
-          style: form
-          explode: true
-        -
-          name: priceCurrency
-          in: query
-          required: false
-          schema:
-            type: string
-        -
-          name: 'priceCurrency[]'
-          in: query
-          required: false
-          schema:
-            type: array
-            items:
-              type: string
-          style: form
-          explode: true
-        -
-          name: totalPrice
-          in: query
-          required: false
-          schema:
-            type: string
-        -
-          name: 'totalPrice[]'
           in: query
           required: false
           schema:
@@ -14830,6 +14639,10 @@ components:
           description: 'The total price of this reservation'
           type: string
           nullable: true
+        comment:
+          description: 'comment for this reservation'
+          type: string
+          nullable: true
       required:
         - name
     Reservation-write:
@@ -14891,6 +14704,10 @@ components:
           nullable: true
         totalPrice:
           description: 'The total price of this reservation'
+          type: string
+          nullable: true
+        comment:
+          description: 'comment for this reservation'
           type: string
           nullable: true
     'Reservation:jsonld-read':
@@ -14978,6 +14795,10 @@ components:
           description: 'The total price of this reservation'
           type: string
           nullable: true
+        comment:
+          description: 'comment for this reservation'
+          type: string
+          nullable: true
       required:
         - name
     'Reservation:jsonld-write':
@@ -15048,6 +14869,10 @@ components:
           nullable: true
         totalPrice:
           description: 'The total price of this reservation'
+          type: string
+          nullable: true
+        comment:
+          description: 'comment for this reservation'
           type: string
           nullable: true
     Resource-read:
@@ -16230,12 +16055,12 @@ definitions:
       startDate:
         description: 'The moment this event starts'
         type: string
-        example: '2020-10-05 14:07:27'
+        example: '2020-10-16 14:34:18'
         format: date-time
       endDate:
         description: 'The moment this event ends'
         type: string
-        example: '2020-10-05 14:07:27'
+        example: '2020-10-16 14:34:18'
         format: date-time
       location:
         description: 'The location of this event'
@@ -16350,12 +16175,12 @@ definitions:
       startDate:
         description: 'The moment this event starts'
         type: string
-        example: '2020-10-05 14:07:27'
+        example: '2020-10-16 14:34:18'
         format: date-time
       endDate:
         description: 'The moment this event ends'
         type: string
-        example: '2020-10-05 14:07:27'
+        example: '2020-10-16 14:34:18'
         format: date-time
       location:
         description: 'The location of this event'
@@ -16469,12 +16294,12 @@ definitions:
       startDate:
         description: 'The moment this event starts'
         type: string
-        example: '2020-10-05 14:07:27'
+        example: '2020-10-16 14:34:18'
         format: date-time
       endDate:
         description: 'The moment this event ends'
         type: string
-        example: '2020-10-05 14:07:27'
+        example: '2020-10-16 14:34:18'
         format: date-time
       duration:
         description: 'The duration of this event.'
@@ -16525,12 +16350,12 @@ definitions:
       startDate:
         description: 'The moment this event starts'
         type: string
-        example: '2020-10-05 14:07:27'
+        example: '2020-10-16 14:34:18'
         format: date-time
       endDate:
         description: 'The moment this event ends'
         type: string
-        example: '2020-10-05 14:07:27'
+        example: '2020-10-16 14:34:18'
         format: date-time
       duration:
         description: 'The duration of this event.'
@@ -16570,12 +16395,12 @@ definitions:
       startDate:
         description: 'The moment this event starts'
         type: string
-        example: '2020-10-05 14:07:27'
+        example: '2020-10-16 14:34:18'
         format: date-time
       endDate:
         description: 'The moment this event ends'
         type: string
-        example: '2020-10-05 14:07:27'
+        example: '2020-10-16 14:34:18'
         format: date-time
       class:
         description: 'The security class of this event.'
@@ -16657,12 +16482,12 @@ definitions:
       startDate:
         description: 'The moment this event starts'
         type: string
-        example: '2020-10-05 14:07:27'
+        example: '2020-10-16 14:34:18'
         format: date-time
       endDate:
         description: 'The moment this event ends'
         type: string
-        example: '2020-10-05 14:07:27'
+        example: '2020-10-16 14:34:18'
         format: date-time
       class:
         description: 'The security class of this event.'
@@ -16793,6 +16618,11 @@ definitions:
         description: 'The total price of this reservation'
         type: string
         example: '50.00'
+      comment:
+        description: 'comment for this reservation'
+        type: string
+        example: 'We would like a table with sight at the sea'
+        maxLength: 2550
       event:
         description: 'Event that is booked in this reservation'
         type: array
@@ -16857,6 +16687,11 @@ definitions:
         description: 'The total price of this reservation'
         type: string
         example: '50.00'
+      comment:
+        description: 'comment for this reservation'
+        type: string
+        example: 'We would like a table with sight at the sea'
+        maxLength: 2550
       event:
         description: 'Event that is booked in this reservation'
         type: array
@@ -17038,12 +16873,12 @@ definitions:
       startDate:
         description: 'The moment this event starts'
         type: string
-        example: '2020-10-05 14:07:27'
+        example: '2020-10-16 14:34:18'
         format: date-time
       endDate:
         description: 'The moment this event ends'
         type: string
-        example: '2020-10-05 14:07:27'
+        example: '2020-10-16 14:34:18'
         format: date-time
       location:
         description: 'The location of this event'
@@ -17111,7 +16946,7 @@ definitions:
       completed:
         description: 'The date and time a to-do is completed.'
         type: string
-        example: '2020-10-05 14:07:27'
+        example: '2020-10-16 14:34:18'
         format: date-time
       percentageDone:
         description: 'The percentage of a to-do that has been comepleted.'
@@ -17146,12 +16981,12 @@ definitions:
       startDate:
         description: 'The moment this event starts'
         type: string
-        example: '2020-10-05 14:07:27'
+        example: '2020-10-16 14:34:18'
         format: date-time
       endDate:
         description: 'The moment this event ends'
         type: string
-        example: '2020-10-05 14:07:27'
+        example: '2020-10-16 14:34:18'
         format: date-time
       location:
         description: 'The location of this event'
@@ -17219,7 +17054,7 @@ definitions:
       completed:
         description: 'The date and time a to-do is completed.'
         type: string
-        example: '2020-10-05 14:07:27'
+        example: '2020-10-16 14:34:18'
         format: date-time
       percentageDone:
         description: 'The percentage of a to-do that has been comepleted.'
@@ -17337,12 +17172,12 @@ definitions:
         description: 'The moment this request was created'
         type: string
         format: date-time
-        example: '2020-10-05 14:07:27'
+        example: '2020-10-16 14:34:18'
       dateModified:
         description: 'The moment this request last Modified'
         type: string
         format: date-time
-        example: '2020-10-05 14:07:27'
+        example: '2020-10-16 14:34:18'
     required: []
   AuditTrail-write:
     properties:
@@ -17390,12 +17225,12 @@ definitions:
         description: 'The moment this request was created'
         type: string
         format: date-time
-        example: '2020-10-05 14:07:27'
+        example: '2020-10-16 14:34:18'
       dateModified:
         description: 'The moment this request last Modified'
         type: string
         format: date-time
-        example: '2020-10-05 14:07:27'
+        example: '2020-10-16 14:34:18'
     required: []
   ChangeLog-write:
     properties:
