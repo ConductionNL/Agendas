@@ -16055,12 +16055,12 @@ definitions:
       startDate:
         description: 'The moment this event starts'
         type: string
-        example: '2020-10-16 14:34:18'
+        example: '2020-10-16 14:36:14'
         format: date-time
       endDate:
         description: 'The moment this event ends'
         type: string
-        example: '2020-10-16 14:34:18'
+        example: '2020-10-16 14:36:14'
         format: date-time
       location:
         description: 'The location of this event'
@@ -16175,12 +16175,12 @@ definitions:
       startDate:
         description: 'The moment this event starts'
         type: string
-        example: '2020-10-16 14:34:18'
+        example: '2020-10-16 14:36:14'
         format: date-time
       endDate:
         description: 'The moment this event ends'
         type: string
-        example: '2020-10-16 14:34:18'
+        example: '2020-10-16 14:36:14'
         format: date-time
       location:
         description: 'The location of this event'
@@ -16294,12 +16294,12 @@ definitions:
       startDate:
         description: 'The moment this event starts'
         type: string
-        example: '2020-10-16 14:34:18'
+        example: '2020-10-16 14:36:14'
         format: date-time
       endDate:
         description: 'The moment this event ends'
         type: string
-        example: '2020-10-16 14:34:18'
+        example: '2020-10-16 14:36:14'
         format: date-time
       duration:
         description: 'The duration of this event.'
@@ -16350,12 +16350,12 @@ definitions:
       startDate:
         description: 'The moment this event starts'
         type: string
-        example: '2020-10-16 14:34:18'
+        example: '2020-10-16 14:36:14'
         format: date-time
       endDate:
         description: 'The moment this event ends'
         type: string
-        example: '2020-10-16 14:34:18'
+        example: '2020-10-16 14:36:14'
         format: date-time
       duration:
         description: 'The duration of this event.'
@@ -16395,12 +16395,12 @@ definitions:
       startDate:
         description: 'The moment this event starts'
         type: string
-        example: '2020-10-16 14:34:18'
+        example: '2020-10-16 14:36:14'
         format: date-time
       endDate:
         description: 'The moment this event ends'
         type: string
-        example: '2020-10-16 14:34:18'
+        example: '2020-10-16 14:36:14'
         format: date-time
       class:
         description: 'The security class of this event.'
@@ -16482,12 +16482,12 @@ definitions:
       startDate:
         description: 'The moment this event starts'
         type: string
-        example: '2020-10-16 14:34:18'
+        example: '2020-10-16 14:36:14'
         format: date-time
       endDate:
         description: 'The moment this event ends'
         type: string
-        example: '2020-10-16 14:34:18'
+        example: '2020-10-16 14:36:14'
         format: date-time
       class:
         description: 'The security class of this event.'
@@ -16873,12 +16873,12 @@ definitions:
       startDate:
         description: 'The moment this event starts'
         type: string
-        example: '2020-10-16 14:34:18'
+        example: '2020-10-16 14:36:14'
         format: date-time
       endDate:
         description: 'The moment this event ends'
         type: string
-        example: '2020-10-16 14:34:18'
+        example: '2020-10-16 14:36:14'
         format: date-time
       location:
         description: 'The location of this event'
@@ -16946,7 +16946,7 @@ definitions:
       completed:
         description: 'The date and time a to-do is completed.'
         type: string
-        example: '2020-10-16 14:34:18'
+        example: '2020-10-16 14:36:14'
         format: date-time
       percentageDone:
         description: 'The percentage of a to-do that has been comepleted.'
@@ -16981,12 +16981,12 @@ definitions:
       startDate:
         description: 'The moment this event starts'
         type: string
-        example: '2020-10-16 14:34:18'
+        example: '2020-10-16 14:36:14'
         format: date-time
       endDate:
         description: 'The moment this event ends'
         type: string
-        example: '2020-10-16 14:34:18'
+        example: '2020-10-16 14:36:14'
         format: date-time
       location:
         description: 'The location of this event'
@@ -17054,7 +17054,7 @@ definitions:
       completed:
         description: 'The date and time a to-do is completed.'
         type: string
-        example: '2020-10-16 14:34:18'
+        example: '2020-10-16 14:36:14'
         format: date-time
       percentageDone:
         description: 'The percentage of a to-do that has been comepleted.'
@@ -17172,12 +17172,12 @@ definitions:
         description: 'The moment this request was created'
         type: string
         format: date-time
-        example: '2020-10-16 14:34:18'
+        example: '2020-10-16 14:36:14'
       dateModified:
         description: 'The moment this request last Modified'
         type: string
         format: date-time
-        example: '2020-10-16 14:34:18'
+        example: '2020-10-16 14:36:14'
     required: []
   AuditTrail-write:
     properties:
@@ -17225,12 +17225,12 @@ definitions:
         description: 'The moment this request was created'
         type: string
         format: date-time
-        example: '2020-10-16 14:34:18'
+        example: '2020-10-16 14:36:14'
       dateModified:
         description: 'The moment this request last Modified'
         type: string
         format: date-time
-        example: '2020-10-16 14:34:18'
+        example: '2020-10-16 14:36:14'
     required: []
   ChangeLog-write:
     properties:
