@@ -8,6 +8,7 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\BooleanFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\DateFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -67,7 +68,7 @@ class Resource
      * @ORM\GeneratedValue(strategy="CUSTOM")
      * @ORM\CustomIdGenerator(class="Ramsey\Uuid\Doctrine\UuidGenerator")
      */
-    private $id;
+    private UuidInterface $id;
 
     /**
      * @var string The name of this RequestType
@@ -83,7 +84,7 @@ class Resource
      * @Groups({"read","write"})
      * @ORM\Column(type="string", length=255)
      */
-    private $name;
+    private string $name;
 
     /**
      * @var string An short description of this Event
@@ -98,21 +99,21 @@ class Resource
      * @Groups({"read","write"})
      * @ORM\Column(type="text", nullable=true)
      */
-    private $description;
+    private ?string $description;
 
     /**
      * @Groups({"read","write"})
      * @ORM\ManyToMany(targetEntity="App\Entity\Event", inversedBy="resources")
      * @MaxDepth(1)
      */
-    private $events;
+    private Collection $events;
 
     /**
      * @Groups({"read","write"})
      * @ORM\ManyToMany(targetEntity="App\Entity\Todo", inversedBy="resources")
      * @MaxDepth(1)
      */
-    private $todos;
+    private Collection $todos;
 
     /**
      * @var Datetime The moment this resource was created
@@ -121,7 +122,7 @@ class Resource
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime", nullable=true)
      */
-    private $dateCreated;
+    private ?DateTime $dateCreated;
 
     /**
      * @var Datetime The moment this resource last Modified
@@ -130,7 +131,7 @@ class Resource
      * @Gedmo\Timestampable(on="update")
      * @ORM\Column(type="datetime", nullable=true)
      */
-    private $dateModified;
+    private ?DateTime $dateModified;
 
     public function __construct()
     {

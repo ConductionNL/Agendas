@@ -68,7 +68,7 @@ class Freebusy
      * @ORM\GeneratedValue(strategy="CUSTOM")
      * @ORM\CustomIdGenerator(class="Ramsey\Uuid\Doctrine\UuidGenerator")
      */
-    private $id;
+    private UuidInterface $id;
     /**
      * @var string An short description of this Event
      *
@@ -81,7 +81,7 @@ class Freebusy
      * @Groups({"read","write"})
      * @ORM\Column(type="text", nullable=true)
      */
-    private $description;
+    private ?string $description;
 
     /**
      * @var string The urls of the attendees of this event.
@@ -96,7 +96,7 @@ class Freebusy
      * @Groups({"read","write"})
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $attendee;
+    private ?string $attendee;
 
     /**
      * @var array The urls of the comments that belong to this event.
@@ -108,7 +108,7 @@ class Freebusy
      * @Groups({"read","write"})
      * @ORM\Column(type="array", nullable=true)
      */
-    private $comments = [];
+    private array $comments = [];
 
     /**
      * @var string Url of this person
@@ -119,7 +119,7 @@ class Freebusy
      * @Groups({"read","write"})
      * @ORM\Column(type="string", nullable=true)
      */
-    private $contact;
+    private ?string $contact;
 
     /**
      * @var DateTime The moment this event starts
@@ -127,12 +127,11 @@ class Freebusy
      * @example 30-11-2019 15:00:00
      * @Gedmo\Versioned
      *
-     * @Assert\DateTime
      * @Assert\NotNull
      * @Groups({"read","write"})
      * @ORM\Column(type="datetime", nullable=true)
      */
-    private $startDate;
+    private DateTime $startDate;
 
     /**
      * @var DateTime The moment this event ends
@@ -140,12 +139,11 @@ class Freebusy
      * @example 3-11-2019 20:00:00
      * @Gedmo\Versioned
      *
-     * @Assert\DateTime
      * @Assert\NotNull
      * @Groups({"read","write"})
      * @ORM\Column(type="datetime", nullable=true)
      */
-    private $endDate;
+    private DateTime $endDate;
 
     /**
      * @var DateInterval The duration of this event.
@@ -156,7 +154,7 @@ class Freebusy
      * @Groups({"read","write"})
      * @ORM\Column(type="string", nullable=true)
      */
-    private $duration;
+    private ?DateInterval $duration;
 
     /**
      * @var string The organiser of this event linked to with an url.
@@ -170,7 +168,7 @@ class Freebusy
      * @Groups({"read","write"})
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $organiser;
+    private ?string $organiser;
     /**
      * @var string The determination of the type freebusy. **FREE**, **BUSY**
      * @Gedmo\Versioned
@@ -180,7 +178,7 @@ class Freebusy
      * @Groups({"read","write"})
      * @ORM\Column(type="string", nullable=true)
      */
-    private $freebusy;
+    private ?string $freebusy;
 
     /**
      * @Groups({"read","write"})
@@ -188,14 +186,14 @@ class Freebusy
      * @ORM\JoinColumn(nullable=false)
      * @MaxDepth(1)
      */
-    private $calendar;
+    private Calendar $calendar;
 
     /**
      * @Groups({"read","write"})
      * @ORM\ManyToOne(targetEntity="App\Entity\Schedule", inversedBy="freebusies")
      * @MaxDepth(1)
      */
-    private $schedule;
+    private ?Schedule $schedule;
 
     /**
      * @var DateTime The moment this resource was created
@@ -204,7 +202,7 @@ class Freebusy
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime", nullable=true)
      */
-    private $dateCreated;
+    private ?DateTime $dateCreated;
 
     /**
      * @var DateTime The moment this resource last Modified
@@ -213,7 +211,7 @@ class Freebusy
      * @Gedmo\Timestampable(on="update")
      * @ORM\Column(type="datetime", nullable=true)
      */
-    private $dateModified;
+    private ?DateTime $dateModified;
 
     public function getId(): ?Uuid
     {

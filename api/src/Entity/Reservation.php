@@ -69,7 +69,7 @@ class Reservation
      * @ORM\GeneratedValue(strategy="CUSTOM")
      * @ORM\CustomIdGenerator(class="Ramsey\Uuid\Doctrine\UuidGenerator")
      */
-    private $id;
+    private UuidInterface $id;
 
     /**
      * @var string The name of this Reservation
@@ -83,7 +83,7 @@ class Reservation
      * @Groups({"read","write"})
      * @ORM\Column(type="string", length=255)
      */
-    private $name;
+    private string $name;
 
     /**
      * @var string An short description of this Reservation
@@ -97,7 +97,7 @@ class Reservation
      * @Groups({"read","write"})
      * @ORM\Column(type="text", nullable=true)
      */
-    private $description;
+    private ?string $description;
 
     /**
      * @var Datetime The moment this resource was created
@@ -106,7 +106,7 @@ class Reservation
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime", nullable=true)
      */
-    private $dateCreated;
+    private ?DateTime $dateCreated;
 
     /**
      * @var Datetime The moment this resource last Modified
@@ -115,7 +115,7 @@ class Reservation
      * @Gedmo\Timestampable(on="update")
      * @ORM\Column(type="datetime", nullable=true)
      */
-    private $dateModified;
+    private ?DateTime $dateModified;
 
     /**
      * @var string The url of a person who is under name(the requester) of this reservation
@@ -127,7 +127,7 @@ class Reservation
      * @Groups({"read", "write"})
      * @ORM\Column(type="string", length=255)
      */
-    private $underName;
+    private string $underName;
 
     /**
      * @var int The number of participants for this reservation
@@ -140,16 +140,16 @@ class Reservation
      * @Groups({"read","write"})
      * @ORM\Column(type="integer")
      */
-    private $numberOfParticipants;
+    private int $numberOfParticipants;
 
     /**
-     * @var array Event that is booked in this reservation
+     * @var Event Event that is booked in this reservation
      * @Groups({"read","write"})
      * @MaxDepth(1)
      * @ORM\OneToOne(targetEntity=Event::class, cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
      */
-    private $event;
+    private Event $event;
 
     /**
      * @var string The url of a person or organization who is the provider of this reservation
@@ -161,7 +161,7 @@ class Reservation
      * @Groups({"read", "write"})
      * @ORM\Column(type="string", length=255)
      */
-    private $provider;
+    private string $provider;
 
     /**
      * @var string The url of a person or organization who is the broker of this reservation
@@ -173,7 +173,7 @@ class Reservation
      * @Groups({"read", "write"})
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $broker;
+    private ?string $broker;
 
     /**
      * @var string The thing -- flight, event, restaurant,etc. being reserved
@@ -187,7 +187,7 @@ class Reservation
      * @Groups({"read", "write"})
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $reservationFor;
+    private ?string $reservationFor;
 
     /**
      * @var string The current status of the reservation.
@@ -201,7 +201,7 @@ class Reservation
      * @Groups({"read", "write"})
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $reservationStatus;
+    private ?string $reservationStatus;
 
     /**
      * @var string A ticket associated with the reservation.
@@ -215,7 +215,7 @@ class Reservation
      * @Groups({"read", "write"})
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $reservedTicket;
+    private ?string $reservedTicket;
 
     /**
      * @var string Any membership in a frequent flyer, hotel loyalty program, etc. being applied to the reservation.
@@ -229,7 +229,7 @@ class Reservation
      * @Groups({"read", "write"})
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $programMembershipUsed;
+    private ?string $programMembershipUsed;
 
     /**
      * @var string The currency of this product in an [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) format
@@ -241,7 +241,7 @@ class Reservation
      * @Groups({"read", "write"})
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $priceCurrency;
+    private ?string $priceCurrency;
 
     /**
      * @var string The total price of this reservation
@@ -252,7 +252,7 @@ class Reservation
      * @Groups({"read", "write"})
      * @ORM\Column(type="decimal", precision=8, scale=2, nullable=true)
      */
-    private $totalPrice;
+    private ?string $totalPrice;
 
     /**
      * @var string comment for this reservation
@@ -266,7 +266,7 @@ class Reservation
      * @Groups({"read","write"})
      * @ORM\Column(type="text", nullable=true)
      */
-    private $comment;
+    private ?string $comment;
 
     public function getId(): ?Uuid
     {

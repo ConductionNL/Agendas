@@ -9,7 +9,7 @@ use App\Service\CalendarService;
 use Conduction\CommonGroundBundle\Service\NLXLogService;
 use DateInterval;
 use DateTime;
-use Doctrine\Collections\Criteria;
+use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\EntityManagerInterface;
 use SensioLabs\Security\Exception\HttpException;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
@@ -21,11 +21,11 @@ use Symfony\Component\Serializer\SerializerInterface;
 
 class AvailabilitiesSubscriber implements EventSubscriberInterface
 {
-    private $params;
-    private $em;
-    private $serializer;
-    private $nlxLogService;
-    private $calendarService;
+    private ParameterBagInterface $params;
+    private EntityManagerInterface $em;
+    private SerializerInterface $serializer;
+    private NLXLogService $nlxLogService;
+    private CalendarService $calendarService;
 
     public function __construct(ParameterBagInterface $params, EntityManagerInterface $em, SerializerInterface $serializer, NLXLogService $nlxLogService)
     {

@@ -70,7 +70,7 @@ class Todo
      * @ORM\GeneratedValue(strategy="CUSTOM")
      * @ORM\CustomIdGenerator(class="Ramsey\Uuid\Doctrine\UuidGenerator")
      */
-    private $id;
+    private UuidInterface $id;
 
     /**
      * @var string The name of this RequestType
@@ -86,7 +86,7 @@ class Todo
      * @Groups({"read","write"})
      * @ORM\Column(type="string", length=255)
      */
-    private $name;
+    private string $name;
 
     /**
      * @var string An short description of this Event
@@ -101,7 +101,7 @@ class Todo
      * @Groups({"read","write"})
      * @ORM\Column(type="text", nullable=true)
      */
-    private $description;
+    private ?string $description;
 
     /**
      * @var DateTime The moment this event starts
@@ -110,12 +110,11 @@ class Todo
      *
      * @example 30-11-2019 15:00:00
      *
-     * @Assert\DateTime
      * @Assert\NotNull
      * @Groups({"read","write"})
      * @ORM\Column(type="datetime")
      */
-    private $startDate;
+    private DateTime $startDate;
 
     /**
      * @var Datetime The moment this event ends
@@ -124,12 +123,11 @@ class Todo
      *
      * @example 3-11-2019 20:00:00
      *
-     * @Assert\DateTime
      * @Assert\NotNull
      * @Groups({"read","write"})
      * @ORM\Column(type="datetime")
      */
-    private $endDate;
+    private DateTime $endDate;
 
     /**
      * @var string The location of this event
@@ -144,7 +142,7 @@ class Todo
      * @Groups({"read","write"})
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $location;
+    private ?string $location;
 
     /**
      * @var string The security class of this event.
@@ -159,7 +157,7 @@ class Todo
      * @Groups({"read","write"})
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $class;
+    private ?string $class;
 
     /**
      * @var string The coordinates of this event.
@@ -174,7 +172,7 @@ class Todo
      * @Groups({"read","write"})
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $geo;
+    private ?string $geo;
 
     /**
      * @var string The organiser of this event linked to with an url.
@@ -189,7 +187,7 @@ class Todo
      * @Groups({"read","write"})
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $organiser;
+    private ?string $organiser;
 
     /**
      * @var string The status of this evemt.
@@ -204,7 +202,7 @@ class Todo
      * @Groups({"read","write"})
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $status;
+    private ?string $status;
 
     /**
      * @var string The summary of this event.
@@ -219,7 +217,7 @@ class Todo
      * @Groups({"read","write"})
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $summary;
+    private ?string $summary;
 
     /**
      * @var DateInterval The duration of this event.
@@ -231,7 +229,7 @@ class Todo
      * @Groups({"read","write"})
      * @ORM\Column(type="dateinterval", nullable=true)
      */
-    private $duration;
+    private ?DateInterval $duration;
 
     /**
      * @var string Url of this person
@@ -244,7 +242,7 @@ class Todo
      * @Groups({"read","write"})
      * @ORM\Column(type="string", nullable=true)
      */
-    private $contact;
+    private ?string $contact;
 
     /**
      * @var int The version number of this event.
@@ -257,7 +255,7 @@ class Todo
      * @Groups({"read","write"})
      * @ORM\Column(type="integer")
      */
-    private $seq = 1;
+    private int $seq = 1;
     /**
      * @var int The priority of this event ranging from 1 (high) to 9 (low).
      *
@@ -269,7 +267,7 @@ class Todo
      * @Groups({"read","write"})
      * @ORM\Column(type="integer")
      */
-    private $priority = 9;
+    private int $priority = 9;
 
     /**
      * @var array The urls of the attendees of this event.
@@ -281,7 +279,7 @@ class Todo
      * @Groups({"read","write"})
      * @ORM\Column(type="array", nullable=true)
      */
-    private $attendees = [];
+    private array $attendees = [];
 
     /**
      * @var array The urls of the attachments of this event.
@@ -293,7 +291,7 @@ class Todo
      * @Groups({"read","write"})
      * @ORM\Column(type="array", nullable=true)
      */
-    private $attachments = [];
+    private array $attachments = [];
 
     /**
      * @var array The urls of the catergories this event belongs to.
@@ -305,7 +303,7 @@ class Todo
      * @Groups({"read","write"})
      * @ORM\Column(type="array", nullable=true)
      */
-    private $categories = [];
+    private array $categories = [];
 
     /**
      * @var array The urls of the comments that belong to this event.
@@ -317,7 +315,7 @@ class Todo
      * @Groups({"read","write"})
      * @ORM\Column(type="array", nullable=true)
      */
-    private $comments = [];
+    private array $comments = [];
 
     /**
      * @var DateTime The date and time a to-do is completed.
@@ -330,7 +328,7 @@ class Todo
      * @Groups({"read","write"})
      * @ORM\Column(type="datetime", nullable=true)
      */
-    private $completed;
+    private ?DateTime $completed;
 
     /**
      * @var int The percentage of a to-do that has been comepleted.
@@ -343,21 +341,21 @@ class Todo
      * @Groups({"read","write"})
      * @ORM\Column(type="integer")
      */
-    private $percentageDone = 0;
+    private int $percentageDone = 0;
 
     /**
      * @Groups({"read","write"})
      * @ORM\ManyToMany(targetEntity="App\Entity\Resource", mappedBy="todos")
      * @MaxDepth(1)
      */
-    private $resources;
+    private Collection $resources;
 
     /**
      * @Groups({"read","write"})
      * @ORM\OneToOne(targetEntity="App\Entity\Alarm", mappedBy="todo", cascade={"persist", "remove"})
      * @MaxDepth(1)
      */
-    private $alarm;
+    private ?Alarm $alarm;
 
     /**
      * @Groups({"read","write"})
@@ -365,14 +363,14 @@ class Todo
      * @ORM\JoinColumn(nullable=false)
      * @MaxDepth(1)
      */
-    private $calendar;
+    private Calendar $calendar;
 
     /**
      * @Groups({"read","write"})
      * @ORM\ManyToOne(targetEntity="App\Entity\Schedule", inversedBy="todos")
      * @MaxDepth(1)
      */
-    private $schedule;
+    private ?Schedule $schedule;
 
     /**
      * @var Datetime The moment this resource was created
@@ -381,7 +379,7 @@ class Todo
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime", nullable=true)
      */
-    private $dateCreated;
+    private ?DateTime $dateCreated;
 
     /**
      * @var Datetime The moment this resource last Modified
@@ -390,7 +388,7 @@ class Todo
      * @Gedmo\Timestampable(on="update")
      * @ORM\Column(type="datetime", nullable=true)
      */
-    private $dateModified;
+    private ?DateTime $dateModified;
 
     public function __construct()
     {

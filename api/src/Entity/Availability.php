@@ -29,28 +29,28 @@ class Availability
      * @ORM\GeneratedValue(strategy="CUSTOM")
      * @ORM\CustomIdGenerator(class="Ramsey\Uuid\Doctrine\UuidGenerator")
      */
-    private $id;
+    private UuidInterface$id;
 
     /**
      * @var DateTime The start of the availability block
      * @Groups({"read"})
      * @ORM\Column(type="datetime")
      */
-    private $startDate;
+    private DateTime $startDate;
 
     /**
      * @var DateTime The end of the availability block
      * @Groups({"read"})
      * @ORM\Column(type="datetime")
      */
-    private $endDate;
+    private DateTime $endDate;
 
     /**
      * @var bool Whether the block is available or not
      * @Groups({"read"})
      * @ORM\Column(type="boolean")
      */
-    private $available;
+    private bool $available;
 
     public function getId(): ?UuidInterface
     {

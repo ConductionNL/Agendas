@@ -11,11 +11,8 @@ use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 class CheckinFixtures extends Fixture
 {
-    private $params;
-    /**
-     * @var CommonGroundService
-     */
-    private $commonGroundService;
+    private ParameterBagInterface $params;
+    private CommonGroundService $commonGroundService;
 
     public function __construct(ParameterBagInterface $params, CommonGroundService $commonGroundService)
     {

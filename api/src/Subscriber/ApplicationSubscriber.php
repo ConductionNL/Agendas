@@ -16,9 +16,9 @@ use Symfony\Component\Serializer\SerializerInterface;
 
 class ApplicationSubscriber implements EventSubscriberInterface
 {
-    private $params;
-    private $em;
-    private $serializer;
+    private ParameterBagInterface $params;
+    private EntityManagerInterface $em;
+    private SerializerInterface $serializer;
 
     public function __construct(ParameterBagInterface $params, EntityManagerInterface $em, SerializerInterface $serializer)
     {
