@@ -13301,14 +13301,10 @@ components:
           nullable: true
         startDate:
           description: 'The moment this event starts'
-          externalDocs:
-            url: 'http://schema.org/DateTime'
           type: string
           format: date-time
         endDate:
           description: 'The moment this event ends'
-          externalDocs:
-            url: 'http://schema.org/DateTime'
           type: string
           format: date-time
         location:
@@ -13450,14 +13446,10 @@ components:
           nullable: true
         startDate:
           description: 'The moment this event starts'
-          externalDocs:
-            url: 'http://schema.org/DateTime'
           type: string
           format: date-time
         endDate:
           description: 'The moment this event ends'
-          externalDocs:
-            url: 'http://schema.org/DateTime'
           type: string
           format: date-time
         location:
@@ -13595,14 +13587,10 @@ components:
           nullable: true
         startDate:
           description: 'The moment this event starts'
-          externalDocs:
-            url: 'http://schema.org/DateTime'
           type: string
           format: date-time
         endDate:
           description: 'The moment this event ends'
-          externalDocs:
-            url: 'http://schema.org/DateTime'
           type: string
           format: date-time
         location:
@@ -13753,14 +13741,10 @@ components:
           nullable: true
         startDate:
           description: 'The moment this event starts'
-          externalDocs:
-            url: 'http://schema.org/DateTime'
           type: string
           format: date-time
         endDate:
           description: 'The moment this event ends'
-          externalDocs:
-            url: 'http://schema.org/DateTime'
           type: string
           format: date-time
         location:
@@ -13890,15 +13874,11 @@ components:
           nullable: true
         startDate:
           description: 'The moment this event starts'
-          externalDocs:
-            url: 'http://schema.org/DateTime'
           type: string
           format: date-time
           nullable: true
         endDate:
           description: 'The moment this event ends'
-          externalDocs:
-            url: 'http://schema.org/DateTime'
           type: string
           format: date-time
           nullable: true
@@ -13962,15 +13942,11 @@ components:
           nullable: true
         startDate:
           description: 'The moment this event starts'
-          externalDocs:
-            url: 'http://schema.org/DateTime'
           type: string
           format: date-time
           nullable: true
         endDate:
           description: 'The moment this event ends'
-          externalDocs:
-            url: 'http://schema.org/DateTime'
           type: string
           format: date-time
           nullable: true
@@ -14040,15 +14016,11 @@ components:
           nullable: true
         startDate:
           description: 'The moment this event starts'
-          externalDocs:
-            url: 'http://schema.org/DateTime'
           type: string
           format: date-time
           nullable: true
         endDate:
           description: 'The moment this event ends'
-          externalDocs:
-            url: 'http://schema.org/DateTime'
           type: string
           format: date-time
           nullable: true
@@ -14121,15 +14093,11 @@ components:
           nullable: true
         startDate:
           description: 'The moment this event starts'
-          externalDocs:
-            url: 'http://schema.org/DateTime'
           type: string
           format: date-time
           nullable: true
         endDate:
           description: 'The moment this event ends'
-          externalDocs:
-            url: 'http://schema.org/DateTime'
           type: string
           format: date-time
           nullable: true
@@ -14175,14 +14143,10 @@ components:
           nullable: true
         startDate:
           description: 'The moment this event starts'
-          externalDocs:
-            url: 'http://schema.org/DateTime'
           type: string
           format: date-time
         endDate:
           description: 'The moment this event ends'
-          externalDocs:
-            url: 'http://schema.org/DateTime'
           type: string
           format: date-time
         class:
@@ -14278,14 +14242,10 @@ components:
           nullable: true
         startDate:
           description: 'The moment this event starts'
-          externalDocs:
-            url: 'http://schema.org/DateTime'
           type: string
           format: date-time
         endDate:
           description: 'The moment this event ends'
-          externalDocs:
-            url: 'http://schema.org/DateTime'
           type: string
           format: date-time
         class:
@@ -14379,14 +14339,10 @@ components:
           nullable: true
         startDate:
           description: 'The moment this event starts'
-          externalDocs:
-            url: 'http://schema.org/DateTime'
           type: string
           format: date-time
         endDate:
           description: 'The moment this event ends'
-          externalDocs:
-            url: 'http://schema.org/DateTime'
           type: string
           format: date-time
         class:
@@ -14491,14 +14447,10 @@ components:
           nullable: true
         startDate:
           description: 'The moment this event starts'
-          externalDocs:
-            url: 'http://schema.org/DateTime'
           type: string
           format: date-time
         endDate:
           description: 'The moment this event ends'
-          externalDocs:
-            url: 'http://schema.org/DateTime'
           type: string
           format: date-time
         class:
@@ -15319,14 +15271,10 @@ components:
           nullable: true
         startDate:
           description: 'The moment this event starts'
-          externalDocs:
-            url: 'http://schema.org/DateTime'
           type: string
           format: date-time
         endDate:
           description: 'The moment this event ends'
-          externalDocs:
-            url: 'http://schema.org/DateTime'
           type: string
           format: date-time
         location:
@@ -15452,14 +15400,10 @@ components:
           nullable: true
         startDate:
           description: 'The moment this event starts'
-          externalDocs:
-            url: 'http://schema.org/DateTime'
           type: string
           format: date-time
         endDate:
           description: 'The moment this event ends'
-          externalDocs:
-            url: 'http://schema.org/DateTime'
           type: string
           format: date-time
         location:
@@ -15583,14 +15527,10 @@ components:
           nullable: true
         startDate:
           description: 'The moment this event starts'
-          externalDocs:
-            url: 'http://schema.org/DateTime'
           type: string
           format: date-time
         endDate:
           description: 'The moment this event ends'
-          externalDocs:
-            url: 'http://schema.org/DateTime'
           type: string
           format: date-time
         location:
@@ -15725,14 +15665,10 @@ components:
           nullable: true
         startDate:
           description: 'The moment this event starts'
-          externalDocs:
-            url: 'http://schema.org/DateTime'
           type: string
           format: date-time
         endDate:
           description: 'The moment this event ends'
-          externalDocs:
-            url: 'http://schema.org/DateTime'
           type: string
           format: date-time
         location:
@@ -15975,10 +15911,10 @@ definitions:
         type: \Datetime
       events:
         description: 'Events that belong to this Calendar'
-        type: array
+        type: \Collection
       schedules:
         description: 'Schedules that belong to this Calendar'
-        type: array
+        type: \Collection
       freebusies: []
       journals: []
       todos: []
@@ -16015,10 +15951,10 @@ definitions:
         minLength: 3
       events:
         description: 'Events that belong to this Calendar'
-        type: array
+        type: \Collection
       schedules:
         description: 'Schedules that belong to this Calendar'
-        type: array
+        type: \Collection
       freebusies: []
       journals: []
       todos: []
@@ -16054,14 +15990,12 @@ definitions:
         format: url
       startDate:
         description: 'The moment this event starts'
-        type: string
-        example: '2020-10-30 13:21:19'
-        format: date-time
+        type: \DateTime
+        example: '30-11-2019 15:00:00'
       endDate:
         description: 'The moment this event ends'
-        type: string
-        example: '2020-10-30 13:21:19'
-        format: date-time
+        type: \Datetime
+        example: '3-11-2019 20:00:00'
       location:
         description: 'The location of this event'
         type: string
@@ -16174,14 +16108,12 @@ definitions:
         format: url
       startDate:
         description: 'The moment this event starts'
-        type: string
-        example: '2020-10-30 13:21:19'
-        format: date-time
+        type: \DateTime
+        example: '30-11-2019 15:00:00'
       endDate:
         description: 'The moment this event ends'
-        type: string
-        example: '2020-10-30 13:21:19'
-        format: date-time
+        type: \Datetime
+        example: '3-11-2019 20:00:00'
       location:
         description: 'The location of this event'
         type: string
@@ -16293,14 +16225,12 @@ definitions:
         format: url
       startDate:
         description: 'The moment this event starts'
-        type: string
-        example: '2020-10-30 13:21:19'
-        format: date-time
+        type: \DateTime
+        example: '30-11-2019 15:00:00'
       endDate:
         description: 'The moment this event ends'
-        type: string
-        example: '2020-10-30 13:21:19'
-        format: date-time
+        type: \DateTime
+        example: '3-11-2019 20:00:00'
       duration:
         description: 'The duration of this event.'
         type: \DateInterval
@@ -16349,14 +16279,12 @@ definitions:
         format: url
       startDate:
         description: 'The moment this event starts'
-        type: string
-        example: '2020-10-30 13:21:19'
-        format: date-time
+        type: \DateTime
+        example: '30-11-2019 15:00:00'
       endDate:
         description: 'The moment this event ends'
-        type: string
-        example: '2020-10-30 13:21:19'
-        format: date-time
+        type: \DateTime
+        example: '3-11-2019 20:00:00'
       duration:
         description: 'The duration of this event.'
         type: \DateInterval
@@ -16394,14 +16322,12 @@ definitions:
         maxLength: 2550
       startDate:
         description: 'The moment this event starts'
-        type: string
-        example: '2020-10-30 13:21:19'
-        format: date-time
+        type: \DateTime
+        example: '30-11-2019 15:00:00'
       endDate:
         description: 'The moment this event ends'
-        type: string
-        example: '2020-10-30 13:21:19'
-        format: date-time
+        type: \Datetime
+        example: '3-11-2019 20:00:00'
       class:
         description: 'The security class of this event.'
         type: string
@@ -16481,14 +16407,12 @@ definitions:
         maxLength: 2550
       startDate:
         description: 'The moment this event starts'
-        type: string
-        example: '2020-10-30 13:21:19'
-        format: date-time
+        type: \DateTime
+        example: '30-11-2019 15:00:00'
       endDate:
         description: 'The moment this event ends'
-        type: string
-        example: '2020-10-30 13:21:19'
-        format: date-time
+        type: \Datetime
+        example: '3-11-2019 20:00:00'
       class:
         description: 'The security class of this event.'
         type: string
@@ -16625,7 +16549,7 @@ definitions:
         maxLength: 2550
       event:
         description: 'Event that is booked in this reservation'
-        type: array
+        type: \Event
     required:
       - name
   Reservation-write:
@@ -16694,7 +16618,7 @@ definitions:
         maxLength: 2550
       event:
         description: 'Event that is booked in this reservation'
-        type: array
+        type: \Event
     required:
       - name
   Resource-read:
@@ -16771,7 +16695,7 @@ definitions:
         example: '1'
       exceptDates:
         description: 'Defines the day(s) of the month on which a recurring Event takes place. Specified as an Integer between 1-31.'
-        type: string
+        type: array
         example: '30'
       repeatCount:
         description: 'Defines the number of times a recurring Event will take place'
@@ -16790,16 +16714,16 @@ definitions:
         type: \Datetime
       calendar:
         description: 'The Calendar to wich this Schedule belongs'
-        type: string
+        type: \Calendar
       events:
         description: 'The events that belong to or are caused by this Schedule'
-        type: \ArrayCollection
+        type: \Collection
       freebusies:
         description: 'The freebusies that belong to or are caused by this Schedule'
-        type: \ArrayCollection
+        type: \Collection
       todos:
         description: 'The todos that belong to or are caused by this Schedule'
-        type: \ArrayCollection
+        type: \Collection
     required:
       - name
   Schedule-write:
@@ -16828,7 +16752,7 @@ definitions:
         example: '1'
       exceptDates:
         description: 'Defines the day(s) of the month on which a recurring Event takes place. Specified as an Integer between 1-31.'
-        type: string
+        type: array
         example: '30'
       repeatCount:
         description: 'Defines the number of times a recurring Event will take place'
@@ -16841,16 +16765,16 @@ definitions:
         maxLength: 255
       calendar:
         description: 'The Calendar to wich this Schedule belongs'
-        type: string
+        type: \Calendar
       events:
         description: 'The events that belong to or are caused by this Schedule'
-        type: \ArrayCollection
+        type: \Collection
       freebusies:
         description: 'The freebusies that belong to or are caused by this Schedule'
-        type: \ArrayCollection
+        type: \Collection
       todos:
         description: 'The todos that belong to or are caused by this Schedule'
-        type: \ArrayCollection
+        type: \Collection
     required:
       - name
   Todo-read:
@@ -16872,14 +16796,12 @@ definitions:
         maxLength: 2550
       startDate:
         description: 'The moment this event starts'
-        type: string
-        example: '2020-10-30 13:21:19'
-        format: date-time
+        type: \DateTime
+        example: '30-11-2019 15:00:00'
       endDate:
         description: 'The moment this event ends'
-        type: string
-        example: '2020-10-30 13:21:19'
-        format: date-time
+        type: \Datetime
+        example: '3-11-2019 20:00:00'
       location:
         description: 'The location of this event'
         type: string
@@ -16946,7 +16868,7 @@ definitions:
       completed:
         description: 'The date and time a to-do is completed.'
         type: string
-        example: '2020-10-30 13:21:19'
+        example: '2020-10-30 14:41:49'
         format: date-time
       percentageDone:
         description: 'The percentage of a to-do that has been comepleted.'
@@ -16980,14 +16902,12 @@ definitions:
         maxLength: 2550
       startDate:
         description: 'The moment this event starts'
-        type: string
-        example: '2020-10-30 13:21:19'
-        format: date-time
+        type: \DateTime
+        example: '30-11-2019 15:00:00'
       endDate:
         description: 'The moment this event ends'
-        type: string
-        example: '2020-10-30 13:21:19'
-        format: date-time
+        type: \Datetime
+        example: '3-11-2019 20:00:00'
       location:
         description: 'The location of this event'
         type: string
@@ -17054,7 +16974,7 @@ definitions:
       completed:
         description: 'The date and time a to-do is completed.'
         type: string
-        example: '2020-10-30 13:21:19'
+        example: '2020-10-30 14:41:49'
         format: date-time
       percentageDone:
         description: 'The percentage of a to-do that has been comepleted.'
@@ -17172,12 +17092,12 @@ definitions:
         description: 'The moment this request was created'
         type: string
         format: date-time
-        example: '2020-10-30 13:21:19'
+        example: '2020-10-30 14:41:49'
       dateModified:
         description: 'The moment this request last Modified'
         type: string
         format: date-time
-        example: '2020-10-30 13:21:19'
+        example: '2020-10-30 14:41:49'
     required: []
   AuditTrail-write:
     properties:
@@ -17225,12 +17145,12 @@ definitions:
         description: 'The moment this request was created'
         type: string
         format: date-time
-        example: '2020-10-30 13:21:19'
+        example: '2020-10-30 14:41:49'
       dateModified:
         description: 'The moment this request last Modified'
         type: string
         format: date-time
-        example: '2020-10-30 13:21:19'
+        example: '2020-10-30 14:41:49'
     required: []
   ChangeLog-write:
     properties:

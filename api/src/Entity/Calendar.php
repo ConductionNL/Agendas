@@ -217,7 +217,7 @@ class Calendar
         return $this->id;
     }
 
-    public function setId(string $id): self
+    public function setId(UuidInterface $id): self
     {
         $this->id = $id;
 
