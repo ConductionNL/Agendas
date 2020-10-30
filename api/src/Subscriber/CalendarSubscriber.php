@@ -18,11 +18,11 @@ use Symfony\Component\Serializer\SerializerInterface;
 
 class CalendarSubscriber implements EventSubscriberInterface
 {
-    private $params;
-    private $em;
-    private $serializer;
-    private $nlxLogService;
-    private $calendarService;
+    private ParameterBagInterface $params;
+    private EntityManagerInterface $em;
+    private SerializerInterface $serializer;
+    private NLXLogService $nlxLogService;
+    private CalendarService $calendarService;
 
     public function __construct(ParameterBagInterface $params, EntityManagerInterface $em, SerializerInterface $serializer, NLXLogService $nlxLogService)
     {

@@ -68,7 +68,7 @@ class Journal
      * @ORM\GeneratedValue(strategy="CUSTOM")
      * @ORM\CustomIdGenerator(class="Ramsey\Uuid\Doctrine\UuidGenerator")
      */
-    private $id;
+    private UuidInterface $id;
 
     /**
      * @var string The name of this RequestType
@@ -84,7 +84,7 @@ class Journal
      * @Groups({"read","write"})
      * @ORM\Column(type="string", length=255)
      */
-    private $name;
+    private string $name;
 
     /**
      * @var string An short description of this Event
@@ -99,7 +99,7 @@ class Journal
      * @Groups({"read","write"})
      * @ORM\Column(type="text", nullable=true)
      */
-    private $description;
+    private ?string $description;
 
     /**
      * @var DateTime The moment this event starts
@@ -108,12 +108,11 @@ class Journal
      *
      * @example 30-11-2019 15:00:00
      *
-     * @Assert\DateTime
      * @Assert\NotNull
      * @Groups({"read","write"})
      * @ORM\Column(type="datetime")
      */
-    private $startDate;
+    private DateTime $startDate;
 
     /**
      * @var Datetime The moment this event ends
@@ -122,12 +121,11 @@ class Journal
      *
      * @example 3-11-2019 20:00:00
      *
-     * @Assert\DateTime
      * @Assert\NotNull
      * @Groups({"read","write"})
      * @ORM\Column(type="datetime")
      */
-    private $endDate;
+    private DateTime $endDate;
 
     /**
      * @var string The security class of this event.
@@ -142,7 +140,7 @@ class Journal
      * @Groups({"read","write"})
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $class;
+    private ?string $class;
 
     /**
      * @var string The organiser of this event linked to with an url.
@@ -157,7 +155,7 @@ class Journal
      * @Groups({"read","write"})
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $organiser;
+    private ?string $organiser;
 
     /**
      * @var string The status of this event.
@@ -172,7 +170,7 @@ class Journal
      * @Groups({"read","write"})
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $status;
+    private ?string $status;
 
     /**
      * @var string The summary of this event.
@@ -187,7 +185,7 @@ class Journal
      * @Groups({"read","write"})
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $summary;
+    private ?string $summary;
 
     /**
      * @var string The determination if the event should block the duration of the event for participants.
@@ -202,7 +200,7 @@ class Journal
      * @Groups({"read","write"})
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $transp;
+    private ?string $transp;
 
     /**
      * @var DateInterval The duration of this event.
@@ -214,7 +212,7 @@ class Journal
      * @Groups({"read","write"})
      * @ORM\Column(type="dateinterval", nullable=true)
      */
-    private $duration;
+    private ?DateInterval $duration;
 
     /**
      * @var int The version number of this event.
@@ -227,7 +225,7 @@ class Journal
      * @Groups({"read","write"})
      * @ORM\Column(type="integer")
      */
-    private $seq = 1;
+    private int $seq = 1;
     /**
      * @var int The priority of this event ranging from 1 (high) to 9 (low).
      *
@@ -239,7 +237,7 @@ class Journal
      * @Groups({"read","write"})
      * @ORM\Column(type="integer")
      */
-    private $priority = 9;
+    private int $priority = 9;
 
     /**
      * @var array The urls of the attendees of this event.
@@ -251,7 +249,7 @@ class Journal
      * @Groups({"read","write"})
      * @ORM\Column(type="array", nullable=true)
      */
-    private $attendees = [];
+    private array $attendees = [];
 
     /**
      * @var array The urls of the attachments of this event.
@@ -263,7 +261,7 @@ class Journal
      * @Groups({"read","write"})
      * @ORM\Column(type="array", nullable=true)
      */
-    private $attachments = [];
+    private array $attachments = [];
 
     /**
      * @var array The urls of the catergories this event belongs to.
@@ -275,7 +273,7 @@ class Journal
      * @Groups({"read","write"})
      * @ORM\Column(type="array", nullable=true)
      */
-    private $categories = [];
+    private array $categories = [];
 
     /**
      * @var array The urls of the comments that belong to this event.
@@ -287,7 +285,7 @@ class Journal
      * @Groups({"read","write"})
      * @ORM\Column(type="array")
      */
-    private $comments = [];
+    private array $comments = [];
 
     /**
      * @Groups({"read","write"})
@@ -295,14 +293,14 @@ class Journal
      * @ORM\JoinColumn(nullable=false)
      * @MaxDepth(1)
      */
-    private $calendar;
+    private Calendar $calendar;
 
     /**
      * @Groups({"read","write"})
      * @ORM\OneToOne(targetEntity="App\Entity\Event", inversedBy="journal", cascade={"persist", "remove"})
      * @MaxDepth(1)
      */
-    private $event;
+    private ?Event $event;
 
     /**
      * @var DateTime The moment this resource was created
@@ -311,7 +309,7 @@ class Journal
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime", nullable=true)
      */
-    private $dateCreated;
+    private ?DateTime $dateCreated;
 
     /**
      * @var DateTime The moment this resource last Modified
@@ -320,7 +318,7 @@ class Journal
      * @Gedmo\Timestampable(on="update")
      * @ORM\Column(type="datetime", nullable=true)
      */
-    private $dateModified;
+    private ?DateTime $dateModified;
 
     public function getId(): ?Uuid
     {

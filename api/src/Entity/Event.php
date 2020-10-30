@@ -79,7 +79,7 @@ class Event
      * @ORM\GeneratedValue(strategy="CUSTOM")
      * @ORM\CustomIdGenerator(class="Ramsey\Uuid\Doctrine\UuidGenerator")
      */
-    private $id;
+    private UuidInterface $id;
 
     /**
      * @var string The name of this RequestType
@@ -95,7 +95,7 @@ class Event
      * @Groups({"read","write"})
      * @ORM\Column(type="string", length=255)
      */
-    private $name;
+    private string $name;
 
     /**
      * @var string An short description of this Event
@@ -110,7 +110,7 @@ class Event
      * @Groups({"read","write"})
      * @ORM\Column(type="text", nullable=true)
      */
-    private $description;
+    private ?string $description;
 
     /**
      * @var string A specific commonground organisation
@@ -122,7 +122,7 @@ class Event
      * @Groups({"read", "write"})
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $organization;
+    private ?string $organization;
 
     /**
      * @var string A specific commonground resource
@@ -134,7 +134,7 @@ class Event
      * @Groups({"read", "write"})
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $resource;
+    private ?string $resource;
 
     /**
      * @var DateTime The moment this event starts
@@ -143,12 +143,11 @@ class Event
      *
      * @example 30-11-2019 15:00:00
      *
-     * @Assert\DateTime
      * @Assert\NotNull
      * @Groups({"read","write"})
      * @ORM\Column(type="datetime")
      */
-    private $startDate;
+    private DateTime $startDate;
 
     /**
      * @var Datetime The moment this event ends
@@ -157,12 +156,11 @@ class Event
      *
      * @example 3-11-2019 20:00:00
      *
-     * @Assert\DateTime
      * @Assert\NotNull
      * @Groups({"read","write"})
      * @ORM\Column(type="datetime")
      */
-    private $endDate;
+    private DateTime $endDate;
 
     /**
      * @var string The location of this event
@@ -177,7 +175,7 @@ class Event
      * @Groups({"read","write"})
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $location;
+    private ?string $location;
 
     /**
      * @var Schedule An optional Schedule to which this event belongs
@@ -186,7 +184,7 @@ class Event
      * @Groups({"read","write"})
      * @ORM\ManyToOne(targetEntity="App\Entity\Schedule", inversedBy="events")
      */
-    private $schedule;
+    private ?Schedule $schedule;
 
     /**
      * @var Calendar The Calendar to wich this event belongs
@@ -196,7 +194,7 @@ class Event
      * @ORM\ManyToOne(targetEntity="App\Entity\Calendar", inversedBy="events")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $calendar;
+    private Calendar $calendar;
 
     /**
      * @var string The security class of this event.
@@ -211,7 +209,7 @@ class Event
      * @Groups({"read","write"})
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $class;
+    private ?string $class;
 
     /**
      * @var string The coordinates of this event.
@@ -226,7 +224,7 @@ class Event
      * @Groups({"read","write"})
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $geo;
+    private ?string $geo;
 
     /**
      * @var string The organiser of this event linked to with an url.
@@ -241,7 +239,7 @@ class Event
      * @Groups({"read","write"})
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $organizer;
+    private ?string $organizer;
 
     /**
      * @var string The status of this event.
@@ -256,7 +254,7 @@ class Event
      * @Groups({"read","write"})
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $status;
+    private ?string $status;
 
     /**
      * @var string The summary of this event.
@@ -271,7 +269,7 @@ class Event
      * @Groups({"read","write"})
      * @ORM\Column(type="string", length=255,nullable=true)
      */
-    private $summary;
+    private ?string $summary;
 
     /**
      * @var string The determination if the event should block the duration of the event for participants.
@@ -286,7 +284,7 @@ class Event
      * @Groups({"read","write"})
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $transp;
+    private ?string $transp;
 
     /**
      * @var DateInterval The duration of this event.
@@ -298,7 +296,7 @@ class Event
      * @Groups({"read","write"})
      * @ORM\Column(type="dateinterval", nullable=true)
      */
-    private $duration;
+    private ?DateInterval $duration;
 
     /**
      * @var string Url of this person
@@ -311,7 +309,7 @@ class Event
      * @Groups({"read","write"})
      * @ORM\Column(type="string", nullable=true)
      */
-    private $contact;
+    private ?string $contact;
 
     /**
      * @var int The version number of this event.
@@ -324,7 +322,7 @@ class Event
      * @Groups({"read","write"})
      * @ORM\Column(type="integer")
      */
-    private $seq = 1;
+    private int $seq = 1;
     /**
      * @var int The priority of this event ranging from 1 (high) to 9 (low).
      *
@@ -337,7 +335,7 @@ class Event
      * @Groups({"read","write"})
      * @ORM\Column(type="integer")
      */
-    private $priority = 9;
+    private int $priority = 9;
 
     /**
      * @var array The urls of the attendees of this event.
@@ -349,7 +347,7 @@ class Event
      * @Groups({"read","write"})
      * @ORM\Column(type="array")
      */
-    private $attendees = [];
+    private array $attendees = [];
 
     /**
      * @var array The urls of the attachments of this event.
@@ -361,7 +359,7 @@ class Event
      * @Groups({"read","write"})
      * @ORM\Column(type="array")
      */
-    private $attachments = [];
+    private array $attachments = [];
 
     /**
      * @var array The urls of the catergories this event belongs to.
@@ -373,7 +371,7 @@ class Event
      * @Groups({"read","write"})
      * @ORM\Column(type="array")
      */
-    private $categories = [];
+    private array $categories = [];
 
     /**
      * @var array The urls of the comments that belong to this event.
@@ -385,35 +383,35 @@ class Event
      * @Groups({"read","write"})
      * @ORM\Column(type="array")
      */
-    private $comments = [];
+    private array $comments = [];
 
     /**
      * @Groups({"read","write"})
      * @ORM\ManyToMany(targetEntity="App\Entity\Event")
      * @MaxDepth(1)
      */
-    private $related;
+    private Collection $related;
 
     /**
      * @Groups({"read","write"})
      * @ORM\ManyToMany(targetEntity="App\Entity\Resource", mappedBy="events")
      * @MaxDepth(1)
      */
-    private $resources;
+    private Collection $resources;
 
     /**
      * @Groups({"read","write"})
      * @ORM\OneToMany(targetEntity="App\Entity\Alarm", mappedBy="event")
      * @MaxDepth(1)
      */
-    private $alarms;
+    private Collection $alarms;
 
     /**
      * @Groups({"read","write"})
      * @ORM\OneToOne(targetEntity="App\Entity\Journal", mappedBy="event", cascade={"persist", "remove"})
      * @MaxDepth(1)
      */
-    private $journal;
+    private ?Journal $journal;
 
     /**
      * @var DateTime The moment this resource was created
@@ -422,7 +420,7 @@ class Event
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime", nullable=true)
      */
-    private $dateCreated;
+    private ?DateTime $dateCreated;
 
     /**
      * @var Datetime The moment this resource last Modified
@@ -431,7 +429,7 @@ class Event
      * @Gedmo\Timestampable(on="update")
      * @ORM\Column(type="datetime", nullable=true)
      */
-    private $dateModified;
+    private ?DateTime $dateModified;
 
     public function __construct()
     {
