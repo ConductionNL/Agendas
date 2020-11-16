@@ -12366,14 +12366,14 @@ components:
           type: integer
         event:
           nullable: true
-          anyOf:
-            -
-              $ref: '#/components/schemas/Event-read'
+#          anyOf:
+#            -
+#              $ref: '#/components/schemas/Event-read'
         todo:
           nullable: true
-          anyOf:
-            -
-              $ref: '#/components/schemas/Todo-read'
+#          anyOf:
+#            -
+#              $ref: '#/components/schemas/Todo-read'
         dateCreated:
           description: 'The moment this resource was created'
           type: string
@@ -12425,14 +12425,14 @@ components:
           type: integer
         event:
           nullable: true
-          anyOf:
-            -
-              $ref: '#/components/schemas/Event-write'
+#          anyOf:
+#            -
+#              $ref: '#/components/schemas/Event-write'
         todo:
           nullable: true
-          anyOf:
-            -
-              $ref: '#/components/schemas/Todo-write'
+#          anyOf:
+#            -
+#              $ref: '#/components/schemas/Todo-write'
     'Alarm:jsonld-read':
       type: object
       description: 'Used to describe alarms for Events and Todos.'
@@ -12480,14 +12480,14 @@ components:
           type: integer
         event:
           nullable: true
-          anyOf:
-            -
-              $ref: '#/components/schemas/Event:jsonld-read'
+#          anyOf:
+#            -
+#              $ref: '#/components/schemas/Event:jsonld-read'
         todo:
           nullable: true
-          anyOf:
-            -
-              $ref: '#/components/schemas/Todo:jsonld-read'
+#          anyOf:
+#            -
+#              $ref: '#/components/schemas/Todo:jsonld-read'
         dateCreated:
           description: 'The moment this resource was created'
           type: string
@@ -12548,14 +12548,14 @@ components:
           type: integer
         event:
           nullable: true
-          anyOf:
-            -
-              $ref: '#/components/schemas/Event:jsonld-write'
+#          anyOf:
+#            -
+#              $ref: '#/components/schemas/Event:jsonld-write'
         todo:
           nullable: true
-          anyOf:
-            -
-              $ref: '#/components/schemas/Todo:jsonld-write'
+#          anyOf:
+#            -
+#              $ref: '#/components/schemas/Todo:jsonld-write'
     AuditTrail-read:
       type: object
       description: 'An resource representing a log line.'
@@ -13314,9 +13314,9 @@ components:
         schedule:
           description: 'An optional Schedule to which this event belongs'
           nullable: true
-          anyOf:
-            -
-              $ref: '#/components/schemas/Schedule-read'
+#          anyOf:
+#            -
+#              $ref: '#/components/schemas/Schedule-read'
         calendar:
           description: 'The Calendar to wich this event belongs'
           $ref: '#/components/schemas/Calendar-read'
@@ -13396,9 +13396,9 @@ components:
             $ref: '#/components/schemas/Alarm-read'
         journal:
           nullable: true
-          anyOf:
-            -
-              $ref: '#/components/schemas/Journal-read'
+#          anyOf:
+#            -
+#              $ref: '#/components/schemas/Journal-read'
         dateCreated:
           description: 'The moment this resource was created'
           type: string
@@ -13541,9 +13541,9 @@ components:
             $ref: '#/components/schemas/Alarm-write'
         journal:
           nullable: true
-          anyOf:
-            -
-              $ref: '#/components/schemas/Journal-write'
+#          anyOf:
+#            -
+#              $ref: '#/components/schemas/Journal-write'
     'Event:jsonld-read':
       type: object
       description: 'An event happening at a certain time and location, such as a concert, lecture, meeting or festival.'
@@ -13600,9 +13600,9 @@ components:
         schedule:
           description: 'An optional Schedule to which this event belongs'
           nullable: true
-          anyOf:
-            -
-              $ref: '#/components/schemas/Schedule:jsonld-read'
+#          anyOf:
+#            -
+#              $ref: '#/components/schemas/Schedule:jsonld-read'
         calendar:
           description: 'The Calendar to wich this event belongs'
           $ref: '#/components/schemas/Calendar:jsonld-read'
@@ -13682,9 +13682,9 @@ components:
             $ref: '#/components/schemas/Alarm:jsonld-read'
         journal:
           nullable: true
-          anyOf:
-            -
-              $ref: '#/components/schemas/Journal:jsonld-read'
+#          anyOf:
+#            -
+#              $ref: '#/components/schemas/Journal:jsonld-read'
         dateCreated:
           description: 'The moment this resource was created'
           type: string
@@ -13754,9 +13754,9 @@ components:
         schedule:
           description: 'An optional Schedule to which this event belongs'
           nullable: true
-          anyOf:
-            -
-              $ref: '#/components/schemas/Schedule:jsonld-write'
+#          anyOf:
+#            -
+#              $ref: '#/components/schemas/Schedule:jsonld-write'
         calendar:
           description: 'The Calendar to wich this event belongs'
           $ref: '#/components/schemas/Calendar:jsonld-write'
@@ -13898,9 +13898,9 @@ components:
           $ref: '#/components/schemas/Calendar-read'
         schedule:
           nullable: true
-          anyOf:
-            -
-              $ref: '#/components/schemas/Schedule-read'
+#          anyOf:
+#            -
+#              $ref: '#/components/schemas/Schedule-read'
         dateCreated:
           description: 'The moment this resource was created'
           type: string
@@ -13966,9 +13966,9 @@ components:
           $ref: '#/components/schemas/Calendar-write'
         schedule:
           nullable: true
-          anyOf:
-            -
-              $ref: '#/components/schemas/Schedule-write'
+#          anyOf:
+#            -
+#              $ref: '#/components/schemas/Schedule-write'
       required:
         - startDate
         - endDate
@@ -14040,9 +14040,9 @@ components:
           $ref: '#/components/schemas/Calendar:jsonld-read'
         schedule:
           nullable: true
-          anyOf:
-            -
-              $ref: '#/components/schemas/Schedule:jsonld-read'
+#          anyOf:
+#            -
+#              $ref: '#/components/schemas/Schedule:jsonld-read'
         dateCreated:
           description: 'The moment this resource was created'
           type: string
@@ -14117,9 +14117,9 @@ components:
           $ref: '#/components/schemas/Calendar:jsonld-write'
         schedule:
           nullable: true
-          anyOf:
-            -
-              $ref: '#/components/schemas/Schedule:jsonld-write'
+#          anyOf:
+#            -
+#              $ref: '#/components/schemas/Schedule:jsonld-write'
       required:
         - startDate
         - endDate
@@ -14208,9 +14208,9 @@ components:
           $ref: '#/components/schemas/Calendar-read'
         event:
           nullable: true
-          anyOf:
-            -
-              $ref: '#/components/schemas/Event-read'
+#          anyOf:
+#            -
+#              $ref: '#/components/schemas/Event-read'
         dateCreated:
           description: 'The moment this resource was created'
           type: string
@@ -14307,9 +14307,9 @@ components:
           $ref: '#/components/schemas/Calendar-write'
         event:
           nullable: true
-          anyOf:
-            -
-              $ref: '#/components/schemas/Event-write'
+#          anyOf:
+#            -
+#              $ref: '#/components/schemas/Event-write'
     'Journal:jsonld-read':
       type: object
       description: 'A journal from an event.'
@@ -14404,9 +14404,9 @@ components:
           $ref: '#/components/schemas/Calendar:jsonld-read'
         event:
           nullable: true
-          anyOf:
-            -
-              $ref: '#/components/schemas/Event:jsonld-read'
+#          anyOf:
+#            -
+#              $ref: '#/components/schemas/Event:jsonld-read'
         dateCreated:
           description: 'The moment this resource was created'
           type: string
@@ -14512,9 +14512,9 @@ components:
           $ref: '#/components/schemas/Calendar:jsonld-write'
         event:
           nullable: true
-          anyOf:
-            -
-              $ref: '#/components/schemas/Event:jsonld-write'
+#          anyOf:
+#            -
+#              $ref: '#/components/schemas/Event:jsonld-write'
     Reservation-read:
       type: object
       description: 'A Reservation is a event that is tied to an unique person or resource.'
@@ -15359,16 +15359,16 @@ components:
             $ref: '#/components/schemas/Resource-read'
         alarm:
           nullable: true
-          anyOf:
-            -
-              $ref: '#/components/schemas/Alarm-read'
+#          anyOf:
+#            -
+#              $ref: '#/components/schemas/Alarm-read'
         calendar:
           $ref: '#/components/schemas/Calendar-read'
         schedule:
           nullable: true
-          anyOf:
-            -
-              $ref: '#/components/schemas/Schedule-read'
+#          anyOf:
+#            -
+#              $ref: '#/components/schemas/Schedule-read'
         dateCreated:
           description: 'The moment this resource was created'
           type: string
@@ -15488,16 +15488,16 @@ components:
             $ref: '#/components/schemas/Resource-write'
         alarm:
           nullable: true
-          anyOf:
-            -
-              $ref: '#/components/schemas/Alarm-write'
+#          anyOf:
+#            -
+#              $ref: '#/components/schemas/Alarm-write'
         calendar:
           $ref: '#/components/schemas/Calendar-write'
         schedule:
           nullable: true
-          anyOf:
-            -
-              $ref: '#/components/schemas/Schedule-write'
+#          anyOf:
+#            -
+#              $ref: '#/components/schemas/Schedule-write'
     'Todo:jsonld-read':
       type: object
       description: 'A to-do from an event.'
@@ -15615,16 +15615,16 @@ components:
             $ref: '#/components/schemas/Resource:jsonld-read'
         alarm:
           nullable: true
-          anyOf:
-            -
-              $ref: '#/components/schemas/Alarm:jsonld-read'
+#          anyOf:
+#            -
+#              $ref: '#/components/schemas/Alarm:jsonld-read'
         calendar:
           $ref: '#/components/schemas/Calendar:jsonld-read'
         schedule:
           nullable: true
-          anyOf:
-            -
-              $ref: '#/components/schemas/Schedule:jsonld-read'
+#          anyOf:
+#            -
+#              $ref: '#/components/schemas/Schedule:jsonld-read'
         dateCreated:
           description: 'The moment this resource was created'
           type: string
@@ -15753,16 +15753,16 @@ components:
             $ref: '#/components/schemas/Resource:jsonld-write'
         alarm:
           nullable: true
-          anyOf:
-            -
-              $ref: '#/components/schemas/Alarm:jsonld-write'
+#          anyOf:
+#            -
+#              $ref: '#/components/schemas/Alarm:jsonld-write'
         calendar:
           $ref: '#/components/schemas/Calendar:jsonld-write'
         schedule:
           nullable: true
-          anyOf:
-            -
-              $ref: '#/components/schemas/Schedule:jsonld-write'
+#          anyOf:
+#            -
+#              $ref: '#/components/schemas/Schedule:jsonld-write'
 definitions:
   Alarm-read:
     properties:
@@ -16868,7 +16868,7 @@ definitions:
       completed:
         description: 'The date and time a to-do is completed.'
         type: string
-        example: '2020-10-30 14:41:49'
+        example: '2020-11-16 12:52:27'
         format: date-time
       percentageDone:
         description: 'The percentage of a to-do that has been comepleted.'
@@ -16974,7 +16974,7 @@ definitions:
       completed:
         description: 'The date and time a to-do is completed.'
         type: string
-        example: '2020-10-30 14:41:49'
+        example: '2020-11-16 12:52:27'
         format: date-time
       percentageDone:
         description: 'The percentage of a to-do that has been comepleted.'
@@ -17092,12 +17092,12 @@ definitions:
         description: 'The moment this request was created'
         type: string
         format: date-time
-        example: '2020-10-30 14:41:49'
+        example: '2020-11-16 12:52:27'
       dateModified:
         description: 'The moment this request last Modified'
         type: string
         format: date-time
-        example: '2020-10-30 14:41:49'
+        example: '2020-11-16 12:52:27'
     required: []
   AuditTrail-write:
     properties:
@@ -17145,12 +17145,12 @@ definitions:
         description: 'The moment this request was created'
         type: string
         format: date-time
-        example: '2020-10-30 14:41:49'
+        example: '2020-11-16 12:52:27'
       dateModified:
         description: 'The moment this request last Modified'
         type: string
         format: date-time
-        example: '2020-10-30 14:41:49'
+        example: '2020-11-16 12:52:27'
     required: []
   ChangeLog-write:
     properties:
