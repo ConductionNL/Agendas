@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiSubresource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\BooleanFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\DateFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
@@ -144,8 +145,7 @@ class Reservation
 
     /**
      * @var Event Event that is booked in this reservation
-     * @Groups({"read","write"})
-     * @MaxDepth(1)
+     *
      * @ORM\OneToOne(targetEntity=Event::class, cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
      */

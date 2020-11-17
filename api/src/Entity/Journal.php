@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiSubresource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\BooleanFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\DateFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
@@ -288,17 +289,13 @@ class Journal
     private array $comments = [];
 
     /**
-     * @Groups({"read","write"})
      * @ORM\ManyToOne(targetEntity="App\Entity\Calendar", inversedBy="journals")
      * @ORM\JoinColumn(nullable=false)
-     * @MaxDepth(1)
      */
     private Calendar $calendar;
 
     /**
-     * @Groups({"read","write"})
      * @ORM\OneToOne(targetEntity="App\Entity\Event", inversedBy="journal", cascade={"persist", "remove"})
-     * @MaxDepth(1)
      */
     private ?Event $event;
 

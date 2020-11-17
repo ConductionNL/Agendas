@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiSubresource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\BooleanFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\DateFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
@@ -180,7 +181,7 @@ class Event
     /**
      * @var Schedule An optional Schedule to which this event belongs
      *
-     * @MaxDepth(1)
+     * @ApiSubresource(maxDepth=1)
      * @Groups({"read","write"})
      * @ORM\ManyToOne(targetEntity="App\Entity\Schedule", inversedBy="events")
      */
@@ -189,7 +190,7 @@ class Event
     /**
      * @var Calendar The Calendar to wich this event belongs
      *
-     * @MaxDepth(1)
+     * @ApiSubresource(maxDepth=1)
      * @Groups({"read","write"})
      * @ORM\ManyToOne(targetEntity="App\Entity\Calendar", inversedBy="events")
      * @ORM\JoinColumn(nullable=false)
@@ -386,30 +387,22 @@ class Event
     private array $comments = [];
 
     /**
-     * @Groups({"read","write"})
      * @ORM\ManyToMany(targetEntity="App\Entity\Event")
-     * @MaxDepth(1)
      */
     private Collection $related;
 
     /**
-     * @Groups({"read","write"})
      * @ORM\ManyToMany(targetEntity="App\Entity\Resource", mappedBy="events")
-     * @MaxDepth(1)
      */
     private Collection $resources;
 
     /**
-     * @Groups({"read","write"})
      * @ORM\OneToMany(targetEntity="App\Entity\Alarm", mappedBy="event")
-     * @MaxDepth(1)
      */
     private Collection $alarms;
 
     /**
-     * @Groups({"read","write"})
      * @ORM\OneToOne(targetEntity="App\Entity\Journal", mappedBy="event", cascade={"persist", "remove"})
-     * @MaxDepth(1)
      */
     private ?Journal $journal;
 

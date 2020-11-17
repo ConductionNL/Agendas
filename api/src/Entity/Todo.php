@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiSubresource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\BooleanFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\DateFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
@@ -344,31 +345,31 @@ class Todo
     private int $percentageDone = 0;
 
     /**
+     * @MaxDepth(1)
      * @Groups({"read","write"})
      * @ORM\ManyToMany(targetEntity="App\Entity\Resource", mappedBy="todos")
-     * @MaxDepth(1)
      */
     private Collection $resources;
 
     /**
+     * @MaxDepth(1)
      * @Groups({"read","write"})
      * @ORM\OneToOne(targetEntity="App\Entity\Alarm", mappedBy="todo", cascade={"persist", "remove"})
-     * @MaxDepth(1)
      */
     private ?Alarm $alarm;
 
     /**
+     * @MaxDepth(1)
      * @Groups({"read","write"})
      * @ORM\ManyToOne(targetEntity="App\Entity\Calendar", inversedBy="todos")
      * @ORM\JoinColumn(nullable=false)
-     * @MaxDepth(1)
      */
     private Calendar $calendar;
 
     /**
+     * @MaxDepth(1)
      * @Groups({"read","write"})
      * @ORM\ManyToOne(targetEntity="App\Entity\Schedule", inversedBy="todos")
-     * @MaxDepth(1)
      */
     private ?Schedule $schedule;
 

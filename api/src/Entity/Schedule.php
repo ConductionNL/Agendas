@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiSubresource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\BooleanFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\DateFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
@@ -197,8 +198,6 @@ class Schedule
     /**
      * @var Calendar The Calendar to wich this Schedule belongs
      *
-     * @MaxDepth(1)
-     * @Groups({"read","write"})
      * @ORM\ManyToOne(targetEntity="App\Entity\Calendar", inversedBy="schedules")
      * @ORM\JoinColumn(nullable=false)
      */
@@ -207,25 +206,20 @@ class Schedule
     /**
      * @var Collection The events that belong to or are caused by this Schedule
      *
-     * @MaxDepth(1)
-     * @Groups({"read","write"})
      * @ORM\OneToMany(targetEntity="App\Entity\Event", mappedBy="schedule")
      */
     private Collection $events;
 
     /**
      * @var Collection The freebusies that belong to or are caused by this Schedule
-     * @Groups({"read","write"})
+     *
      * @ORM\OneToMany(targetEntity="App\Entity\Freebusy", mappedBy="schedule")
-     * @MaxDepth(1)
      */
     private Collection $freebusies;
 
     /**
      * @var Collection The todos that belong to or are caused by this Schedule
-     * @Groups({"read","write"})
      * @ORM\OneToMany(targetEntity="App\Entity\Todo", mappedBy="schedule")
-     * @MaxDepth(1)
      */
     private Collection $todos;
 

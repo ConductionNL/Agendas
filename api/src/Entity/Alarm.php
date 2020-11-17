@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiSubresource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\BooleanFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\DateFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
@@ -172,14 +173,12 @@ class Alarm
     private int $repeat = 0;
 
     /**
-     * @Groups({"read","write"})
      * @ORM\ManyToOne(targetEntity="App\Entity\Event", inversedBy="alarms")
      * @MaxDepth(1)
      */
     private ?Event $event;
 
     /**
-     * @Groups({"read","write"})
      * @ORM\OneToOne(targetEntity="App\Entity\Todo", inversedBy="alarm", cascade={"persist", "remove"})
      * @MaxDepth(1)
      */

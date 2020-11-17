@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiSubresource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\BooleanFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\DateFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
@@ -133,7 +134,7 @@ class Calendar
     /**
      * @var Collection Events that belong to this Calendar
      *
-     * @MaxDepth(1)
+     * @ApiSubresource(maxDepth=1)
      * @Groups({"read","write"})
      * @ORM\OneToMany(targetEntity="App\Entity\Event", mappedBy="calendar", orphanRemoval=true)
      */
@@ -142,11 +143,41 @@ class Calendar
     /**
      * @var Collection Schedules that belong to this Calendar
      *
-     * @MaxDepth(1)
+     * @ApiSubresource(maxDepth=1)
      * @Groups({"read","write"})
      * @ORM\OneToMany(targetEntity="App\Entity\Schedule", mappedBy="calendar", orphanRemoval=true)
      */
     private Collection $schedules;
+
+    /**
+     * @var Collection $freebusies that belong to this Calendar
+     *
+     * @ApiSubresource(maxDepth=1)
+     * @Groups({"read","write"})
+     * @ORM\OneToMany(targetEntity="App\Entity\Freebusy", mappedBy="calendar")
+     * @MaxDepth(1)
+     */
+    private Collection $freebusies;
+
+    /**
+     * @var Collection $journals journals that belong to this Calendar
+     *
+     * @ApiSubresource(maxDepth=1)
+     * @Groups({"read","write"})
+     * @ORM\OneToMany(targetEntity="App\Entity\Journal", mappedBy="calendar")
+     * @MaxDepth(1)
+     */
+    private Collection $journals;
+
+    /**
+     * @var Collection $todos todos that belong to this Calendar
+     *
+     * @ApiSubresource(maxDepth=1)
+     * @Groups({"read","write"})
+     * @ORM\OneToMany(targetEntity="App\Entity\Todo", mappedBy="calendar")
+     * @MaxDepth(1)
+     */
+    private Collection $todos;
 
     /**
      * @var string The time zone of this calendar
@@ -163,27 +194,6 @@ class Calendar
      * @ORM\Column(type="string", length=5)
      */
     private string $timeZone;
-
-    /**
-     * @Groups({"read","write"})
-     * @ORM\OneToMany(targetEntity="App\Entity\Freebusy", mappedBy="calendar")
-     * @MaxDepth(1)
-     */
-    private Collection $freebusies;
-
-    /**
-     * @Groups({"read","write"})
-     * @ORM\OneToMany(targetEntity="App\Entity\Journal", mappedBy="calendar")
-     * @MaxDepth(1)
-     */
-    private Collection $journals;
-
-    /**
-     * @Groups({"read","write"})
-     * @ORM\OneToMany(targetEntity="App\Entity\Todo", mappedBy="calendar")
-     * @MaxDepth(1)
-     */
-    private Collection $todos;
 
     /**
      * @var Datetime The moment this resource was created
