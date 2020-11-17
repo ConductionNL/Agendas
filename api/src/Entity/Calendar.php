@@ -155,7 +155,6 @@ class Calendar
      * @ApiSubresource(maxDepth=1)
      * @Groups({"read","write"})
      * @ORM\OneToMany(targetEntity="App\Entity\Freebusy", mappedBy="calendar")
-     * @MaxDepth(1)
      */
     private Collection $freebusies;
 
@@ -165,7 +164,6 @@ class Calendar
      * @ApiSubresource(maxDepth=1)
      * @Groups({"read","write"})
      * @ORM\OneToMany(targetEntity="App\Entity\Journal", mappedBy="calendar")
-     * @MaxDepth(1)
      */
     private Collection $journals;
 
@@ -175,7 +173,6 @@ class Calendar
      * @ApiSubresource(maxDepth=1)
      * @Groups({"read","write"})
      * @ORM\OneToMany(targetEntity="App\Entity\Todo", mappedBy="calendar")
-     * @MaxDepth(1)
      */
     private Collection $todos;
 
