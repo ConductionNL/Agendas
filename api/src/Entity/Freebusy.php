@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiSubresource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\BooleanFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\DateFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
@@ -181,17 +182,13 @@ class Freebusy
     private ?string $freebusy;
 
     /**
-     * @Groups({"read","write"})
      * @ORM\ManyToOne(targetEntity="App\Entity\Calendar", inversedBy="freebusies")
      * @ORM\JoinColumn(nullable=false)
-     * @MaxDepth(1)
      */
     private Calendar $calendar;
 
     /**
-     * @Groups({"read","write"})
      * @ORM\ManyToOne(targetEntity="App\Entity\Schedule", inversedBy="freebusies")
-     * @MaxDepth(1)
      */
     private ?Schedule $schedule;
 

@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiSubresource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\BooleanFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\DateFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
@@ -102,16 +103,12 @@ class Resource
     private ?string $description;
 
     /**
-     * @Groups({"read","write"})
      * @ORM\ManyToMany(targetEntity="App\Entity\Event", inversedBy="resources")
-     * @MaxDepth(1)
      */
     private Collection $events;
 
     /**
-     * @Groups({"read","write"})
      * @ORM\ManyToMany(targetEntity="App\Entity\Todo", inversedBy="resources")
-     * @MaxDepth(1)
      */
     private Collection $todos;
 

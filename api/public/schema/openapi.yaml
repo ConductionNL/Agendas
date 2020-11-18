@@ -12,7 +12,7 @@ info:
     - Docker Image: [online](https://hub.docker.com/repository/docker/conduction/arc-php) 
     - Datamodel: [postman](/schema/arc.postman_collection.json) / [oas](/schema/openapi.yaml) / [pdf](/schema/datamodel.pdf) / [modelio (zip)](/schema/Datamodel_Modelio.zip) 
     
-    'Naast deze JSON rest API is er ook een [graphql](/graphql) interface beschikbaar.'         
+    Naast deze JSON rest API is er ook een [graphql](/graphql) interface beschikbaar.         
     
 paths:
   /alarms:
@@ -3899,6 +3899,2344 @@ paths:
           description: 'Resource not found'
       produces:
         - application/health+json
+  '/calendars/{id}/events':
+    get:
+      tags:
+        - Event
+        - Calendar
+      operationId: api_calendars_events_get_subresource
+      summary: 'Retrieves the collection of Event resources.'
+      responses:
+        200:
+          description: 'Event collection response'
+          content:
+            application/ld+json:
+              schema:
+                type: object
+                properties:
+                  'hydra:member': { type: array, items: { $ref: '#/components/schemas/Event:jsonld-read' } }
+                  'hydra:totalItems': { type: integer, minimum: 0 }
+                  'hydra:view': { type: object, properties: { '@id': { type: string, format: iri-reference }, '@type': { type: string }, 'hydra:first': { type: string, format: iri-reference }, 'hydra:last': { type: string, format: iri-reference }, 'hydra:next': { type: string, format: iri-reference } } }
+                  'hydra:search': { type: object, properties: { '@type': { type: string }, 'hydra:template': { type: string }, 'hydra:variableRepresentation': { type: string }, 'hydra:mapping': { type: array, items: { type: object, properties: { '@type': { type: string }, variable: { type: string }, property: { type: string }, required: { type: boolean } } } } } }
+                required:
+                  - 'hydra:member'
+            application/json+ld:
+              schema:
+                type: object
+                properties:
+                  'hydra:member': { type: array, items: { $ref: '#/components/schemas/Event:jsonld-read' } }
+                  'hydra:totalItems': { type: integer, minimum: 0 }
+                  'hydra:view': { type: object, properties: { '@id': { type: string, format: iri-reference }, '@type': { type: string }, 'hydra:first': { type: string, format: iri-reference }, 'hydra:last': { type: string, format: iri-reference }, 'hydra:next': { type: string, format: iri-reference } } }
+                  'hydra:search': { type: object, properties: { '@type': { type: string }, 'hydra:template': { type: string }, 'hydra:variableRepresentation': { type: string }, 'hydra:mapping': { type: array, items: { type: object, properties: { '@type': { type: string }, variable: { type: string }, property: { type: string }, required: { type: boolean } } } } } }
+                required:
+                  - 'hydra:member'
+            application/hal+json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Event-read'
+            application/json+hal:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Event-read'
+            application/vnd.api+json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Event-read'
+            application/json+vnd.api:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Event-read'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Event-read'
+            application/health+json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Event-read'
+            application/json+health:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Event-read'
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Event-read'
+            application/x-yaml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Event-read'
+            text/csv:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Event-read'
+            text/html:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Event-read'
+        404:
+          description: 'Resource not found'
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: string
+        -
+          name: 'order[id]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[name]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[description]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[organization]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[resource]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[startDate]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[endDate]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[location]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[class]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[geo]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[organizer]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[status]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[summary]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[transp]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[duration]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[contact]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[seq]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[priority]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[attendees]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[attachments]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[categories]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[comments]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[dateCreated]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[dateModified]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'startDate[before]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'startDate[strictly_before]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'startDate[after]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'startDate[strictly_after]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'endDate[before]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'endDate[strictly_before]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'endDate[after]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'endDate[strictly_after]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateCreated[before]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateCreated[strictly_before]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateCreated[after]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateCreated[strictly_after]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateModified[before]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateModified[strictly_before]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateModified[after]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateModified[strictly_after]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: calendar.id
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'calendar.id[]'
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
+        -
+          name: calendar.organization
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'calendar.organization[]'
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
+        -
+          name: name
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: description
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: organization
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'organization[]'
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
+        -
+          name: resource
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'resource[]'
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
+        -
+          name: location
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'location[]'
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
+        -
+          name: page
+          in: query
+          required: false
+          description: 'The collection page number'
+          schema:
+            type: integer
+            default: 1
+        -
+          name: limit
+          in: query
+          required: false
+          description: 'The number of items per page'
+          schema:
+            type: integer
+            default: 30
+            minimum: 0
+        -
+          name: Authorization
+          description: 'The JWT of the entity performing the request'
+          in: header
+        -
+          name: API-Version
+          description: 'The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)'
+          example: 1.0.1
+          in: header
+        -
+          name: X-NLX-Logrecord-ID
+          description: 'A  globally unique id of the request, which makes a request traceable throughout the network.'
+          in: header
+        -
+          name: X-NLX-Request-Process-Id
+          description: 'A process id for purpose registration (doelbinding)'
+          in: header
+        -
+          name: X-NLX-Request-Data-Elements
+          description: 'A list of requested data elements'
+          in: header
+        -
+          name: X-NLX-Request-Data-Subject
+          description: 'A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`'
+          in: header
+        -
+          name: X-NLX-Audit-Clarification
+          description: 'A clarification as to why a request has been made  (doelbinding)'
+          in: header
+        -
+          name: Link
+          description: 'A [websub](https://www.w3.org/TR/websub/#discovery) header like <https://hub.example.com/>; rel="hub"'
+          in: header
+        -
+          name: 'extend[]'
+          required: false
+          description: 'An array of nested objects to include in the return object'
+          in: query
+          schema:
+            type: array
+        -
+          name: 'fields[]'
+          required: false
+          description: 'An array of fields to return in output, wil return all fields is not supplied'
+          in: query
+          schema:
+            type: array
+        -
+          name: validOn
+          required: false
+          description: 'Returns object as valid on a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+        -
+          name: validFrom
+          required: false
+          description: 'Returns objects valid from a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+        -
+          name: validUntil
+          required: false
+          description: 'Returns objects valid until a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+      produces:
+        - application/health+json
+  '/calendars/{id}/freebusies':
+    get:
+      tags:
+        - Freebusy
+        - Calendar
+      operationId: api_calendars_freebusies_get_subresource
+      summary: 'Retrieves the collection of Freebusy resources.'
+      responses:
+        200:
+          description: 'Freebusy collection response'
+          content:
+            application/ld+json:
+              schema:
+                type: object
+                properties:
+                  'hydra:member': { type: array, items: { $ref: '#/components/schemas/Freebusy:jsonld-read' } }
+                  'hydra:totalItems': { type: integer, minimum: 0 }
+                  'hydra:view': { type: object, properties: { '@id': { type: string, format: iri-reference }, '@type': { type: string }, 'hydra:first': { type: string, format: iri-reference }, 'hydra:last': { type: string, format: iri-reference }, 'hydra:next': { type: string, format: iri-reference } } }
+                  'hydra:search': { type: object, properties: { '@type': { type: string }, 'hydra:template': { type: string }, 'hydra:variableRepresentation': { type: string }, 'hydra:mapping': { type: array, items: { type: object, properties: { '@type': { type: string }, variable: { type: string }, property: { type: string }, required: { type: boolean } } } } } }
+                required:
+                  - 'hydra:member'
+            application/json+ld:
+              schema:
+                type: object
+                properties:
+                  'hydra:member': { type: array, items: { $ref: '#/components/schemas/Freebusy:jsonld-read' } }
+                  'hydra:totalItems': { type: integer, minimum: 0 }
+                  'hydra:view': { type: object, properties: { '@id': { type: string, format: iri-reference }, '@type': { type: string }, 'hydra:first': { type: string, format: iri-reference }, 'hydra:last': { type: string, format: iri-reference }, 'hydra:next': { type: string, format: iri-reference } } }
+                  'hydra:search': { type: object, properties: { '@type': { type: string }, 'hydra:template': { type: string }, 'hydra:variableRepresentation': { type: string }, 'hydra:mapping': { type: array, items: { type: object, properties: { '@type': { type: string }, variable: { type: string }, property: { type: string }, required: { type: boolean } } } } } }
+                required:
+                  - 'hydra:member'
+            application/hal+json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Freebusy-read'
+            application/json+hal:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Freebusy-read'
+            application/vnd.api+json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Freebusy-read'
+            application/json+vnd.api:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Freebusy-read'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Freebusy-read'
+            application/health+json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Freebusy-read'
+            application/json+health:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Freebusy-read'
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Freebusy-read'
+            application/x-yaml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Freebusy-read'
+            text/csv:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Freebusy-read'
+            text/html:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Freebusy-read'
+        404:
+          description: 'Resource not found'
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: string
+        -
+          name: 'order[id]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[description]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[attendee]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[comments]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[contact]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[startDate]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[endDate]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[duration]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[organiser]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[freebusy]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[dateCreated]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[dateModified]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'startDate[before]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'startDate[strictly_before]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'startDate[after]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'startDate[strictly_after]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'endDate[before]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'endDate[strictly_before]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'endDate[after]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'endDate[strictly_after]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateCreated[before]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateCreated[strictly_before]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateCreated[after]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateCreated[strictly_after]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateModified[before]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateModified[strictly_before]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateModified[after]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateModified[strictly_after]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: calendar.id
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'calendar.id[]'
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
+        -
+          name: page
+          in: query
+          required: false
+          description: 'The collection page number'
+          schema:
+            type: integer
+            default: 1
+        -
+          name: limit
+          in: query
+          required: false
+          description: 'The number of items per page'
+          schema:
+            type: integer
+            default: 30
+            minimum: 0
+        -
+          name: Authorization
+          description: 'The JWT of the entity performing the request'
+          in: header
+        -
+          name: API-Version
+          description: 'The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)'
+          example: 1.0.1
+          in: header
+        -
+          name: X-NLX-Logrecord-ID
+          description: 'A  globally unique id of the request, which makes a request traceable throughout the network.'
+          in: header
+        -
+          name: X-NLX-Request-Process-Id
+          description: 'A process id for purpose registration (doelbinding)'
+          in: header
+        -
+          name: X-NLX-Request-Data-Elements
+          description: 'A list of requested data elements'
+          in: header
+        -
+          name: X-NLX-Request-Data-Subject
+          description: 'A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`'
+          in: header
+        -
+          name: X-NLX-Audit-Clarification
+          description: 'A clarification as to why a request has been made  (doelbinding)'
+          in: header
+        -
+          name: Link
+          description: 'A [websub](https://www.w3.org/TR/websub/#discovery) header like <https://hub.example.com/>; rel="hub"'
+          in: header
+        -
+          name: 'extend[]'
+          required: false
+          description: 'An array of nested objects to include in the return object'
+          in: query
+          schema:
+            type: array
+        -
+          name: 'fields[]'
+          required: false
+          description: 'An array of fields to return in output, wil return all fields is not supplied'
+          in: query
+          schema:
+            type: array
+        -
+          name: validOn
+          required: false
+          description: 'Returns object as valid on a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+        -
+          name: validFrom
+          required: false
+          description: 'Returns objects valid from a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+        -
+          name: validUntil
+          required: false
+          description: 'Returns objects valid until a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+      produces:
+        - application/health+json
+  '/calendars/{id}/journals':
+    get:
+      tags:
+        - Journal
+        - Calendar
+      operationId: api_calendars_journals_get_subresource
+      summary: 'Retrieves the collection of Journal resources.'
+      responses:
+        200:
+          description: 'Journal collection response'
+          content:
+            application/ld+json:
+              schema:
+                type: object
+                properties:
+                  'hydra:member': { type: array, items: { $ref: '#/components/schemas/Journal:jsonld-read' } }
+                  'hydra:totalItems': { type: integer, minimum: 0 }
+                  'hydra:view': { type: object, properties: { '@id': { type: string, format: iri-reference }, '@type': { type: string }, 'hydra:first': { type: string, format: iri-reference }, 'hydra:last': { type: string, format: iri-reference }, 'hydra:next': { type: string, format: iri-reference } } }
+                  'hydra:search': { type: object, properties: { '@type': { type: string }, 'hydra:template': { type: string }, 'hydra:variableRepresentation': { type: string }, 'hydra:mapping': { type: array, items: { type: object, properties: { '@type': { type: string }, variable: { type: string }, property: { type: string }, required: { type: boolean } } } } } }
+                required:
+                  - 'hydra:member'
+            application/json+ld:
+              schema:
+                type: object
+                properties:
+                  'hydra:member': { type: array, items: { $ref: '#/components/schemas/Journal:jsonld-read' } }
+                  'hydra:totalItems': { type: integer, minimum: 0 }
+                  'hydra:view': { type: object, properties: { '@id': { type: string, format: iri-reference }, '@type': { type: string }, 'hydra:first': { type: string, format: iri-reference }, 'hydra:last': { type: string, format: iri-reference }, 'hydra:next': { type: string, format: iri-reference } } }
+                  'hydra:search': { type: object, properties: { '@type': { type: string }, 'hydra:template': { type: string }, 'hydra:variableRepresentation': { type: string }, 'hydra:mapping': { type: array, items: { type: object, properties: { '@type': { type: string }, variable: { type: string }, property: { type: string }, required: { type: boolean } } } } } }
+                required:
+                  - 'hydra:member'
+            application/hal+json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Journal-read'
+            application/json+hal:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Journal-read'
+            application/vnd.api+json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Journal-read'
+            application/json+vnd.api:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Journal-read'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Journal-read'
+            application/health+json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Journal-read'
+            application/json+health:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Journal-read'
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Journal-read'
+            application/x-yaml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Journal-read'
+            text/csv:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Journal-read'
+            text/html:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Journal-read'
+        404:
+          description: 'Resource not found'
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: string
+        -
+          name: 'order[id]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[name]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[description]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[startDate]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[endDate]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[class]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[organiser]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[status]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[summary]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[transp]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[duration]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[seq]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[priority]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[attendees]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[attachments]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[categories]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[comments]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[dateCreated]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[dateModified]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'startDate[before]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'startDate[strictly_before]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'startDate[after]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'startDate[strictly_after]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'endDate[before]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'endDate[strictly_before]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'endDate[after]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'endDate[strictly_after]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateCreated[before]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateCreated[strictly_before]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateCreated[after]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateCreated[strictly_after]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateModified[before]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateModified[strictly_before]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateModified[after]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateModified[strictly_after]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: calendar.id
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'calendar.id[]'
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
+        -
+          name: page
+          in: query
+          required: false
+          description: 'The collection page number'
+          schema:
+            type: integer
+            default: 1
+        -
+          name: limit
+          in: query
+          required: false
+          description: 'The number of items per page'
+          schema:
+            type: integer
+            default: 30
+            minimum: 0
+        -
+          name: Authorization
+          description: 'The JWT of the entity performing the request'
+          in: header
+        -
+          name: API-Version
+          description: 'The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)'
+          example: 1.0.1
+          in: header
+        -
+          name: X-NLX-Logrecord-ID
+          description: 'A  globally unique id of the request, which makes a request traceable throughout the network.'
+          in: header
+        -
+          name: X-NLX-Request-Process-Id
+          description: 'A process id for purpose registration (doelbinding)'
+          in: header
+        -
+          name: X-NLX-Request-Data-Elements
+          description: 'A list of requested data elements'
+          in: header
+        -
+          name: X-NLX-Request-Data-Subject
+          description: 'A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`'
+          in: header
+        -
+          name: X-NLX-Audit-Clarification
+          description: 'A clarification as to why a request has been made  (doelbinding)'
+          in: header
+        -
+          name: Link
+          description: 'A [websub](https://www.w3.org/TR/websub/#discovery) header like <https://hub.example.com/>; rel="hub"'
+          in: header
+        -
+          name: 'extend[]'
+          required: false
+          description: 'An array of nested objects to include in the return object'
+          in: query
+          schema:
+            type: array
+        -
+          name: 'fields[]'
+          required: false
+          description: 'An array of fields to return in output, wil return all fields is not supplied'
+          in: query
+          schema:
+            type: array
+        -
+          name: validOn
+          required: false
+          description: 'Returns object as valid on a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+        -
+          name: validFrom
+          required: false
+          description: 'Returns objects valid from a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+        -
+          name: validUntil
+          required: false
+          description: 'Returns objects valid until a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+      produces:
+        - application/health+json
+  '/calendars/{id}/schedules':
+    get:
+      tags:
+        - Schedule
+        - Calendar
+      operationId: api_calendars_schedules_get_subresource
+      summary: 'Retrieves the collection of Schedule resources.'
+      responses:
+        200:
+          description: 'Schedule collection response'
+          content:
+            application/ld+json:
+              schema:
+                type: object
+                properties:
+                  'hydra:member': { type: array, items: { $ref: '#/components/schemas/Schedule:jsonld-read' } }
+                  'hydra:totalItems': { type: integer, minimum: 0 }
+                  'hydra:view': { type: object, properties: { '@id': { type: string, format: iri-reference }, '@type': { type: string }, 'hydra:first': { type: string, format: iri-reference }, 'hydra:last': { type: string, format: iri-reference }, 'hydra:next': { type: string, format: iri-reference } } }
+                  'hydra:search': { type: object, properties: { '@type': { type: string }, 'hydra:template': { type: string }, 'hydra:variableRepresentation': { type: string }, 'hydra:mapping': { type: array, items: { type: object, properties: { '@type': { type: string }, variable: { type: string }, property: { type: string }, required: { type: boolean } } } } } }
+                required:
+                  - 'hydra:member'
+            application/json+ld:
+              schema:
+                type: object
+                properties:
+                  'hydra:member': { type: array, items: { $ref: '#/components/schemas/Schedule:jsonld-read' } }
+                  'hydra:totalItems': { type: integer, minimum: 0 }
+                  'hydra:view': { type: object, properties: { '@id': { type: string, format: iri-reference }, '@type': { type: string }, 'hydra:first': { type: string, format: iri-reference }, 'hydra:last': { type: string, format: iri-reference }, 'hydra:next': { type: string, format: iri-reference } } }
+                  'hydra:search': { type: object, properties: { '@type': { type: string }, 'hydra:template': { type: string }, 'hydra:variableRepresentation': { type: string }, 'hydra:mapping': { type: array, items: { type: object, properties: { '@type': { type: string }, variable: { type: string }, property: { type: string }, required: { type: boolean } } } } } }
+                required:
+                  - 'hydra:member'
+            application/hal+json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Schedule-read'
+            application/json+hal:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Schedule-read'
+            application/vnd.api+json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Schedule-read'
+            application/json+vnd.api:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Schedule-read'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Schedule-read'
+            application/health+json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Schedule-read'
+            application/json+health:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Schedule-read'
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Schedule-read'
+            application/x-yaml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Schedule-read'
+            text/csv:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Schedule-read'
+            text/html:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Schedule-read'
+        404:
+          description: 'Resource not found'
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: string
+        -
+          name: 'order[id]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[name]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[description]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[byDay]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[byMonth]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[byMonthDay]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[exceptDates]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[repeatCount]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[repeatFrequency]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[dateCreated]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[dateModified]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'dateCreated[before]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateCreated[strictly_before]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateCreated[after]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateCreated[strictly_after]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateModified[before]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateModified[strictly_before]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateModified[after]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateModified[strictly_after]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: calendar.id
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'calendar.id[]'
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
+        -
+          name: page
+          in: query
+          required: false
+          description: 'The collection page number'
+          schema:
+            type: integer
+            default: 1
+        -
+          name: limit
+          in: query
+          required: false
+          description: 'The number of items per page'
+          schema:
+            type: integer
+            default: 30
+            minimum: 0
+        -
+          name: Authorization
+          description: 'The JWT of the entity performing the request'
+          in: header
+        -
+          name: API-Version
+          description: 'The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)'
+          example: 1.0.1
+          in: header
+        -
+          name: X-NLX-Logrecord-ID
+          description: 'A  globally unique id of the request, which makes a request traceable throughout the network.'
+          in: header
+        -
+          name: X-NLX-Request-Process-Id
+          description: 'A process id for purpose registration (doelbinding)'
+          in: header
+        -
+          name: X-NLX-Request-Data-Elements
+          description: 'A list of requested data elements'
+          in: header
+        -
+          name: X-NLX-Request-Data-Subject
+          description: 'A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`'
+          in: header
+        -
+          name: X-NLX-Audit-Clarification
+          description: 'A clarification as to why a request has been made  (doelbinding)'
+          in: header
+        -
+          name: Link
+          description: 'A [websub](https://www.w3.org/TR/websub/#discovery) header like <https://hub.example.com/>; rel="hub"'
+          in: header
+        -
+          name: 'extend[]'
+          required: false
+          description: 'An array of nested objects to include in the return object'
+          in: query
+          schema:
+            type: array
+        -
+          name: 'fields[]'
+          required: false
+          description: 'An array of fields to return in output, wil return all fields is not supplied'
+          in: query
+          schema:
+            type: array
+        -
+          name: validOn
+          required: false
+          description: 'Returns object as valid on a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+        -
+          name: validFrom
+          required: false
+          description: 'Returns objects valid from a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+        -
+          name: validUntil
+          required: false
+          description: 'Returns objects valid until a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+      produces:
+        - application/health+json
+  '/calendars/{id}/todos':
+    get:
+      tags:
+        - Todo
+        - Calendar
+      operationId: api_calendars_todos_get_subresource
+      summary: 'Retrieves the collection of Todo resources.'
+      responses:
+        200:
+          description: 'Todo collection response'
+          content:
+            application/ld+json:
+              schema:
+                type: object
+                properties:
+                  'hydra:member': { type: array, items: { $ref: '#/components/schemas/Todo:jsonld-read' } }
+                  'hydra:totalItems': { type: integer, minimum: 0 }
+                  'hydra:view': { type: object, properties: { '@id': { type: string, format: iri-reference }, '@type': { type: string }, 'hydra:first': { type: string, format: iri-reference }, 'hydra:last': { type: string, format: iri-reference }, 'hydra:next': { type: string, format: iri-reference } } }
+                  'hydra:search': { type: object, properties: { '@type': { type: string }, 'hydra:template': { type: string }, 'hydra:variableRepresentation': { type: string }, 'hydra:mapping': { type: array, items: { type: object, properties: { '@type': { type: string }, variable: { type: string }, property: { type: string }, required: { type: boolean } } } } } }
+                required:
+                  - 'hydra:member'
+            application/json+ld:
+              schema:
+                type: object
+                properties:
+                  'hydra:member': { type: array, items: { $ref: '#/components/schemas/Todo:jsonld-read' } }
+                  'hydra:totalItems': { type: integer, minimum: 0 }
+                  'hydra:view': { type: object, properties: { '@id': { type: string, format: iri-reference }, '@type': { type: string }, 'hydra:first': { type: string, format: iri-reference }, 'hydra:last': { type: string, format: iri-reference }, 'hydra:next': { type: string, format: iri-reference } } }
+                  'hydra:search': { type: object, properties: { '@type': { type: string }, 'hydra:template': { type: string }, 'hydra:variableRepresentation': { type: string }, 'hydra:mapping': { type: array, items: { type: object, properties: { '@type': { type: string }, variable: { type: string }, property: { type: string }, required: { type: boolean } } } } } }
+                required:
+                  - 'hydra:member'
+            application/hal+json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Todo-read'
+            application/json+hal:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Todo-read'
+            application/vnd.api+json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Todo-read'
+            application/json+vnd.api:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Todo-read'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Todo-read'
+            application/health+json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Todo-read'
+            application/json+health:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Todo-read'
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Todo-read'
+            application/x-yaml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Todo-read'
+            text/csv:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Todo-read'
+            text/html:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Todo-read'
+        404:
+          description: 'Resource not found'
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: string
+        -
+          name: 'order[id]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[name]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[description]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[startDate]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[endDate]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[location]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[class]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[geo]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[organiser]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[status]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[summary]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[duration]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[contact]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[seq]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[priority]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[attendees]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[attachments]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[categories]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[comments]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[completed]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[percentageDone]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[dateCreated]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[dateModified]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'startDate[before]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'startDate[strictly_before]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'startDate[after]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'startDate[strictly_after]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'endDate[before]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'endDate[strictly_before]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'endDate[after]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'endDate[strictly_after]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'completed[before]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'completed[strictly_before]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'completed[after]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'completed[strictly_after]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateCreated[before]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateCreated[strictly_before]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateCreated[after]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateCreated[strictly_after]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateModified[before]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateModified[strictly_before]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateModified[after]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateModified[strictly_after]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: calendar.id
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'calendar.id[]'
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
+        -
+          name: page
+          in: query
+          required: false
+          description: 'The collection page number'
+          schema:
+            type: integer
+            default: 1
+        -
+          name: limit
+          in: query
+          required: false
+          description: 'The number of items per page'
+          schema:
+            type: integer
+            default: 30
+            minimum: 0
+        -
+          name: Authorization
+          description: 'The JWT of the entity performing the request'
+          in: header
+        -
+          name: API-Version
+          description: 'The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)'
+          example: 1.0.1
+          in: header
+        -
+          name: X-NLX-Logrecord-ID
+          description: 'A  globally unique id of the request, which makes a request traceable throughout the network.'
+          in: header
+        -
+          name: X-NLX-Request-Process-Id
+          description: 'A process id for purpose registration (doelbinding)'
+          in: header
+        -
+          name: X-NLX-Request-Data-Elements
+          description: 'A list of requested data elements'
+          in: header
+        -
+          name: X-NLX-Request-Data-Subject
+          description: 'A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`'
+          in: header
+        -
+          name: X-NLX-Audit-Clarification
+          description: 'A clarification as to why a request has been made  (doelbinding)'
+          in: header
+        -
+          name: Link
+          description: 'A [websub](https://www.w3.org/TR/websub/#discovery) header like <https://hub.example.com/>; rel="hub"'
+          in: header
+        -
+          name: 'extend[]'
+          required: false
+          description: 'An array of nested objects to include in the return object'
+          in: query
+          schema:
+            type: array
+        -
+          name: 'fields[]'
+          required: false
+          description: 'An array of fields to return in output, wil return all fields is not supplied'
+          in: query
+          schema:
+            type: array
+        -
+          name: validOn
+          required: false
+          description: 'Returns object as valid on a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+        -
+          name: validFrom
+          required: false
+          description: 'Returns objects valid from a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+        -
+          name: validUntil
+          required: false
+          description: 'Returns objects valid until a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+      produces:
+        - application/health+json
   /change_logs:
     get:
       tags:
@@ -5953,6 +8291,312 @@ paths:
           description: 'Resource not found'
       produces:
         - application/health+json
+  '/events/{id}/calendar':
+    get:
+      tags:
+        - Calendar
+        - Event
+      operationId: api_events_calendar_get_subresource
+      summary: 'Retrieves a Calendar resource.'
+      responses:
+        200:
+          description: 'Calendar resource response'
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Calendar:jsonld-read'
+            application/json+ld:
+              schema:
+                $ref: '#/components/schemas/Calendar:jsonld-read'
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/Calendar-read'
+            application/json+hal:
+              schema:
+                $ref: '#/components/schemas/Calendar-read'
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/Calendar-read'
+            application/json+vnd.api:
+              schema:
+                $ref: '#/components/schemas/Calendar-read'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Calendar-read'
+            application/health+json:
+              schema:
+                $ref: '#/components/schemas/Calendar-read'
+            application/json+health:
+              schema:
+                $ref: '#/components/schemas/Calendar-read'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Calendar-read'
+            application/x-yaml:
+              schema:
+                $ref: '#/components/schemas/Calendar-read'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/Calendar-read'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/Calendar-read'
+        404:
+          description: 'Resource not found'
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: string
+        -
+          name: 'order[id]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[name]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[description]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[organization]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[resource]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[timeZone]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[dateCreated]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[dateModified]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'dateCreated[before]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateCreated[strictly_before]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateCreated[after]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateCreated[strictly_after]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateModified[before]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateModified[strictly_before]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateModified[after]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateModified[strictly_after]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'id[]'
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
+        -
+          name: name
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: description
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: organization
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'organization[]'
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
+        -
+          name: resource
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'resource[]'
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
+        -
+          name: Authorization
+          description: 'The JWT of the entity performing the request'
+          in: header
+        -
+          name: API-Version
+          description: 'The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)'
+          example: 1.0.1
+          in: header
+        -
+          name: X-NLX-Logrecord-ID
+          description: 'A  globally unique id of the request, which makes a request traceable throughout the network.'
+          in: header
+        -
+          name: X-NLX-Request-Process-Id
+          description: 'A process id for purpose registration (doelbinding)'
+          in: header
+        -
+          name: X-NLX-Request-Data-Elements
+          description: 'A list of requested data elements'
+          in: header
+        -
+          name: X-NLX-Request-Data-Subject
+          description: 'A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`'
+          in: header
+        -
+          name: X-NLX-Audit-Clarification
+          description: 'A clarification as to why a request has been made  (doelbinding)'
+          in: header
+        -
+          name: Link
+          description: 'A [websub](https://www.w3.org/TR/websub/#discovery) header like <https://hub.example.com/>; rel="hub"'
+          in: header
+        -
+          name: 'extend[]'
+          required: false
+          description: 'An array of nested objects to include in the return object'
+          in: query
+          schema:
+            type: array
+        -
+          name: 'fields[]'
+          required: false
+          description: 'An array of fields to return in output, wil return all fields is not supplied'
+          in: query
+          schema:
+            type: array
+        -
+          name: validOn
+          required: false
+          description: 'Returns object as valid on a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+        -
+          name: validFrom
+          required: false
+          description: 'Returns objects valid from a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+        -
+          name: validUntil
+          required: false
+          description: 'Returns objects valid until a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+      produces:
+        - application/health+json
   '/events/{id}/change_log':
     get:
       tags:
@@ -6082,6 +8726,301 @@ paths:
                 $ref: '#/components/schemas/Event-read'
         404:
           description: 'Resource not found'
+      produces:
+        - application/health+json
+  '/events/{id}/schedule':
+    get:
+      tags:
+        - Schedule
+        - Event
+      operationId: api_events_schedule_get_subresource
+      summary: 'Retrieves a Schedule resource.'
+      responses:
+        200:
+          description: 'Schedule resource response'
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Schedule:jsonld-read'
+            application/json+ld:
+              schema:
+                $ref: '#/components/schemas/Schedule:jsonld-read'
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/Schedule-read'
+            application/json+hal:
+              schema:
+                $ref: '#/components/schemas/Schedule-read'
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/Schedule-read'
+            application/json+vnd.api:
+              schema:
+                $ref: '#/components/schemas/Schedule-read'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Schedule-read'
+            application/health+json:
+              schema:
+                $ref: '#/components/schemas/Schedule-read'
+            application/json+health:
+              schema:
+                $ref: '#/components/schemas/Schedule-read'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Schedule-read'
+            application/x-yaml:
+              schema:
+                $ref: '#/components/schemas/Schedule-read'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/Schedule-read'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/Schedule-read'
+        404:
+          description: 'Resource not found'
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: string
+        -
+          name: 'order[id]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[name]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[description]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[byDay]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[byMonth]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[byMonthDay]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[exceptDates]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[repeatCount]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[repeatFrequency]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[dateCreated]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[dateModified]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'dateCreated[before]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateCreated[strictly_before]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateCreated[after]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateCreated[strictly_after]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateModified[before]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateModified[strictly_before]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateModified[after]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateModified[strictly_after]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: calendar.id
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'calendar.id[]'
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
+        -
+          name: Authorization
+          description: 'The JWT of the entity performing the request'
+          in: header
+        -
+          name: API-Version
+          description: 'The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)'
+          example: 1.0.1
+          in: header
+        -
+          name: X-NLX-Logrecord-ID
+          description: 'A  globally unique id of the request, which makes a request traceable throughout the network.'
+          in: header
+        -
+          name: X-NLX-Request-Process-Id
+          description: 'A process id for purpose registration (doelbinding)'
+          in: header
+        -
+          name: X-NLX-Request-Data-Elements
+          description: 'A list of requested data elements'
+          in: header
+        -
+          name: X-NLX-Request-Data-Subject
+          description: 'A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`'
+          in: header
+        -
+          name: X-NLX-Audit-Clarification
+          description: 'A clarification as to why a request has been made  (doelbinding)'
+          in: header
+        -
+          name: Link
+          description: 'A [websub](https://www.w3.org/TR/websub/#discovery) header like <https://hub.example.com/>; rel="hub"'
+          in: header
+        -
+          name: 'extend[]'
+          required: false
+          description: 'An array of nested objects to include in the return object'
+          in: query
+          schema:
+            type: array
+        -
+          name: 'fields[]'
+          required: false
+          description: 'An array of fields to return in output, wil return all fields is not supplied'
+          in: query
+          schema:
+            type: array
+        -
+          name: validOn
+          required: false
+          description: 'Returns object as valid on a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+        -
+          name: validFrom
+          required: false
+          description: 'Returns objects valid from a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+        -
+          name: validUntil
+          required: false
+          description: 'Returns objects valid until a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
       produces:
         - application/health+json
   /freebusies:
@@ -12364,16 +15303,6 @@ components:
         repeat:
           description: 'The number of times the alarm repeats.'
           type: integer
-        event:
-          nullable: true
-          anyOf:
-            -
-              $ref: '#/components/schemas/Event-read'
-        todo:
-          nullable: true
-          anyOf:
-            -
-              $ref: '#/components/schemas/Todo-read'
         dateCreated:
           description: 'The moment this resource was created'
           type: string
@@ -12423,16 +15352,6 @@ components:
         repeat:
           description: 'The number of times the alarm repeats.'
           type: integer
-        event:
-          nullable: true
-          anyOf:
-            -
-              $ref: '#/components/schemas/Event-write'
-        todo:
-          nullable: true
-          anyOf:
-            -
-              $ref: '#/components/schemas/Todo-write'
     'Alarm:jsonld-read':
       type: object
       description: 'Used to describe alarms for Events and Todos.'
@@ -12478,16 +15397,6 @@ components:
         repeat:
           description: 'The number of times the alarm repeats.'
           type: integer
-        event:
-          nullable: true
-          anyOf:
-            -
-              $ref: '#/components/schemas/Event:jsonld-read'
-        todo:
-          nullable: true
-          anyOf:
-            -
-              $ref: '#/components/schemas/Todo:jsonld-read'
         dateCreated:
           description: 'The moment this resource was created'
           type: string
@@ -12546,16 +15455,6 @@ components:
         repeat:
           description: 'The number of times the alarm repeats.'
           type: integer
-        event:
-          nullable: true
-          anyOf:
-            -
-              $ref: '#/components/schemas/Event:jsonld-write'
-        todo:
-          nullable: true
-          anyOf:
-            -
-              $ref: '#/components/schemas/Todo:jsonld-write'
     AuditTrail-read:
       type: object
       description: 'An resource representing a log line.'
@@ -12934,21 +15833,24 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Schedule-read'
-        timeZone:
-          description: 'The time zone of this calendar'
-          type: string
         freebusies:
+          description: 'that belong to this Calendar'
           type: array
           items:
             $ref: '#/components/schemas/Freebusy-read'
         journals:
+          description: 'journals that belong to this Calendar'
           type: array
           items:
             $ref: '#/components/schemas/Journal-read'
         todos:
+          description: 'todos that belong to this Calendar'
           type: array
           items:
             $ref: '#/components/schemas/Todo-read'
+        timeZone:
+          description: 'The time zone of this calendar'
+          type: string
         dateCreated:
           description: 'The moment this resource was created'
           type: string
@@ -12998,21 +15900,24 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Schedule-write'
-        timeZone:
-          description: 'The time zone of this calendar'
-          type: string
         freebusies:
+          description: 'that belong to this Calendar'
           type: array
           items:
             $ref: '#/components/schemas/Freebusy-write'
         journals:
+          description: 'journals that belong to this Calendar'
           type: array
           items:
             $ref: '#/components/schemas/Journal-write'
         todos:
+          description: 'todos that belong to this Calendar'
           type: array
           items:
             $ref: '#/components/schemas/Todo-write'
+        timeZone:
+          description: 'The time zone of this calendar'
+          type: string
     'Calendar:jsonld-read':
       type: object
       description: 'A Calendar is a collection of events tied to an unque person or resource.'
@@ -13062,21 +15967,24 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Schedule:jsonld-read'
-        timeZone:
-          description: 'The time zone of this calendar'
-          type: string
         freebusies:
+          description: 'that belong to this Calendar'
           type: array
           items:
             $ref: '#/components/schemas/Freebusy:jsonld-read'
         journals:
+          description: 'journals that belong to this Calendar'
           type: array
           items:
             $ref: '#/components/schemas/Journal:jsonld-read'
         todos:
+          description: 'todos that belong to this Calendar'
           type: array
           items:
             $ref: '#/components/schemas/Todo:jsonld-read'
+        timeZone:
+          description: 'The time zone of this calendar'
+          type: string
         dateCreated:
           description: 'The moment this resource was created'
           type: string
@@ -13135,21 +16043,24 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Schedule:jsonld-write'
-        timeZone:
-          description: 'The time zone of this calendar'
-          type: string
         freebusies:
+          description: 'that belong to this Calendar'
           type: array
           items:
             $ref: '#/components/schemas/Freebusy:jsonld-write'
         journals:
+          description: 'journals that belong to this Calendar'
           type: array
           items:
             $ref: '#/components/schemas/Journal:jsonld-write'
         todos:
+          description: 'todos that belong to this Calendar'
           type: array
           items:
             $ref: '#/components/schemas/Todo:jsonld-write'
+        timeZone:
+          description: 'The time zone of this calendar'
+          type: string
     ChangeLog-read:
       type: object
       description: 'An resource representing a log line.'
@@ -13382,23 +16293,6 @@ components:
           type: array
           items:
             type: string
-        related:
-          type: array
-          items:
-            $ref: '#/components/schemas/Event-read'
-        resources:
-          type: array
-          items:
-            $ref: '#/components/schemas/Resource-read'
-        alarms:
-          type: array
-          items:
-            $ref: '#/components/schemas/Alarm-read'
-        journal:
-          nullable: true
-          anyOf:
-            -
-              $ref: '#/components/schemas/Journal-read'
         dateCreated:
           description: 'The moment this resource was created'
           type: string
@@ -13527,23 +16421,6 @@ components:
           type: array
           items:
             type: string
-        related:
-          type: array
-          items:
-            $ref: '#/components/schemas/Event-write'
-        resources:
-          type: array
-          items:
-            $ref: '#/components/schemas/Resource-write'
-        alarms:
-          type: array
-          items:
-            $ref: '#/components/schemas/Alarm-write'
-        journal:
-          nullable: true
-          anyOf:
-            -
-              $ref: '#/components/schemas/Journal-write'
     'Event:jsonld-read':
       type: object
       description: 'An event happening at a certain time and location, such as a concert, lecture, meeting or festival.'
@@ -13668,23 +16545,6 @@ components:
           type: array
           items:
             type: string
-        related:
-          type: array
-          items:
-            $ref: '#/components/schemas/Event:jsonld-read'
-        resources:
-          type: array
-          items:
-            $ref: '#/components/schemas/Resource:jsonld-read'
-        alarms:
-          type: array
-          items:
-            $ref: '#/components/schemas/Alarm:jsonld-read'
-        journal:
-          nullable: true
-          anyOf:
-            -
-              $ref: '#/components/schemas/Journal:jsonld-read'
         dateCreated:
           description: 'The moment this resource was created'
           type: string
@@ -13822,23 +16682,6 @@ components:
           type: array
           items:
             type: string
-        related:
-          type: array
-          items:
-            $ref: '#/components/schemas/Event:jsonld-write'
-        resources:
-          type: array
-          items:
-            $ref: '#/components/schemas/Resource:jsonld-write'
-        alarms:
-          type: array
-          items:
-            $ref: '#/components/schemas/Alarm:jsonld-write'
-        journal:
-          nullable: true
-          anyOf:
-            -
-              $ref: '#/components/schemas/Journal:jsonld-write'
     Freebusy-read:
       type: object
       description: 'This entity checks if a person is free or busy for a event.'
@@ -13894,13 +16737,6 @@ components:
           description: 'The determination of the type freebusy. **FREE**, **BUSY**'
           type: string
           nullable: true
-        calendar:
-          $ref: '#/components/schemas/Calendar-read'
-        schedule:
-          nullable: true
-          anyOf:
-            -
-              $ref: '#/components/schemas/Schedule-read'
         dateCreated:
           description: 'The moment this resource was created'
           type: string
@@ -13962,13 +16798,6 @@ components:
           description: 'The determination of the type freebusy. **FREE**, **BUSY**'
           type: string
           nullable: true
-        calendar:
-          $ref: '#/components/schemas/Calendar-write'
-        schedule:
-          nullable: true
-          anyOf:
-            -
-              $ref: '#/components/schemas/Schedule-write'
       required:
         - startDate
         - endDate
@@ -14036,13 +16865,6 @@ components:
           description: 'The determination of the type freebusy. **FREE**, **BUSY**'
           type: string
           nullable: true
-        calendar:
-          $ref: '#/components/schemas/Calendar:jsonld-read'
-        schedule:
-          nullable: true
-          anyOf:
-            -
-              $ref: '#/components/schemas/Schedule:jsonld-read'
         dateCreated:
           description: 'The moment this resource was created'
           type: string
@@ -14113,13 +16935,6 @@ components:
           description: 'The determination of the type freebusy. **FREE**, **BUSY**'
           type: string
           nullable: true
-        calendar:
-          $ref: '#/components/schemas/Calendar:jsonld-write'
-        schedule:
-          nullable: true
-          anyOf:
-            -
-              $ref: '#/components/schemas/Schedule:jsonld-write'
       required:
         - startDate
         - endDate
@@ -14204,13 +17019,6 @@ components:
           type: array
           items:
             type: string
-        calendar:
-          $ref: '#/components/schemas/Calendar-read'
-        event:
-          nullable: true
-          anyOf:
-            -
-              $ref: '#/components/schemas/Event-read'
         dateCreated:
           description: 'The moment this resource was created'
           type: string
@@ -14303,13 +17111,6 @@ components:
           type: array
           items:
             type: string
-        calendar:
-          $ref: '#/components/schemas/Calendar-write'
-        event:
-          nullable: true
-          anyOf:
-            -
-              $ref: '#/components/schemas/Event-write'
     'Journal:jsonld-read':
       type: object
       description: 'A journal from an event.'
@@ -14400,13 +17201,6 @@ components:
           type: array
           items:
             type: string
-        calendar:
-          $ref: '#/components/schemas/Calendar:jsonld-read'
-        event:
-          nullable: true
-          anyOf:
-            -
-              $ref: '#/components/schemas/Event:jsonld-read'
         dateCreated:
           description: 'The moment this resource was created'
           type: string
@@ -14508,13 +17302,6 @@ components:
           type: array
           items:
             type: string
-        calendar:
-          $ref: '#/components/schemas/Calendar:jsonld-write'
-        event:
-          nullable: true
-          anyOf:
-            -
-              $ref: '#/components/schemas/Event:jsonld-write'
     Reservation-read:
       type: object
       description: 'A Reservation is a event that is tied to an unique person or resource.'
@@ -14551,9 +17338,6 @@ components:
         numberOfParticipants:
           description: 'The number of participants for this reservation'
           type: integer
-        event:
-          description: 'Event that is booked in this reservation'
-          $ref: '#/components/schemas/Event-read'
         provider:
           description: 'The url of a person or organization who is the provider of this reservation'
           externalDocs:
@@ -14618,9 +17402,6 @@ components:
         numberOfParticipants:
           description: 'The number of participants for this reservation'
           type: integer
-        event:
-          description: 'Event that is booked in this reservation'
-          $ref: '#/components/schemas/Event-write'
         provider:
           description: 'The url of a person or organization who is the provider of this reservation'
           externalDocs:
@@ -14707,9 +17488,6 @@ components:
         numberOfParticipants:
           description: 'The number of participants for this reservation'
           type: integer
-        event:
-          description: 'Event that is booked in this reservation'
-          $ref: '#/components/schemas/Event:jsonld-read'
         provider:
           description: 'The url of a person or organization who is the provider of this reservation'
           externalDocs:
@@ -14783,9 +17561,6 @@ components:
         numberOfParticipants:
           description: 'The number of participants for this reservation'
           type: integer
-        event:
-          description: 'Event that is booked in this reservation'
-          $ref: '#/components/schemas/Event:jsonld-write'
         provider:
           description: 'The url of a person or organization who is the provider of this reservation'
           externalDocs:
@@ -14845,14 +17620,6 @@ components:
           description: 'An short description of this Event'
           type: string
           nullable: true
-        events:
-          type: array
-          items:
-            $ref: '#/components/schemas/Event-read'
-        todos:
-          type: array
-          items:
-            $ref: '#/components/schemas/Todo-read'
         dateCreated:
           description: 'The moment this resource was created'
           type: string
@@ -14878,14 +17645,6 @@ components:
           description: 'An short description of this Event'
           type: string
           nullable: true
-        events:
-          type: array
-          items:
-            $ref: '#/components/schemas/Event-write'
-        todos:
-          type: array
-          items:
-            $ref: '#/components/schemas/Todo-write'
     'Resource:jsonld-read':
       type: object
       description: 'Describes resources that can be needed for an event.'
@@ -14913,14 +17672,6 @@ components:
           description: 'An short description of this Event'
           type: string
           nullable: true
-        events:
-          type: array
-          items:
-            $ref: '#/components/schemas/Event:jsonld-read'
-        todos:
-          type: array
-          items:
-            $ref: '#/components/schemas/Todo:jsonld-read'
         dateCreated:
           description: 'The moment this resource was created'
           type: string
@@ -14955,14 +17706,6 @@ components:
           description: 'An short description of this Event'
           type: string
           nullable: true
-        events:
-          type: array
-          items:
-            $ref: '#/components/schemas/Event:jsonld-write'
-        todos:
-          type: array
-          items:
-            $ref: '#/components/schemas/Todo:jsonld-write'
     Schedule-read:
       type: object
       description: 'A schedule defines a repeating time period used to describe a regularly occurring Event. At a minimum a schedule will specify repeatFrequency which describes the interval between occurences of the event. Additional information can be provided to specify the schedule more precisely. This includes identifying the day(s) of the week or month when the recurring event will take place, in addition to its start and end time. Schedules may also have start and end dates to indicate when they are active, e.g. to define a limited calendar of events.'
@@ -15009,24 +17752,6 @@ components:
           description: 'Defines the frequency at which Events will occur according to a schedule Schedule. The intervals between events should be defined as a [Duration](https://en.wikipedia.org/wiki/ISO_8601#Durations) of time.'
           type: string
           nullable: true
-        calendar:
-          description: 'The Calendar to wich this Schedule belongs'
-          $ref: '#/components/schemas/Calendar-read'
-        events:
-          description: 'The events that belong to or are caused by this Schedule'
-          type: array
-          items:
-            $ref: '#/components/schemas/Event-read'
-        freebusies:
-          description: 'The freebusies that belong to or are caused by this Schedule'
-          type: array
-          items:
-            $ref: '#/components/schemas/Freebusy-read'
-        todos:
-          description: 'The todos that belong to or are caused by this Schedule'
-          type: array
-          items:
-            $ref: '#/components/schemas/Todo-read'
         dateCreated:
           description: 'The moment this resource was created'
           type: string
@@ -15080,24 +17805,6 @@ components:
           description: 'Defines the frequency at which Events will occur according to a schedule Schedule. The intervals between events should be defined as a [Duration](https://en.wikipedia.org/wiki/ISO_8601#Durations) of time.'
           type: string
           nullable: true
-        calendar:
-          description: 'The Calendar to wich this Schedule belongs'
-          $ref: '#/components/schemas/Calendar-write'
-        events:
-          description: 'The events that belong to or are caused by this Schedule'
-          type: array
-          items:
-            $ref: '#/components/schemas/Event-write'
-        freebusies:
-          description: 'The freebusies that belong to or are caused by this Schedule'
-          type: array
-          items:
-            $ref: '#/components/schemas/Freebusy-write'
-        todos:
-          description: 'The todos that belong to or are caused by this Schedule'
-          type: array
-          items:
-            $ref: '#/components/schemas/Todo-write'
     'Schedule:jsonld-read':
       type: object
       description: 'A schedule defines a repeating time period used to describe a regularly occurring Event. At a minimum a schedule will specify repeatFrequency which describes the interval between occurences of the event. Additional information can be provided to specify the schedule more precisely. This includes identifying the day(s) of the week or month when the recurring event will take place, in addition to its start and end time. Schedules may also have start and end dates to indicate when they are active, e.g. to define a limited calendar of events.'
@@ -15153,24 +17860,6 @@ components:
           description: 'Defines the frequency at which Events will occur according to a schedule Schedule. The intervals between events should be defined as a [Duration](https://en.wikipedia.org/wiki/ISO_8601#Durations) of time.'
           type: string
           nullable: true
-        calendar:
-          description: 'The Calendar to wich this Schedule belongs'
-          $ref: '#/components/schemas/Calendar:jsonld-read'
-        events:
-          description: 'The events that belong to or are caused by this Schedule'
-          type: array
-          items:
-            $ref: '#/components/schemas/Event:jsonld-read'
-        freebusies:
-          description: 'The freebusies that belong to or are caused by this Schedule'
-          type: array
-          items:
-            $ref: '#/components/schemas/Freebusy:jsonld-read'
-        todos:
-          description: 'The todos that belong to or are caused by this Schedule'
-          type: array
-          items:
-            $ref: '#/components/schemas/Todo:jsonld-read'
         dateCreated:
           description: 'The moment this resource was created'
           type: string
@@ -15233,24 +17922,6 @@ components:
           description: 'Defines the frequency at which Events will occur according to a schedule Schedule. The intervals between events should be defined as a [Duration](https://en.wikipedia.org/wiki/ISO_8601#Durations) of time.'
           type: string
           nullable: true
-        calendar:
-          description: 'The Calendar to wich this Schedule belongs'
-          $ref: '#/components/schemas/Calendar:jsonld-write'
-        events:
-          description: 'The events that belong to or are caused by this Schedule'
-          type: array
-          items:
-            $ref: '#/components/schemas/Event:jsonld-write'
-        freebusies:
-          description: 'The freebusies that belong to or are caused by this Schedule'
-          type: array
-          items:
-            $ref: '#/components/schemas/Freebusy:jsonld-write'
-        todos:
-          description: 'The todos that belong to or are caused by this Schedule'
-          type: array
-          items:
-            $ref: '#/components/schemas/Todo:jsonld-write'
     Todo-read:
       type: object
       description: 'A to-do from an event.'
@@ -15808,8 +18479,6 @@ definitions:
       dateModified:
         description: 'The moment this resource last Modified'
         type: \Datetime
-      event: []
-      todo: []
     required:
       - name
       - action
@@ -15848,119 +18517,11 @@ definitions:
         description: 'The number of times the alarm repeats.'
         type: int
         example: '4'
-      event: []
-      todo: []
     required:
       - name
       - action
       - trigger
       - duration
-  Availability-read:
-    properties:
-      id:
-        description: 'The UUID identifier of this resource'
-        type: \UuidInterface
-      startDate:
-        description: 'The start of the availability block'
-        type: \DateTime
-      endDate:
-        description: 'The end of the availability block'
-        type: \DateTime
-      available:
-        description: 'Whether the block is available or not'
-        type: bool
-    required: []
-  Calendar-read:
-    properties:
-      id:
-        description: 'The UUID identifier of this resource'
-        type: string
-        example: e2984465-190a-4562-829e-a8cca81aa35d
-        format: uuid
-      name:
-        description: 'The name of this Calendar'
-        type: string
-        example: 'My Calendar'
-        maxLength: 255
-      description:
-        description: 'An short description of this Calendar'
-        type: string
-        example: 'This is the best Calendar ever'
-        maxLength: 2550
-      organization:
-        description: 'A specific commonground organisation'
-        type: string
-        example: 'https://wrc.zaakonline.nl/organisations/16353702-4614-42ff-92af-7dd11c8eef9f'
-        format: url
-      resource:
-        description: 'A specific commonground resource'
-        type: string
-        example: 'https://wrc.zaakonline.nl/organisations/16353702-4614-42ff-92af-7dd11c8eef9f'
-        format: url
-      timeZone:
-        description: 'The time zone of this calendar'
-        type: string
-        example: CET
-        maxLength: 5
-        minLength: 3
-      dateCreated:
-        description: 'The moment this resource was created'
-        type: \Datetime
-      dateModified:
-        description: 'The moment this resource last Modified'
-        type: \Datetime
-      events:
-        description: 'Events that belong to this Calendar'
-        type: \Collection
-      schedules:
-        description: 'Schedules that belong to this Calendar'
-        type: \Collection
-      freebusies: []
-      journals: []
-      todos: []
-    required:
-      - name
-      - timeZone
-  Calendar-write:
-    properties:
-      name:
-        description: 'The name of this Calendar'
-        type: string
-        example: 'My Calendar'
-        maxLength: 255
-      description:
-        description: 'An short description of this Calendar'
-        type: string
-        example: 'This is the best Calendar ever'
-        maxLength: 2550
-      organization:
-        description: 'A specific commonground organisation'
-        type: string
-        example: 'https://wrc.zaakonline.nl/organisations/16353702-4614-42ff-92af-7dd11c8eef9f'
-        format: url
-      resource:
-        description: 'A specific commonground resource'
-        type: string
-        example: 'https://wrc.zaakonline.nl/organisations/16353702-4614-42ff-92af-7dd11c8eef9f'
-        format: url
-      timeZone:
-        description: 'The time zone of this calendar'
-        type: string
-        example: CET
-        maxLength: 5
-        minLength: 3
-      events:
-        description: 'Events that belong to this Calendar'
-        type: \Collection
-      schedules:
-        description: 'Schedules that belong to this Calendar'
-        type: \Collection
-      freebusies: []
-      journals: []
-      todos: []
-    required:
-      - name
-      - timeZone
   Event-read:
     properties:
       id:
@@ -16076,10 +18637,6 @@ definitions:
       calendar:
         description: 'The Calendar to wich this event belongs'
         type: \Calendar
-      related: []
-      resources: []
-      alarms: []
-      journal: []
     required:
       - name
       - startDate
@@ -16188,595 +18745,10 @@ definitions:
       calendar:
         description: 'The Calendar to wich this event belongs'
         type: \Calendar
-      related: []
-      resources: []
-      alarms: []
-      journal: []
     required:
       - name
       - startDate
       - endDate
-  Freebusy-read:
-    properties:
-      id:
-        description: 'The UUID identifier of this resource'
-        type: string
-        example: e2984465-190a-4562-829e-a8cca81aa35d
-        format: uuid
-      description:
-        description: 'An short description of this Event'
-        type: string
-        example: 'This is the best Event ever'
-        maxLength: 2550
-      attendee:
-        description: 'The urls of the attendees of this event.'
-        type: string
-        example: 'https://con.example.com'
-        format: url
-        maxLength: 255
-      comments:
-        description: 'The urls of the comments that belong to this event.'
-        type: array
-        example: 'https://con.example.com, https://con.example2.com'
-      contact:
-        description: 'Url of this person'
-        type: string
-        example: 'https://con.example.org'
-        format: url
-      startDate:
-        description: 'The moment this event starts'
-        type: \DateTime
-        example: '30-11-2019 15:00:00'
-      endDate:
-        description: 'The moment this event ends'
-        type: \DateTime
-        example: '3-11-2019 20:00:00'
-      duration:
-        description: 'The duration of this event.'
-        type: \DateInterval
-        example: '2'
-      organiser:
-        description: 'The organiser of this event linked to with an url.'
-        type: string
-        example: conduction.nl
-        maxLength: 255
-      freebusy:
-        description: 'The determination of the type freebusy. **FREE**, **BUSY**'
-        type: string
-        example: FREE
-      dateCreated:
-        description: 'The moment this resource was created'
-        type: \DateTime
-      dateModified:
-        description: 'The moment this resource last Modified'
-        type: \DateTime
-      calendar: []
-      schedule: []
-    required:
-      - startDate
-      - endDate
-  Freebusy-write:
-    properties:
-      description:
-        description: 'An short description of this Event'
-        type: string
-        example: 'This is the best Event ever'
-        maxLength: 2550
-      attendee:
-        description: 'The urls of the attendees of this event.'
-        type: string
-        example: 'https://con.example.com'
-        format: url
-        maxLength: 255
-      comments:
-        description: 'The urls of the comments that belong to this event.'
-        type: array
-        example: 'https://con.example.com, https://con.example2.com'
-      contact:
-        description: 'Url of this person'
-        type: string
-        example: 'https://con.example.org'
-        format: url
-      startDate:
-        description: 'The moment this event starts'
-        type: \DateTime
-        example: '30-11-2019 15:00:00'
-      endDate:
-        description: 'The moment this event ends'
-        type: \DateTime
-        example: '3-11-2019 20:00:00'
-      duration:
-        description: 'The duration of this event.'
-        type: \DateInterval
-        example: '2'
-      organiser:
-        description: 'The organiser of this event linked to with an url.'
-        type: string
-        example: conduction.nl
-        maxLength: 255
-      freebusy:
-        description: 'The determination of the type freebusy. **FREE**, **BUSY**'
-        type: string
-        example: FREE
-      calendar: []
-      schedule: []
-    required:
-      - startDate
-      - endDate
-  Journal-read:
-    properties:
-      id:
-        description: 'The UUID identifier of this resource'
-        type: string
-        example: e2984465-190a-4562-829e-a8cca81aa35d
-        format: uuid
-      name:
-        description: 'The name of this RequestType'
-        type: string
-        example: 'My RequestType'
-        maxLength: 255
-      description:
-        description: 'An short description of this Event'
-        type: string
-        example: 'This is the best Event ever'
-        maxLength: 2550
-      startDate:
-        description: 'The moment this event starts'
-        type: \DateTime
-        example: '30-11-2019 15:00:00'
-      endDate:
-        description: 'The moment this event ends'
-        type: \Datetime
-        example: '3-11-2019 20:00:00'
-      class:
-        description: 'The security class of this event.'
-        type: string
-        example: PUBLIC
-        maxLength: 255
-      organiser:
-        description: 'The organiser of this event linked to with an url.'
-        type: string
-        example: conduction.nl
-        maxLength: 255
-      status:
-        description: 'The status of this event.'
-        type: string
-        example: Confirmed
-        maxLength: 255
-      summary:
-        description: 'The summary of this event.'
-        type: string
-        example: 'This is the best event ever.'
-        maxLength: 255
-      transp:
-        description: 'The determination if the event should block the duration of the event for participants.'
-        type: string
-        example: Transparent
-        maxLength: 255
-      duration:
-        description: 'The duration of this event.'
-        type: \DateInterval
-        example: '2'
-      seq:
-        description: 'The version number of this event.'
-        type: int
-        example: '1'
-      priority:
-        description: 'The priority of this event ranging from 1 (high) to 9 (low).'
-        type: int
-        example: '1'
-      attendees:
-        description: 'The urls of the attendees of this event.'
-        type: array
-        example: 'https://con.example.com, https://con.example2.com'
-      attachments:
-        description: 'The urls of the attachments of this event.'
-        type: array
-        example: 'https://example.org, https://example2.org'
-      categories:
-        description: 'The urls of the catergories this event belongs to.'
-        type: array
-        example: 'https://con.example.com, https://con.example2.com'
-      comments:
-        description: 'The urls of the comments that belong to this event.'
-        type: array
-        example: 'https://con.example.com, https://con.example2.com'
-      dateCreated:
-        description: 'The moment this resource was created'
-        type: \DateTime
-      dateModified:
-        description: 'The moment this resource last Modified'
-        type: \DateTime
-      calendar: []
-      event: []
-    required:
-      - name
-      - startDate
-      - endDate
-  Journal-write:
-    properties:
-      name:
-        description: 'The name of this RequestType'
-        type: string
-        example: 'My RequestType'
-        maxLength: 255
-      description:
-        description: 'An short description of this Event'
-        type: string
-        example: 'This is the best Event ever'
-        maxLength: 2550
-      startDate:
-        description: 'The moment this event starts'
-        type: \DateTime
-        example: '30-11-2019 15:00:00'
-      endDate:
-        description: 'The moment this event ends'
-        type: \Datetime
-        example: '3-11-2019 20:00:00'
-      class:
-        description: 'The security class of this event.'
-        type: string
-        example: PUBLIC
-        maxLength: 255
-      organiser:
-        description: 'The organiser of this event linked to with an url.'
-        type: string
-        example: conduction.nl
-        maxLength: 255
-      status:
-        description: 'The status of this event.'
-        type: string
-        example: Confirmed
-        maxLength: 255
-      summary:
-        description: 'The summary of this event.'
-        type: string
-        example: 'This is the best event ever.'
-        maxLength: 255
-      transp:
-        description: 'The determination if the event should block the duration of the event for participants.'
-        type: string
-        example: Transparent
-        maxLength: 255
-      duration:
-        description: 'The duration of this event.'
-        type: \DateInterval
-        example: '2'
-      seq:
-        description: 'The version number of this event.'
-        type: int
-        example: '1'
-      priority:
-        description: 'The priority of this event ranging from 1 (high) to 9 (low).'
-        type: int
-        example: '1'
-      attendees:
-        description: 'The urls of the attendees of this event.'
-        type: array
-        example: 'https://con.example.com, https://con.example2.com'
-      attachments:
-        description: 'The urls of the attachments of this event.'
-        type: array
-        example: 'https://example.org, https://example2.org'
-      categories:
-        description: 'The urls of the catergories this event belongs to.'
-        type: array
-        example: 'https://con.example.com, https://con.example2.com'
-      comments:
-        description: 'The urls of the comments that belong to this event.'
-        type: array
-        example: 'https://con.example.com, https://con.example2.com'
-      calendar: []
-      event: []
-    required:
-      - name
-      - startDate
-      - endDate
-  Reservation-read:
-    properties:
-      id:
-        description: 'The UUID identifier of this resource'
-        type: string
-        example: e2984465-190a-4562-829e-a8cca81aa35d
-        format: uuid
-      name:
-        description: 'The name of this Reservation'
-        type: string
-        example: 'My Reservation'
-        maxLength: 255
-      description:
-        description: 'An short description of this Reservation'
-        type: string
-        example: 'This is the best Reservation ever'
-        maxLength: 2550
-      dateCreated:
-        description: 'The moment this resource was created'
-        type: \Datetime
-      dateModified:
-        description: 'The moment this resource last Modified'
-        type: \Datetime
-      underName:
-        description: 'The url of a person who is under name(the requester) of this reservation'
-        type: string
-        example: 'https://person/1'
-        format: url
-      numberOfParticipants:
-        description: 'The number of participants for this reservation'
-        type: int
-        example: '1'
-      provider:
-        description: 'The url of a person or organization who is the provider of this reservation'
-        type: string
-        example: 'https://organization/1'
-        format: url
-      broker:
-        description: 'The url of a person or organization who is the broker of this reservation'
-        type: string
-        example: 'https://person/1'
-        format: url
-      reservationFor:
-        description: 'The thing -- flight, event, restaurant,etc. being reserved'
-        type: string
-        example: Restaurant
-        maxLength: 255
-      reservationStatus:
-        description: 'The current status of the reservation.'
-        type: string
-        example: Complete
-        maxLength: 255
-      reservedTicket:
-        description: 'A ticket associated with the reservation.'
-        type: string
-        example: Complete
-        maxLength: 255
-      programMembershipUsed:
-        description: 'Any membership in a frequent flyer, hotel loyalty program, etc. being applied to the reservation.'
-        type: string
-        example: Complete
-        maxLength: 255
-      priceCurrency:
-        description: 'The currency of this product in an [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) format'
-        type: string
-        example: EUR
-      totalPrice:
-        description: 'The total price of this reservation'
-        type: string
-        example: '50.00'
-      comment:
-        description: 'comment for this reservation'
-        type: string
-        example: 'We would like a table with sight at the sea'
-        maxLength: 2550
-      event:
-        description: 'Event that is booked in this reservation'
-        type: \Event
-    required:
-      - name
-  Reservation-write:
-    properties:
-      name:
-        description: 'The name of this Reservation'
-        type: string
-        example: 'My Reservation'
-        maxLength: 255
-      description:
-        description: 'An short description of this Reservation'
-        type: string
-        example: 'This is the best Reservation ever'
-        maxLength: 2550
-      underName:
-        description: 'The url of a person who is under name(the requester) of this reservation'
-        type: string
-        example: 'https://person/1'
-        format: url
-      numberOfParticipants:
-        description: 'The number of participants for this reservation'
-        type: int
-        example: '1'
-      provider:
-        description: 'The url of a person or organization who is the provider of this reservation'
-        type: string
-        example: 'https://organization/1'
-        format: url
-      broker:
-        description: 'The url of a person or organization who is the broker of this reservation'
-        type: string
-        example: 'https://person/1'
-        format: url
-      reservationFor:
-        description: 'The thing -- flight, event, restaurant,etc. being reserved'
-        type: string
-        example: Restaurant
-        maxLength: 255
-      reservationStatus:
-        description: 'The current status of the reservation.'
-        type: string
-        example: Complete
-        maxLength: 255
-      reservedTicket:
-        description: 'A ticket associated with the reservation.'
-        type: string
-        example: Complete
-        maxLength: 255
-      programMembershipUsed:
-        description: 'Any membership in a frequent flyer, hotel loyalty program, etc. being applied to the reservation.'
-        type: string
-        example: Complete
-        maxLength: 255
-      priceCurrency:
-        description: 'The currency of this product in an [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) format'
-        type: string
-        example: EUR
-      totalPrice:
-        description: 'The total price of this reservation'
-        type: string
-        example: '50.00'
-      comment:
-        description: 'comment for this reservation'
-        type: string
-        example: 'We would like a table with sight at the sea'
-        maxLength: 2550
-      event:
-        description: 'Event that is booked in this reservation'
-        type: \Event
-    required:
-      - name
-  Resource-read:
-    properties:
-      id:
-        description: 'The UUID identifier of this resource'
-        type: string
-        example: e2984465-190a-4562-829e-a8cca81aa35d
-        format: uuid
-      name:
-        description: 'The name of this RequestType'
-        type: string
-        example: 'My RequestType'
-        maxLength: 255
-      description:
-        description: 'An short description of this Event'
-        type: string
-        example: 'This is the best Event ever'
-        maxLength: 2550
-      dateCreated:
-        description: 'The moment this resource was created'
-        type: \Datetime
-      dateModified:
-        description: 'The moment this resource last Modified'
-        type: \Datetime
-      events: []
-      todos: []
-    required:
-      - name
-  Resource-write:
-    properties:
-      name:
-        description: 'The name of this RequestType'
-        type: string
-        example: 'My RequestType'
-        maxLength: 255
-      description:
-        description: 'An short description of this Event'
-        type: string
-        example: 'This is the best Event ever'
-        maxLength: 2550
-      events: []
-      todos: []
-    required:
-      - name
-  Schedule-read:
-    properties:
-      id:
-        description: 'The UUID identifier of this resource'
-        type: string
-        example: e2984465-190a-4562-829e-a8cca81aa35d
-        format: uuid
-      name:
-        description: 'The name of this Schedule'
-        type: string
-        example: 'My Schedule'
-        maxLength: 255
-      description:
-        description: 'An short description of this Schedule'
-        type: string
-        example: 'This is the best Schedule ever'
-        maxLength: 2550
-      byDay:
-        description: 'Defines the day(s) of the week on which a recurring Event takes place. Sunday is both 0 and 7.'
-        type: string
-        example: '1'
-      byMonth:
-        description: 'Defines the month(s) of the year on which a recurring Event takes place. Specified as an Integer between 1-12. January is 1.'
-        type: string
-        example: '1'
-      byMonthDay:
-        description: 'Defines the day(s) of the month on which a recurring Event takes place. Specified as an Integer between 1-31.'
-        type: string
-        example: '1'
-      exceptDates:
-        description: 'Defines the day(s) of the month on which a recurring Event takes place. Specified as an Integer between 1-31.'
-        type: array
-        example: '30'
-      repeatCount:
-        description: 'Defines the number of times a recurring Event will take place'
-        type: int
-        example: '10'
-      repeatFrequency:
-        description: 'Defines the frequency at which Events will occur according to a schedule Schedule. The intervals between events should be defined as a [Duration](https://en.wikipedia.org/wiki/ISO_8601#Durations) of time.'
-        type: string
-        example: PT1M
-        maxLength: 255
-      dateCreated:
-        description: 'The moment this resource was created'
-        type: \Datetime
-      dateModified:
-        description: 'The moment this resource last Modified'
-        type: \Datetime
-      calendar:
-        description: 'The Calendar to wich this Schedule belongs'
-        type: \Calendar
-      events:
-        description: 'The events that belong to or are caused by this Schedule'
-        type: \Collection
-      freebusies:
-        description: 'The freebusies that belong to or are caused by this Schedule'
-        type: \Collection
-      todos:
-        description: 'The todos that belong to or are caused by this Schedule'
-        type: \Collection
-    required:
-      - name
-  Schedule-write:
-    properties:
-      name:
-        description: 'The name of this Schedule'
-        type: string
-        example: 'My Schedule'
-        maxLength: 255
-      description:
-        description: 'An short description of this Schedule'
-        type: string
-        example: 'This is the best Schedule ever'
-        maxLength: 2550
-      byDay:
-        description: 'Defines the day(s) of the week on which a recurring Event takes place. Sunday is both 0 and 7.'
-        type: string
-        example: '1'
-      byMonth:
-        description: 'Defines the month(s) of the year on which a recurring Event takes place. Specified as an Integer between 1-12. January is 1.'
-        type: string
-        example: '1'
-      byMonthDay:
-        description: 'Defines the day(s) of the month on which a recurring Event takes place. Specified as an Integer between 1-31.'
-        type: string
-        example: '1'
-      exceptDates:
-        description: 'Defines the day(s) of the month on which a recurring Event takes place. Specified as an Integer between 1-31.'
-        type: array
-        example: '30'
-      repeatCount:
-        description: 'Defines the number of times a recurring Event will take place'
-        type: int
-        example: '10'
-      repeatFrequency:
-        description: 'Defines the frequency at which Events will occur according to a schedule Schedule. The intervals between events should be defined as a [Duration](https://en.wikipedia.org/wiki/ISO_8601#Durations) of time.'
-        type: string
-        example: PT1M
-        maxLength: 255
-      calendar:
-        description: 'The Calendar to wich this Schedule belongs'
-        type: \Calendar
-      events:
-        description: 'The events that belong to or are caused by this Schedule'
-        type: \Collection
-      freebusies:
-        description: 'The freebusies that belong to or are caused by this Schedule'
-        type: \Collection
-      todos:
-        description: 'The todos that belong to or are caused by this Schedule'
-        type: \Collection
-    required:
-      - name
   Todo-read:
     properties:
       id:
@@ -16868,7 +18840,7 @@ definitions:
       completed:
         description: 'The date and time a to-do is completed.'
         type: string
-        example: '2020-10-30 14:41:49'
+        example: '2020-11-17 10:28:35'
         format: date-time
       percentageDone:
         description: 'The percentage of a to-do that has been comepleted.'
@@ -16974,7 +18946,7 @@ definitions:
       completed:
         description: 'The date and time a to-do is completed.'
         type: string
-        example: '2020-10-30 14:41:49'
+        example: '2020-11-17 10:28:35'
         format: date-time
       percentageDone:
         description: 'The percentage of a to-do that has been comepleted.'
@@ -16988,6 +18960,716 @@ definitions:
       - name
       - startDate
       - endDate
+  Schedule-read:
+    properties:
+      id:
+        description: 'The UUID identifier of this resource'
+        type: string
+        example: e2984465-190a-4562-829e-a8cca81aa35d
+        format: uuid
+      name:
+        description: 'The name of this Schedule'
+        type: string
+        example: 'My Schedule'
+        maxLength: 255
+      description:
+        description: 'An short description of this Schedule'
+        type: string
+        example: 'This is the best Schedule ever'
+        maxLength: 2550
+      byDay:
+        description: 'Defines the day(s) of the week on which a recurring Event takes place. Sunday is both 0 and 7.'
+        type: string
+        example: '1'
+      byMonth:
+        description: 'Defines the month(s) of the year on which a recurring Event takes place. Specified as an Integer between 1-12. January is 1.'
+        type: string
+        example: '1'
+      byMonthDay:
+        description: 'Defines the day(s) of the month on which a recurring Event takes place. Specified as an Integer between 1-31.'
+        type: string
+        example: '1'
+      exceptDates:
+        description: 'Defines the day(s) of the month on which a recurring Event takes place. Specified as an Integer between 1-31.'
+        type: array
+        example: '30'
+      repeatCount:
+        description: 'Defines the number of times a recurring Event will take place'
+        type: int
+        example: '10'
+      repeatFrequency:
+        description: 'Defines the frequency at which Events will occur according to a schedule Schedule. The intervals between events should be defined as a [Duration](https://en.wikipedia.org/wiki/ISO_8601#Durations) of time.'
+        type: string
+        example: PT1M
+        maxLength: 255
+      dateCreated:
+        description: 'The moment this resource was created'
+        type: \Datetime
+      dateModified:
+        description: 'The moment this resource last Modified'
+        type: \Datetime
+    required:
+      - name
+  Schedule-write:
+    properties:
+      name:
+        description: 'The name of this Schedule'
+        type: string
+        example: 'My Schedule'
+        maxLength: 255
+      description:
+        description: 'An short description of this Schedule'
+        type: string
+        example: 'This is the best Schedule ever'
+        maxLength: 2550
+      byDay:
+        description: 'Defines the day(s) of the week on which a recurring Event takes place. Sunday is both 0 and 7.'
+        type: string
+        example: '1'
+      byMonth:
+        description: 'Defines the month(s) of the year on which a recurring Event takes place. Specified as an Integer between 1-12. January is 1.'
+        type: string
+        example: '1'
+      byMonthDay:
+        description: 'Defines the day(s) of the month on which a recurring Event takes place. Specified as an Integer between 1-31.'
+        type: string
+        example: '1'
+      exceptDates:
+        description: 'Defines the day(s) of the month on which a recurring Event takes place. Specified as an Integer between 1-31.'
+        type: array
+        example: '30'
+      repeatCount:
+        description: 'Defines the number of times a recurring Event will take place'
+        type: int
+        example: '10'
+      repeatFrequency:
+        description: 'Defines the frequency at which Events will occur according to a schedule Schedule. The intervals between events should be defined as a [Duration](https://en.wikipedia.org/wiki/ISO_8601#Durations) of time.'
+        type: string
+        example: PT1M
+        maxLength: 255
+    required:
+      - name
+  Calendar-read:
+    properties:
+      id:
+        description: 'The UUID identifier of this resource'
+        type: string
+        example: e2984465-190a-4562-829e-a8cca81aa35d
+        format: uuid
+      name:
+        description: 'The name of this Calendar'
+        type: string
+        example: 'My Calendar'
+        maxLength: 255
+      description:
+        description: 'An short description of this Calendar'
+        type: string
+        example: 'This is the best Calendar ever'
+        maxLength: 2550
+      organization:
+        description: 'A specific commonground organisation'
+        type: string
+        example: 'https://wrc.zaakonline.nl/organisations/16353702-4614-42ff-92af-7dd11c8eef9f'
+        format: url
+      resource:
+        description: 'A specific commonground resource'
+        type: string
+        example: 'https://wrc.zaakonline.nl/organisations/16353702-4614-42ff-92af-7dd11c8eef9f'
+        format: url
+      timeZone:
+        description: 'The time zone of this calendar'
+        type: string
+        example: CET
+        maxLength: 5
+        minLength: 3
+      dateCreated:
+        description: 'The moment this resource was created'
+        type: \Datetime
+      dateModified:
+        description: 'The moment this resource last Modified'
+        type: \Datetime
+      events:
+        description: 'Events that belong to this Calendar'
+        type: \Collection
+      schedules:
+        description: 'Schedules that belong to this Calendar'
+        type: \Collection
+      freebusies:
+        description: 'that belong to this Calendar'
+        type: \Collection
+      journals:
+        description: 'journals that belong to this Calendar'
+        type: \Collection
+      todos:
+        description: 'todos that belong to this Calendar'
+        type: \Collection
+    required:
+      - name
+      - timeZone
+  Calendar-write:
+    properties:
+      name:
+        description: 'The name of this Calendar'
+        type: string
+        example: 'My Calendar'
+        maxLength: 255
+      description:
+        description: 'An short description of this Calendar'
+        type: string
+        example: 'This is the best Calendar ever'
+        maxLength: 2550
+      organization:
+        description: 'A specific commonground organisation'
+        type: string
+        example: 'https://wrc.zaakonline.nl/organisations/16353702-4614-42ff-92af-7dd11c8eef9f'
+        format: url
+      resource:
+        description: 'A specific commonground resource'
+        type: string
+        example: 'https://wrc.zaakonline.nl/organisations/16353702-4614-42ff-92af-7dd11c8eef9f'
+        format: url
+      timeZone:
+        description: 'The time zone of this calendar'
+        type: string
+        example: CET
+        maxLength: 5
+        minLength: 3
+      events:
+        description: 'Events that belong to this Calendar'
+        type: \Collection
+      schedules:
+        description: 'Schedules that belong to this Calendar'
+        type: \Collection
+      freebusies:
+        description: 'that belong to this Calendar'
+        type: \Collection
+      journals:
+        description: 'journals that belong to this Calendar'
+        type: \Collection
+      todos:
+        description: 'todos that belong to this Calendar'
+        type: \Collection
+    required:
+      - name
+      - timeZone
+  Resource-read:
+    properties:
+      id:
+        description: 'The UUID identifier of this resource'
+        type: string
+        example: e2984465-190a-4562-829e-a8cca81aa35d
+        format: uuid
+      name:
+        description: 'The name of this RequestType'
+        type: string
+        example: 'My RequestType'
+        maxLength: 255
+      description:
+        description: 'An short description of this Event'
+        type: string
+        example: 'This is the best Event ever'
+        maxLength: 2550
+      dateCreated:
+        description: 'The moment this resource was created'
+        type: \Datetime
+      dateModified:
+        description: 'The moment this resource last Modified'
+        type: \Datetime
+    required:
+      - name
+  Resource-write:
+    properties:
+      name:
+        description: 'The name of this RequestType'
+        type: string
+        example: 'My RequestType'
+        maxLength: 255
+      description:
+        description: 'An short description of this Event'
+        type: string
+        example: 'This is the best Event ever'
+        maxLength: 2550
+    required:
+      - name
+  Journal-read:
+    properties:
+      id:
+        description: 'The UUID identifier of this resource'
+        type: string
+        example: e2984465-190a-4562-829e-a8cca81aa35d
+        format: uuid
+      name:
+        description: 'The name of this RequestType'
+        type: string
+        example: 'My RequestType'
+        maxLength: 255
+      description:
+        description: 'An short description of this Event'
+        type: string
+        example: 'This is the best Event ever'
+        maxLength: 2550
+      startDate:
+        description: 'The moment this event starts'
+        type: \DateTime
+        example: '30-11-2019 15:00:00'
+      endDate:
+        description: 'The moment this event ends'
+        type: \Datetime
+        example: '3-11-2019 20:00:00'
+      class:
+        description: 'The security class of this event.'
+        type: string
+        example: PUBLIC
+        maxLength: 255
+      organiser:
+        description: 'The organiser of this event linked to with an url.'
+        type: string
+        example: conduction.nl
+        maxLength: 255
+      status:
+        description: 'The status of this event.'
+        type: string
+        example: Confirmed
+        maxLength: 255
+      summary:
+        description: 'The summary of this event.'
+        type: string
+        example: 'This is the best event ever.'
+        maxLength: 255
+      transp:
+        description: 'The determination if the event should block the duration of the event for participants.'
+        type: string
+        example: Transparent
+        maxLength: 255
+      duration:
+        description: 'The duration of this event.'
+        type: \DateInterval
+        example: '2'
+      seq:
+        description: 'The version number of this event.'
+        type: int
+        example: '1'
+      priority:
+        description: 'The priority of this event ranging from 1 (high) to 9 (low).'
+        type: int
+        example: '1'
+      attendees:
+        description: 'The urls of the attendees of this event.'
+        type: array
+        example: 'https://con.example.com, https://con.example2.com'
+      attachments:
+        description: 'The urls of the attachments of this event.'
+        type: array
+        example: 'https://example.org, https://example2.org'
+      categories:
+        description: 'The urls of the catergories this event belongs to.'
+        type: array
+        example: 'https://con.example.com, https://con.example2.com'
+      comments:
+        description: 'The urls of the comments that belong to this event.'
+        type: array
+        example: 'https://con.example.com, https://con.example2.com'
+      dateCreated:
+        description: 'The moment this resource was created'
+        type: \DateTime
+      dateModified:
+        description: 'The moment this resource last Modified'
+        type: \DateTime
+    required:
+      - name
+      - startDate
+      - endDate
+  Journal-write:
+    properties:
+      name:
+        description: 'The name of this RequestType'
+        type: string
+        example: 'My RequestType'
+        maxLength: 255
+      description:
+        description: 'An short description of this Event'
+        type: string
+        example: 'This is the best Event ever'
+        maxLength: 2550
+      startDate:
+        description: 'The moment this event starts'
+        type: \DateTime
+        example: '30-11-2019 15:00:00'
+      endDate:
+        description: 'The moment this event ends'
+        type: \Datetime
+        example: '3-11-2019 20:00:00'
+      class:
+        description: 'The security class of this event.'
+        type: string
+        example: PUBLIC
+        maxLength: 255
+      organiser:
+        description: 'The organiser of this event linked to with an url.'
+        type: string
+        example: conduction.nl
+        maxLength: 255
+      status:
+        description: 'The status of this event.'
+        type: string
+        example: Confirmed
+        maxLength: 255
+      summary:
+        description: 'The summary of this event.'
+        type: string
+        example: 'This is the best event ever.'
+        maxLength: 255
+      transp:
+        description: 'The determination if the event should block the duration of the event for participants.'
+        type: string
+        example: Transparent
+        maxLength: 255
+      duration:
+        description: 'The duration of this event.'
+        type: \DateInterval
+        example: '2'
+      seq:
+        description: 'The version number of this event.'
+        type: int
+        example: '1'
+      priority:
+        description: 'The priority of this event ranging from 1 (high) to 9 (low).'
+        type: int
+        example: '1'
+      attendees:
+        description: 'The urls of the attendees of this event.'
+        type: array
+        example: 'https://con.example.com, https://con.example2.com'
+      attachments:
+        description: 'The urls of the attachments of this event.'
+        type: array
+        example: 'https://example.org, https://example2.org'
+      categories:
+        description: 'The urls of the catergories this event belongs to.'
+        type: array
+        example: 'https://con.example.com, https://con.example2.com'
+      comments:
+        description: 'The urls of the comments that belong to this event.'
+        type: array
+        example: 'https://con.example.com, https://con.example2.com'
+    required:
+      - name
+      - startDate
+      - endDate
+  Freebusy-read:
+    properties:
+      id:
+        description: 'The UUID identifier of this resource'
+        type: string
+        example: e2984465-190a-4562-829e-a8cca81aa35d
+        format: uuid
+      description:
+        description: 'An short description of this Event'
+        type: string
+        example: 'This is the best Event ever'
+        maxLength: 2550
+      attendee:
+        description: 'The urls of the attendees of this event.'
+        type: string
+        example: 'https://con.example.com'
+        format: url
+        maxLength: 255
+      comments:
+        description: 'The urls of the comments that belong to this event.'
+        type: array
+        example: 'https://con.example.com, https://con.example2.com'
+      contact:
+        description: 'Url of this person'
+        type: string
+        example: 'https://con.example.org'
+        format: url
+      startDate:
+        description: 'The moment this event starts'
+        type: \DateTime
+        example: '30-11-2019 15:00:00'
+      endDate:
+        description: 'The moment this event ends'
+        type: \DateTime
+        example: '3-11-2019 20:00:00'
+      duration:
+        description: 'The duration of this event.'
+        type: \DateInterval
+        example: '2'
+      organiser:
+        description: 'The organiser of this event linked to with an url.'
+        type: string
+        example: conduction.nl
+        maxLength: 255
+      freebusy:
+        description: 'The determination of the type freebusy. **FREE**, **BUSY**'
+        type: string
+        example: FREE
+      dateCreated:
+        description: 'The moment this resource was created'
+        type: \DateTime
+      dateModified:
+        description: 'The moment this resource last Modified'
+        type: \DateTime
+    required:
+      - startDate
+      - endDate
+  Freebusy-write:
+    properties:
+      description:
+        description: 'An short description of this Event'
+        type: string
+        example: 'This is the best Event ever'
+        maxLength: 2550
+      attendee:
+        description: 'The urls of the attendees of this event.'
+        type: string
+        example: 'https://con.example.com'
+        format: url
+        maxLength: 255
+      comments:
+        description: 'The urls of the comments that belong to this event.'
+        type: array
+        example: 'https://con.example.com, https://con.example2.com'
+      contact:
+        description: 'Url of this person'
+        type: string
+        example: 'https://con.example.org'
+        format: url
+      startDate:
+        description: 'The moment this event starts'
+        type: \DateTime
+        example: '30-11-2019 15:00:00'
+      endDate:
+        description: 'The moment this event ends'
+        type: \DateTime
+        example: '3-11-2019 20:00:00'
+      duration:
+        description: 'The duration of this event.'
+        type: \DateInterval
+        example: '2'
+      organiser:
+        description: 'The organiser of this event linked to with an url.'
+        type: string
+        example: conduction.nl
+        maxLength: 255
+      freebusy:
+        description: 'The determination of the type freebusy. **FREE**, **BUSY**'
+        type: string
+        example: FREE
+    required:
+      - startDate
+      - endDate
+  Availability-read:
+    properties:
+      id:
+        description: 'The UUID identifier of this resource'
+        type: \UuidInterface
+      startDate:
+        description: 'The start of the availability block'
+        type: \DateTime
+      endDate:
+        description: 'The end of the availability block'
+        type: \DateTime
+      available:
+        description: 'Whether the block is available or not'
+        type: bool
+    required: []
+  Reservation-read:
+    properties:
+      id:
+        description: 'The UUID identifier of this resource'
+        type: string
+        example: e2984465-190a-4562-829e-a8cca81aa35d
+        format: uuid
+      name:
+        description: 'The name of this Reservation'
+        type: string
+        example: 'My Reservation'
+        maxLength: 255
+      description:
+        description: 'An short description of this Reservation'
+        type: string
+        example: 'This is the best Reservation ever'
+        maxLength: 2550
+      dateCreated:
+        description: 'The moment this resource was created'
+        type: \Datetime
+      dateModified:
+        description: 'The moment this resource last Modified'
+        type: \Datetime
+      underName:
+        description: 'The url of a person who is under name(the requester) of this reservation'
+        type: string
+        example: 'https://person/1'
+        format: url
+      numberOfParticipants:
+        description: 'The number of participants for this reservation'
+        type: int
+        example: '1'
+      provider:
+        description: 'The url of a person or organization who is the provider of this reservation'
+        type: string
+        example: 'https://organization/1'
+        format: url
+      broker:
+        description: 'The url of a person or organization who is the broker of this reservation'
+        type: string
+        example: 'https://person/1'
+        format: url
+      reservationFor:
+        description: 'The thing -- flight, event, restaurant,etc. being reserved'
+        type: string
+        example: Restaurant
+        maxLength: 255
+      reservationStatus:
+        description: 'The current status of the reservation.'
+        type: string
+        example: Complete
+        maxLength: 255
+      reservedTicket:
+        description: 'A ticket associated with the reservation.'
+        type: string
+        example: Complete
+        maxLength: 255
+      programMembershipUsed:
+        description: 'Any membership in a frequent flyer, hotel loyalty program, etc. being applied to the reservation.'
+        type: string
+        example: Complete
+        maxLength: 255
+      priceCurrency:
+        description: 'The currency of this product in an [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) format'
+        type: string
+        example: EUR
+      totalPrice:
+        description: 'The total price of this reservation'
+        type: string
+        example: '50.00'
+      comment:
+        description: 'comment for this reservation'
+        type: string
+        example: 'We would like a table with sight at the sea'
+        maxLength: 2550
+    required:
+      - name
+  Reservation-write:
+    properties:
+      name:
+        description: 'The name of this Reservation'
+        type: string
+        example: 'My Reservation'
+        maxLength: 255
+      description:
+        description: 'An short description of this Reservation'
+        type: string
+        example: 'This is the best Reservation ever'
+        maxLength: 2550
+      underName:
+        description: 'The url of a person who is under name(the requester) of this reservation'
+        type: string
+        example: 'https://person/1'
+        format: url
+      numberOfParticipants:
+        description: 'The number of participants for this reservation'
+        type: int
+        example: '1'
+      provider:
+        description: 'The url of a person or organization who is the provider of this reservation'
+        type: string
+        example: 'https://organization/1'
+        format: url
+      broker:
+        description: 'The url of a person or organization who is the broker of this reservation'
+        type: string
+        example: 'https://person/1'
+        format: url
+      reservationFor:
+        description: 'The thing -- flight, event, restaurant,etc. being reserved'
+        type: string
+        example: Restaurant
+        maxLength: 255
+      reservationStatus:
+        description: 'The current status of the reservation.'
+        type: string
+        example: Complete
+        maxLength: 255
+      reservedTicket:
+        description: 'A ticket associated with the reservation.'
+        type: string
+        example: Complete
+        maxLength: 255
+      programMembershipUsed:
+        description: 'Any membership in a frequent flyer, hotel loyalty program, etc. being applied to the reservation.'
+        type: string
+        example: Complete
+        maxLength: 255
+      priceCurrency:
+        description: 'The currency of this product in an [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) format'
+        type: string
+        example: EUR
+      totalPrice:
+        description: 'The total price of this reservation'
+        type: string
+        example: '50.00'
+      comment:
+        description: 'comment for this reservation'
+        type: string
+        example: 'We would like a table with sight at the sea'
+        maxLength: 2550
+    required:
+      - name
+  ChangeLog-read:
+    properties:
+      id:
+        description: 'The UUID identifier of this object'
+        type: string
+        example: e2984465-190a-4562-829e-a8cca81aa35d
+        format: uuid
+      note:
+        description: 'A note conserning this log lin'
+        type: string
+        example: 'This log line is suspicius'
+        maxLength: 2555
+      action:
+        description: ''
+        type: string
+      objectId:
+        description: ''
+        type: string
+      objectClass:
+        description: ''
+        type: string
+      version:
+        description: ''
+        type: int
+      data:
+        description: ''
+        type: array
+      username:
+        description: ''
+        type: string
+      session:
+        description: 'The moment this request was created'
+        type: string
+        maxLength: 255
+      dateCreated:
+        description: 'The moment this request was created'
+        type: string
+        format: date-time
+        example: '2020-11-17 10:28:35'
+      dateModified:
+        description: 'The moment this request last Modified'
+        type: string
+        format: date-time
+        example: '2020-11-17 10:28:35'
+    required: []
+  ChangeLog-write:
+    properties:
+      note:
+        description: 'A note conserning this log lin'
+        type: string
+        example: 'This log line is suspicius'
+        maxLength: 2555
+    required: []
   AuditTrail-read:
     properties:
       id:
@@ -17092,12 +19774,12 @@ definitions:
         description: 'The moment this request was created'
         type: string
         format: date-time
-        example: '2020-10-30 14:41:49'
+        example: '2020-11-17 10:28:35'
       dateModified:
         description: 'The moment this request last Modified'
         type: string
         format: date-time
-        example: '2020-10-30 14:41:49'
+        example: '2020-11-17 10:28:35'
     required: []
   AuditTrail-write:
     properties:
@@ -17105,59 +19787,6 @@ definitions:
         description: 'A note conserning this log lin'
         type: string
         example: 'This log line looks suspicius'
-        maxLength: 2555
-    required: []
-  ChangeLog-read:
-    properties:
-      id:
-        description: 'The UUID identifier of this object'
-        type: string
-        example: e2984465-190a-4562-829e-a8cca81aa35d
-        format: uuid
-      note:
-        description: 'A note conserning this log lin'
-        type: string
-        example: 'This log line is suspicius'
-        maxLength: 2555
-      action:
-        description: ''
-        type: string
-      objectId:
-        description: ''
-        type: string
-      objectClass:
-        description: ''
-        type: string
-      version:
-        description: ''
-        type: int
-      data:
-        description: ''
-        type: array
-      username:
-        description: ''
-        type: string
-      session:
-        description: 'The moment this request was created'
-        type: string
-        maxLength: 255
-      dateCreated:
-        description: 'The moment this request was created'
-        type: string
-        format: date-time
-        example: '2020-10-30 14:41:49'
-      dateModified:
-        description: 'The moment this request last Modified'
-        type: string
-        format: date-time
-        example: '2020-10-30 14:41:49'
-    required: []
-  ChangeLog-write:
-    properties:
-      note:
-        description: 'A note conserning this log lin'
-        type: string
-        example: 'This log line is suspicius'
         maxLength: 2555
     required: []
 tags:
@@ -17168,51 +19797,9 @@ tags:
       
       
   -
-    name: Availability
-    description: |
-      
-      
-      
-  -
-    name: Calendar
-    description: |
-      A Calendar is a collection of events tied to an unque person or resource.
-      
-      
-  -
     name: Event
     description: |
       An event happening at a certain time and location, such as a concert, lecture, meeting or festival.
-      
-      
-  -
-    name: Freebusy
-    description: |
-      This entity checks if a person is free or busy for a event.
-      
-      
-  -
-    name: Journal
-    description: |
-      A journal from an event.
-      
-      
-  -
-    name: Reservation
-    description: |
-      A Reservation is a event that is tied to an unique person or resource.
-      
-      
-  -
-    name: Resource
-    description: |
-      Describes resources that can be needed for an event.
-      
-      
-  -
-    name: Schedule
-    description: |
-      A schedule defines a repeating time period used to describe a regularly occurring Event. At a minimum a schedule will specify repeatFrequency which describes the interval between occurences of the event. Additional information can be provided to specify the schedule more precisely. This includes identifying the day(s) of the week or month when the recurring event will take place, in addition to its start and end time. Schedules may also have start and end dates to indicate when they are active, e.g. to define a limited calendar of events.
       
       
   -
@@ -17222,13 +19809,55 @@ tags:
       
       
   -
-    name: AuditTrail
+    name: Schedule
+    description: |
+      A schedule defines a repeating time period used to describe a regularly occurring Event. At a minimum a schedule will specify repeatFrequency which describes the interval between occurences of the event. Additional information can be provided to specify the schedule more precisely. This includes identifying the day(s) of the week or month when the recurring event will take place, in addition to its start and end time. Schedules may also have start and end dates to indicate when they are active, e.g. to define a limited calendar of events.
+      
+      
+  -
+    name: Calendar
+    description: |
+      A Calendar is a collection of events tied to an unque person or resource.
+      
+      
+  -
+    name: Resource
+    description: |
+      Describes resources that can be needed for an event.
+      
+      
+  -
+    name: Journal
+    description: |
+      A journal from an event.
+      
+      
+  -
+    name: Freebusy
+    description: |
+      This entity checks if a person is free or busy for a event.
+      
+      
+  -
+    name: Availability
+    description: |
+      
+      
+      
+  -
+    name: Reservation
+    description: |
+      A Reservation is a event that is tied to an unique person or resource.
+      
+      
+  -
+    name: ChangeLog
     description: |
       An resource representing a log line.
       
       This entity represents a product that can be ordered via the OrderRegistratieComponent.
   -
-    name: ChangeLog
+    name: AuditTrail
     description: |
       An resource representing a log line.
       
@@ -17239,15 +19868,15 @@ securityDefinitions:
     authorizationUrl: 'http://petstore.swagger.io/api/oauth/dialog'
     flow: implicit
     scopes:
-      read: 'read right to the ChangeLog resource'
-      write: 'write right to the ChangeLog resource'
+      read: 'read right to the AuditTrail resource'
+      write: 'write right to the AuditTrail resource'
   JWT-Token:
     type: apiKey
     in: header
     name: Authorization
     scopes:
-      read: 'read right to the ChangeLog resource'
-      write: 'write right to the ChangeLog resource'
+      read: 'read right to the AuditTrail resource'
+      write: 'write right to the AuditTrail resource'
 host: irc.zaakonline.nl
 servers:
   -
