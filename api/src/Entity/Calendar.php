@@ -105,7 +105,7 @@ class Calendar
      * @Groups({"read","write"})
      * @ORM\Column(type="text", nullable=true)
      */
-    private ?string $description;
+    private ?string $description = null;
 
     /**
      * @var string A specific commonground organisation
@@ -117,7 +117,7 @@ class Calendar
      * @Groups({"read", "write"})
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private ?string $organization;
+    private ?string $organization = null;
 
     /**
      * @var string A specific commonground resource
@@ -129,7 +129,7 @@ class Calendar
      * @Groups({"read", "write"})
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private ?string $resource;
+    private ?string $resource = null;
 
     /**
      * @var Collection Events that belong to this Calendar
@@ -137,7 +137,7 @@ class Calendar
      * @ApiSubresource(maxDepth=1)
      * @ORM\OneToMany(targetEntity="App\Entity\Event", mappedBy="calendar", orphanRemoval=true)
      */
-    private Collection $events;
+    private ?Collection $events = null;
 
     /**
      * @var Collection Schedules that belong to this Calendar
@@ -145,7 +145,7 @@ class Calendar
      * @ApiSubresource(maxDepth=1)
      * @ORM\OneToMany(targetEntity="App\Entity\Schedule", mappedBy="calendar", orphanRemoval=true)
      */
-    private Collection $schedules;
+    private ?Collection $schedules = null;
 
     /**
      * @var Collection that belong to this Calendar
@@ -153,7 +153,7 @@ class Calendar
      * @ApiSubresource(maxDepth=1)
      * @ORM\OneToMany(targetEntity="App\Entity\Freebusy", mappedBy="calendar")
      */
-    private Collection $freebusies;
+    private ?Collection $freebusies = null;
 
     /**
      * @var Collection journals that belong to this Calendar
@@ -161,7 +161,7 @@ class Calendar
      * @ApiSubresource(maxDepth=1)
      * @ORM\OneToMany(targetEntity="App\Entity\Journal", mappedBy="calendar")
      */
-    private Collection $journals;
+    private ?Collection $journals = null;
 
     /**
      * @var Collection todos that belong to this Calendar
@@ -169,7 +169,7 @@ class Calendar
      * @ApiSubresource(maxDepth=1)
      * @ORM\OneToMany(targetEntity="App\Entity\Todo", mappedBy="calendar")
      */
-    private Collection $todos;
+    private ?Collection $todos = null;
 
     /**
      * @var string The time zone of this calendar
@@ -194,7 +194,7 @@ class Calendar
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime", nullable=true)
      */
-    private ?DateTime $dateCreated;
+    private ?DateTime $dateCreated = null;
 
     /**
      * @var Datetime The moment this resource last Modified
@@ -203,7 +203,7 @@ class Calendar
      * @Gedmo\Timestampable(on="update")
      * @ORM\Column(type="datetime", nullable=true)
      */
-    private ?DateTime $dateModified;
+    private ?DateTime $dateModified = null;
 
     public function __construct()
     {
