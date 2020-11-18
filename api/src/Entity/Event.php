@@ -26,8 +26,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ApiResource(
  *       iri="https://schema.org/Event",
- *     normalizationContext={"groups"={"read"}, "enable_max_depth"=true},
- *     denormalizationContext={"groups"={"write"}, "enable_max_depth"=true},
+ *     normalizationContext={"groups"={"read"}},
+ *     denormalizationContext={"groups"={"write"}},
  *     itemOperations={
  *          "get",
  *          "put",
@@ -59,6 +59,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ApiFilter(SearchFilter::class, properties={
  *     "calendar.id":"exact",
  *     "calendar.organization":"exact",
+ *     "calendar.resource":"exact",
  *     "name":"partial",
  *     "description":"partial",
  *     "organization":"exact",
@@ -135,7 +136,7 @@ class Event
      * @Groups({"read", "write"})
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private ?string $resource;
+    private ?string $resource = null;
 
     /**
      * @var DateTime The moment this event starts
@@ -193,9 +194,9 @@ class Event
      * @ApiSubresource(maxDepth=1)
      * @Groups({"read","write"})
      * @ORM\ManyToOne(targetEntity="App\Entity\Calendar", inversedBy="events")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
-    private Calendar $calendar;
+    private ?Calendar $calendar = null;
 
     /**
      * @var string The security class of this event.

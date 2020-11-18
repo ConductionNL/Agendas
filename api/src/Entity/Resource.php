@@ -22,8 +22,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Describes resources that can be needed for an event.
  *
  * @ApiResource(
- *     normalizationContext={"groups"={"read"}, "enable_max_depth"=true},
- *     denormalizationContext={"groups"={"write"}, "enable_max_depth"=true}),
+ *     normalizationContext={"groups"={"read"}},
+ *     denormalizationContext={"groups"={"write"}}),
  *     itemOperations={
  *          "get",
  *          "put",
@@ -101,11 +101,29 @@ class Resource
     private ?string $description;
 
     /**
+     * @var string the uri of this resource
+     *
+     * @Gedmo\Versioned
+     *
+     * @example https://dev.zuid-drecht.nl/api/v1/uc/users/7f341a1e-0d75-4f43-8b9a-a6727c4b3404
+     *
+     * @Assert\Url
+     * @Assert\Length(
+     *      max = 255
+     * )
+     * @Groups({"read","write"})
+     * @ORM\Column(type="string", length=255)
+     */
+    private string $resource;
+
+    /**
+     * @ApiSubresource(maxDepth=1)
      * @ORM\ManyToMany(targetEntity="App\Entity\Event", inversedBy="resources")
      */
     private Collection $events;
 
     /**
+     * @ApiSubresource(maxDepth=1)
      * @ORM\ManyToMany(targetEntity="App\Entity\Todo", inversedBy="resources")
      */
     private Collection $todos;
@@ -159,6 +177,18 @@ class Resource
     public function setDescription(?string $description): self
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function getResource(): ?string
+    {
+        return $this->resource;
+    }
+
+    public function setResource(string $resource): self
+    {
+        $this->resource = $resource;
 
         return $this;
     }

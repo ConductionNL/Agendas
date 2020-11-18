@@ -21,8 +21,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  * This entity checks if a person is free or busy for a event.
  *
  * @ApiResource(
- *     normalizationContext={"groups"={"read"}, "enable_max_depth"=true},
- *     denormalizationContext={"groups"={"write"}, "enable_max_depth"=true},
+ *     normalizationContext={"groups"={"read"}},
+ *     denormalizationContext={"groups"={"write"}},
  *     itemOperations={
  *          "get",
  *          "put",
@@ -51,7 +51,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ApiFilter(BooleanFilter::class)
  * @ApiFilter(OrderFilter::class)
  * @ApiFilter(DateFilter::class, strategy=DateFilter::EXCLUDE_NULL)
- * @ApiFilter(SearchFilter::class, properties={"calendar.id": "exact"})
+ * @ApiFilter(SearchFilter::class, properties={"calendar.id": "exact", "calendar.resource": "exact"})
  */
 class Freebusy
 {
@@ -180,12 +180,27 @@ class Freebusy
     private ?string $freebusy;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Calendar", inversedBy="freebusies")
-     * @ORM\JoinColumn(nullable=false)
+     * @var string A specific commonground resource
+     *
+     * @example https://wrc.zaakonline.nl/organisations/16353702-4614-42ff-92af-7dd11c8eef9f
+     *
+     * @Gedmo\Versioned
+     * @Assert\Url
+     * @Groups({"read", "write"})
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private Calendar $calendar;
+    private ?string $resource = null;
 
     /**
+     * @ApiSubresource(maxDepth=1)
+     *
+     * @ORM\ManyToOne(targetEntity="App\Entity\Calendar", inversedBy="freebusies")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private ?Calendar $calendar = null;
+
+    /**
+     * @ApiSubresource(maxDepth=1)
      * @ORM\ManyToOne(targetEntity="App\Entity\Schedule", inversedBy="freebusies")
      */
     private ?Schedule $schedule;
@@ -233,6 +248,18 @@ class Freebusy
     public function setAttendee(string $attendee): self
     {
         $this->attendee = $attendee;
+
+        return $this;
+    }
+
+    public function getResource(): ?string
+    {
+        return $this->resource;
+    }
+
+    public function setResource(string $resource): self
+    {
+        $this->resource = $resource;
 
         return $this;
     }
