@@ -25,8 +25,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  * A to-do from an event.
  *
  * @ApiResource(
- *     normalizationContext={"groups"={"read"}, "enable_max_depth"=true},
- *     denormalizationContext={"groups"={"write"}, "enable_max_depth"=true},
+ *     normalizationContext={"groups"={"read"}},
+ *     denormalizationContext={"groups"={"write"}},
  *     itemOperations={
  *          "get",
  *          "put",
@@ -55,7 +55,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ApiFilter(BooleanFilter::class)
  * @ApiFilter(OrderFilter::class)
  * @ApiFilter(DateFilter::class, strategy=DateFilter::EXCLUDE_NULL)
- * @ApiFilter(SearchFilter::class, properties={"calendar.id":"exact"})
+ * @ApiFilter(SearchFilter::class, properties={"calendar.id":"exact", "calendar.resource":"exact"})
  */
 class Todo
 {
@@ -345,30 +345,38 @@ class Todo
     private int $percentageDone = 0;
 
     /**
-     * @MaxDepth(1)
-     * @Groups({"read","write"})
+     * @var string A specific commonground resource
+     *
+     * @example https://wrc.zaakonline.nl/organisations/16353702-4614-42ff-92af-7dd11c8eef9f
+     *
+     * @Gedmo\Versioned
+     * @Assert\Url
+     * @Groups({"read", "write"})
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private ?string $resource = null;
+
+    /**
+     * @ApiSubresource(maxDepth=1)
      * @ORM\ManyToMany(targetEntity="App\Entity\Resource", mappedBy="todos")
      */
     private Collection $resources;
 
     /**
-     * @MaxDepth(1)
-     * @Groups({"read","write"})
+     * @ApiSubresource(maxDepth=1)
      * @ORM\OneToOne(targetEntity="App\Entity\Alarm", mappedBy="todo", cascade={"persist", "remove"})
      */
     private ?Alarm $alarm;
 
     /**
-     * @MaxDepth(1)
-     * @Groups({"read","write"})
+     * @ApiSubresource(maxDepth=1)
      * @ORM\ManyToOne(targetEntity="App\Entity\Calendar", inversedBy="todos")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
-    private Calendar $calendar;
+    private ?Calendar $calendar = null;
 
     /**
-     * @MaxDepth(1)
-     * @Groups({"read","write"})
+     * @ApiSubresource(maxDepth=1)
      * @ORM\ManyToOne(targetEntity="App\Entity\Schedule", inversedBy="todos")
      */
     private ?Schedule $schedule;
@@ -409,6 +417,18 @@ class Todo
     public function setName(string $name): self
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public function getResource(): ?string
+    {
+        return $this->resource;
+    }
+
+    public function setResource(string $resource): self
+    {
+        $this->resource = $resource;
 
         return $this;
     }
