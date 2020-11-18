@@ -24,8 +24,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  * A Calendar is a collection of events tied to an unque person or resource.
  *
  * @ApiResource(
- *     normalizationContext={"groups"={"read"}, "enable_max_depth"=true},
- *     denormalizationContext={"groups"={"write"}, "enable_max_depth"=true},
+ *     normalizationContext={"groups"={"read"}},
+ *     denormalizationContext={"groups"={"write"}},
  *     itemOperations={
  *          "get",
  *          "put",
@@ -135,7 +135,6 @@ class Calendar
      * @var Collection Events that belong to this Calendar
      *
      * @ApiSubresource(maxDepth=1)
-     * @Groups({"read","write"})
      * @ORM\OneToMany(targetEntity="App\Entity\Event", mappedBy="calendar", orphanRemoval=true)
      */
     private Collection $events;
@@ -144,34 +143,30 @@ class Calendar
      * @var Collection Schedules that belong to this Calendar
      *
      * @ApiSubresource(maxDepth=1)
-     * @Groups({"read","write"})
      * @ORM\OneToMany(targetEntity="App\Entity\Schedule", mappedBy="calendar", orphanRemoval=true)
      */
     private Collection $schedules;
 
     /**
-     * @var Collection $freebusies that belong to this Calendar
+     * @var Collection that belong to this Calendar
      *
      * @ApiSubresource(maxDepth=1)
-     * @Groups({"read","write"})
      * @ORM\OneToMany(targetEntity="App\Entity\Freebusy", mappedBy="calendar")
      */
     private Collection $freebusies;
 
     /**
-     * @var Collection $journals journals that belong to this Calendar
+     * @var Collection journals that belong to this Calendar
      *
      * @ApiSubresource(maxDepth=1)
-     * @Groups({"read","write"})
      * @ORM\OneToMany(targetEntity="App\Entity\Journal", mappedBy="calendar")
      */
     private Collection $journals;
 
     /**
-     * @var Collection $todos todos that belong to this Calendar
+     * @var Collection todos that belong to this Calendar
      *
      * @ApiSubresource(maxDepth=1)
-     * @Groups({"read","write"})
      * @ORM\OneToMany(targetEntity="App\Entity\Todo", mappedBy="calendar")
      */
     private Collection $todos;
