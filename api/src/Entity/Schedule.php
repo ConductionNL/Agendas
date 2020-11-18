@@ -215,6 +215,7 @@ class Schedule
 
     /**
      * @ApiSubresource(maxDepth=1)
+     *
      * @var Collection The events that belong to or are caused by this Schedule
      *
      * @ORM\OneToMany(targetEntity="App\Entity\Event", mappedBy="schedule")
@@ -223,6 +224,7 @@ class Schedule
 
     /**
      * @ApiSubresource(maxDepth=1)
+     *
      * @var Collection The freebusies that belong to or are caused by this Schedule
      *
      * @ORM\OneToMany(targetEntity="App\Entity\Freebusy", mappedBy="schedule")
@@ -231,6 +233,7 @@ class Schedule
 
     /**
      * @ApiSubresource(maxDepth=1)
+     *
      * @var Collection The todos that belong to or are caused by this Schedule
      * @ORM\OneToMany(targetEntity="App\Entity\Todo", mappedBy="schedule")
      */
