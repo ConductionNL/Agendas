@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiSubresource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\BooleanFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\DateFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
@@ -300,7 +301,7 @@ class Journal
 
     /**
      * @ApiSubresource(maxDepth=1)
-     * @ORM\ManyToOne(targetEntity="App\Entity\Calendar", inversedBy="journals")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Calendar", inversedBy="journals", cascade={"persist"})
      * @ORM\JoinColumn(nullable=true)
      */
     private ?Calendar $calendar = null;

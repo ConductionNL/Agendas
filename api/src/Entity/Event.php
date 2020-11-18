@@ -193,7 +193,7 @@ class Event
      *
      * @ApiSubresource(maxDepth=1)
      * @Groups({"read","write"})
-     * @ORM\ManyToOne(targetEntity="App\Entity\Calendar", inversedBy="events")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Calendar", inversedBy="events" , cascade={"persist"})
      * @ORM\JoinColumn(nullable=true)
      */
     private ?Calendar $calendar = null;
