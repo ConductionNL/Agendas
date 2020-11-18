@@ -698,7 +698,7 @@ class Todo
     }
 
     /**
-     * @return Collection|Resource[]
+     * @return Collection|resource[]
      */
     public function getResources(): Collection
     {

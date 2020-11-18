@@ -9,14 +9,11 @@ use App\Entity\Freebusy;
 use App\Entity\Journal;
 use App\Entity\Schedule;
 use App\Entity\Todo;
-use App\Entity\User;
-use App\Service\CalendarService;
 use Conduction\CommonGroundBundle\Service\CommonGroundService;
 use Conduction\CommonGroundBundle\Service\NLXLogService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\ViewEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Serializer\SerializerInterface;
@@ -61,24 +58,19 @@ class ResourceSubscriber implements EventSubscriberInterface
             || $result instanceof Freebusy
             || $result instanceof Journal
             || $result instanceof Todo) {
-
-
             if ($result->getCalendar() == null && $result->getResource() != null) {
                 if ($calendar = $this->em->getRepository(Calendar::class)->findOneBy(['resource' => $result->getResource()])) {
-
                     $result->setCalendar($calendar);
                 } else {
-
                     $calendar = new Calendar();
-                    $calendar->setName('calendar for'. $result->getName());
-                    $calendar->setDescription('calendar for'. $result->getName());
+                    $calendar->setName('calendar for'.$result->getName());
+                    $calendar->setDescription('calendar for'.$result->getName());
                     $calendar->setTimeZone('CET');
                     $calendar->setResource($result->getResource());
 
                     $result->setCalendar($calendar);
                 }
             }
-
         }
 
         return $result;
