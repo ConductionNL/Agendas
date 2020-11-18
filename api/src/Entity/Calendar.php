@@ -148,7 +148,7 @@ class Calendar
     private Collection $schedules;
 
     /**
-     * @var Collection $freebusies that belong to this Calendar
+     * @var Collection that belong to this Calendar
      *
      * @ApiSubresource(maxDepth=1)
      * @ORM\OneToMany(targetEntity="App\Entity\Freebusy", mappedBy="calendar")
@@ -156,7 +156,7 @@ class Calendar
     private Collection $freebusies;
 
     /**
-     * @var Collection $journals journals that belong to this Calendar
+     * @var Collection journals that belong to this Calendar
      *
      * @ApiSubresource(maxDepth=1)
      * @ORM\OneToMany(targetEntity="App\Entity\Journal", mappedBy="calendar")
@@ -164,7 +164,7 @@ class Calendar
     private Collection $journals;
 
     /**
-     * @var Collection $todos todos that belong to this Calendar
+     * @var Collection todos that belong to this Calendar
      *
      * @ApiSubresource(maxDepth=1)
      * @ORM\OneToMany(targetEntity="App\Entity\Todo", mappedBy="calendar")
