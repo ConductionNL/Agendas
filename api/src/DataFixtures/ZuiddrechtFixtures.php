@@ -5,17 +5,14 @@ namespace App\DataFixtures;
 use App\Entity\Calendar;
 use Conduction\CommonGroundBundle\Service\CommonGroundService;
 use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Persistence\ObjectManager;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 class ZuiddrechtFixtures extends Fixture
 {
-    private $params;
-    /**
-     * @var CommonGroundService
-     */
-    private $commonGroundService;
+    private ParameterBagInterface $params;
+    private CommonGroundService $commonGroundService;
 
     public function __construct(ParameterBagInterface $params, CommonGroundService $commonGroundService)
     {

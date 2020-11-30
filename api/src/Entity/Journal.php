@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiSubresource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\BooleanFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\DateFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
@@ -15,15 +16,14 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
-use Symfony\Component\Serializer\Annotation\MaxDepth;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * A journal from an event.
  *
  * @ApiResource(
- *     normalizationContext={"groups"={"read"}, "enable_max_depth"=true},
- *     denormalizationContext={"groups"={"write"}, "enable_max_depth"=true},
+ *     normalizationContext={"groups"={"read"}},
+ *     denormalizationContext={"groups"={"write"}},
  *     itemOperations={
  *          "get",
  *          "put",
@@ -52,7 +52,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ApiFilter(BooleanFilter::class)
  * @ApiFilter(OrderFilter::class)
  * @ApiFilter(DateFilter::class, strategy=DateFilter::EXCLUDE_NULL)
- * @ApiFilter(SearchFilter::class, properties={"calendar.id":"exact"})
+ * @ApiFilter(SearchFilter::class, properties={"calendar.id":"exact", "calendar.resource": "exact"})
  */
 class Journal
 {
@@ -68,7 +68,7 @@ class Journal
      * @ORM\GeneratedValue(strategy="CUSTOM")
      * @ORM\CustomIdGenerator(class="Ramsey\Uuid\Doctrine\UuidGenerator")
      */
-    private $id;
+    private UuidInterface $id;
 
     /**
      * @var string The name of this RequestType
@@ -84,7 +84,7 @@ class Journal
      * @Groups({"read","write"})
      * @ORM\Column(type="string", length=255)
      */
-    private $name;
+    private string $name;
 
     /**
      * @var string An short description of this Event
@@ -99,7 +99,7 @@ class Journal
      * @Groups({"read","write"})
      * @ORM\Column(type="text", nullable=true)
      */
-    private $description;
+    private ?string $description;
 
     /**
      * @var DateTime The moment this event starts
@@ -108,12 +108,11 @@ class Journal
      *
      * @example 30-11-2019 15:00:00
      *
-     * @Assert\DateTime
      * @Assert\NotNull
      * @Groups({"read","write"})
      * @ORM\Column(type="datetime")
      */
-    private $startDate;
+    private DateTime $startDate;
 
     /**
      * @var Datetime The moment this event ends
@@ -122,12 +121,11 @@ class Journal
      *
      * @example 3-11-2019 20:00:00
      *
-     * @Assert\DateTime
      * @Assert\NotNull
      * @Groups({"read","write"})
      * @ORM\Column(type="datetime")
      */
-    private $endDate;
+    private DateTime $endDate;
 
     /**
      * @var string The security class of this event.
@@ -142,7 +140,7 @@ class Journal
      * @Groups({"read","write"})
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $class;
+    private ?string $class;
 
     /**
      * @var string The organiser of this event linked to with an url.
@@ -157,7 +155,7 @@ class Journal
      * @Groups({"read","write"})
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $organiser;
+    private ?string $organiser;
 
     /**
      * @var string The status of this event.
@@ -172,7 +170,7 @@ class Journal
      * @Groups({"read","write"})
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $status;
+    private ?string $status;
 
     /**
      * @var string The summary of this event.
@@ -187,7 +185,7 @@ class Journal
      * @Groups({"read","write"})
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $summary;
+    private ?string $summary;
 
     /**
      * @var string The determination if the event should block the duration of the event for participants.
@@ -202,7 +200,7 @@ class Journal
      * @Groups({"read","write"})
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $transp;
+    private ?string $transp;
 
     /**
      * @var DateInterval The duration of this event.
@@ -214,7 +212,7 @@ class Journal
      * @Groups({"read","write"})
      * @ORM\Column(type="dateinterval", nullable=true)
      */
-    private $duration;
+    private ?DateInterval $duration;
 
     /**
      * @var int The version number of this event.
@@ -227,7 +225,7 @@ class Journal
      * @Groups({"read","write"})
      * @ORM\Column(type="integer")
      */
-    private $seq = 1;
+    private int $seq = 1;
     /**
      * @var int The priority of this event ranging from 1 (high) to 9 (low).
      *
@@ -239,7 +237,7 @@ class Journal
      * @Groups({"read","write"})
      * @ORM\Column(type="integer")
      */
-    private $priority = 9;
+    private int $priority = 9;
 
     /**
      * @var array The urls of the attendees of this event.
@@ -251,7 +249,7 @@ class Journal
      * @Groups({"read","write"})
      * @ORM\Column(type="array", nullable=true)
      */
-    private $attendees = [];
+    private array $attendees = [];
 
     /**
      * @var array The urls of the attachments of this event.
@@ -263,7 +261,7 @@ class Journal
      * @Groups({"read","write"})
      * @ORM\Column(type="array", nullable=true)
      */
-    private $attachments = [];
+    private array $attachments = [];
 
     /**
      * @var array The urls of the catergories this event belongs to.
@@ -275,7 +273,7 @@ class Journal
      * @Groups({"read","write"})
      * @ORM\Column(type="array", nullable=true)
      */
-    private $categories = [];
+    private array $categories = [];
 
     /**
      * @var array The urls of the comments that belong to this event.
@@ -287,22 +285,32 @@ class Journal
      * @Groups({"read","write"})
      * @ORM\Column(type="array")
      */
-    private $comments = [];
+    private array $comments = [];
 
     /**
-     * @Groups({"read","write"})
-     * @ORM\ManyToOne(targetEntity="App\Entity\Calendar", inversedBy="journals")
-     * @ORM\JoinColumn(nullable=false)
-     * @MaxDepth(1)
+     * @var string A specific commonground resource
+     *
+     * @example https://wrc.zaakonline.nl/organisations/16353702-4614-42ff-92af-7dd11c8eef9f
+     *
+     * @Gedmo\Versioned
+     * @Assert\Url
+     * @Groups({"read", "write"})
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $calendar;
+    private ?string $resource = null;
 
     /**
-     * @Groups({"read","write"})
+     * @ApiSubresource(maxDepth=1)
+     * @ORM\ManyToOne(targetEntity="App\Entity\Calendar", inversedBy="journals", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private ?Calendar $calendar = null;
+
+    /**
+     * @ApiSubresource(maxDepth=1)
      * @ORM\OneToOne(targetEntity="App\Entity\Event", inversedBy="journal", cascade={"persist", "remove"})
-     * @MaxDepth(1)
      */
-    private $event;
+    private ?Event $event;
 
     /**
      * @var DateTime The moment this resource was created
@@ -311,7 +319,7 @@ class Journal
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime", nullable=true)
      */
-    private $dateCreated;
+    private ?DateTime $dateCreated;
 
     /**
      * @var DateTime The moment this resource last Modified
@@ -320,7 +328,7 @@ class Journal
      * @Gedmo\Timestampable(on="update")
      * @ORM\Column(type="datetime", nullable=true)
      */
-    private $dateModified;
+    private ?DateTime $dateModified;
 
     public function getId(): ?Uuid
     {
@@ -532,6 +540,18 @@ class Journal
     public function setCalendar(?Calendar $calendar): self
     {
         $this->calendar = $calendar;
+
+        return $this;
+    }
+
+    public function getResource(): ?string
+    {
+        return $this->resource;
+    }
+
+    public function setResource(string $resource): self
+    {
+        $this->resource = $resource;
 
         return $this;
     }

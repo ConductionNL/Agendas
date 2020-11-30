@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiSubresource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\BooleanFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\DateFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
@@ -23,8 +24,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  * A Calendar is a collection of events tied to an unque person or resource.
  *
  * @ApiResource(
- *     normalizationContext={"groups"={"read"}, "enable_max_depth"=true},
- *     denormalizationContext={"groups"={"write"}, "enable_max_depth"=true},
+ *     normalizationContext={"groups"={"read"}},
+ *     denormalizationContext={"groups"={"write"}},
  *     itemOperations={
  *          "get",
  *          "put",
@@ -75,7 +76,7 @@ class Calendar
      * @ORM\GeneratedValue(strategy="CUSTOM")
      * @ORM\CustomIdGenerator(class="Ramsey\Uuid\Doctrine\UuidGenerator")
      */
-    private $id;
+    private UuidInterface $id;
 
     /**
      * @var string The name of this Calendar
@@ -90,7 +91,7 @@ class Calendar
      * @Groups({"read","write"})
      * @ORM\Column(type="string", length=255)
      */
-    private $name;
+    private string $name;
 
     /**
      * @var string An short description of this Calendar
@@ -104,7 +105,7 @@ class Calendar
      * @Groups({"read","write"})
      * @ORM\Column(type="text", nullable=true)
      */
-    private $description;
+    private ?string $description = null;
 
     /**
      * @var string A specific commonground organisation
@@ -116,7 +117,7 @@ class Calendar
      * @Groups({"read", "write"})
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $organization;
+    private ?string $organization = null;
 
     /**
      * @var string A specific commonground resource
@@ -128,25 +129,47 @@ class Calendar
      * @Groups({"read", "write"})
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $resource;
+    private ?string $resource = null;
 
     /**
-     * @var array Events that belong to this Calendar
+     * @var Collection Events that belong to this Calendar
      *
-     * @MaxDepth(1)
-     * @Groups({"read","write"})
+     * @ApiSubresource(maxDepth=1)
      * @ORM\OneToMany(targetEntity="App\Entity\Event", mappedBy="calendar", orphanRemoval=true)
      */
-    private $events;
+    private ?Collection $events = null;
 
     /**
-     * @var array Schedules that belong to this Calendar
+     * @var Collection Schedules that belong to this Calendar
      *
-     * @MaxDepth(1)
-     * @Groups({"read","write"})
+     * @ApiSubresource(maxDepth=1)
      * @ORM\OneToMany(targetEntity="App\Entity\Schedule", mappedBy="calendar", orphanRemoval=true)
      */
-    private $schedules;
+    private ?Collection $schedules = null;
+
+    /**
+     * @var Collection that belong to this Calendar
+     *
+     * @ApiSubresource(maxDepth=1)
+     * @ORM\OneToMany(targetEntity="App\Entity\Freebusy", mappedBy="calendar")
+     */
+    private ?Collection $freebusies = null;
+
+    /**
+     * @var Collection journals that belong to this Calendar
+     *
+     * @ApiSubresource(maxDepth=1)
+     * @ORM\OneToMany(targetEntity="App\Entity\Journal", mappedBy="calendar")
+     */
+    private ?Collection $journals = null;
+
+    /**
+     * @var Collection todos that belong to this Calendar
+     *
+     * @ApiSubresource(maxDepth=1)
+     * @ORM\OneToMany(targetEntity="App\Entity\Todo", mappedBy="calendar")
+     */
+    private ?Collection $todos = null;
 
     /**
      * @var string The time zone of this calendar
@@ -162,28 +185,7 @@ class Calendar
      * @Groups({"read","write"})
      * @ORM\Column(type="string", length=5)
      */
-    private $timeZone;
-
-    /**
-     * @Groups({"read","write"})
-     * @ORM\OneToMany(targetEntity="App\Entity\Freebusy", mappedBy="calendar")
-     * @MaxDepth(1)
-     */
-    private $freebusies;
-
-    /**
-     * @Groups({"read","write"})
-     * @ORM\OneToMany(targetEntity="App\Entity\Journal", mappedBy="calendar")
-     * @MaxDepth(1)
-     */
-    private $journals;
-
-    /**
-     * @Groups({"read","write"})
-     * @ORM\OneToMany(targetEntity="App\Entity\Todo", mappedBy="calendar")
-     * @MaxDepth(1)
-     */
-    private $todos;
+    private string $timeZone;
 
     /**
      * @var Datetime The moment this resource was created
@@ -192,7 +194,7 @@ class Calendar
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime", nullable=true)
      */
-    private $dateCreated;
+    private ?DateTime $dateCreated = null;
 
     /**
      * @var Datetime The moment this resource last Modified
@@ -201,7 +203,7 @@ class Calendar
      * @Gedmo\Timestampable(on="update")
      * @ORM\Column(type="datetime", nullable=true)
      */
-    private $dateModified;
+    private ?DateTime $dateModified = null;
 
     public function __construct()
     {
@@ -217,7 +219,7 @@ class Calendar
         return $this->id;
     }
 
-    public function setId(string $id): self
+    public function setId(UuidInterface $id): self
     {
         $this->id = $id;
 

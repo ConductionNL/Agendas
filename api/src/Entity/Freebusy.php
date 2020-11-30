@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiSubresource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\BooleanFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\DateFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
@@ -15,15 +16,14 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
-use Symfony\Component\Serializer\Annotation\MaxDepth;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * This entity checks if a person is free or busy for a event.
  *
  * @ApiResource(
- *     normalizationContext={"groups"={"read"}, "enable_max_depth"=true},
- *     denormalizationContext={"groups"={"write"}, "enable_max_depth"=true},
+ *     normalizationContext={"groups"={"read"}},
+ *     denormalizationContext={"groups"={"write"}},
  *     itemOperations={
  *          "get",
  *          "put",
@@ -52,7 +52,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ApiFilter(BooleanFilter::class)
  * @ApiFilter(OrderFilter::class)
  * @ApiFilter(DateFilter::class, strategy=DateFilter::EXCLUDE_NULL)
- * @ApiFilter(SearchFilter::class, properties={"calendar.id": "exact"})
+ * @ApiFilter(SearchFilter::class, properties={"calendar.id": "exact", "calendar.resource": "exact"})
  */
 class Freebusy
 {
@@ -68,7 +68,7 @@ class Freebusy
      * @ORM\GeneratedValue(strategy="CUSTOM")
      * @ORM\CustomIdGenerator(class="Ramsey\Uuid\Doctrine\UuidGenerator")
      */
-    private $id;
+    private UuidInterface $id;
     /**
      * @var string An short description of this Event
      *
@@ -81,7 +81,7 @@ class Freebusy
      * @Groups({"read","write"})
      * @ORM\Column(type="text", nullable=true)
      */
-    private $description;
+    private ?string $description;
 
     /**
      * @var string The urls of the attendees of this event.
@@ -96,7 +96,7 @@ class Freebusy
      * @Groups({"read","write"})
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $attendee;
+    private ?string $attendee;
 
     /**
      * @var array The urls of the comments that belong to this event.
@@ -108,7 +108,7 @@ class Freebusy
      * @Groups({"read","write"})
      * @ORM\Column(type="array", nullable=true)
      */
-    private $comments = [];
+    private array $comments = [];
 
     /**
      * @var string Url of this person
@@ -119,7 +119,7 @@ class Freebusy
      * @Groups({"read","write"})
      * @ORM\Column(type="string", nullable=true)
      */
-    private $contact;
+    private ?string $contact;
 
     /**
      * @var DateTime The moment this event starts
@@ -127,12 +127,11 @@ class Freebusy
      * @example 30-11-2019 15:00:00
      * @Gedmo\Versioned
      *
-     * @Assert\DateTime
      * @Assert\NotNull
      * @Groups({"read","write"})
      * @ORM\Column(type="datetime", nullable=true)
      */
-    private $startDate;
+    private DateTime $startDate;
 
     /**
      * @var DateTime The moment this event ends
@@ -140,12 +139,11 @@ class Freebusy
      * @example 3-11-2019 20:00:00
      * @Gedmo\Versioned
      *
-     * @Assert\DateTime
      * @Assert\NotNull
      * @Groups({"read","write"})
      * @ORM\Column(type="datetime", nullable=true)
      */
-    private $endDate;
+    private DateTime $endDate;
 
     /**
      * @var DateInterval The duration of this event.
@@ -156,7 +154,7 @@ class Freebusy
      * @Groups({"read","write"})
      * @ORM\Column(type="string", nullable=true)
      */
-    private $duration;
+    private ?DateInterval $duration;
 
     /**
      * @var string The organiser of this event linked to with an url.
@@ -170,7 +168,7 @@ class Freebusy
      * @Groups({"read","write"})
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $organiser;
+    private ?string $organiser;
     /**
      * @var string The determination of the type freebusy. **FREE**, **BUSY**
      * @Gedmo\Versioned
@@ -180,22 +178,33 @@ class Freebusy
      * @Groups({"read","write"})
      * @ORM\Column(type="string", nullable=true)
      */
-    private $freebusy;
+    private ?string $freebusy;
 
     /**
-     * @Groups({"read","write"})
+     * @var string A specific commonground resource
+     *
+     * @example https://wrc.zaakonline.nl/organisations/16353702-4614-42ff-92af-7dd11c8eef9f
+     *
+     * @Gedmo\Versioned
+     * @Assert\Url
+     * @Groups({"read", "write"})
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private ?string $resource = null;
+
+    /**
+     * @ApiSubresource(maxDepth=1)
+     *
      * @ORM\ManyToOne(targetEntity="App\Entity\Calendar", inversedBy="freebusies")
-     * @ORM\JoinColumn(nullable=false)
-     * @MaxDepth(1)
+     * @ORM\JoinColumn(nullable=true)
      */
-    private $calendar;
+    private ?Calendar $calendar = null;
 
     /**
-     * @Groups({"read","write"})
+     * @ApiSubresource(maxDepth=1)
      * @ORM\ManyToOne(targetEntity="App\Entity\Schedule", inversedBy="freebusies")
-     * @MaxDepth(1)
      */
-    private $schedule;
+    private ?Schedule $schedule;
 
     /**
      * @var DateTime The moment this resource was created
@@ -204,7 +213,7 @@ class Freebusy
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime", nullable=true)
      */
-    private $dateCreated;
+    private ?DateTime $dateCreated;
 
     /**
      * @var DateTime The moment this resource last Modified
@@ -213,7 +222,7 @@ class Freebusy
      * @Gedmo\Timestampable(on="update")
      * @ORM\Column(type="datetime", nullable=true)
      */
-    private $dateModified;
+    private ?DateTime $dateModified;
 
     public function getId(): ?Uuid
     {
@@ -240,6 +249,18 @@ class Freebusy
     public function setAttendee(string $attendee): self
     {
         $this->attendee = $attendee;
+
+        return $this;
+    }
+
+    public function getResource(): ?string
+    {
+        return $this->resource;
+    }
+
+    public function setResource(string $resource): self
+    {
+        $this->resource = $resource;
 
         return $this;
     }

@@ -9,6 +9,7 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\DateFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use DateInterval;
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Ramsey\Uuid\Uuid;
@@ -67,7 +68,7 @@ class Alarm
      * @ORM\GeneratedValue(strategy="CUSTOM")
      * @ORM\CustomIdGenerator(class="Ramsey\Uuid\Doctrine\UuidGenerator")
      */
-    private $id;
+    private UuidInterface $id;
 
     /**
      * @var string The name of this RequestType
@@ -83,7 +84,7 @@ class Alarm
      * @Groups({"read","write"})
      * @ORM\Column(type="string", length=255)
      */
-    private $name;
+    private string $name;
 
     /**
      * @var string An short description of this Event
@@ -98,7 +99,7 @@ class Alarm
      * @Groups({"read","write"})
      * @ORM\Column(type="text", nullable=true)
      */
-    private $description;
+    private ?string $description;
 
     /**
      * @var string The summary of this event.
@@ -113,7 +114,7 @@ class Alarm
      * @Groups({"read","write"})
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $summary;
+    private ?string $summary;
 
     /**
      * @var string The action of the alarm. **AUDIO**, **DISPLAY**, **EMAIL**, **PROCEDURE**
@@ -129,7 +130,7 @@ class Alarm
      * @ORM\Column(type="string", length=255)
      * @Groups({"read","write"})
      */
-    private $action;
+    private string $action;
 
     /**
      * @var DateInterval The time the alarm should trigger relative to the start time of the related event.
@@ -142,7 +143,7 @@ class Alarm
      * @ORM\Column(type="dateinterval", name="alarm_trigger")
      * @Groups({"read","write"})
      */
-    private $trigger;
+    private DateInterval $trigger;
 
     /**
      * @var DateInterval The time until the alarm repeats.
@@ -155,7 +156,7 @@ class Alarm
      * @ORM\Column(type="dateinterval")
      * @Groups({"read","write"})
      */
-    private $duration;
+    private DateInterval $duration;
 
     /**
      * @var int The number of times the alarm repeats.
@@ -168,21 +169,19 @@ class Alarm
      * @ORM\Column(type="integer", name="alarm_repeat")
      * @Groups({"read","write"})
      */
-    private $repeat = 0;
+    private int $repeat = 0;
 
     /**
-     * @Groups({"read","write"})
      * @ORM\ManyToOne(targetEntity="App\Entity\Event", inversedBy="alarms")
      * @MaxDepth(1)
      */
-    private $event;
+    private ?Event $event;
 
     /**
-     * @Groups({"read","write"})
      * @ORM\OneToOne(targetEntity="App\Entity\Todo", inversedBy="alarm", cascade={"persist", "remove"})
      * @MaxDepth(1)
      */
-    private $todo;
+    private ?Todo $todo;
 
     /**
      * @var Datetime The moment this resource was created
@@ -191,7 +190,7 @@ class Alarm
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime", nullable=true)
      */
-    private $dateCreated;
+    private ?DateTime $dateCreated;
 
     /**
      * @var Datetime The moment this resource last Modified
@@ -200,7 +199,7 @@ class Alarm
      * @Gedmo\Timestampable(on="update")
      * @ORM\Column(type="datetime", nullable=true)
      */
-    private $dateModified;
+    private ?DateTime $dateModified;
 
     public function getId(): ?Uuid
     {

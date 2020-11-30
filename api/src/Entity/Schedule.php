@@ -4,10 +4,12 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiSubresource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\BooleanFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\DateFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -15,7 +17,6 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
-use Symfony\Component\Serializer\Annotation\MaxDepth;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -23,8 +24,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ApiResource(
  * 	   iri="http://schema.org/PostalAddress",
- *     normalizationContext={"groups"={"read"}, "enable_max_depth"=true},
- *     denormalizationContext={"groups"={"write"}, "enable_max_depth"=true},
+ *     normalizationContext={"groups"={"read"}},
+ *     denormalizationContext={"groups"={"write"}},
  *     itemOperations={
  *          "get",
  *          "put",
@@ -53,7 +54,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ApiFilter(BooleanFilter::class)
  * @ApiFilter(OrderFilter::class)
  * @ApiFilter(DateFilter::class, strategy=DateFilter::EXCLUDE_NULL)
- * @ApiFilter(SearchFilter::class,properties={"calendar.id":"exact"})
+ * @ApiFilter(SearchFilter::class,properties={"calendar.id":"exact", "calendar.resource":"exact"})
  */
 class Schedule
 {
@@ -69,7 +70,7 @@ class Schedule
      * @ORM\GeneratedValue(strategy="CUSTOM")
      * @ORM\CustomIdGenerator(class="Ramsey\Uuid\Doctrine\UuidGenerator")
      */
-    private $id;
+    private UuidInterface $id;
 
     /**
      * @var string The name of this Schedule
@@ -85,7 +86,7 @@ class Schedule
      * @Groups({"read","write"})
      * @ORM\Column(type="string", length=255)
      */
-    private $name;
+    private string $name;
 
     /**
      * @var string An short description of this Schedule
@@ -100,7 +101,7 @@ class Schedule
      * @Groups({"read","write"})
      * @ORM\Column(type="text", nullable=true)
      */
-    private $description;
+    private ?string $description;
 
     /**
      * @var string Defines the day(s) of the week on which a recurring Event takes place. Sunday is both 0 and 7.
@@ -117,7 +118,7 @@ class Schedule
      * @Groups({"read","write"})
      * @ORM\Column(type="integer", nullable=true)
      */
-    private $byDay;
+    private ?string $byDay;
 
     /**
      * @var string Defines the month(s) of the year on which a recurring Event takes place. Specified as an Integer between 1-12. January is 1.
@@ -134,7 +135,7 @@ class Schedule
      * @Groups({"read","write"})
      * @ORM\Column(type="integer", nullable=true)
      */
-    private $byMonth;
+    private ?string $byMonth;
 
     /**
      * @var string Defines the day(s) of the month on which a recurring Event takes place. Specified as an Integer between 1-31.
@@ -151,10 +152,10 @@ class Schedule
      * @Groups({"read","write"})
      * @ORM\Column(type="integer", nullable=true)
      */
-    private $byMonthDay;
+    private ?string $byMonthDay;
 
     /**
-     * @var string Defines the day(s) of the month on which a recurring Event takes place. Specified as an Integer between 1-31.
+     * @var array Defines the day(s) of the month on which a recurring Event takes place. Specified as an Integer between 1-31.
      *
      * @Gedmo\Versioned
      *
@@ -163,7 +164,7 @@ class Schedule
      * @Groups({"read","write"})
      * @ORM\Column(type="array", nullable=true)
      */
-    private $exceptDates = [];
+    private array $exceptDates = [];
 
     /**
      * @var int Defines the number of times a recurring Event will take place
@@ -176,7 +177,7 @@ class Schedule
      * @Groups({"read","write"})
      * @ORM\Column(type="integer", nullable=true)
      */
-    private $repeatCount;
+    private ?int $repeatCount;
 
     /**
      * @var string Defines the frequency at which Events will occur according to a schedule Schedule. The intervals between events should be defined as a [Duration](https://en.wikipedia.org/wiki/ISO_8601#Durations) of time.
@@ -191,42 +192,53 @@ class Schedule
      * @Groups({"read","write"})
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $repeatFrequency;
+    private ?string $repeatFrequency;
 
     /**
-     * @var string The Calendar to wich this Schedule belongs
+     * @var string A specific commonground resource
      *
-     * @MaxDepth(1)
-     * @Groups({"read","write"})
-     * @ORM\ManyToOne(targetEntity="App\Entity\Calendar", inversedBy="schedules")
-     * @ORM\JoinColumn(nullable=false)
+     * @example https://wrc.zaakonline.nl/organisations/16353702-4614-42ff-92af-7dd11c8eef9f
+     *
+     * @Gedmo\Versioned
+     * @Assert\Url
+     * @Groups({"read", "write"})
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $calendar;
+    private ?string $resource = null;
 
     /**
-     * @var ArrayCollection The events that belong to or are caused by this Schedule
+     * @var Calendar The Calendar to wich this Schedule belongs
+     * @ApiSubresource(maxDepth=1)
+     * @ORM\ManyToOne(targetEntity="App\Entity\Calendar", inversedBy="schedules", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private ?Calendar $calendar = null;
+
+    /**
+     * @ApiSubresource(maxDepth=1)
      *
-     * @MaxDepth(1)
-     * @Groups({"read","write"})
+     * @var Collection The events that belong to or are caused by this Schedule
+     *
      * @ORM\OneToMany(targetEntity="App\Entity\Event", mappedBy="schedule")
      */
-    private $events;
+    private Collection $events;
 
     /**
-     * @var ArrayCollection The freebusies that belong to or are caused by this Schedule
-     * @Groups({"read","write"})
+     * @ApiSubresource(maxDepth=1)
+     *
+     * @var Collection The freebusies that belong to or are caused by this Schedule
+     *
      * @ORM\OneToMany(targetEntity="App\Entity\Freebusy", mappedBy="schedule")
-     * @MaxDepth(1)
      */
-    private $freebusies;
+    private Collection $freebusies;
 
     /**
-     * @var ArrayCollection The todos that belong to or are caused by this Schedule
-     * @Groups({"read","write"})
+     * @ApiSubresource(maxDepth=1)
+     *
+     * @var Collection The todos that belong to or are caused by this Schedule
      * @ORM\OneToMany(targetEntity="App\Entity\Todo", mappedBy="schedule")
-     * @MaxDepth(1)
      */
-    private $todos;
+    private Collection $todos;
 
     /**
      * @var Datetime The moment this resource was created
@@ -235,7 +247,7 @@ class Schedule
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime", nullable=true)
      */
-    private $dateCreated;
+    private ?DateTime $dateCreated;
 
     /**
      * @var Datetime The moment this resource last Modified
@@ -244,7 +256,7 @@ class Schedule
      * @Gedmo\Timestampable(on="update")
      * @ORM\Column(type="datetime", nullable=true)
      */
-    private $dateModified;
+    private ?DateTime $dateModified;
 
     public function __construct()
     {
@@ -278,6 +290,18 @@ class Schedule
     public function setDescription(?string $description): self
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function getResource(): ?string
+    {
+        return $this->resource;
+    }
+
+    public function setResource(string $resource): self
+    {
+        $this->resource = $resource;
 
         return $this;
     }
