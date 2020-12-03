@@ -63,8 +63,8 @@ class ResourceSubscriber implements EventSubscriberInterface
                     $result->setCalendar($calendar);
                 } else {
                     $calendar = new Calendar();
-                    $calendar->setName('calendar for'.$result->getName());
-                    $calendar->setDescription('calendar for'.$result->getName());
+                    $calendar->setName('calendar for '.$result->getName());
+                    $calendar->setDescription('calendar for '.$result->getName());
                     $calendar->setTimeZone('CET');
                     $calendar->setResource($result->getResource());
 
