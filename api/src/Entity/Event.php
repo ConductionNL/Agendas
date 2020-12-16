@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiSubresource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\BooleanFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\DateFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
@@ -25,8 +26,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ApiResource(
  *       iri="https://schema.org/Event",
- *     normalizationContext={"groups"={"read"}, "enable_max_depth"=true},
- *     denormalizationContext={"groups"={"write"}, "enable_max_depth"=true},
+ *     normalizationContext={"groups"={"read"}},
+ *     denormalizationContext={"groups"={"write"}},
  *     itemOperations={
  *          "get",
  *          "put",
@@ -58,6 +59,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ApiFilter(SearchFilter::class, properties={
  *     "calendar.id":"exact",
  *     "calendar.organization":"exact",
+ *     "calendar.resource":"exact",
  *     "name":"partial",
  *     "description":"partial",
  *     "organization":"exact",
@@ -134,7 +136,7 @@ class Event
      * @Groups({"read", "write"})
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private ?string $resource;
+    private ?string $resource = null;
 
     /**
      * @var DateTime The moment this event starts
@@ -180,7 +182,7 @@ class Event
     /**
      * @var Schedule An optional Schedule to which this event belongs
      *
-     * @MaxDepth(1)
+     * @ApiSubresource(maxDepth=1)
      * @Groups({"read","write"})
      * @ORM\ManyToOne(targetEntity="App\Entity\Schedule", inversedBy="events")
      */
@@ -189,12 +191,12 @@ class Event
     /**
      * @var Calendar The Calendar to wich this event belongs
      *
-     * @MaxDepth(1)
+     * @ApiSubresource(maxDepth=1)
      * @Groups({"read","write"})
-     * @ORM\ManyToOne(targetEntity="App\Entity\Calendar", inversedBy="events")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToOne(targetEntity="App\Entity\Calendar", inversedBy="events" , cascade={"persist"})
+     * @ORM\JoinColumn(nullable=true)
      */
-    private Calendar $calendar;
+    private ?Calendar $calendar = null;
 
     /**
      * @var string The security class of this event.
@@ -386,30 +388,22 @@ class Event
     private array $comments = [];
 
     /**
-     * @Groups({"read","write"})
      * @ORM\ManyToMany(targetEntity="App\Entity\Event")
-     * @MaxDepth(1)
      */
     private Collection $related;
 
     /**
-     * @Groups({"read","write"})
      * @ORM\ManyToMany(targetEntity="App\Entity\Resource", mappedBy="events")
-     * @MaxDepth(1)
      */
     private Collection $resources;
 
     /**
-     * @Groups({"read","write"})
      * @ORM\OneToMany(targetEntity="App\Entity\Alarm", mappedBy="event")
-     * @MaxDepth(1)
      */
     private Collection $alarms;
 
     /**
-     * @Groups({"read","write"})
      * @ORM\OneToOne(targetEntity="App\Entity\Journal", mappedBy="event", cascade={"persist", "remove"})
-     * @MaxDepth(1)
      */
     private ?Journal $journal;
 

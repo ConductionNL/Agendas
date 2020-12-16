@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiSubresource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\BooleanFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\DateFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
@@ -24,8 +25,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  * A to-do from an event.
  *
  * @ApiResource(
- *     normalizationContext={"groups"={"read"}, "enable_max_depth"=true},
- *     denormalizationContext={"groups"={"write"}, "enable_max_depth"=true},
+ *     normalizationContext={"groups"={"read"}},
+ *     denormalizationContext={"groups"={"write"}},
  *     itemOperations={
  *          "get",
  *          "put",
@@ -54,7 +55,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ApiFilter(BooleanFilter::class)
  * @ApiFilter(OrderFilter::class)
  * @ApiFilter(DateFilter::class, strategy=DateFilter::EXCLUDE_NULL)
- * @ApiFilter(SearchFilter::class, properties={"calendar.id":"exact"})
+ * @ApiFilter(SearchFilter::class, properties={"calendar.id":"exact", "calendar.resource":"exact"})
  */
 class Todo
 {
@@ -344,31 +345,39 @@ class Todo
     private int $percentageDone = 0;
 
     /**
-     * @Groups({"read","write"})
-     * @ORM\ManyToMany(targetEntity="App\Entity\Resource", mappedBy="todos")
-     * @MaxDepth(1)
+     * @var string A specific commonground resource
+     *
+     * @example https://wrc.zaakonline.nl/organisations/16353702-4614-42ff-92af-7dd11c8eef9f
+     *
+     * @Gedmo\Versioned
+     * @Assert\Url
+     * @Groups({"read", "write"})
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private Collection $resources;
+    private ?string $resource = null;
 
     /**
-     * @Groups({"read","write"})
+     * @ApiSubresource
+     * @ORM\ManyToMany(targetEntity="App\Entity\Resource", mappedBy="todos", cascade={"persist"})
+     */
+    private ?Collection $resources;
+
+    /**
+     * @ApiSubresource(maxDepth=1)
      * @ORM\OneToOne(targetEntity="App\Entity\Alarm", mappedBy="todo", cascade={"persist", "remove"})
-     * @MaxDepth(1)
      */
     private ?Alarm $alarm;
 
     /**
-     * @Groups({"read","write"})
-     * @ORM\ManyToOne(targetEntity="App\Entity\Calendar", inversedBy="todos")
-     * @ORM\JoinColumn(nullable=false)
-     * @MaxDepth(1)
+     * @ApiSubresource(maxDepth=1)
+     * @ORM\ManyToOne(targetEntity="App\Entity\Calendar", inversedBy="todos", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=true)
      */
-    private Calendar $calendar;
+    private ?Calendar $calendar = null;
 
     /**
-     * @Groups({"read","write"})
+     * @ApiSubresource(maxDepth=1)
      * @ORM\ManyToOne(targetEntity="App\Entity\Schedule", inversedBy="todos")
-     * @MaxDepth(1)
      */
     private ?Schedule $schedule;
 
@@ -408,6 +417,18 @@ class Todo
     public function setName(string $name): self
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public function getResource(): ?string
+    {
+        return $this->resource;
+    }
+
+    public function setResource(string $resource): self
+    {
+        $this->resource = $resource;
 
         return $this;
     }

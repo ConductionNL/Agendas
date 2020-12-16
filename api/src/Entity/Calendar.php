@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiSubresource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\BooleanFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\DateFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
@@ -23,8 +24,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  * A Calendar is a collection of events tied to an unque person or resource.
  *
  * @ApiResource(
- *     normalizationContext={"groups"={"read"}, "enable_max_depth"=true},
- *     denormalizationContext={"groups"={"write"}, "enable_max_depth"=true},
+ *     normalizationContext={"groups"={"read"}},
+ *     denormalizationContext={"groups"={"write"}},
  *     itemOperations={
  *          "get",
  *          "put",
@@ -104,7 +105,7 @@ class Calendar
      * @Groups({"read","write"})
      * @ORM\Column(type="text", nullable=true)
      */
-    private ?string $description;
+    private ?string $description = null;
 
     /**
      * @var string A specific commonground organisation
@@ -116,7 +117,7 @@ class Calendar
      * @Groups({"read", "write"})
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private ?string $organization;
+    private ?string $organization = null;
 
     /**
      * @var string A specific commonground resource
@@ -128,25 +129,47 @@ class Calendar
      * @Groups({"read", "write"})
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private ?string $resource;
+    private ?string $resource = null;
 
     /**
      * @var Collection Events that belong to this Calendar
      *
-     * @MaxDepth(1)
-     * @Groups({"read","write"})
+     * @ApiSubresource(maxDepth=1)
      * @ORM\OneToMany(targetEntity="App\Entity\Event", mappedBy="calendar", orphanRemoval=true)
      */
-    private Collection $events;
+    private ?Collection $events = null;
 
     /**
      * @var Collection Schedules that belong to this Calendar
      *
-     * @MaxDepth(1)
-     * @Groups({"read","write"})
+     * @ApiSubresource(maxDepth=1)
      * @ORM\OneToMany(targetEntity="App\Entity\Schedule", mappedBy="calendar", orphanRemoval=true)
      */
-    private Collection $schedules;
+    private ?Collection $schedules = null;
+
+    /**
+     * @var Collection that belong to this Calendar
+     *
+     * @ApiSubresource(maxDepth=1)
+     * @ORM\OneToMany(targetEntity="App\Entity\Freebusy", mappedBy="calendar")
+     */
+    private ?Collection $freebusies = null;
+
+    /**
+     * @var Collection journals that belong to this Calendar
+     *
+     * @ApiSubresource(maxDepth=1)
+     * @ORM\OneToMany(targetEntity="App\Entity\Journal", mappedBy="calendar")
+     */
+    private ?Collection $journals = null;
+
+    /**
+     * @var Collection todos that belong to this Calendar
+     *
+     * @ApiSubresource(maxDepth=1)
+     * @ORM\OneToMany(targetEntity="App\Entity\Todo", mappedBy="calendar")
+     */
+    private ?Collection $todos = null;
 
     /**
      * @var string The time zone of this calendar
@@ -165,34 +188,13 @@ class Calendar
     private string $timeZone;
 
     /**
-     * @Groups({"read","write"})
-     * @ORM\OneToMany(targetEntity="App\Entity\Freebusy", mappedBy="calendar")
-     * @MaxDepth(1)
-     */
-    private Collection $freebusies;
-
-    /**
-     * @Groups({"read","write"})
-     * @ORM\OneToMany(targetEntity="App\Entity\Journal", mappedBy="calendar")
-     * @MaxDepth(1)
-     */
-    private Collection $journals;
-
-    /**
-     * @Groups({"read","write"})
-     * @ORM\OneToMany(targetEntity="App\Entity\Todo", mappedBy="calendar")
-     * @MaxDepth(1)
-     */
-    private Collection $todos;
-
-    /**
      * @var Datetime The moment this resource was created
      *
      * @Groups({"read"})
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime", nullable=true)
      */
-    private ?DateTime $dateCreated;
+    private ?DateTime $dateCreated = null;
 
     /**
      * @var Datetime The moment this resource last Modified
@@ -201,7 +203,7 @@ class Calendar
      * @Gedmo\Timestampable(on="update")
      * @ORM\Column(type="datetime", nullable=true)
      */
-    private ?DateTime $dateModified;
+    private ?DateTime $dateModified = null;
 
     public function __construct()
     {

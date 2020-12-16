@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiSubresource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\BooleanFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\DateFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
@@ -16,15 +17,14 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
-use Symfony\Component\Serializer\Annotation\MaxDepth;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Describes resources that can be needed for an event.
  *
  * @ApiResource(
- *     normalizationContext={"groups"={"read"}, "enable_max_depth"=true},
- *     denormalizationContext={"groups"={"write"}, "enable_max_depth"=true}),
+ *     normalizationContext={"groups"={"read"}},
+ *     denormalizationContext={"groups"={"write"}}),
  *     itemOperations={
  *          "get",
  *          "put",
@@ -102,16 +102,30 @@ class Resource
     private ?string $description;
 
     /**
+     * @var string the uri of this resource
+     *
+     * @Gedmo\Versioned
+     *
+     * @example https://dev.zuid-drecht.nl/api/v1/uc/users/7f341a1e-0d75-4f43-8b9a-a6727c4b3404
+     *
+     * @Assert\Url
+     * @Assert\Length(
+     *      max = 255
+     * )
      * @Groups({"read","write"})
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private string $resource;
+
+    /**
+     * @ApiSubresource(maxDepth=1)
      * @ORM\ManyToMany(targetEntity="App\Entity\Event", inversedBy="resources")
-     * @MaxDepth(1)
      */
     private Collection $events;
 
     /**
-     * @Groups({"read","write"})
+     * @ApiSubresource(maxDepth=1)
      * @ORM\ManyToMany(targetEntity="App\Entity\Todo", inversedBy="resources")
-     * @MaxDepth(1)
      */
     private Collection $todos;
 
@@ -164,6 +178,18 @@ class Resource
     public function setDescription(?string $description): self
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function getResource(): ?string
+    {
+        return $this->resource;
+    }
+
+    public function setResource(string $resource): self
+    {
+        $this->resource = $resource;
 
         return $this;
     }
