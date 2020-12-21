@@ -357,10 +357,10 @@ class Todo
     private ?string $resource = null;
 
     /**
-     * @ApiSubresource(maxDepth=1)
-     * @ORM\ManyToMany(targetEntity="App\Entity\Resource", mappedBy="todos")
+     * @ApiSubresource
+     * @ORM\ManyToMany(targetEntity="App\Entity\Resource", mappedBy="todos", cascade={"persist"})
      */
-    private Collection $resources;
+    private ?Collection $resources;
 
     /**
      * @ApiSubresource(maxDepth=1)
