@@ -10,7 +10,7 @@ info:
     - Version: V1.0
     - Repository: [online](https://github.com/ConductionNL/agendaservice) / [zip](https://github.com/ConductionNL/agendaservice/archive/master.zip)
     - Docker Image: [online](https://hub.docker.com/repository/docker/conduction/arc-php) 
-    - Datamodel: [postman](/schema/arc.postman_collection.json) / [oas](/schema/openapi.yaml) / [pdf](/schema/datamodel.pdf) / [modelio (zip)](/schema/Datamodel_Modelio.zip) 
+    - Datamodel: [postman](schema/arc.postman_collection.json) / [oas](schema/openapi.yaml) / [pdf](schema/datamodel.pdf) / [modelio (zip)](schema/Datamodel_Modelio.zip) 
     
     Naast deze JSON rest API is er ook een [graphql](/graphql) interface beschikbaar.         
     
@@ -26794,7 +26794,7 @@ definitions:
       completed:
         description: 'The date and time a to-do is completed.'
         type: string
-        example: '2020-12-16 15:43:46'
+        example: '2020-12-22 13:12:58'
         format: date-time
       percentageDone:
         description: 'The percentage of a to-do that has been comepleted.'
@@ -26901,7 +26901,7 @@ definitions:
       completed:
         description: 'The date and time a to-do is completed.'
         type: string
-        example: '2020-12-16 15:43:46'
+        example: '2020-12-22 13:12:58'
         format: date-time
       percentageDone:
         description: 'The percentage of a to-do that has been comepleted.'
@@ -27020,12 +27020,12 @@ definitions:
         description: 'The moment this request was created'
         type: string
         format: date-time
-        example: '2020-12-16 15:43:46'
+        example: '2020-12-22 13:12:58'
       dateModified:
         description: 'The moment this request last Modified'
         type: string
         format: date-time
-        example: '2020-12-16 15:43:46'
+        example: '2020-12-22 13:12:58'
     required: []
   AuditTrail-write:
     properties:
@@ -27073,12 +27073,12 @@ definitions:
         description: 'The moment this request was created'
         type: string
         format: date-time
-        example: '2020-12-16 15:43:46'
+        example: '2020-12-22 13:12:58'
       dateModified:
         description: 'The moment this request last Modified'
         type: string
         format: date-time
-        example: '2020-12-16 15:43:46'
+        example: '2020-12-22 13:12:58'
     required: []
   ChangeLog-write:
     properties:
