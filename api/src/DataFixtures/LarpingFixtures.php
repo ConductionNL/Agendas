@@ -32,8 +32,8 @@ class LarpingFixtures extends Fixture
 
         $event = new Event();
         $event->setName('Moots 1');
-        $event->setOrganization($this->commonGroundService->cleanUrl(['component'=>'wrc', 'type'=>'organizations', 'id'=>'7b863976-0fc3-4f49-a4f7-0bf7d2f2f535']));
-        $event->setResource($this->commonGroundService->cleanUrl(['component'=>'pdc', 'type'=>'products', 'id'=>'c3ed3d66-920b-411f-8b37-36fcdf90245f']));
+        $event->setOrganization($this->commonGroundService->cleanUrl(['component'=>'wrc', 'type'=>'organizations', 'id'=>'6677d727-a57f-4405-8da0-4f53b20094ca']));
+        $event->setResource($this->commonGroundService->cleanUrl(['component'=>'pdc', 'type'=>'products', 'id'=>'893e5c2f-4c89-438c-aa62-c0bd4636e858']));
         $event->setStartDate(new \DateTime('12-09-2020'));
         $event->setEndDate(new \DateTime('14-09-2020'));
         $event->setLocation('Amsterdam, The Netherlands');
