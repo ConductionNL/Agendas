@@ -26794,7 +26794,7 @@ definitions:
       completed:
         description: 'The date and time a to-do is completed.'
         type: string
-        example: '2020-12-22 09:40:10'
+        example: '2021-01-06 11:50:37'
         format: date-time
       percentageDone:
         description: 'The percentage of a to-do that has been comepleted.'
@@ -26901,7 +26901,7 @@ definitions:
       completed:
         description: 'The date and time a to-do is completed.'
         type: string
-        example: '2020-12-22 09:40:10'
+        example: '2021-01-06 11:50:37'
         format: date-time
       percentageDone:
         description: 'The percentage of a to-do that has been comepleted.'
@@ -27020,12 +27020,12 @@ definitions:
         description: 'The moment this request was created'
         type: string
         format: date-time
-        example: '2020-12-22 09:40:10'
+        example: '2021-01-06 11:50:37'
       dateModified:
         description: 'The moment this request last Modified'
         type: string
         format: date-time
-        example: '2020-12-22 09:40:10'
+        example: '2021-01-06 11:50:37'
     required: []
   AuditTrail-write:
     properties:
@@ -27073,12 +27073,12 @@ definitions:
         description: 'The moment this request was created'
         type: string
         format: date-time
-        example: '2020-12-22 09:40:10'
+        example: '2021-01-06 11:50:37'
       dateModified:
         description: 'The moment this request last Modified'
         type: string
         format: date-time
-        example: '2020-12-22 09:40:10'
+        example: '2021-01-06 11:50:37'
     required: []
   ChangeLog-write:
     properties:
@@ -27179,8 +27179,8 @@ securityDefinitions:
 host: irc.zaakonline.nl
 servers:
   -
-    name: zuid-drecht.nl
-    url: arc.dev.zuid-drecht.nl
+    name: larping.eu
+    url: arc.dev.larping.eu
 externalDocs:
   -
     description: 'OAS Documentatie'

@@ -15,7 +15,7 @@ settings:
   repro: https://github.com/ConductionNL/agendaservice
   demo: arc.zaakonline.nl
   container: https://hub.docker.com/repository/docker/conduction/arc-php
-  domain: zuid-drecht.nl
+  domain: larping.eu
   subdomain: arc
   subpath: arc
   subpathRouting: true
@@ -51,9 +51,9 @@ settings:
 
 security:
   commongroundId: "9329d8d0-1d5e-433c-bb47-6991053c7fcb"
-  commongroundKey: "45c1a4b6-59d3-4a6e-86bf-88a872f35845"
-  applicationKey: "45c1a4b6-59d3-4a6e-86bf-88a872f35845"
-  userKey: "45c1a4b6-59d3-4a6e-86bf-88a872f35845"
+  commongroundKey: "7919a58b-3fd9-4931-ad70-2ccc1168ef23a"
+  applicationKey: "7919a58b-3fd9-4931-ad70-2ccc1168ef23a"
+  userKey: "7919a58b-3fd9-4931-ad70-2ccc1168ef23a"
   authorisationProviderUser: https://uc.zuid-drecht.nl
   authorisationProviderApplication: https://openzaak.dev.zuid-drecht.nl/authorizaties/api/v1
 
