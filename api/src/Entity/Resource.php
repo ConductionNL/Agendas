@@ -115,7 +115,7 @@ class Resource
      * @Groups({"read","write"})
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private string $resource;
+    private ?string $resource;
 
     /**
      * @ApiSubresource(maxDepth=1)
