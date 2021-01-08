@@ -4405,16 +4405,6 @@ paths:
           schema:
             type: string
         -
-          name: 'location[]'
-          in: query
-          required: false
-          schema:
-            type: array
-            items:
-              type: string
-          style: form
-          explode: true
-        -
           name: page
           in: query
           required: false
@@ -7755,16 +7745,6 @@ paths:
           required: false
           schema:
             type: string
-        -
-          name: 'location[]'
-          in: query
-          required: false
-          schema:
-            type: array
-            items:
-              type: string
-          style: form
-          explode: true
         -
           name: page
           in: query
@@ -12885,16 +12865,6 @@ paths:
           schema:
             type: string
         -
-          name: 'location[]'
-          in: query
-          required: false
-          schema:
-            type: array
-            items:
-              type: string
-          style: form
-          explode: true
-        -
           name: Authorization
           description: 'The JWT of the entity performing the request'
           in: header
@@ -15230,16 +15200,6 @@ paths:
           required: false
           schema:
             type: string
-        -
-          name: 'location[]'
-          in: query
-          required: false
-          schema:
-            type: array
-            items:
-              type: string
-          style: form
-          explode: true
         -
           name: page
           in: query
@@ -17757,16 +17717,6 @@ paths:
           required: false
           schema:
             type: string
-        -
-          name: 'location[]'
-          in: query
-          required: false
-          schema:
-            type: array
-            items:
-              type: string
-          style: form
-          explode: true
         -
           name: page
           in: query
@@ -21603,16 +21553,6 @@ paths:
           required: false
           schema:
             type: string
-        -
-          name: 'location[]'
-          in: query
-          required: false
-          schema:
-            type: array
-            items:
-              type: string
-          style: form
-          explode: true
         -
           name: page
           in: query
@@ -26812,7 +26752,7 @@ definitions:
       completed:
         description: 'The date and time a to-do is completed.'
         type: string
-        example: '2021-01-08 09:45:25'
+        example: '2021-01-08 10:37:42'
         format: date-time
       percentageDone:
         description: 'The percentage of a to-do that has been comepleted.'
@@ -26919,7 +26859,7 @@ definitions:
       completed:
         description: 'The date and time a to-do is completed.'
         type: string
-        example: '2021-01-08 09:45:25'
+        example: '2021-01-08 10:37:42'
         format: date-time
       percentageDone:
         description: 'The percentage of a to-do that has been comepleted.'
@@ -27038,12 +26978,12 @@ definitions:
         description: 'The moment this request was created'
         type: string
         format: date-time
-        example: '2021-01-08 09:45:25'
+        example: '2021-01-08 10:37:42'
       dateModified:
         description: 'The moment this request last Modified'
         type: string
         format: date-time
-        example: '2021-01-08 09:45:25'
+        example: '2021-01-08 10:37:42'
     required: []
   AuditTrail-write:
     properties:
@@ -27091,12 +27031,12 @@ definitions:
         description: 'The moment this request was created'
         type: string
         format: date-time
-        example: '2021-01-08 09:45:25'
+        example: '2021-01-08 10:37:42'
       dateModified:
         description: 'The moment this request last Modified'
         type: string
         format: date-time
-        example: '2021-01-08 09:45:25'
+        example: '2021-01-08 10:37:42'
     required: []
   ChangeLog-write:
     properties:
@@ -27197,8 +27137,8 @@ securityDefinitions:
 host: irc.zaakonline.nl
 servers:
   -
-    name: larping.eu
-    url: arc.dev.larping.eu
+    name: zuid-drecht.nl
+    url: arc.dev.zuid-drecht.nl
 externalDocs:
   -
     description: 'OAS Documentatie'
