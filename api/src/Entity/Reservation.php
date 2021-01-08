@@ -144,6 +144,7 @@ class Reservation
     /**
      * @var Event Event that is booked in this reservation
      *
+     * @Groups({"read", "write"})
      * @ORM\OneToOne(targetEntity=Event::class, cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
      */
