@@ -60,11 +60,11 @@ use Symfony\Component\Validator\Constraints as Assert;
  *     "calendar.id":"exact",
  *     "calendar.organization":"exact",
  *     "calendar.resource":"exact",
- *     "name":"partial",
- *     "description":"partial",
+ *     "name":"ipartial",
+ *     "description":"ipartial",
  *     "organization":"exact",
  *     "resource":"exact",
- *     "location":"exact"
+ *     "location":"iexact"
  * })
  */
 class Event

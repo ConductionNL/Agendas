@@ -32,7 +32,7 @@ class LarpingFixtures extends Fixture
 
         $event = new Event();
         $event->setName('Moots 1');
-        $event->setOrganization($this->commonGroundService->cleanUrl(['component'=>'wrc', 'type'=>'organizations', 'id'=>'6677d727-a57f-4405-8da0-4f53b20094ca']));
+        $event->setOrganization($this->commonGroundService->cleanUrl(['component'=>'wrc', 'type'=>'organizations', 'id'=>'51eb5628-3b37-497b-a57f-6b039ec776e5']));
         $event->setResource($this->commonGroundService->cleanUrl(['component'=>'pdc', 'type'=>'products', 'id'=>'893e5c2f-4c89-438c-aa62-c0bd4636e858']));
         $event->setStartDate(new \DateTime('12-09-2020'));
         $event->setEndDate(new \DateTime('14-09-2020'));

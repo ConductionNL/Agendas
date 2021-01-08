@@ -27197,8 +27197,8 @@ securityDefinitions:
 host: irc.zaakonline.nl
 servers:
   -
-    name: zuid-drecht.nl
-    url: arc.dev.zuid-drecht.nl
+    name: larping.eu
+    url: arc.dev.larping.eu
 externalDocs:
   -
     description: 'OAS Documentatie'
