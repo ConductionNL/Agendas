@@ -112,7 +112,7 @@ class Event
      * @Groups({"read","write"})
      * @ORM\Column(type="text", nullable=true)
      */
-    private ?string $description;
+    private $description;
 
     /**
      * @var string A specific commonground organisation
