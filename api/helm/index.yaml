@@ -3,10 +3,10 @@ entries:
   arc:
   - apiVersion: v1
     appVersion: V1.0
-    created: "2021-01-08T08:48:55.9471686Z"
+    created: "2021-01-08T10:32:29.9852779Z"
     description: Naast deze JSON rest API is er ook een [graphql](/graphql) interface
       beschikbaar.
-    digest: eb33cc668335ad4370fe83a8c2e6efa0da89839b1098b2c9a8fa25cb5fb93832
+    digest: 949e6471d365ea6434f91b8fcdc5038ac011ec72a58979b949a97aad801ab32f
     home: arc.zaakonline.nl
     icon: arc.zaakonline.nl
     name: arc
@@ -16,7 +16,7 @@ entries:
   pc:
   - apiVersion: v1
     appVersion: V1.0
-    created: "2021-01-08T08:48:55.9583211Z"
+    created: "2021-01-08T10:32:29.9999776Z"
     description: Naast deze JSON rest API is er ook een [graphql](/graphql) interface
       beschikbaar.
     digest: 0b48e6b3faa2292b92b7582802ce074575d0d4d05bb3d1e6858e81303e349987
@@ -31,7 +31,7 @@ entries:
       category: Database
     apiVersion: v2
     appVersion: 11.10.0
-    created: "2021-01-08T08:48:55.9676385Z"
+    created: "2021-01-08T10:32:30.0193818Z"
     dependencies:
     - name: common
       repository: https://charts.bitnami.com/bitnami
@@ -60,4 +60,4 @@ entries:
     urls:
     - charts/postgresql-10.1.1.tgz
     version: 10.1.1
-generated: "2021-01-08T08:48:55.916114Z"
+generated: "2021-01-08T10:32:29.9284234Z"
