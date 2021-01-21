@@ -57,14 +57,15 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ApiFilter(OrderFilter::class)
  * @ApiFilter(DateFilter::class, strategy=DateFilter::EXCLUDE_NULL)
  * @ApiFilter(SearchFilter::class, properties={
+ *     "id":"exact",
  *     "calendar.id":"exact",
  *     "calendar.organization":"exact",
  *     "calendar.resource":"exact",
- *     "name":"partial",
- *     "description":"partial",
+ *     "name":"ipartial",
+ *     "description":"ipartial",
  *     "organization":"exact",
  *     "resource":"exact",
- *     "location":"exact"
+ *     "location":"iexact"
  * })
  */
 class Event
