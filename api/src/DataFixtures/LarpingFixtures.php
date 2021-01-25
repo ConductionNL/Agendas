@@ -36,7 +36,6 @@ class LarpingFixtures extends Fixture
         $event->setResource($this->commonGroundService->cleanUrl(['component'=>'pdc', 'type'=>'products', 'id'=>'893e5c2f-4c89-438c-aa62-c0bd4636e858']));
         $event->setStartDate(new \DateTime('12-09-2020'));
         $event->setEndDate(new \DateTime('14-09-2020'));
-        $event->setLocation('Amsterdam, The Netherlands');
         $manager->persist($event);
         $manager->flush();
 
@@ -47,7 +46,6 @@ class LarpingFixtures extends Fixture
         $event->setResource($this->commonGroundService->cleanUrl(['component'=>'pdc', 'type'=>'products', 'id'=>'364523a6-458f-45f3-a9de-7d10b9e928a7']));
         $event->setStartDate(new \DateTime('12-09-2020'));
         $event->setEndDate(new \DateTime('14-09-2020'));
-        $event->setLocation('Amsterdam, The Netherlands');
         $manager->persist($event);
         $event->setId($id);
         $manager->persist($event);
