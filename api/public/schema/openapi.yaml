@@ -26752,7 +26752,7 @@ definitions:
       completed:
         description: 'The date and time a to-do is completed.'
         type: string
-        example: '2021-01-08 10:37:42'
+        example: '2021-01-08 11:20:36'
         format: date-time
       percentageDone:
         description: 'The percentage of a to-do that has been comepleted.'
@@ -26859,7 +26859,7 @@ definitions:
       completed:
         description: 'The date and time a to-do is completed.'
         type: string
-        example: '2021-01-08 10:37:42'
+        example: '2021-01-08 11:20:36'
         format: date-time
       percentageDone:
         description: 'The percentage of a to-do that has been comepleted.'
@@ -26978,12 +26978,12 @@ definitions:
         description: 'The moment this request was created'
         type: string
         format: date-time
-        example: '2021-01-08 10:37:42'
+        example: '2021-01-08 11:20:36'
       dateModified:
         description: 'The moment this request last Modified'
         type: string
         format: date-time
-        example: '2021-01-08 10:37:42'
+        example: '2021-01-08 11:20:36'
     required: []
   AuditTrail-write:
     properties:
@@ -27031,12 +27031,12 @@ definitions:
         description: 'The moment this request was created'
         type: string
         format: date-time
-        example: '2021-01-08 10:37:42'
+        example: '2021-01-08 11:20:36'
       dateModified:
         description: 'The moment this request last Modified'
         type: string
         format: date-time
-        example: '2021-01-08 10:37:42'
+        example: '2021-01-08 11:20:36'
     required: []
   ChangeLog-write:
     properties:

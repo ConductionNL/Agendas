@@ -57,6 +57,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ApiFilter(OrderFilter::class)
  * @ApiFilter(DateFilter::class, strategy=DateFilter::EXCLUDE_NULL)
  * @ApiFilter(SearchFilter::class, properties={
+ *     "id":"exact",
  *     "calendar.id":"exact",
  *     "calendar.organization":"exact",
  *     "calendar.resource":"exact",
@@ -112,7 +113,7 @@ class Event
      * @Groups({"read","write"})
      * @ORM\Column(type="text", nullable=true)
      */
-    private $description;
+    private ?string $description;
 
     /**
      * @var string A specific commonground organisation
