@@ -114,3 +114,6 @@ dependsOn:
     - name: Kubernetes
       versionMin: "1.15.5-do.1"
 
+installations:
+    - type: helm
+      url: "https://github.com/ConductionNL/agendaservice/raw/master/api/helm/arc-0.1.0.tgz"
