@@ -36,9 +36,21 @@ class LarpingFixtures extends Fixture
         $event->setResource($this->commonGroundService->cleanUrl(['component'=>'pdc', 'type'=>'products', 'id'=>'893e5c2f-4c89-438c-aa62-c0bd4636e858']));
         $event->setStartDate(new \DateTime('12-09-2020'));
         $event->setEndDate(new \DateTime('14-09-2020'));
-        $event->setLocation('Amsterdam, The Netherlands');
         $manager->persist($event);
         $manager->flush();
+
+        $id = Uuid::fromString('81052670-582e-401d-ad2b-77ac60cf9d73');
+        $event = new Event();
+        $event->setName('Event met subscription');
+        $event->setOrganization($this->commonGroundService->cleanUrl(['component'=>'wrc', 'type'=>'organizations', 'id'=>'51eb5628-3b37-497b-a57f-6b039ec776e5']));
+        $event->setResource($this->commonGroundService->cleanUrl(['component'=>'pdc', 'type'=>'products', 'id'=>'364523a6-458f-45f3-a9de-7d10b9e928a7']));
+        $event->setStartDate(new \DateTime('12-09-2020'));
+        $event->setEndDate(new \DateTime('14-09-2020'));
+        $manager->persist($event);
+        $event->setId($id);
+        $manager->persist($event);
+        $manager->flush();
+        $event = $manager->getRepository('App:Calendar')->findOneBy(['id'=> $id]);
 
 //        // Algemene Begraafplaats
 //        $id = Uuid::fromString('e46e6b3e-9b3a-4339-9d69-874d8dd6bc44');
