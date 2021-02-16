@@ -2,21 +2,22 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
-use Gedmo\Mapping\Annotation as Gedmo;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Annotation\MaxDepth;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ApiResource(
  *     normalizationContext={"groups"={"read"}, "enable_max_depth"=true},
- *     denormalizationContext={"groups"={"write"}, "enable_max_depth"=true}),
- *      collectionOperations={
- *          get
- *      },
- *      itemOperations={}
+ *     denormalizationContext={"groups"={"write"}, "enable_max_depth"=true}
+ * )
  * @ORM\Entity(repositoryClass="App\Repository\AvailabilityRepository")
  */
 class Availability
@@ -34,21 +35,21 @@ class Availability
 
     /**
      * @var DateTime The start of the availability block
-     * @Groups({"read"})
-     * @ORM\Column(type="datetime")
+     * @Groups({"read", "write"})
+     * @ORM\Column(type="datetime", nullable=true)
      */
-    private DateTime $startDate;
+    private ?DateTime $startDate;
 
     /**
      * @var DateTime The end of the availability block
-     * @Groups({"read"})
-     * @ORM\Column(type="datetime")
+     * @Groups({"read", "write"})
+     * @ORM\Column(type="datetime", nullable=true)
      */
-    private DateTime $endDate;
+    private ?DateTime $endDate;
 
     /**
      * @var bool Whether the block is available or not
-     * @Groups({"read"})
+     * @Groups({"read", "write"})
      * @ORM\Column(type="boolean")
      */
     private bool $available;
@@ -58,12 +59,18 @@ class Availability
      *
      * @example https://wrc.zaakonline.nl/organisations/16353702-4614-42ff-92af-7dd11c8eef9f
      *
-     * @Gedmo\Versioned
      * @Assert\Url
      * @Groups({"read", "write"})
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $resource;
+
+    /**
+     * @MaxDepth(1)
+     * @Groups({"read", "write"})
+     * @ORM\ManyToOne(targetEntity=Calendar::class, inversedBy="availabilities")
+     */
+    private Calendar $calendar;
 
     public function getId(): ?UuidInterface
     {
@@ -114,6 +121,18 @@ class Availability
     public function setResource(?string $resource): self
     {
         $this->resource = $resource;
+
+        return $this;
+    }
+
+    public function getCalendar(): ?Calendar
+    {
+        return $this->calendar;
+    }
+
+    public function setCalendar(?Calendar $calendar): self
+    {
+        $this->calendar = $calendar;
 
         return $this;
     }
