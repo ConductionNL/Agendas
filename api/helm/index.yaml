@@ -3,10 +3,10 @@ entries:
   agendaservice:
   - apiVersion: v1
     appVersion: V1.0
-    created: "2021-02-18T17:38:08.8743157Z"
+    created: "2021-02-18T21:15:28.7328141Z"
     description: Naast deze JSON rest API is er ook een [graphql](/graphql) interface
       beschikbaar.
-    digest: 0ca0c1f60a4baefee4ae4e57fa00508baeee1c70631850637a770c04f8f46435
+    digest: 1bac587ac018cb039e9b530c63d1d30c92c55f7a092dbb528dba488525d23c50
     home: https://www.conduction.nl
     icon: https://conductionnl.github.io/images/conduction_avatar_blue_on_transparant.svg
     keywords:
@@ -26,38 +26,12 @@ entries:
     urls:
     - agendaservice-0.1.0.tgz
     version: 0.1.0
-  arc:
-  - apiVersion: v1
-    appVersion: V1.0
-    created: "2021-02-18T17:38:08.9065164Z"
-    description: Naast deze JSON rest API is er ook een [graphql](/graphql) interface
-      beschikbaar.
-    digest: d0250773f345c1e825bc3d65a1d501f97d20905dceafadc7faf204ef031e1011
-    home: arc.zaakonline.nl
-    icon: arc.zaakonline.nl
-    keywords:
-    - commonground
-    - haven
-    - nlx
-    - component
-    maintainers:
-    - email: ruben@conduction.nl
-      name: Ruben van der Linde
-    - email: info@conduction.nl
-      name: Conduction
-    name: arc
-    sources:
-    - https://commonground.conduction.nl/
-    - https://www.commonground.nl/
-    urls:
-    - arc-0.1.0.tgz
-    version: 0.1.0
   postgresql:
   - annotations:
       category: Database
     apiVersion: v2
     appVersion: 11.10.0
-    created: "2021-02-18T17:38:08.9156585Z"
+    created: "2021-02-18T21:15:28.7464108Z"
     dependencies:
     - name: common
       repository: https://charts.bitnami.com/bitnami
@@ -86,4 +60,4 @@ entries:
     urls:
     - charts/postgresql-10.1.1.tgz
     version: 10.1.1
-generated: "2021-02-18T17:38:08.7929049Z"
+generated: "2021-02-18T21:15:28.7225141Z"
