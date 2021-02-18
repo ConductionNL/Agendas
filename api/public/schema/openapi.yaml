@@ -1,16 +1,16 @@
 openapi: 3.0.2
 info:
-  title: 'Agenda Component'
+  title: ''
   version: V1.0
   description: |
     API Details
-    - Component: Agenda Component
-    - Reference: arc
+    - Component: 
+    - Reference: agendaservice
     - Enviroment: dev
     - Version: V1.0
     - Repository: [online](https://github.com/ConductionNL/agendaservice) / [zip](https://github.com/ConductionNL/agendaservice/archive/master.zip)
-    - Docker Image: [online](https://hub.docker.com/repository/docker/conduction/arc-php) 
-    - Datamodel: [postman](schema/arc.postman_collection.json) / [oas](schema/openapi.yaml) / [pdf](schema/datamodel.pdf) / [modelio (zip)](schema/Datamodel_Modelio.zip) 
+    - Docker Image: [online]() 
+    - Datamodel: [postman](schema/agendaservice.postman_collection.json) / [oas](schema/openapi.yaml) / [pdf](schema/datamodel.pdf) / [modelio (zip)](schema/Datamodel_Modelio.zip) 
     
     Naast deze JSON rest API is er ook een [graphql](/graphql) interface beschikbaar.         
     
@@ -26818,7 +26818,7 @@ definitions:
       completed:
         description: 'The date and time a to-do is completed.'
         type: string
-        example: '2021-02-16 21:50:43'
+        example: '2021-02-18 12:00:17'
         format: date-time
       percentageDone:
         description: 'The percentage of a to-do that has been comepleted.'
@@ -26925,7 +26925,7 @@ definitions:
       completed:
         description: 'The date and time a to-do is completed.'
         type: string
-        example: '2021-02-16 21:50:43'
+        example: '2021-02-18 12:00:17'
         format: date-time
       percentageDone:
         description: 'The percentage of a to-do that has been comepleted.'
@@ -27044,12 +27044,12 @@ definitions:
         description: 'The moment this request was created'
         type: string
         format: date-time
-        example: '2021-02-16 21:50:44'
+        example: '2021-02-18 12:00:17'
       dateModified:
         description: 'The moment this request last Modified'
         type: string
         format: date-time
-        example: '2021-02-16 21:50:44'
+        example: '2021-02-18 12:00:17'
     required: []
   AuditTrail-write:
     properties:
@@ -27097,12 +27097,12 @@ definitions:
         description: 'The moment this request was created'
         type: string
         format: date-time
-        example: '2021-02-16 21:50:44'
+        example: '2021-02-18 12:00:17'
       dateModified:
         description: 'The moment this request last Modified'
         type: string
         format: date-time
-        example: '2021-02-16 21:50:44'
+        example: '2021-02-18 12:00:17'
     required: []
   ChangeLog-write:
     properties:
@@ -27204,7 +27204,7 @@ host: irc.zaakonline.nl
 servers:
   -
     name: zuid-drecht.nl
-    url: arc.dev.zuid-drecht.nl
+    url: agendaservice.dev.zuid-drecht.nl
 externalDocs:
   -
     description: 'OAS Documentatie'
