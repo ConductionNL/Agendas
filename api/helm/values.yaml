@@ -11,8 +11,8 @@ settings:
   repro: https://github.com/ConductionNL/agendaservice
   demo: arc.zaakonline.nl
   domain: zuid-drecht.nl
-  subdomain: arc
-  subpath: arc
+  subdomain: agendaservice
+  subpath: agendaservice
   subpathRouting: true
   env: dev
   web: false
