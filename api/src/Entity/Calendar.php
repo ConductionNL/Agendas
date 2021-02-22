@@ -321,7 +321,7 @@ class Calendar
      */
     public function getAvailabilities(): Collection
     {
-        return $this->events;
+        return $this->availabilities;
     }
 
     public function addAvailability(Availability $availability): self
