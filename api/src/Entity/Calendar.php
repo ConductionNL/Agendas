@@ -24,8 +24,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  * A Calendar is a collection of events tied to an unque person or resource.
  *
  * @ApiResource(
- *     normalizationContext={"groups"={"read"}},
- *     denormalizationContext={"groups"={"write"}},
+ *     normalizationContext={"groups"={"read"}, "enable_max_depth"=true},
+ *     denormalizationContext={"groups"={"write"}, "enable_max_depth"=true},
  *     itemOperations={
  *          "get",
  *          "put",
@@ -134,7 +134,7 @@ class Calendar
     /**
      * @var Collection Events that belong to this Calendar
      *
-     * @ApiSubresource(maxDepth=1)
+     * @MaxDepth(1)
      * @ORM\OneToMany(targetEntity="App\Entity\Event", mappedBy="calendar", orphanRemoval=true)
      */
     private ?Collection $events = null;
@@ -142,7 +142,7 @@ class Calendar
     /**
      * @var Collection Schedules that belong to this Calendar
      *
-     * @ApiSubresource(maxDepth=1)
+     * @MaxDepth(1)
      * @ORM\OneToMany(targetEntity="App\Entity\Schedule", mappedBy="calendar", orphanRemoval=true)
      */
     private ?Collection $schedules = null;
@@ -150,7 +150,7 @@ class Calendar
     /**
      * @var Collection that belong to this Calendar
      *
-     * @ApiSubresource(maxDepth=1)
+     * @MaxDepth(1)
      * @ORM\OneToMany(targetEntity="App\Entity\Freebusy", mappedBy="calendar")
      */
     private ?Collection $freebusies = null;
@@ -158,7 +158,7 @@ class Calendar
     /**
      * @var Collection journals that belong to this Calendar
      *
-     * @ApiSubresource(maxDepth=1)
+     * @MaxDepth(1)
      * @ORM\OneToMany(targetEntity="App\Entity\Journal", mappedBy="calendar")
      */
     private ?Collection $journals = null;
@@ -166,7 +166,7 @@ class Calendar
     /**
      * @var Collection todos that belong to this Calendar
      *
-     * @ApiSubresource(maxDepth=1)
+     * @MaxDepth(1)
      * @ORM\OneToMany(targetEntity="App\Entity\Todo", mappedBy="calendar")
      */
     private ?Collection $todos = null;
@@ -205,6 +205,16 @@ class Calendar
      */
     private ?DateTime $dateModified = null;
 
+    /**
+     * @var Collection Availability that belong to this Calendar
+     *
+     * @MaxDepth(1)
+     * @Groups({"read", "write"})
+     * @ORM\OneToMany(targetEntity="App\Entity\Availability", mappedBy="calendar", orphanRemoval=true)
+     */
+    private ?Collection $availabilities;
+
+
     public function __construct()
     {
         $this->schedules = new ArrayCollection();
@@ -212,6 +222,7 @@ class Calendar
         $this->freebusies = new ArrayCollection();
         $this->journals = new ArrayCollection();
         $this->todos = new ArrayCollection();
+        $this->availabilities = new ArrayCollection();
     }
 
     public function getId(): ?Uuid
@@ -299,6 +310,37 @@ class Calendar
             // set the owning side to null (unless already changed)
             if ($event->getCalendar() === $this) {
                 $event->setCalendar(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Availability[]
+     */
+    public function getAvailabilities(): Collection
+    {
+        return $this->availabilities;
+    }
+
+    public function addAvailability(Availability $availability): self
+    {
+        if (!$this->availabilities->contains($availability)) {
+            $this->availabilities[] = $availability;
+            $availability->setCalendar($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAvailability(Availability $availability): self
+    {
+        if ($this->availabilities->contains($availability)) {
+            $this->availabilities->removeElement($availability);
+            // set the owning side to null (unless already changed)
+            if ($availability->getCalendar() === $this) {
+                $availability->setCalendar(null);
             }
         }
 
