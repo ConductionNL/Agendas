@@ -11,6 +11,7 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use DateInterval;
 use DateTime;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Ramsey\Uuid\Uuid;
@@ -195,14 +196,17 @@ class Freebusy
     /**
      * @ApiSubresource(maxDepth=1)
      *
+     * @Groups({"read", "write"})
      * @ORM\ManyToOne(targetEntity="App\Entity\Calendar", inversedBy="freebusies")
      * @ORM\JoinColumn(nullable=true)
      */
     private ?Calendar $calendar = null;
 
     /**
+     * @var Schedule Schedule that belongs to this freebusy
      * @ApiSubresource(maxDepth=1)
-     * @ORM\ManyToOne(targetEntity="App\Entity\Schedule", inversedBy="freebusies")
+     * @Groups({"read", "write"})
+     * @ORM\ManyToOne(targetEntity="App\Entity\Schedule", inversedBy="freebusies", cascade={"persist"})
      */
     private ?Schedule $schedule;
 
