@@ -15,6 +15,7 @@ use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Component\Validator\Constraints\Date;
 
 class FreetimeSubscriber implements EventSubscriberInterface
 {
@@ -80,10 +81,13 @@ class FreetimeSubscriber implements EventSubscriberInterface
             'type'
         ];
 
+        if (isset($post['type']) && $post['type'] != 'FREE' && $post['type'] != 'BUSY') {
+            throw new BadRequestHttpException('Given type is not FREE or BUSY');
+        }
+        if (isset($post['startDate']) && $this->validateDate($post['startDate']) != true || isset($post['endDate']) && $this->validateDate($post['endDate']) != true) {
+            throw new BadRequestHttpException('Given dates are not recognized as PHP DateTime objects');
+        }
         foreach ($needed as $requirement) {
-            if ($requirement == 'type' && $post[$requirement] != 'FREE' && $post[$requirement] != 'BUSY') {
-                throw new BadRequestHttpException('Given type is not FREE or BUSY');
-            }
             if (!array_key_exists($requirement, $post) || $post[$requirement] == null) {
                 throw new BadRequestHttpException(sprintf('Compulsory property "%s" is not defined', $requirement));
             }
@@ -102,18 +106,71 @@ class FreetimeSubscriber implements EventSubscriberInterface
         $calendar = $this->em->getRepository(Calendar::class)->find($post['calendarId']);
         $freebusies = $calendar->getFreebusies();
 
-        foreach ($freebusies as $freebusy) {
-            if ($freebusy->getFreebusy() == 'FREE') {
-                if (strtotime($freebusy->getStartDate()) => strtotime($post['startDate'])) {
 
+        $timeBlocks = [];
+        foreach ($freebusies as $freebusy) {
+            if ($post['type'] == 'FREE' && $freebusy->getFreebusy() == 'FREE') {
+
+                // Add freebusy period as timeblock to the array
+                if (isset($post['startDate'])) {
+                    if (strtotime($freebusy->getStartDate()->format('Y-m-d H:i:s')) >= strtotime($post['startDate'])) {
+
+                        // If enddate of freebusy is later than the given enddate, set the timeblock enddate to that of the given enddate
+                        if ($freebusy->getEndDate() > $post['endDate']) {
+                            $timeBlocks[] = ['startDate' => $freebusy->getStartDate(), 'endDate' => $post['endDate']];
+                        } else {
+                            $timeBlocks[] = ['startDate' => $freebusy->getStartDate(), 'endDate' => $freebusy->getEndDate()];
+                        }
+
+                        // Check for schedule and make more timeBlocks
+                        if ($freebusy->getSchedule() != null) {
+                            $schedule = $freebusy->getSchedule();
+                            $monthFreebusyStartDate = (int)date("m", strtotime($freebusy->getStartDate()->format('Y-m-d H:i:s')));
+                            $weekFreebusyStartDate = (int)$freebusy->getStartDate()->format("W");
+                            $dayFreebusyStartDate = $this->dayOfWeekToNumber(date('l', strtotime($freebusy->getStartDate()->format('Y-m-d H:i:s'))));
+
+
+                            if ($schedule->getDaysPerWeek() != null) {
+                                foreach ($schedule->getDaysPerWeek() as $day) {
+                                    if ($day > $dayFreebusyStartDate) {
+                                        $daysToIncrement = $day - $dayFreebusyStartDate;
+                                        $newTimeBlockStartDate = date('Y-m-d H:i:s', strtotime("+" . $daysToIncrement . " day", strtotime($freebusy->getStartDate()->format('Y-m-d H:i:s'))));
+                                        $newTimeBlockEndDate = date('Y-m-d H:i:s', strtotime($newTimeBlockStartDate) + (strtotime($freebusy->getEndDate()->format('Y-m-d H:i:s')) - strtotime($freebusy->getStartDate()->format('Y-m-d H:i:s'))));
+
+                                        // Check if newTimeBlockStartDate is in the monthsPerYear of this Schedule if defined
+                                        if ($schedule->getMonthsPerYear() != null) {
+                                            $monthNewTimeBlockStartDate = (int)date("m", strtotime($newTimeBlockStartDate));
+                                            if (in_array($monthNewTimeBlockStartDate, $schedule->getMonthsPerYear())) {
+
+                                                // Check if newTimeBlockStartDate is in the weeksPerYear of this Schedule if defined
+                                                if ($schedule->getWeeksPerYear() != null) {
+                                                    $weekNewTimeBlockStartDate = (int)date("w", strtotime($newTimeBlockStartDate));
+                                                    if (in_array($weekNewTimeBlockStartDate, $schedule->getWeeksPerYear())) {
+                                                        $timeBlocks[] = ['startDate' => $newTimeBlockStartDate, 'endDate' => $newTimeBlockEndDate];
+                                                    }
+                                                } else {
+                                                    $timeBlocks[] = ['startDate' => $newTimeBlockStartDate, 'endDate' => $newTimeBlockEndDate];
+                                                }
+                                            }
+                                        } elseif ($schedule->getWeeksPerYear() != null) {
+                                            $weekNewTimeBlockStartDate = (int)date("w", strtotime($newTimeBlockStartDate));
+                                            if (in_array($weekNewTimeBlockStartDate, $schedule->getWeeksPerYear())) {
+                                                $timeBlocks[] = ['startDate' => $newTimeBlockStartDate, 'endDate' => $newTimeBlockEndDate];
+                                            }
+                                        }
+                                    }
+                                }
+                            } // else get all freebusies/schedule timesBlocks
+                        }
+                    }
                 }
-            } elseif ($freebusy->getFreebusy() == 'BUSY') {
+            } elseif ($post['type'] == 'BUSY' && $freebusy->getFreebusy() == 'BUSY') {
 
             }
         }
 
 
-        $responseData = $calendar;
+        $responseData = $timeBlocks;
 
         $json = $this->serializer->serialize(
             $responseData,
@@ -130,5 +187,39 @@ class FreetimeSubscriber implements EventSubscriberInterface
         $event->setResponse($response);
 
         return $calendar;
+    }
+
+    function validateDate($date, $format = 'Y-m-d H:i:s')
+    {
+        $d = \DateTime::createFromFormat($format, $date);
+        return $d && $d->format($format) === $date;
+    }
+
+    function dayOfWeekToNumber($day)
+    {
+        switch ($day) {
+            case 'Monday':
+                $day = 1;
+                break;
+            case 'Tuesday':
+                $day = 2;
+                break;
+            case 'Wednesday':
+                $day = 3;
+                break;
+            case 'Thursday':
+                $day = 4;
+                break;
+            case 'Friday':
+                $day = 5;
+                break;
+            case 'Saturday':
+                $day = 6;
+                break;
+            case 'Sunday':
+                $day = 7;
+                break;
+        }
+        return $day;
     }
 }

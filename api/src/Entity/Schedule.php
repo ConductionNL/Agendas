@@ -221,7 +221,7 @@ class Schedule
      * @example 3-3-2021
      *
      * @Groups({"read", "write"})
-     * @ORM\Column(type="datetime", nullable=true)
+     * @ORM\Column(type="datetime")
      */
     private ?DateTime $repeatTill;
 

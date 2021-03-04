@@ -2983,6 +2983,15 @@ paths:
               - asc
               - desc
         -
+          name: 'order[person]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
           name: 'order[resource]'
           in: query
           required: false
@@ -3102,6 +3111,22 @@ paths:
             type: string
         -
           name: 'organization[]'
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
+        -
+          name: person
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'person[]'
           in: query
           required: false
           schema:
@@ -6087,6 +6112,15 @@ paths:
               - asc
               - desc
         -
+          name: 'order[person]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
           name: 'order[resource]'
           in: query
           required: false
@@ -6200,6 +6234,22 @@ paths:
             type: string
         -
           name: 'organization[]'
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
+        -
+          name: person
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'person[]'
           in: query
           required: false
           schema:
@@ -7744,6 +7794,15 @@ paths:
               - asc
               - desc
         -
+          name: 'order[person]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
           name: 'order[resource]'
           in: query
           required: false
@@ -7857,6 +7916,22 @@ paths:
             type: string
         -
           name: 'organization[]'
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
+        -
+          name: person
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'person[]'
           in: query
           required: false
           schema:
@@ -8578,11 +8653,11 @@ paths:
           description: 'Resource not found'
       produces:
         - application/health+json
-  /freetime:
+  /freeorbusy:
     post:
       tags:
         - Calendar
-      operationId: post_freetimeCalendarCollection
+      operationId: post_freeorbusyCalendarCollection
       summary: 'Creates a Calendar resource.'
       responses:
         201:
@@ -9857,6 +9932,15 @@ paths:
               - asc
               - desc
         -
+          name: 'order[person]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
           name: 'order[resource]'
           in: query
           required: false
@@ -9970,6 +10054,22 @@ paths:
             type: string
         -
           name: 'organization[]'
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
+        -
+          name: person
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'person[]'
           in: query
           required: false
           schema:
@@ -14736,6 +14836,15 @@ paths:
               - asc
               - desc
         -
+          name: 'order[person]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
           name: 'order[resource]'
           in: query
           required: false
@@ -14849,6 +14958,22 @@ paths:
             type: string
         -
           name: 'organization[]'
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
+        -
+          name: person
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'person[]'
           in: query
           required: false
           schema:
@@ -18338,6 +18463,15 @@ paths:
               - asc
               - desc
         -
+          name: 'order[person]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
           name: 'order[resource]'
           in: query
           required: false
@@ -18451,6 +18585,22 @@ paths:
             type: string
         -
           name: 'organization[]'
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
+        -
+          name: person
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'person[]'
           in: query
           required: false
           schema:
@@ -21076,6 +21226,12 @@ components:
             url: 'http://schema.org/url'
           type: string
           nullable: true
+        person:
+          description: 'A specific commonground person from the contactcatalogus'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: string
+          nullable: true
         resource:
           description: 'A specific commonground resource'
           externalDocs:
@@ -21148,6 +21304,12 @@ components:
             url: 'http://schema.org/url'
           type: string
           nullable: true
+        person:
+          description: 'A specific commonground person from the contactcatalogus'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: string
+          nullable: true
         resource:
           description: 'A specific commonground resource'
           externalDocs:
@@ -21216,6 +21378,12 @@ components:
           nullable: true
         organization:
           description: 'A specific commonground organisation'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: string
+          nullable: true
+        person:
+          description: 'A specific commonground person from the contactcatalogus'
           externalDocs:
             url: 'http://schema.org/url'
           type: string
@@ -21297,6 +21465,12 @@ components:
           nullable: true
         organization:
           description: 'A specific commonground organisation'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: string
+          nullable: true
+        person:
+          description: 'A specific commonground person from the contactcatalogus'
           externalDocs:
             url: 'http://schema.org/url'
           type: string
@@ -23179,7 +23353,6 @@ components:
           description: 'The moment this recurrence can be recurred to'
           type: string
           format: date-time
-          nullable: true
         repeatCount:
           description: 'Defines the number of times a recurring Event will take place'
           type: integer
@@ -23270,7 +23443,6 @@ components:
           description: 'The moment this recurrence can be recurred to'
           type: string
           format: date-time
-          nullable: true
         repeatCount:
           description: 'Defines the number of times a recurring Event will take place'
           type: integer
@@ -23363,7 +23535,6 @@ components:
           description: 'The moment this recurrence can be recurred to'
           type: string
           format: date-time
-          nullable: true
         repeatCount:
           description: 'Defines the number of times a recurring Event will take place'
           type: integer
@@ -23463,7 +23634,6 @@ components:
           description: 'The moment this recurrence can be recurred to'
           type: string
           format: date-time
-          nullable: true
         repeatCount:
           description: 'Defines the number of times a recurring Event will take place'
           type: integer
@@ -24114,6 +24284,11 @@ definitions:
         type: string
         example: 'https://wrc.zaakonline.nl/organisations/16353702-4614-42ff-92af-7dd11c8eef9f'
         format: url
+      person:
+        description: 'A specific commonground person from the contactcatalogus'
+        type: string
+        example: 'https://cc.zaakonline.nl/people/16353702-4614-42ff-92af-7dd11c8eef9f'
+        format: url
       resource:
         description: 'A specific commonground resource'
         type: string
@@ -24168,6 +24343,11 @@ definitions:
         description: 'A specific commonground organisation'
         type: string
         example: 'https://wrc.zaakonline.nl/organisations/16353702-4614-42ff-92af-7dd11c8eef9f'
+        format: url
+      person:
+        description: 'A specific commonground person from the contactcatalogus'
+        type: string
+        example: 'https://cc.zaakonline.nl/people/16353702-4614-42ff-92af-7dd11c8eef9f'
         format: url
       resource:
         description: 'A specific commonground resource'
@@ -25148,7 +25328,7 @@ definitions:
       completed:
         description: 'The date and time a to-do is completed.'
         type: string
-        example: '2021-03-03 15:36:50'
+        example: '2021-03-04 13:36:37'
         format: date-time
       percentageDone:
         description: 'The percentage of a to-do that has been comepleted.'
@@ -25255,7 +25435,7 @@ definitions:
       completed:
         description: 'The date and time a to-do is completed.'
         type: string
-        example: '2021-03-03 15:36:50'
+        example: '2021-03-04 13:36:37'
         format: date-time
       percentageDone:
         description: 'The percentage of a to-do that has been comepleted.'
@@ -25374,12 +25554,12 @@ definitions:
         description: 'The moment this request was created'
         type: string
         format: date-time
-        example: '2021-03-03 15:36:50'
+        example: '2021-03-04 13:36:37'
       dateModified:
         description: 'The moment this request last Modified'
         type: string
         format: date-time
-        example: '2021-03-03 15:36:50'
+        example: '2021-03-04 13:36:37'
     required: []
   AuditTrail-write:
     properties:
@@ -25427,12 +25607,12 @@ definitions:
         description: 'The moment this request was created'
         type: string
         format: date-time
-        example: '2021-03-03 15:36:50'
+        example: '2021-03-04 13:36:37'
       dateModified:
         description: 'The moment this request last Modified'
         type: string
         format: date-time
-        example: '2021-03-03 15:36:50'
+        example: '2021-03-04 13:36:37'
     required: []
   ChangeLog-write:
     properties:
