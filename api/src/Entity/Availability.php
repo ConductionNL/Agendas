@@ -19,6 +19,9 @@ use Symfony\Component\Validator\Constraints as Assert;
  *     denormalizationContext={"groups"={"write"}, "enable_max_depth"=true}
  * )
  * @ORM\Entity(repositoryClass="App\Repository\AvailabilityRepository")
+ * @ApiFilter(SearchFilter::class, properties={
+ *     "resource":"exact"
+ * })
  */
 class Availability
 {
@@ -31,7 +34,7 @@ class Availability
      * @ORM\GeneratedValue(strategy="CUSTOM")
      * @ORM\CustomIdGenerator(class="Ramsey\Uuid\Doctrine\UuidGenerator")
      */
-    private UuidInterface$id;
+    private UuidInterface $id;
 
     /**
      * @var DateTime The start of the availability block
