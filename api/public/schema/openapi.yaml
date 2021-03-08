@@ -3809,6 +3809,137 @@ paths:
           description: 'Resource not found'
       produces:
         - application/health+json
+  '/calendars/{id}/availability':
+    get:
+      tags:
+        - Calendar
+      operationId: get_availabilityCalendarItem
+      summary: 'Retrieves a Calendar resource.'
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: string
+        -
+          name: Authorization
+          description: 'The JWT of the entity performing the request'
+          in: header
+        -
+          name: API-Version
+          description: 'The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)'
+          example: 1.0.1
+          in: header
+        -
+          name: X-NLX-Logrecord-ID
+          description: 'A  globally unique id of the request, which makes a request traceable throughout the network.'
+          in: header
+        -
+          name: X-NLX-Request-Process-Id
+          description: 'A process id for purpose registration (doelbinding)'
+          in: header
+        -
+          name: X-NLX-Request-Data-Elements
+          description: 'A list of requested data elements'
+          in: header
+        -
+          name: X-NLX-Request-Data-Subject
+          description: 'A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`'
+          in: header
+        -
+          name: X-NLX-Audit-Clarification
+          description: 'A clarification as to why a request has been made  (doelbinding)'
+          in: header
+        -
+          name: Link
+          description: 'A [websub](https://www.w3.org/TR/websub/#discovery) header like <https://hub.example.com/>; rel="hub"'
+          in: header
+        -
+          name: 'extend[]'
+          required: false
+          description: 'An array of nested objects to include in the return object'
+          in: query
+          schema:
+            type: array
+        -
+          name: 'fields[]'
+          required: false
+          description: 'An array of fields to return in output, wil return all fields is not supplied'
+          in: query
+          schema:
+            type: array
+        -
+          name: validOn
+          required: false
+          description: 'Returns object as valid on a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+        -
+          name: validFrom
+          required: false
+          description: 'Returns objects valid from a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+        -
+          name: validUntil
+          required: false
+          description: 'Returns objects valid until a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+      responses:
+        200:
+          description: 'Calendar resource response'
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Calendar:jsonld-read'
+            application/json+ld:
+              schema:
+                $ref: '#/components/schemas/Calendar:jsonld-read'
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/Calendar-read'
+            application/json+hal:
+              schema:
+                $ref: '#/components/schemas/Calendar-read'
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/Calendar-read'
+            application/json+vnd.api:
+              schema:
+                $ref: '#/components/schemas/Calendar-read'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Calendar-read'
+            application/health+json:
+              schema:
+                $ref: '#/components/schemas/Calendar-read'
+            application/json+health:
+              schema:
+                $ref: '#/components/schemas/Calendar-read'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Calendar-read'
+            application/x-yaml:
+              schema:
+                $ref: '#/components/schemas/Calendar-read'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/Calendar-read'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/Calendar-read'
+        404:
+          description: 'Resource not found'
+      produces:
+        - application/health+json
   '/calendars/{id}/change_log':
     get:
       tags:
@@ -8029,6 +8160,558 @@ paths:
           in: query
       produces:
         - application/health+json
+  '/freebusies/{id}/event':
+    get:
+      tags:
+        - Event
+        - Freebusy
+      operationId: api_freebusies_event_get_subresource
+      summary: 'Retrieves a Event resource.'
+      responses:
+        200:
+          description: 'Event resource response'
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Event:jsonld-read'
+            application/json+ld:
+              schema:
+                $ref: '#/components/schemas/Event:jsonld-read'
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/Event-read'
+            application/json+hal:
+              schema:
+                $ref: '#/components/schemas/Event-read'
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/Event-read'
+            application/json+vnd.api:
+              schema:
+                $ref: '#/components/schemas/Event-read'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event-read'
+            application/health+json:
+              schema:
+                $ref: '#/components/schemas/Event-read'
+            application/json+health:
+              schema:
+                $ref: '#/components/schemas/Event-read'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Event-read'
+            application/x-yaml:
+              schema:
+                $ref: '#/components/schemas/Event-read'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/Event-read'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/Event-read'
+        404:
+          description: 'Resource not found'
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: string
+        -
+          name: 'order[id]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[name]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[description]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[organization]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[resource]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[startDate]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[endDate]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[location]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[class]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[geo]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[organizer]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[status]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[summary]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[transp]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[duration]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[contact]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[seq]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[priority]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[attendees]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[attachments]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[categories]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[comments]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[dateCreated]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[dateModified]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'startDate[before]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'startDate[strictly_before]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'startDate[after]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'startDate[strictly_after]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'endDate[before]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'endDate[strictly_before]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'endDate[after]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'endDate[strictly_after]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateCreated[before]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateCreated[strictly_before]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateCreated[after]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateCreated[strictly_after]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateModified[before]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateModified[strictly_before]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateModified[after]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateModified[strictly_after]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'id[]'
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
+        -
+          name: calendar.id
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'calendar.id[]'
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
+        -
+          name: calendar.organization
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'calendar.organization[]'
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
+        -
+          name: calendar.resource
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'calendar.resource[]'
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
+        -
+          name: name
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: description
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: organization
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'organization[]'
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
+        -
+          name: resource
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'resource[]'
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
+        -
+          name: location
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: Authorization
+          description: 'The JWT of the entity performing the request'
+          in: header
+        -
+          name: API-Version
+          description: 'The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)'
+          example: 1.0.1
+          in: header
+        -
+          name: X-NLX-Logrecord-ID
+          description: 'A  globally unique id of the request, which makes a request traceable throughout the network.'
+          in: header
+        -
+          name: X-NLX-Request-Process-Id
+          description: 'A process id for purpose registration (doelbinding)'
+          in: header
+        -
+          name: X-NLX-Request-Data-Elements
+          description: 'A list of requested data elements'
+          in: header
+        -
+          name: X-NLX-Request-Data-Subject
+          description: 'A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`'
+          in: header
+        -
+          name: X-NLX-Audit-Clarification
+          description: 'A clarification as to why a request has been made  (doelbinding)'
+          in: header
+        -
+          name: Link
+          description: 'A [websub](https://www.w3.org/TR/websub/#discovery) header like <https://hub.example.com/>; rel="hub"'
+          in: header
+        -
+          name: 'extend[]'
+          required: false
+          description: 'An array of nested objects to include in the return object'
+          in: query
+          schema:
+            type: array
+        -
+          name: 'fields[]'
+          required: false
+          description: 'An array of fields to return in output, wil return all fields is not supplied'
+          in: query
+          schema:
+            type: array
+        -
+          name: validOn
+          required: false
+          description: 'Returns object as valid on a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+        -
+          name: validFrom
+          required: false
+          description: 'Returns objects valid from a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+        -
+          name: validUntil
+          required: false
+          description: 'Returns objects valid until a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+      produces:
+        - application/health+json
   '/freebusies/{id}/schedule':
     get:
       tags:
@@ -8653,137 +9336,6 @@ paths:
           description: 'Resource not found'
       produces:
         - application/health+json
-  /freeorbusy:
-    post:
-      tags:
-        - Calendar
-      operationId: post_freeorbusyCalendarCollection
-      summary: 'Creates a Calendar resource.'
-      responses:
-        201:
-          description: 'Calendar resource created'
-          content:
-            application/ld+json:
-              schema:
-                $ref: '#/components/schemas/Calendar:jsonld-read'
-            application/json+ld:
-              schema:
-                $ref: '#/components/schemas/Calendar:jsonld-read'
-            application/hal+json:
-              schema:
-                $ref: '#/components/schemas/Calendar-read'
-            application/json+hal:
-              schema:
-                $ref: '#/components/schemas/Calendar-read'
-            application/vnd.api+json:
-              schema:
-                $ref: '#/components/schemas/Calendar-read'
-            application/json+vnd.api:
-              schema:
-                $ref: '#/components/schemas/Calendar-read'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Calendar-read'
-            application/health+json:
-              schema:
-                $ref: '#/components/schemas/Calendar-read'
-            application/json+health:
-              schema:
-                $ref: '#/components/schemas/Calendar-read'
-            application/xml:
-              schema:
-                $ref: '#/components/schemas/Calendar-read'
-            application/x-yaml:
-              schema:
-                $ref: '#/components/schemas/Calendar-read'
-            text/csv:
-              schema:
-                $ref: '#/components/schemas/Calendar-read'
-            text/html:
-              schema:
-                $ref: '#/components/schemas/Calendar-read'
-          links:
-            GetCalendarItem:
-              parameters:
-                id: '$response.body#/id'
-              operationId: getCalendarItem
-              description: 'The `id` value returned in the response can be used as the `id` parameter in `GET /calendars/{id}`.'
-        400:
-          description: 'Invalid input'
-        404:
-          description: 'Resource not found'
-      requestBody:
-        content:
-          application/ld+json:
-            schema:
-              $ref: '#/components/schemas/Calendar:jsonld-write'
-          application/json+ld:
-            schema:
-              $ref: '#/components/schemas/Calendar:jsonld-write'
-          application/hal+json:
-            schema:
-              $ref: '#/components/schemas/Calendar-write'
-          application/json+hal:
-            schema:
-              $ref: '#/components/schemas/Calendar-write'
-          application/vnd.api+json:
-            schema:
-              $ref: '#/components/schemas/Calendar-write'
-          application/json+vnd.api:
-            schema:
-              $ref: '#/components/schemas/Calendar-write'
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Calendar-write'
-          application/health+json:
-            schema:
-              $ref: '#/components/schemas/Calendar-write'
-          application/json+health:
-            schema:
-              $ref: '#/components/schemas/Calendar-write'
-          application/xml:
-            schema:
-              $ref: '#/components/schemas/Calendar-write'
-          application/x-yaml:
-            schema:
-              $ref: '#/components/schemas/Calendar-write'
-          text/csv:
-            schema:
-              $ref: '#/components/schemas/Calendar-write'
-          text/html:
-            schema:
-              $ref: '#/components/schemas/Calendar-write'
-        description: 'The new Calendar resource'
-      parameters:
-        -
-          name: Authorization
-          description: 'The JWT of the entity performing the request'
-          in: header
-        -
-          name: API-Version
-          description: 'The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)'
-          example: 1.0.1
-          in: header
-        -
-          name: X-NLX-Logrecord-ID
-          description: 'A  globally unique id of the request, which makes a request traceable throughout the network.'
-          in: header
-        -
-          name: X-NLX-Request-Process-Id
-          description: 'A process id for purpose registration (doelbinding)'
-          in: header
-        -
-          name: X-NLX-Request-Data-Elements
-          description: 'A list of requested data elements'
-          in: header
-        -
-          name: X-NLX-Request-Data-Subject
-          description: 'A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`'
-          in: header
-        -
-          name: X-NLX-Audit-Clarification
-          description: 'A clarification as to why a request has been made  (doelbinding)'
-          in: header
   /journals:
     get:
       tags:
@@ -21749,6 +22301,11 @@ components:
           type: array
           items:
             type: string
+        freebusies:
+          description: 'Freebusies that are for this Event'
+          type: array
+          items:
+            $ref: '#/components/schemas/Freebusy-read'
         dateCreated:
           description: 'The moment this resource was created'
           type: string
@@ -21880,6 +22437,11 @@ components:
           type: array
           items:
             type: string
+        freebusies:
+          description: 'Freebusies that are for this Event'
+          type: array
+          items:
+            $ref: '#/components/schemas/Freebusy-write'
     'Event:jsonld-read':
       type: object
       description: 'An event happening at a certain time and location, such as a concert, lecture, meeting or festival.'
@@ -22007,6 +22569,11 @@ components:
           type: array
           items:
             type: string
+        freebusies:
+          description: 'Freebusies that are for this Event'
+          type: array
+          items:
+            $ref: '#/components/schemas/Freebusy:jsonld-read'
         dateCreated:
           description: 'The moment this resource was created'
           type: string
@@ -22147,6 +22714,11 @@ components:
           type: array
           items:
             type: string
+        freebusies:
+          description: 'Freebusies that are for this Event'
+          type: array
+          items:
+            $ref: '#/components/schemas/Freebusy:jsonld-write'
     Freebusy-read:
       type: object
       description: 'This entity checks if a person is free or busy for a event.'
@@ -22213,6 +22785,11 @@ components:
           anyOf:
             -
               $ref: '#/components/schemas/Calendar-read'
+        event:
+          nullable: true
+          anyOf:
+            -
+              $ref: '#/components/schemas/Event-read'
         schedule:
           description: 'Schedule that belongs to this freebusy'
           nullable: true
@@ -22291,6 +22868,11 @@ components:
           anyOf:
             -
               $ref: '#/components/schemas/Calendar-write'
+        event:
+          nullable: true
+          anyOf:
+            -
+              $ref: '#/components/schemas/Event-write'
         schedule:
           description: 'Schedule that belongs to this freebusy'
           nullable: true
@@ -22375,6 +22957,11 @@ components:
           anyOf:
             -
               $ref: '#/components/schemas/Calendar:jsonld-read'
+        event:
+          nullable: true
+          anyOf:
+            -
+              $ref: '#/components/schemas/Event:jsonld-read'
         schedule:
           description: 'Schedule that belongs to this freebusy'
           nullable: true
@@ -22462,6 +23049,11 @@ components:
           anyOf:
             -
               $ref: '#/components/schemas/Calendar:jsonld-write'
+        event:
+          nullable: true
+          anyOf:
+            -
+              $ref: '#/components/schemas/Event:jsonld-write'
         schedule:
           description: 'Schedule that belongs to this freebusy'
           nullable: true
@@ -24496,6 +25088,9 @@ definitions:
       calendar:
         description: 'The Calendar to wich this event belongs'
         type: \Calendar
+      freebusies:
+        description: 'Freebusies that are for this Event'
+        type: \Collection
     required:
       - name
       - startDate
@@ -24604,6 +25199,9 @@ definitions:
       calendar:
         description: 'The Calendar to wich this event belongs'
         type: \Calendar
+      freebusies:
+        description: 'Freebusies that are for this Event'
+        type: \Collection
     required:
       - name
       - startDate
@@ -24668,6 +25266,7 @@ definitions:
         description: 'The moment this resource last Modified'
         type: \DateTime
       calendar: []
+      event: []
       schedule:
         description: 'Schedule that belongs to this freebusy'
         type: \Schedule
@@ -24723,6 +25322,7 @@ definitions:
         example: 'https://wrc.zaakonline.nl/organisations/16353702-4614-42ff-92af-7dd11c8eef9f'
         format: url
       calendar: []
+      event: []
       schedule:
         description: 'Schedule that belongs to this freebusy'
         type: \Schedule
@@ -25328,7 +25928,7 @@ definitions:
       completed:
         description: 'The date and time a to-do is completed.'
         type: string
-        example: '2021-03-04 13:36:37'
+        example: '2021-03-08 16:25:50'
         format: date-time
       percentageDone:
         description: 'The percentage of a to-do that has been comepleted.'
@@ -25435,7 +26035,7 @@ definitions:
       completed:
         description: 'The date and time a to-do is completed.'
         type: string
-        example: '2021-03-04 13:36:37'
+        example: '2021-03-08 16:25:50'
         format: date-time
       percentageDone:
         description: 'The percentage of a to-do that has been comepleted.'
@@ -25554,12 +26154,12 @@ definitions:
         description: 'The moment this request was created'
         type: string
         format: date-time
-        example: '2021-03-04 13:36:37'
+        example: '2021-03-08 16:25:50'
       dateModified:
         description: 'The moment this request last Modified'
         type: string
         format: date-time
-        example: '2021-03-04 13:36:37'
+        example: '2021-03-08 16:25:50'
     required: []
   AuditTrail-write:
     properties:
@@ -25607,12 +26207,12 @@ definitions:
         description: 'The moment this request was created'
         type: string
         format: date-time
-        example: '2021-03-04 13:36:37'
+        example: '2021-03-08 16:25:50'
       dateModified:
         description: 'The moment this request last Modified'
         type: string
         format: date-time
-        example: '2021-03-04 13:36:37'
+        example: '2021-03-08 16:25:50'
     required: []
   ChangeLog-write:
     properties:

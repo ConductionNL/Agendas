@@ -45,7 +45,7 @@ class LocalhostFixtures extends Fixture
         $fb = new Freebusy();
         $fb->setDescription('Test freebusy');
         $fb->setStartDate(new \DateTime('3-3-2021 09:30:00'));
-        $fb->setEndDate(new \DateTime('3-3-2021 15:30:00'));
+        $fb->setEndDate(new \DateTime('14-3-2021 15:30:00'));
         $fb->setFreebusy('FREE');
         $fb->setCalendar($calendar);
         $manager->persist($fb);
@@ -53,12 +53,13 @@ class LocalhostFixtures extends Fixture
 
         $schedule = new Schedule();
         $schedule->setName('Schedule for test free/busy');
-        $schedule->setDaysPerWeek([1,2,3,4,5]);
-        $schedule->setWeeksPerYear([1,2,3,4,5,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26]);
-        $schedule->setMonthsPerYear([1,2,3,4,5,8,9,10,11,12]);
+//        $schedule->setDaysPerWeek([1,2,3,4,5]);
+//        $schedule->setWeeksPerYear([1,2,3,4,5,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,40,41,42,43,44]);
+        $schedule->setMonthsPerYear([1,2,3,4,10,11,12]);
         $schedule->setRepeatTill(new \DateTime('1-1-2022'));
         $schedule->addFreebusy($fb);
         $manager->persist($fb);
         $manager->flush();
+
     }
 }

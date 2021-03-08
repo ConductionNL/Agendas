@@ -45,19 +45,15 @@ use Symfony\Component\Validator\Constraints as Assert;
  *                  "summary"="Audittrail",
  *                  "description"="Gets the audit trail for this resource"
  *              }
- *          }
- *     },
- *     collectionOperations={
- *          "get",
- *          "post",
- *          "post_freeorbusy"={
- *              "method"="POST",
- *              "path"="freeorbusy",
+ *          },
+ *          "get_availability"={
+ *              "method"="GET",
+ *              "path"="/calendars/{id}/availability",
  *              "swagger_context" = {
- *                  "summary"="Get the freetime of this calendar",
+ *                  "summary"="Get the availability of this calendar",
  *                  "description"="Returns a array of time blocks"
  *              }
- *          },
+ *          }
  *     }
  * )
  * @ORM\Entity(repositoryClass="App\Repository\CalendarRepository")

@@ -203,6 +203,15 @@ class Freebusy
     private ?Calendar $calendar = null;
 
     /**
+     * @ApiSubresource(maxDepth=1)
+     *
+     * @Groups({"read", "write"})
+     * @ORM\ManyToOne(targetEntity="App\Entity\Event", inversedBy="freebusies")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private ?Event $event = null;
+
+    /**
      * @var Schedule Schedule that belongs to this freebusy
      * @ApiSubresource(maxDepth=1)
      * @Groups({"read", "write"})
@@ -361,6 +370,18 @@ class Freebusy
     public function setCalendar(?Calendar $calendar): self
     {
         $this->calendar = $calendar;
+
+        return $this;
+    }
+
+    public function getEvent(): ?Event
+    {
+        return $this->event;
+    }
+
+    public function setEvent(?Event $event): self
+    {
+        $this->event = $event;
 
         return $this;
     }
