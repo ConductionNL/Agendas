@@ -45,8 +45,16 @@ use Symfony\Component\Validator\Constraints as Assert;
  *                  "summary"="Audittrail",
  *                  "description"="Gets the audit trail for this resource"
  *              }
+ *          },
+ *          "get_availability"={
+ *              "method"="GET",
+ *              "path"="/calendars/{id}/availability",
+ *              "swagger_context" = {
+ *                  "summary"="Get the availability of this calendar",
+ *                  "description"="Returns a array of time blocks"
+ *              }
  *          }
- *     },
+ *     }
  * )
  * @ORM\Entity(repositoryClass="App\Repository\CalendarRepository")
  * @Gedmo\Loggable(logEntryClass="Conduction\CommonGroundBundle\Entity\ChangeLog")
@@ -59,6 +67,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *     "name":"partial",
  *     "description":"partial",
  *     "organization":"exact",
+ *     "person":"exact",
  *     "resource":"exact"
  * })
  */
@@ -120,6 +129,18 @@ class Calendar
     private ?string $organization = null;
 
     /**
+     * @var string A specific commonground person from the contactcatalogus
+     *
+     * @example https://cc.zaakonline.nl/people/16353702-4614-42ff-92af-7dd11c8eef9f
+     *
+     * @Gedmo\Versioned
+     * @Assert\Url
+     * @Groups({"read", "write"})
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private ?string $person = null;
+
+    /**
      * @var string A specific commonground resource
      *
      * @example https://wrc.zaakonline.nl/organisations/16353702-4614-42ff-92af-7dd11c8eef9f
@@ -136,6 +157,7 @@ class Calendar
      *
      * @MaxDepth(1)
      * @ORM\OneToMany(targetEntity="App\Entity\Event", mappedBy="calendar", orphanRemoval=true)
+     * @Groups({"read", "write"})
      */
     private ?Collection $events = null;
 
@@ -144,6 +166,7 @@ class Calendar
      *
      * @MaxDepth(1)
      * @ORM\OneToMany(targetEntity="App\Entity\Schedule", mappedBy="calendar", orphanRemoval=true)
+     * @Groups({"read", "write"})
      */
     private ?Collection $schedules = null;
 
@@ -152,6 +175,7 @@ class Calendar
      *
      * @MaxDepth(1)
      * @ORM\OneToMany(targetEntity="App\Entity\Freebusy", mappedBy="calendar")
+     * @Groups({"read", "write"})
      */
     private ?Collection $freebusies = null;
 
@@ -160,6 +184,7 @@ class Calendar
      *
      * @MaxDepth(1)
      * @ORM\OneToMany(targetEntity="App\Entity\Journal", mappedBy="calendar")
+     * @Groups({"read", "write"})
      */
     private ?Collection $journals = null;
 
@@ -168,6 +193,7 @@ class Calendar
      *
      * @MaxDepth(1)
      * @ORM\OneToMany(targetEntity="App\Entity\Todo", mappedBy="calendar")
+     * @Groups({"read", "write"})
      */
     private ?Collection $todos = null;
 
@@ -269,6 +295,18 @@ class Calendar
     public function setOrganization(string $organization): self
     {
         $this->organization = $organization;
+
+        return $this;
+    }
+
+    public function getPerson(): ?string
+    {
+        return $this->person;
+    }
+
+    public function setPerson(string $person): self
+    {
+        $this->person = $person;
 
         return $this;
     }

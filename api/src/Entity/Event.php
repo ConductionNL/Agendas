@@ -409,6 +409,15 @@ class Event
     private ?Journal $journal;
 
     /**
+     * @var Collection Freebusies that are for this Event
+     *
+     * @MaxDepth(1)
+     * @ORM\OneToMany(targetEntity="App\Entity\Freebusy", mappedBy="event")
+     * @Groups({"read", "write"})
+     */
+    private ?Collection $freebusies = null;
+
+    /**
      * @var DateTime The moment this resource was created
      *
      * @Groups({"read"})
@@ -819,6 +828,37 @@ class Event
         $newEvent = $journal === null ? null : $this;
         if ($newEvent !== $journal->getEvent()) {
             $journal->setEvent($newEvent);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Freebusy[]
+     */
+    public function getFreebusies(): Collection
+    {
+        return $this->freebusies;
+    }
+
+    public function addFreebusy(Freebusy $freebusy): self
+    {
+        if (!$this->freebusies->contains($freebusy)) {
+            $this->freebusies[] = $freebusy;
+            $freebusy->setEvent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFreebusy(Freebusy $freebusy): self
+    {
+        if ($this->freebusies->contains($freebusy)) {
+            $this->freebusies->removeElement($freebusy);
+            // set the owning side to null (unless already changed)
+            if ($freebusy->getEvent() === $this) {
+                $freebusy->setEvent(null);
+            }
         }
 
         return $this;

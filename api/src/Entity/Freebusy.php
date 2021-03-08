@@ -11,6 +11,7 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use DateInterval;
 use DateTime;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Ramsey\Uuid\Uuid;
@@ -195,6 +196,7 @@ class Freebusy
     /**
      * @ApiSubresource(maxDepth=1)
      *
+     * @Groups({"read", "write"})
      * @ORM\ManyToOne(targetEntity="App\Entity\Calendar", inversedBy="freebusies")
      * @ORM\JoinColumn(nullable=true)
      */
@@ -202,7 +204,18 @@ class Freebusy
 
     /**
      * @ApiSubresource(maxDepth=1)
-     * @ORM\ManyToOne(targetEntity="App\Entity\Schedule", inversedBy="freebusies")
+     *
+     * @Groups({"read", "write"})
+     * @ORM\ManyToOne(targetEntity="App\Entity\Event", inversedBy="freebusies")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private ?Event $event = null;
+
+    /**
+     * @var Schedule Schedule that belongs to this freebusy
+     * @ApiSubresource(maxDepth=1)
+     * @Groups({"read", "write"})
+     * @ORM\ManyToOne(targetEntity="App\Entity\Schedule", inversedBy="freebusies", cascade={"persist"})
      */
     private ?Schedule $schedule;
 
@@ -357,6 +370,18 @@ class Freebusy
     public function setCalendar(?Calendar $calendar): self
     {
         $this->calendar = $calendar;
+
+        return $this;
+    }
+
+    public function getEvent(): ?Event
+    {
+        return $this->event;
+    }
+
+    public function setEvent(?Event $event): self
+    {
+        $this->event = $event;
 
         return $this;
     }
