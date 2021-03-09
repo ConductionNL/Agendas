@@ -5490,6 +5490,22 @@ paths:
           schema:
             type: string
         -
+          name: status
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'status[]'
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
+        -
           name: page
           in: query
           required: false
@@ -8640,6 +8656,22 @@ paths:
           schema:
             type: string
         -
+          name: status
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'status[]'
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
+        -
           name: Authorization
           description: 'The JWT of the entity performing the request'
           in: header
@@ -11330,6 +11362,22 @@ paths:
           schema:
             type: string
         -
+          name: status
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'status[]'
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
+        -
           name: Authorization
           description: 'The JWT of the entity performing the request'
           in: header
@@ -13675,6 +13723,22 @@ paths:
           required: false
           schema:
             type: string
+        -
+          name: status
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'status[]'
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
         -
           name: page
           in: query
@@ -16269,6 +16333,22 @@ paths:
           required: false
           schema:
             type: string
+        -
+          name: status
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'status[]'
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
         -
           name: page
           in: query
@@ -20140,6 +20220,22 @@ paths:
           required: false
           schema:
             type: string
+        -
+          name: status
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'status[]'
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
         -
           name: page
           in: query
@@ -25928,7 +26024,7 @@ definitions:
       completed:
         description: 'The date and time a to-do is completed.'
         type: string
-        example: '2021-03-08 16:25:50'
+        example: '2021-03-09 09:02:08'
         format: date-time
       percentageDone:
         description: 'The percentage of a to-do that has been comepleted.'
@@ -26035,7 +26131,7 @@ definitions:
       completed:
         description: 'The date and time a to-do is completed.'
         type: string
-        example: '2021-03-08 16:25:50'
+        example: '2021-03-09 09:02:08'
         format: date-time
       percentageDone:
         description: 'The percentage of a to-do that has been comepleted.'
@@ -26154,12 +26250,12 @@ definitions:
         description: 'The moment this request was created'
         type: string
         format: date-time
-        example: '2021-03-08 16:25:50'
+        example: '2021-03-09 09:02:08'
       dateModified:
         description: 'The moment this request last Modified'
         type: string
         format: date-time
-        example: '2021-03-08 16:25:50'
+        example: '2021-03-09 09:02:08'
     required: []
   AuditTrail-write:
     properties:
@@ -26207,12 +26303,12 @@ definitions:
         description: 'The moment this request was created'
         type: string
         format: date-time
-        example: '2021-03-08 16:25:50'
+        example: '2021-03-09 09:02:08'
       dateModified:
         description: 'The moment this request last Modified'
         type: string
         format: date-time
-        example: '2021-03-08 16:25:50'
+        example: '2021-03-09 09:02:08'
     required: []
   ChangeLog-write:
     properties:

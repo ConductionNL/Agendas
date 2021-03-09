@@ -65,7 +65,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  *     "description":"ipartial",
  *     "organization":"exact",
  *     "resource":"exact",
- *     "location":"iexact"
+ *     "location":"iexact",
+ *     "status":"exact"
  * })
  */
 class Event
