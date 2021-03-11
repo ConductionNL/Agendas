@@ -26,8 +26,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ApiResource(
  *       iri="https://schema.org/Event",
- *     normalizationContext={"groups"={"read"}},
- *     denormalizationContext={"groups"={"write"}},
+ *     normalizationContext={"groups"={"read"}, "enable_max_depth"=true},
+ *     denormalizationContext={"groups"={"write"}, "enable_max_depth"=true},
  *     itemOperations={
  *          "get",
  *          "put",
@@ -184,7 +184,7 @@ class Event
     /**
      * @var Schedule An optional Schedule to which this event belongs
      *
-     * @ApiSubresource(maxDepth=1)
+     * @MaxDepth(1)
      * @Groups({"read","write"})
      * @ORM\ManyToOne(targetEntity="App\Entity\Schedule", inversedBy="events")
      */
@@ -193,7 +193,7 @@ class Event
     /**
      * @var Calendar The Calendar to wich this event belongs
      *
-     * @ApiSubresource(maxDepth=1)
+     * @MaxDepth(1)
      * @Groups({"read","write"})
      * @ORM\ManyToOne(targetEntity="App\Entity\Calendar", inversedBy="events" , cascade={"persist"})
      * @ORM\JoinColumn(nullable=true)
@@ -412,6 +412,7 @@ class Event
 
     /**
      * @Groups({"read","write"})
+     * @MaxDepth(1)
      * @ORM\OneToOne(targetEntity="App\Entity\Journal", mappedBy="event", cascade={"persist", "remove"})
      */
     private ?Journal $journal;
