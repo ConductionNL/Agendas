@@ -179,6 +179,8 @@ class Alarm
     private ?Event $event;
 
     /**
+     * @Groups({"read","write"})
+     * @MaxDepth(1)
      * @ORM\OneToOne(targetEntity="App\Entity\Todo", inversedBy="alarm", cascade={"persist", "remove"})
      */
     private ?Todo $todo;

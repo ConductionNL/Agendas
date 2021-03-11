@@ -23,8 +23,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  * A journal from an event.
  *
  * @ApiResource(
- *     normalizationContext={"groups"={"read"}},
- *     denormalizationContext={"groups"={"write"}},
+ *     normalizationContext={"groups"={"read"}, "enable_max_depth"=true},
+ *     denormalizationContext={"groups"={"write"}, "enable_max_depth"=true},
  *     itemOperations={
  *          "get",
  *          "put",
@@ -308,7 +308,8 @@ class Journal
     private ?Calendar $calendar = null;
 
     /**
-     * @ApiSubresource(maxDepth=1)
+     * @Groups({"read","write"})
+     * @MaxDepth(1)
      * @ORM\OneToOne(targetEntity="App\Entity\Event", inversedBy="journal", cascade={"persist", "remove"})
      */
     private ?Event $event;
