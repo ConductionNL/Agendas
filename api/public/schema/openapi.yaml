@@ -3681,9 +3681,9 @@ paths:
   '/calendars/{id}/audit_trail':
     get:
       tags:
-        - Calendar
-      operationId: get_audit_trailCalendarItem
-      summary: 'Retrieves a Calendar resource.'
+        - Reservation
+      operationId: get_audit_trailReservationItem
+      summary: 'Retrieves a Reservation resource.'
       parameters:
         -
           name: id
@@ -3764,47 +3764,47 @@ paths:
           in: query
       responses:
         200:
-          description: 'Calendar resource response'
+          description: 'Reservation resource response'
           content:
             application/ld+json:
               schema:
-                $ref: '#/components/schemas/Calendar:jsonld-read'
+                $ref: '#/components/schemas/Reservation:jsonld-read'
             application/json+ld:
               schema:
-                $ref: '#/components/schemas/Calendar:jsonld-read'
+                $ref: '#/components/schemas/Reservation:jsonld-read'
             application/hal+json:
               schema:
-                $ref: '#/components/schemas/Calendar-read'
+                $ref: '#/components/schemas/Reservation-read'
             application/json+hal:
               schema:
-                $ref: '#/components/schemas/Calendar-read'
+                $ref: '#/components/schemas/Reservation-read'
             application/vnd.api+json:
               schema:
-                $ref: '#/components/schemas/Calendar-read'
+                $ref: '#/components/schemas/Reservation-read'
             application/json+vnd.api:
               schema:
-                $ref: '#/components/schemas/Calendar-read'
+                $ref: '#/components/schemas/Reservation-read'
             application/json:
               schema:
-                $ref: '#/components/schemas/Calendar-read'
+                $ref: '#/components/schemas/Reservation-read'
             application/health+json:
               schema:
-                $ref: '#/components/schemas/Calendar-read'
+                $ref: '#/components/schemas/Reservation-read'
             application/json+health:
               schema:
-                $ref: '#/components/schemas/Calendar-read'
+                $ref: '#/components/schemas/Reservation-read'
             application/xml:
               schema:
-                $ref: '#/components/schemas/Calendar-read'
+                $ref: '#/components/schemas/Reservation-read'
             application/x-yaml:
               schema:
-                $ref: '#/components/schemas/Calendar-read'
+                $ref: '#/components/schemas/Reservation-read'
             text/csv:
               schema:
-                $ref: '#/components/schemas/Calendar-read'
+                $ref: '#/components/schemas/Reservation-read'
             text/html:
               schema:
-                $ref: '#/components/schemas/Calendar-read'
+                $ref: '#/components/schemas/Reservation-read'
         404:
           description: 'Resource not found'
       produces:
@@ -3943,9 +3943,9 @@ paths:
   '/calendars/{id}/change_log':
     get:
       tags:
-        - Calendar
-      operationId: get_change_logsCalendarItem
-      summary: 'Retrieves a Calendar resource.'
+        - Reservation
+      operationId: get_change_logsReservationItem
+      summary: 'Retrieves a Reservation resource.'
       parameters:
         -
           name: id
@@ -4026,47 +4026,47 @@ paths:
           in: query
       responses:
         200:
-          description: 'Calendar resource response'
+          description: 'Reservation resource response'
           content:
             application/ld+json:
               schema:
-                $ref: '#/components/schemas/Calendar:jsonld-read'
+                $ref: '#/components/schemas/Reservation:jsonld-read'
             application/json+ld:
               schema:
-                $ref: '#/components/schemas/Calendar:jsonld-read'
+                $ref: '#/components/schemas/Reservation:jsonld-read'
             application/hal+json:
               schema:
-                $ref: '#/components/schemas/Calendar-read'
+                $ref: '#/components/schemas/Reservation-read'
             application/json+hal:
               schema:
-                $ref: '#/components/schemas/Calendar-read'
+                $ref: '#/components/schemas/Reservation-read'
             application/vnd.api+json:
               schema:
-                $ref: '#/components/schemas/Calendar-read'
+                $ref: '#/components/schemas/Reservation-read'
             application/json+vnd.api:
               schema:
-                $ref: '#/components/schemas/Calendar-read'
+                $ref: '#/components/schemas/Reservation-read'
             application/json:
               schema:
-                $ref: '#/components/schemas/Calendar-read'
+                $ref: '#/components/schemas/Reservation-read'
             application/health+json:
               schema:
-                $ref: '#/components/schemas/Calendar-read'
+                $ref: '#/components/schemas/Reservation-read'
             application/json+health:
               schema:
-                $ref: '#/components/schemas/Calendar-read'
+                $ref: '#/components/schemas/Reservation-read'
             application/xml:
               schema:
-                $ref: '#/components/schemas/Calendar-read'
+                $ref: '#/components/schemas/Reservation-read'
             application/x-yaml:
               schema:
-                $ref: '#/components/schemas/Calendar-read'
+                $ref: '#/components/schemas/Reservation-read'
             text/csv:
               schema:
-                $ref: '#/components/schemas/Calendar-read'
+                $ref: '#/components/schemas/Reservation-read'
             text/html:
               schema:
-                $ref: '#/components/schemas/Calendar-read'
+                $ref: '#/components/schemas/Reservation-read'
         404:
           description: 'Resource not found'
       produces:
@@ -20762,13 +20762,13 @@ components:
       externalDocs:
         url: 'https://schema.org/Event'
       properties:
-        '@context':
-          readOnly: true
-          type: string
         '@id':
           readOnly: true
           type: string
         '@type':
+          readOnly: true
+          type: string
+        '@context':
           readOnly: true
           type: string
         id:
@@ -21234,13 +21234,13 @@ components:
       type: object
       description: 'This entity checks if a person is free or busy for a event.'
       properties:
-        '@context':
-          readOnly: true
-          type: string
         '@id':
           readOnly: true
           type: string
         '@type':
+          readOnly: true
+          type: string
+        '@context':
           readOnly: true
           type: string
         id:
@@ -23165,7 +23165,165 @@ definitions:
       - action
       - trigger
       - duration
-  Resource-read:
+  Availability-read:
+    properties:
+      id:
+        description: 'The UUID identifier of this resource'
+        type: \UuidInterface
+      startDate:
+        description: 'The start of the availability block'
+        type: \DateTime
+      endDate:
+        description: 'The end of the availability block'
+        type: \DateTime
+      available:
+        description: 'Whether the block is available or not'
+        type: bool
+      resource:
+        description: 'A specific commonground resource'
+        type: string
+        example: 'https://wrc.zaakonline.nl/organisations/16353702-4614-42ff-92af-7dd11c8eef9f'
+        format: url
+      calendar: []
+    required: []
+  Availability-write:
+    properties:
+      startDate:
+        description: 'The start of the availability block'
+        type: \DateTime
+      endDate:
+        description: 'The end of the availability block'
+        type: \DateTime
+      available:
+        description: 'Whether the block is available or not'
+        type: bool
+      resource:
+        description: 'A specific commonground resource'
+        type: string
+        example: 'https://wrc.zaakonline.nl/organisations/16353702-4614-42ff-92af-7dd11c8eef9f'
+        format: url
+      calendar: []
+    required: []
+  Calendar-read:
+    properties:
+      id:
+        description: 'The UUID identifier of this resource'
+        type: string
+        example: e2984465-190a-4562-829e-a8cca81aa35d
+        format: uuid
+      name:
+        description: 'The name of this Calendar'
+        type: string
+        example: 'My Calendar'
+        maxLength: 255
+      description:
+        description: 'An short description of this Calendar'
+        type: string
+        example: 'This is the best Calendar ever'
+        maxLength: 2550
+      organization:
+        description: 'A specific commonground organisation'
+        type: string
+        example: 'https://wrc.zaakonline.nl/organisations/16353702-4614-42ff-92af-7dd11c8eef9f'
+        format: url
+      person:
+        description: 'A specific commonground person from the contactcatalogus'
+        type: string
+        example: 'https://cc.zaakonline.nl/people/16353702-4614-42ff-92af-7dd11c8eef9f'
+        format: url
+      resource:
+        description: 'A specific commonground resource'
+        type: string
+        example: 'https://wrc.zaakonline.nl/organisations/16353702-4614-42ff-92af-7dd11c8eef9f'
+        format: url
+      timeZone:
+        description: 'The time zone of this calendar'
+        type: string
+        example: CET
+        maxLength: 5
+        minLength: 3
+      dateCreated:
+        description: 'The moment this resource was created'
+        type: \Datetime
+      dateModified:
+        description: 'The moment this resource last Modified'
+        type: \Datetime
+      events:
+        description: 'Events that belong to this Calendar'
+        type: \Collection
+      schedules:
+        description: 'Schedules that belong to this Calendar'
+        type: \Collection
+      freebusies:
+        description: 'that belong to this Calendar'
+        type: \Collection
+      journals:
+        description: 'journals that belong to this Calendar'
+        type: \Collection
+      todos:
+        description: 'todos that belong to this Calendar'
+        type: \Collection
+      availabilities:
+        description: 'Availability that belong to this Calendar'
+        type: \Collection
+    required:
+      - name
+      - timeZone
+  Calendar-write:
+    properties:
+      name:
+        description: 'The name of this Calendar'
+        type: string
+        example: 'My Calendar'
+        maxLength: 255
+      description:
+        description: 'An short description of this Calendar'
+        type: string
+        example: 'This is the best Calendar ever'
+        maxLength: 2550
+      organization:
+        description: 'A specific commonground organisation'
+        type: string
+        example: 'https://wrc.zaakonline.nl/organisations/16353702-4614-42ff-92af-7dd11c8eef9f'
+        format: url
+      person:
+        description: 'A specific commonground person from the contactcatalogus'
+        type: string
+        example: 'https://cc.zaakonline.nl/people/16353702-4614-42ff-92af-7dd11c8eef9f'
+        format: url
+      resource:
+        description: 'A specific commonground resource'
+        type: string
+        example: 'https://wrc.zaakonline.nl/organisations/16353702-4614-42ff-92af-7dd11c8eef9f'
+        format: url
+      timeZone:
+        description: 'The time zone of this calendar'
+        type: string
+        example: CET
+        maxLength: 5
+        minLength: 3
+      events:
+        description: 'Events that belong to this Calendar'
+        type: \Collection
+      schedules:
+        description: 'Schedules that belong to this Calendar'
+        type: \Collection
+      freebusies:
+        description: 'that belong to this Calendar'
+        type: \Collection
+      journals:
+        description: 'journals that belong to this Calendar'
+        type: \Collection
+      todos:
+        description: 'todos that belong to this Calendar'
+        type: \Collection
+      availabilities:
+        description: 'Availability that belong to this Calendar'
+        type: \Collection
+    required:
+      - name
+      - timeZone
+  Event-read:
     properties:
       id:
         description: 'The UUID identifier of this resource'
@@ -23182,21 +23340,116 @@ definitions:
         type: string
         example: 'This is the best Event ever'
         maxLength: 2550
-      resource:
-        description: 'the uri of this resource'
+      organization:
+        description: 'A specific commonground organisation'
         type: string
-        example: 'https://dev.zuid-drecht.nl/api/v1/uc/users/7f341a1e-0d75-4f43-8b9a-a6727c4b3404'
+        example: 'https://wrc.zaakonline.nl/organisations/16353702-4614-42ff-92af-7dd11c8eef9f'
         format: url
+      resource:
+        description: 'A specific commonground resource'
+        type: string
+        example: 'https://wrc.zaakonline.nl/organisations/16353702-4614-42ff-92af-7dd11c8eef9f'
+        format: url
+      startDate:
+        description: 'The moment this event starts'
+        type: \DateTime
+        example: '30-11-2019 15:00:00'
+      endDate:
+        description: 'The moment this event ends'
+        type: \Datetime
+        example: '3-11-2019 20:00:00'
+      location:
+        description: 'The location of this event'
+        type: string
+        example: 'Dam 1, Amsterdam'
         maxLength: 255
+      class:
+        description: 'The security class of this event.'
+        type: string
+        example: PUBLIC
+        maxLength: 255
+      geo:
+        description: 'The coordinates of this event.'
+        type: string
+        example: '81.15147,10.36374,42.26'
+        maxLength: 255
+      organizer:
+        description: 'The organiser of this event linked to with an url.'
+        type: string
+        example: conduction.nl
+        maxLength: 255
+      status:
+        description: 'The status of this event.'
+        type: string
+        example: Confirmed
+        maxLength: 255
+      summary:
+        description: 'The summary of this event.'
+        type: string
+        example: 'This is the best event ever.'
+        maxLength: 255
+      transp:
+        description: 'The determination if the event should block the duration of the event for participants.'
+        type: string
+        example: Transparent
+        maxLength: 255
+      duration:
+        description: 'The duration of this event.'
+        type: \DateInterval
+        example: P0M3
+      contact:
+        description: 'Url of this person'
+        type: string
+        example: 'https://con.example.org'
+        format: url
+      seq:
+        description: 'The version number of this event.'
+        type: int
+        example: '1'
+      priority:
+        description: 'The priority of this event ranging from 1 (high) to 9 (low).'
+        type: int
+        example: '1'
+      attendees:
+        description: 'The urls of the attendees of this event.'
+        type: array
+        example: 'https://con.example.com, https://con.example2.com'
+      attachments:
+        description: 'The urls of the attachments of this event.'
+        type: array
+        example: 'https://example.org, https://example2.org'
+      categories:
+        description: 'The urls of the catergories this event belongs to.'
+        type: array
+        example: 'https://con.example.com, https://con.example2.com'
+      comments:
+        description: 'The urls of the comments that belong to this event.'
+        type: array
+        example: 'https://con.example.com, https://con.example2.com'
       dateCreated:
         description: 'The moment this resource was created'
-        type: \Datetime
+        type: \DateTime
       dateModified:
         description: 'The moment this resource last Modified'
         type: \Datetime
+      schedule:
+        description: 'An optional Schedule to which this event belongs'
+        type: \Schedule
+      calendar:
+        description: 'The Calendar to wich this event belongs'
+        type: \Calendar
+      related: []
+      resources: []
+      alarms: []
+      journal: []
+      freebusies:
+        description: 'Freebusies that are for this Event'
+        type: \Collection
     required:
       - name
-  Resource-write:
+      - startDate
+      - endDate
+  Event-write:
     properties:
       name:
         description: 'The name of this RequestType'
@@ -23208,14 +23461,232 @@ definitions:
         type: string
         example: 'This is the best Event ever'
         maxLength: 2550
-      resource:
-        description: 'the uri of this resource'
+      organization:
+        description: 'A specific commonground organisation'
         type: string
-        example: 'https://dev.zuid-drecht.nl/api/v1/uc/users/7f341a1e-0d75-4f43-8b9a-a6727c4b3404'
+        example: 'https://wrc.zaakonline.nl/organisations/16353702-4614-42ff-92af-7dd11c8eef9f'
         format: url
+      resource:
+        description: 'A specific commonground resource'
+        type: string
+        example: 'https://wrc.zaakonline.nl/organisations/16353702-4614-42ff-92af-7dd11c8eef9f'
+        format: url
+      startDate:
+        description: 'The moment this event starts'
+        type: \DateTime
+        example: '30-11-2019 15:00:00'
+      endDate:
+        description: 'The moment this event ends'
+        type: \Datetime
+        example: '3-11-2019 20:00:00'
+      location:
+        description: 'The location of this event'
+        type: string
+        example: 'Dam 1, Amsterdam'
         maxLength: 255
+      class:
+        description: 'The security class of this event.'
+        type: string
+        example: PUBLIC
+        maxLength: 255
+      geo:
+        description: 'The coordinates of this event.'
+        type: string
+        example: '81.15147,10.36374,42.26'
+        maxLength: 255
+      organizer:
+        description: 'The organiser of this event linked to with an url.'
+        type: string
+        example: conduction.nl
+        maxLength: 255
+      status:
+        description: 'The status of this event.'
+        type: string
+        example: Confirmed
+        maxLength: 255
+      summary:
+        description: 'The summary of this event.'
+        type: string
+        example: 'This is the best event ever.'
+        maxLength: 255
+      transp:
+        description: 'The determination if the event should block the duration of the event for participants.'
+        type: string
+        example: Transparent
+        maxLength: 255
+      duration:
+        description: 'The duration of this event.'
+        type: \DateInterval
+        example: P0M3
+      contact:
+        description: 'Url of this person'
+        type: string
+        example: 'https://con.example.org'
+        format: url
+      seq:
+        description: 'The version number of this event.'
+        type: int
+        example: '1'
+      priority:
+        description: 'The priority of this event ranging from 1 (high) to 9 (low).'
+        type: int
+        example: '1'
+      attendees:
+        description: 'The urls of the attendees of this event.'
+        type: array
+        example: 'https://con.example.com, https://con.example2.com'
+      attachments:
+        description: 'The urls of the attachments of this event.'
+        type: array
+        example: 'https://example.org, https://example2.org'
+      categories:
+        description: 'The urls of the catergories this event belongs to.'
+        type: array
+        example: 'https://con.example.com, https://con.example2.com'
+      comments:
+        description: 'The urls of the comments that belong to this event.'
+        type: array
+        example: 'https://con.example.com, https://con.example2.com'
+      schedule:
+        description: 'An optional Schedule to which this event belongs'
+        type: \Schedule
+      calendar:
+        description: 'The Calendar to wich this event belongs'
+        type: \Calendar
+      related: []
+      resources: []
+      alarms: []
+      journal: []
+      freebusies:
+        description: 'Freebusies that are for this Event'
+        type: \Collection
     required:
       - name
+      - startDate
+      - endDate
+  Freebusy-read:
+    properties:
+      id:
+        description: 'The UUID identifier of this resource'
+        type: string
+        example: e2984465-190a-4562-829e-a8cca81aa35d
+        format: uuid
+      description:
+        description: 'An short description of this Event'
+        type: string
+        example: 'This is the best Event ever'
+        maxLength: 2550
+      attendee:
+        description: 'The urls of the attendees of this event.'
+        type: string
+        example: 'https://con.example.com'
+        format: url
+        maxLength: 255
+      comments:
+        description: 'The urls of the comments that belong to this event.'
+        type: array
+        example: 'https://con.example.com, https://con.example2.com'
+      contact:
+        description: 'Url of this person'
+        type: string
+        example: 'https://con.example.org'
+        format: url
+      startDate:
+        description: 'The moment this event starts'
+        type: \DateTime
+        example: '30-11-2019 15:00:00'
+      endDate:
+        description: 'The moment this event ends'
+        type: \DateTime
+        example: '3-11-2019 20:00:00'
+      duration:
+        description: 'The duration of this event.'
+        type: \DateInterval
+        example: '2'
+      organiser:
+        description: 'The organiser of this event linked to with an url.'
+        type: string
+        example: conduction.nl
+        maxLength: 255
+      freebusy:
+        description: 'The determination of the type freebusy. **FREE**, **BUSY**'
+        type: string
+        example: FREE
+      resource:
+        description: 'A specific commonground resource'
+        type: string
+        example: 'https://wrc.zaakonline.nl/organisations/16353702-4614-42ff-92af-7dd11c8eef9f'
+        format: url
+      dateCreated:
+        description: 'The moment this resource was created'
+        type: \DateTime
+      dateModified:
+        description: 'The moment this resource last Modified'
+        type: \DateTime
+      calendar: []
+      event: []
+      schedule:
+        description: 'Schedule that belongs to this freebusy'
+        type: \Schedule
+    required:
+      - startDate
+      - endDate
+  Freebusy-write:
+    properties:
+      description:
+        description: 'An short description of this Event'
+        type: string
+        example: 'This is the best Event ever'
+        maxLength: 2550
+      attendee:
+        description: 'The urls of the attendees of this event.'
+        type: string
+        example: 'https://con.example.com'
+        format: url
+        maxLength: 255
+      comments:
+        description: 'The urls of the comments that belong to this event.'
+        type: array
+        example: 'https://con.example.com, https://con.example2.com'
+      contact:
+        description: 'Url of this person'
+        type: string
+        example: 'https://con.example.org'
+        format: url
+      startDate:
+        description: 'The moment this event starts'
+        type: \DateTime
+        example: '30-11-2019 15:00:00'
+      endDate:
+        description: 'The moment this event ends'
+        type: \DateTime
+        example: '3-11-2019 20:00:00'
+      duration:
+        description: 'The duration of this event.'
+        type: \DateInterval
+        example: '2'
+      organiser:
+        description: 'The organiser of this event linked to with an url.'
+        type: string
+        example: conduction.nl
+        maxLength: 255
+      freebusy:
+        description: 'The determination of the type freebusy. **FREE**, **BUSY**'
+        type: string
+        example: FREE
+      resource:
+        description: 'A specific commonground resource'
+        type: string
+        example: 'https://wrc.zaakonline.nl/organisations/16353702-4614-42ff-92af-7dd11c8eef9f'
+        format: url
+      calendar: []
+      event: []
+      schedule:
+        description: 'Schedule that belongs to this freebusy'
+        type: \Schedule
+    required:
+      - startDate
+      - endDate
   Journal-read:
     properties:
       id:
@@ -23391,219 +23862,6 @@ definitions:
       - name
       - startDate
       - endDate
-  Todo-read:
-    properties:
-      id:
-        description: 'The UUID identifier of this resource'
-        type: string
-        example: e2984465-190a-4562-829e-a8cca81aa35d
-        format: uuid
-      name:
-        description: 'The name of this RequestType'
-        type: string
-        example: 'My RequestType'
-        maxLength: 255
-      description:
-        description: 'An short description of this Event'
-        type: string
-        example: 'This is the best Event ever'
-        maxLength: 2550
-      startDate:
-        description: 'The moment this event starts'
-        type: \DateTime
-        example: '30-11-2019 15:00:00'
-      endDate:
-        description: 'The moment this event ends'
-        type: \Datetime
-        example: '3-11-2019 20:00:00'
-      location:
-        description: 'The location of this event'
-        type: string
-        example: 'Dam 1, Amsterdam'
-        maxLength: 255
-      class:
-        description: 'The security class of this event.'
-        type: string
-        example: PUBLIC
-        maxLength: 255
-      geo:
-        description: 'The coordinates of this event.'
-        type: string
-        example: '81.15147,10.36374,42.26'
-        maxLength: 255
-      organiser:
-        description: 'The organiser of this event linked to with an url.'
-        type: string
-        example: conduction.nl
-        maxLength: 255
-      status:
-        description: 'The status of this evemt.'
-        type: string
-        example: Confirmed
-        maxLength: 255
-      summary:
-        description: 'The summary of this event.'
-        type: string
-        example: 'This is the best event ever.'
-        maxLength: 255
-      duration:
-        description: 'The duration of this event.'
-        type: \DateInterval
-        example: '2'
-      contact:
-        description: 'Url of this person'
-        type: string
-        example: 'https://con.example.org'
-        format: url
-      seq:
-        description: 'The version number of this event.'
-        type: int
-        example: '1'
-      priority:
-        description: 'The priority of this event ranging from 1 (high) to 9 (low).'
-        type: int
-        example: '1'
-      attendees:
-        description: 'The urls of the attendees of this event.'
-        type: array
-        example: 'https://con.example.com, https://con.example2.com'
-      attachments:
-        description: 'The urls of the attachments of this event.'
-        type: array
-        example: 'https://example.org, https://example2.org'
-      categories:
-        description: 'The urls of the catergories this event belongs to.'
-        type: array
-        example: 'https://con.example.com, https://con.example2.com'
-      comments:
-        description: 'The urls of the comments that belong to this event.'
-        type: array
-        example: 'https://con.example.com, https://con.example2.com'
-      completed:
-        description: 'The date and time a to-do is completed.'
-        type: string
-        example: '2021-03-09 09:51:03'
-        format: date-time
-      percentageDone:
-        description: 'The percentage of a to-do that has been comepleted.'
-        type: int
-        example: 40%
-      resource:
-        description: 'A specific commonground resource'
-        type: string
-        example: 'https://wrc.zaakonline.nl/organisations/16353702-4614-42ff-92af-7dd11c8eef9f'
-        format: url
-      dateCreated:
-        description: 'The moment this resource was created'
-        type: \Datetime
-      dateModified:
-        description: 'The moment this resource last Modified'
-        type: \Datetime
-    required:
-      - name
-      - startDate
-      - endDate
-  Todo-write:
-    properties:
-      name:
-        description: 'The name of this RequestType'
-        type: string
-        example: 'My RequestType'
-        maxLength: 255
-      description:
-        description: 'An short description of this Event'
-        type: string
-        example: 'This is the best Event ever'
-        maxLength: 2550
-      startDate:
-        description: 'The moment this event starts'
-        type: \DateTime
-        example: '30-11-2019 15:00:00'
-      endDate:
-        description: 'The moment this event ends'
-        type: \Datetime
-        example: '3-11-2019 20:00:00'
-      location:
-        description: 'The location of this event'
-        type: string
-        example: 'Dam 1, Amsterdam'
-        maxLength: 255
-      class:
-        description: 'The security class of this event.'
-        type: string
-        example: PUBLIC
-        maxLength: 255
-      geo:
-        description: 'The coordinates of this event.'
-        type: string
-        example: '81.15147,10.36374,42.26'
-        maxLength: 255
-      organiser:
-        description: 'The organiser of this event linked to with an url.'
-        type: string
-        example: conduction.nl
-        maxLength: 255
-      status:
-        description: 'The status of this evemt.'
-        type: string
-        example: Confirmed
-        maxLength: 255
-      summary:
-        description: 'The summary of this event.'
-        type: string
-        example: 'This is the best event ever.'
-        maxLength: 255
-      duration:
-        description: 'The duration of this event.'
-        type: \DateInterval
-        example: '2'
-      contact:
-        description: 'Url of this person'
-        type: string
-        example: 'https://con.example.org'
-        format: url
-      seq:
-        description: 'The version number of this event.'
-        type: int
-        example: '1'
-      priority:
-        description: 'The priority of this event ranging from 1 (high) to 9 (low).'
-        type: int
-        example: '1'
-      attendees:
-        description: 'The urls of the attendees of this event.'
-        type: array
-        example: 'https://con.example.com, https://con.example2.com'
-      attachments:
-        description: 'The urls of the attachments of this event.'
-        type: array
-        example: 'https://example.org, https://example2.org'
-      categories:
-        description: 'The urls of the catergories this event belongs to.'
-        type: array
-        example: 'https://con.example.com, https://con.example2.com'
-      comments:
-        description: 'The urls of the comments that belong to this event.'
-        type: array
-        example: 'https://con.example.com, https://con.example2.com'
-      completed:
-        description: 'The date and time a to-do is completed.'
-        type: string
-        example: '2021-03-09 09:51:03'
-        format: date-time
-      percentageDone:
-        description: 'The percentage of a to-do that has been comepleted.'
-        type: int
-        example: 40%
-      resource:
-        description: 'A specific commonground resource'
-        type: string
-        example: 'https://wrc.zaakonline.nl/organisations/16353702-4614-42ff-92af-7dd11c8eef9f'
-        format: url
-    required:
-      - name
-      - startDate
-      - endDate
   Reservation-read:
     properties:
       id:
@@ -23753,6 +24011,57 @@ definitions:
         type: \Event
     required:
       - name
+  Resource-read:
+    properties:
+      id:
+        description: 'The UUID identifier of this resource'
+        type: string
+        example: e2984465-190a-4562-829e-a8cca81aa35d
+        format: uuid
+      name:
+        description: 'The name of this RequestType'
+        type: string
+        example: 'My RequestType'
+        maxLength: 255
+      description:
+        description: 'An short description of this Event'
+        type: string
+        example: 'This is the best Event ever'
+        maxLength: 2550
+      resource:
+        description: 'the uri of this resource'
+        type: string
+        example: 'https://dev.zuid-drecht.nl/api/v1/uc/users/7f341a1e-0d75-4f43-8b9a-a6727c4b3404'
+        format: url
+        maxLength: 255
+      dateCreated:
+        description: 'The moment this resource was created'
+        type: \Datetime
+      dateModified:
+        description: 'The moment this resource last Modified'
+        type: \Datetime
+    required:
+      - name
+  Resource-write:
+    properties:
+      name:
+        description: 'The name of this RequestType'
+        type: string
+        example: 'My RequestType'
+        maxLength: 255
+      description:
+        description: 'An short description of this Event'
+        type: string
+        example: 'This is the best Event ever'
+        maxLength: 2550
+      resource:
+        description: 'the uri of this resource'
+        type: string
+        example: 'https://dev.zuid-drecht.nl/api/v1/uc/users/7f341a1e-0d75-4f43-8b9a-a6727c4b3404'
+        format: url
+        maxLength: 255
+    required:
+      - name
   Schedule-read:
     properties:
       id:
@@ -23886,288 +24195,7 @@ definitions:
         type: \Collection
     required:
       - name
-  Calendar-read:
-    properties:
-      id:
-        description: 'The UUID identifier of this resource'
-        type: string
-        example: e2984465-190a-4562-829e-a8cca81aa35d
-        format: uuid
-      name:
-        description: 'The name of this Calendar'
-        type: string
-        example: 'My Calendar'
-        maxLength: 255
-      description:
-        description: 'An short description of this Calendar'
-        type: string
-        example: 'This is the best Calendar ever'
-        maxLength: 2550
-      organization:
-        description: 'A specific commonground organisation'
-        type: string
-        example: 'https://wrc.zaakonline.nl/organisations/16353702-4614-42ff-92af-7dd11c8eef9f'
-        format: url
-      person:
-        description: 'A specific commonground person from the contactcatalogus'
-        type: string
-        example: 'https://cc.zaakonline.nl/people/16353702-4614-42ff-92af-7dd11c8eef9f'
-        format: url
-      resource:
-        description: 'A specific commonground resource'
-        type: string
-        example: 'https://wrc.zaakonline.nl/organisations/16353702-4614-42ff-92af-7dd11c8eef9f'
-        format: url
-      timeZone:
-        description: 'The time zone of this calendar'
-        type: string
-        example: CET
-        maxLength: 5
-        minLength: 3
-      dateCreated:
-        description: 'The moment this resource was created'
-        type: \Datetime
-      dateModified:
-        description: 'The moment this resource last Modified'
-        type: \Datetime
-      events:
-        description: 'Events that belong to this Calendar'
-        type: \Collection
-      schedules:
-        description: 'Schedules that belong to this Calendar'
-        type: \Collection
-      freebusies:
-        description: 'that belong to this Calendar'
-        type: \Collection
-      journals:
-        description: 'journals that belong to this Calendar'
-        type: \Collection
-      todos:
-        description: 'todos that belong to this Calendar'
-        type: \Collection
-      availabilities:
-        description: 'Availability that belong to this Calendar'
-        type: \Collection
-    required:
-      - name
-      - timeZone
-  Calendar-write:
-    properties:
-      name:
-        description: 'The name of this Calendar'
-        type: string
-        example: 'My Calendar'
-        maxLength: 255
-      description:
-        description: 'An short description of this Calendar'
-        type: string
-        example: 'This is the best Calendar ever'
-        maxLength: 2550
-      organization:
-        description: 'A specific commonground organisation'
-        type: string
-        example: 'https://wrc.zaakonline.nl/organisations/16353702-4614-42ff-92af-7dd11c8eef9f'
-        format: url
-      person:
-        description: 'A specific commonground person from the contactcatalogus'
-        type: string
-        example: 'https://cc.zaakonline.nl/people/16353702-4614-42ff-92af-7dd11c8eef9f'
-        format: url
-      resource:
-        description: 'A specific commonground resource'
-        type: string
-        example: 'https://wrc.zaakonline.nl/organisations/16353702-4614-42ff-92af-7dd11c8eef9f'
-        format: url
-      timeZone:
-        description: 'The time zone of this calendar'
-        type: string
-        example: CET
-        maxLength: 5
-        minLength: 3
-      events:
-        description: 'Events that belong to this Calendar'
-        type: \Collection
-      schedules:
-        description: 'Schedules that belong to this Calendar'
-        type: \Collection
-      freebusies:
-        description: 'that belong to this Calendar'
-        type: \Collection
-      journals:
-        description: 'journals that belong to this Calendar'
-        type: \Collection
-      todos:
-        description: 'todos that belong to this Calendar'
-        type: \Collection
-      availabilities:
-        description: 'Availability that belong to this Calendar'
-        type: \Collection
-    required:
-      - name
-      - timeZone
-  Freebusy-read:
-    properties:
-      id:
-        description: 'The UUID identifier of this resource'
-        type: string
-        example: e2984465-190a-4562-829e-a8cca81aa35d
-        format: uuid
-      description:
-        description: 'An short description of this Event'
-        type: string
-        example: 'This is the best Event ever'
-        maxLength: 2550
-      attendee:
-        description: 'The urls of the attendees of this event.'
-        type: string
-        example: 'https://con.example.com'
-        format: url
-        maxLength: 255
-      comments:
-        description: 'The urls of the comments that belong to this event.'
-        type: array
-        example: 'https://con.example.com, https://con.example2.com'
-      contact:
-        description: 'Url of this person'
-        type: string
-        example: 'https://con.example.org'
-        format: url
-      startDate:
-        description: 'The moment this event starts'
-        type: \DateTime
-        example: '30-11-2019 15:00:00'
-      endDate:
-        description: 'The moment this event ends'
-        type: \DateTime
-        example: '3-11-2019 20:00:00'
-      duration:
-        description: 'The duration of this event.'
-        type: \DateInterval
-        example: '2'
-      organiser:
-        description: 'The organiser of this event linked to with an url.'
-        type: string
-        example: conduction.nl
-        maxLength: 255
-      freebusy:
-        description: 'The determination of the type freebusy. **FREE**, **BUSY**'
-        type: string
-        example: FREE
-      resource:
-        description: 'A specific commonground resource'
-        type: string
-        example: 'https://wrc.zaakonline.nl/organisations/16353702-4614-42ff-92af-7dd11c8eef9f'
-        format: url
-      dateCreated:
-        description: 'The moment this resource was created'
-        type: \DateTime
-      dateModified:
-        description: 'The moment this resource last Modified'
-        type: \DateTime
-      calendar: []
-      event: []
-      schedule:
-        description: 'Schedule that belongs to this freebusy'
-        type: \Schedule
-    required:
-      - startDate
-      - endDate
-  Freebusy-write:
-    properties:
-      description:
-        description: 'An short description of this Event'
-        type: string
-        example: 'This is the best Event ever'
-        maxLength: 2550
-      attendee:
-        description: 'The urls of the attendees of this event.'
-        type: string
-        example: 'https://con.example.com'
-        format: url
-        maxLength: 255
-      comments:
-        description: 'The urls of the comments that belong to this event.'
-        type: array
-        example: 'https://con.example.com, https://con.example2.com'
-      contact:
-        description: 'Url of this person'
-        type: string
-        example: 'https://con.example.org'
-        format: url
-      startDate:
-        description: 'The moment this event starts'
-        type: \DateTime
-        example: '30-11-2019 15:00:00'
-      endDate:
-        description: 'The moment this event ends'
-        type: \DateTime
-        example: '3-11-2019 20:00:00'
-      duration:
-        description: 'The duration of this event.'
-        type: \DateInterval
-        example: '2'
-      organiser:
-        description: 'The organiser of this event linked to with an url.'
-        type: string
-        example: conduction.nl
-        maxLength: 255
-      freebusy:
-        description: 'The determination of the type freebusy. **FREE**, **BUSY**'
-        type: string
-        example: FREE
-      resource:
-        description: 'A specific commonground resource'
-        type: string
-        example: 'https://wrc.zaakonline.nl/organisations/16353702-4614-42ff-92af-7dd11c8eef9f'
-        format: url
-      calendar: []
-      event: []
-      schedule:
-        description: 'Schedule that belongs to this freebusy'
-        type: \Schedule
-    required:
-      - startDate
-      - endDate
-  Availability-read:
-    properties:
-      id:
-        description: 'The UUID identifier of this resource'
-        type: \UuidInterface
-      startDate:
-        description: 'The start of the availability block'
-        type: \DateTime
-      endDate:
-        description: 'The end of the availability block'
-        type: \DateTime
-      available:
-        description: 'Whether the block is available or not'
-        type: bool
-      resource:
-        description: 'A specific commonground resource'
-        type: string
-        example: 'https://wrc.zaakonline.nl/organisations/16353702-4614-42ff-92af-7dd11c8eef9f'
-        format: url
-      calendar: []
-    required: []
-  Availability-write:
-    properties:
-      startDate:
-        description: 'The start of the availability block'
-        type: \DateTime
-      endDate:
-        description: 'The end of the availability block'
-        type: \DateTime
-      available:
-        description: 'Whether the block is available or not'
-        type: bool
-      resource:
-        description: 'A specific commonground resource'
-        type: string
-        example: 'https://wrc.zaakonline.nl/organisations/16353702-4614-42ff-92af-7dd11c8eef9f'
-        format: url
-      calendar: []
-    required: []
-  Event-read:
+  Todo-read:
     properties:
       id:
         description: 'The UUID identifier of this resource'
@@ -24184,16 +24212,6 @@ definitions:
         type: string
         example: 'This is the best Event ever'
         maxLength: 2550
-      organization:
-        description: 'A specific commonground organisation'
-        type: string
-        example: 'https://wrc.zaakonline.nl/organisations/16353702-4614-42ff-92af-7dd11c8eef9f'
-        format: url
-      resource:
-        description: 'A specific commonground resource'
-        type: string
-        example: 'https://wrc.zaakonline.nl/organisations/16353702-4614-42ff-92af-7dd11c8eef9f'
-        format: url
       startDate:
         description: 'The moment this event starts'
         type: \DateTime
@@ -24217,13 +24235,13 @@ definitions:
         type: string
         example: '81.15147,10.36374,42.26'
         maxLength: 255
-      organizer:
+      organiser:
         description: 'The organiser of this event linked to with an url.'
         type: string
         example: conduction.nl
         maxLength: 255
       status:
-        description: 'The status of this event.'
+        description: 'The status of this evemt.'
         type: string
         example: Confirmed
         maxLength: 255
@@ -24232,15 +24250,10 @@ definitions:
         type: string
         example: 'This is the best event ever.'
         maxLength: 255
-      transp:
-        description: 'The determination if the event should block the duration of the event for participants.'
-        type: string
-        example: Transparent
-        maxLength: 255
       duration:
         description: 'The duration of this event.'
         type: \DateInterval
-        example: P0M3
+        example: '2'
       contact:
         description: 'Url of this person'
         type: string
@@ -24270,26 +24283,31 @@ definitions:
         description: 'The urls of the comments that belong to this event.'
         type: array
         example: 'https://con.example.com, https://con.example2.com'
+      completed:
+        description: 'The date and time a to-do is completed.'
+        type: string
+        example: '2021-03-11 16:22:52'
+        format: date-time
+      percentageDone:
+        description: 'The percentage of a to-do that has been comepleted.'
+        type: int
+        example: 40%
+      resource:
+        description: 'A specific commonground resource'
+        type: string
+        example: 'https://wrc.zaakonline.nl/organisations/16353702-4614-42ff-92af-7dd11c8eef9f'
+        format: url
       dateCreated:
         description: 'The moment this resource was created'
-        type: \DateTime
+        type: \Datetime
       dateModified:
         description: 'The moment this resource last Modified'
         type: \Datetime
-      schedule:
-        description: 'An optional Schedule to which this event belongs'
-        type: \Schedule
-      calendar:
-        description: 'The Calendar to wich this event belongs'
-        type: \Calendar
-      freebusies:
-        description: 'Freebusies that are for this Event'
-        type: \Collection
     required:
       - name
       - startDate
       - endDate
-  Event-write:
+  Todo-write:
     properties:
       name:
         description: 'The name of this RequestType'
@@ -24301,16 +24319,6 @@ definitions:
         type: string
         example: 'This is the best Event ever'
         maxLength: 2550
-      organization:
-        description: 'A specific commonground organisation'
-        type: string
-        example: 'https://wrc.zaakonline.nl/organisations/16353702-4614-42ff-92af-7dd11c8eef9f'
-        format: url
-      resource:
-        description: 'A specific commonground resource'
-        type: string
-        example: 'https://wrc.zaakonline.nl/organisations/16353702-4614-42ff-92af-7dd11c8eef9f'
-        format: url
       startDate:
         description: 'The moment this event starts'
         type: \DateTime
@@ -24334,13 +24342,13 @@ definitions:
         type: string
         example: '81.15147,10.36374,42.26'
         maxLength: 255
-      organizer:
+      organiser:
         description: 'The organiser of this event linked to with an url.'
         type: string
         example: conduction.nl
         maxLength: 255
       status:
-        description: 'The status of this event.'
+        description: 'The status of this evemt.'
         type: string
         example: Confirmed
         maxLength: 255
@@ -24349,15 +24357,10 @@ definitions:
         type: string
         example: 'This is the best event ever.'
         maxLength: 255
-      transp:
-        description: 'The determination if the event should block the duration of the event for participants.'
-        type: string
-        example: Transparent
-        maxLength: 255
       duration:
         description: 'The duration of this event.'
         type: \DateInterval
-        example: P0M3
+        example: '2'
       contact:
         description: 'Url of this person'
         type: string
@@ -24387,72 +24390,24 @@ definitions:
         description: 'The urls of the comments that belong to this event.'
         type: array
         example: 'https://con.example.com, https://con.example2.com'
-      schedule:
-        description: 'An optional Schedule to which this event belongs'
-        type: \Schedule
-      calendar:
-        description: 'The Calendar to wich this event belongs'
-        type: \Calendar
-      freebusies:
-        description: 'Freebusies that are for this Event'
-        type: \Collection
+      completed:
+        description: 'The date and time a to-do is completed.'
+        type: string
+        example: '2021-03-11 16:22:52'
+        format: date-time
+      percentageDone:
+        description: 'The percentage of a to-do that has been comepleted.'
+        type: int
+        example: 40%
+      resource:
+        description: 'A specific commonground resource'
+        type: string
+        example: 'https://wrc.zaakonline.nl/organisations/16353702-4614-42ff-92af-7dd11c8eef9f'
+        format: url
     required:
       - name
       - startDate
       - endDate
-  ChangeLog-read:
-    properties:
-      id:
-        description: 'The UUID identifier of this object'
-        type: string
-        example: e2984465-190a-4562-829e-a8cca81aa35d
-        format: uuid
-      note:
-        description: 'A note conserning this log lin'
-        type: string
-        example: 'This log line is suspicius'
-        maxLength: 2555
-      action:
-        description: ''
-        type: string
-      objectId:
-        description: ''
-        type: string
-      objectClass:
-        description: ''
-        type: string
-      version:
-        description: ''
-        type: int
-      data:
-        description: ''
-        type: array
-      username:
-        description: ''
-        type: string
-      session:
-        description: 'The moment this request was created'
-        type: string
-        maxLength: 255
-      dateCreated:
-        description: 'The moment this request was created'
-        type: string
-        format: date-time
-        example: '2021-03-09 09:51:03'
-      dateModified:
-        description: 'The moment this request last Modified'
-        type: string
-        format: date-time
-        example: '2021-03-09 09:51:03'
-    required: []
-  ChangeLog-write:
-    properties:
-      note:
-        description: 'A note conserning this log lin'
-        type: string
-        example: 'This log line is suspicius'
-        maxLength: 2555
-    required: []
   AuditTrail-read:
     properties:
       id:
@@ -24557,12 +24512,12 @@ definitions:
         description: 'The moment this request was created'
         type: string
         format: date-time
-        example: '2021-03-09 09:51:03'
+        example: '2021-03-11 16:22:52'
       dateModified:
         description: 'The moment this request last Modified'
         type: string
         format: date-time
-        example: '2021-03-09 09:51:03'
+        example: '2021-03-11 16:22:52'
     required: []
   AuditTrail-write:
     properties:
@@ -24570,6 +24525,59 @@ definitions:
         description: 'A note conserning this log lin'
         type: string
         example: 'This log line looks suspicius'
+        maxLength: 2555
+    required: []
+  ChangeLog-read:
+    properties:
+      id:
+        description: 'The UUID identifier of this object'
+        type: string
+        example: e2984465-190a-4562-829e-a8cca81aa35d
+        format: uuid
+      note:
+        description: 'A note conserning this log lin'
+        type: string
+        example: 'This log line is suspicius'
+        maxLength: 2555
+      action:
+        description: ''
+        type: string
+      objectId:
+        description: ''
+        type: string
+      objectClass:
+        description: ''
+        type: string
+      version:
+        description: ''
+        type: int
+      data:
+        description: ''
+        type: array
+      username:
+        description: ''
+        type: string
+      session:
+        description: 'The moment this request was created'
+        type: string
+        maxLength: 255
+      dateCreated:
+        description: 'The moment this request was created'
+        type: string
+        format: date-time
+        example: '2021-03-11 16:22:52'
+      dateModified:
+        description: 'The moment this request last Modified'
+        type: string
+        format: date-time
+        example: '2021-03-11 16:22:52'
+    required: []
+  ChangeLog-write:
+    properties:
+      note:
+        description: 'A note conserning this log lin'
+        type: string
+        example: 'This log line is suspicius'
         maxLength: 2555
     required: []
 tags:
@@ -24580,33 +24588,9 @@ tags:
       
       
   -
-    name: Resource
+    name: Availability
     description: |
-      Describes resources that can be needed for an event.
       
-      
-  -
-    name: Journal
-    description: |
-      A journal from an event.
-      
-      
-  -
-    name: Todo
-    description: |
-      A to-do from an event.
-      
-      
-  -
-    name: Reservation
-    description: |
-      A Reservation is a event that is tied to an unique person or resource.
-      
-      
-  -
-    name: Schedule
-    description: |
-      A schedule defines a repeating time period used to describe a regularly occurring Event. At a minimum a schedule will specify repeatFrequency which describes the interval between occurences of the event. Additional information can be provided to specify the schedule more precisely. This includes identifying the day(s) of the week or month when the recurring event will take place, in addition to its start and end time. Schedules may also have start and end dates to indicate when they are active, e.g. to define a limited calendar of events.
       
       
   -
@@ -24616,31 +24600,55 @@ tags:
       
       
   -
-    name: Freebusy
-    description: |
-      This entity checks if a person is free or busy for a event.
-      
-      
-  -
-    name: Availability
-    description: |
-      
-      
-      
-  -
     name: Event
     description: |
       An event happening at a certain time and location, such as a concert, lecture, meeting or festival.
       
       
   -
-    name: ChangeLog
+    name: Freebusy
+    description: |
+      This entity checks if a person is free or busy for a event.
+      
+      
+  -
+    name: Journal
+    description: |
+      A journal from an event.
+      
+      
+  -
+    name: Reservation
+    description: |
+      A Reservation is a event that is tied to an unique person or resource.
+      
+      
+  -
+    name: Resource
+    description: |
+      Describes resources that can be needed for an event.
+      
+      
+  -
+    name: Schedule
+    description: |
+      A schedule defines a repeating time period used to describe a regularly occurring Event. At a minimum a schedule will specify repeatFrequency which describes the interval between occurences of the event. Additional information can be provided to specify the schedule more precisely. This includes identifying the day(s) of the week or month when the recurring event will take place, in addition to its start and end time. Schedules may also have start and end dates to indicate when they are active, e.g. to define a limited calendar of events.
+      
+      
+  -
+    name: Todo
+    description: |
+      A to-do from an event.
+      
+      
+  -
+    name: AuditTrail
     description: |
       An resource representing a log line.
       
       This entity represents a product that can be ordered via the OrderRegistratieComponent.
   -
-    name: AuditTrail
+    name: ChangeLog
     description: |
       An resource representing a log line.
       
@@ -24651,15 +24659,15 @@ securityDefinitions:
     authorizationUrl: 'http://petstore.swagger.io/api/oauth/dialog'
     flow: implicit
     scopes:
-      read: 'read right to the AuditTrail resource'
-      write: 'write right to the AuditTrail resource'
+      read: 'read right to the ChangeLog resource'
+      write: 'write right to the ChangeLog resource'
   JWT-Token:
     type: apiKey
     in: header
     name: Authorization
     scopes:
-      read: 'read right to the AuditTrail resource'
-      write: 'write right to the AuditTrail resource'
+      read: 'read right to the ChangeLog resource'
+      write: 'write right to the ChangeLog resource'
 host: irc.zaakonline.nl
 servers:
   -
