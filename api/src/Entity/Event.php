@@ -390,21 +390,28 @@ class Event
     private array $comments = [];
 
     /**
+     * @Groups({"read","write"})
+     * @MaxDepth(1)
      * @ORM\ManyToMany(targetEntity="App\Entity\Event")
      */
     private Collection $related;
 
     /**
+     * @Groups({"read","write"})
+     * @MaxDepth(1)
      * @ORM\ManyToMany(targetEntity="App\Entity\Resource", mappedBy="events")
      */
     private Collection $resources;
 
     /**
+     * @Groups({"read","write"})
+     * @MaxDepth(1)
      * @ORM\OneToMany(targetEntity="App\Entity\Alarm", mappedBy="event")
      */
     private Collection $alarms;
 
     /**
+     * @Groups({"read","write"})
      * @ORM\OneToOne(targetEntity="App\Entity\Journal", mappedBy="event", cascade={"persist", "remove"})
      */
     private ?Journal $journal;

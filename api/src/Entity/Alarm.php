@@ -174,12 +174,12 @@ class Alarm
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Event", inversedBy="alarms")
      * @MaxDepth(1)
+     * @Groups({"read","write"})
      */
     private ?Event $event;
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Todo", inversedBy="alarm", cascade={"persist", "remove"})
-     * @MaxDepth(1)
      */
     private ?Todo $todo;
 
