@@ -16,14 +16,15 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Annotation\MaxDepth;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * This entity checks if a person is free or busy for a event.
  *
  * @ApiResource(
- *     normalizationContext={"groups"={"read"}},
- *     denormalizationContext={"groups"={"write"}},
+ *     normalizationContext={"groups"={"read"}, "enable_max_depth"=true},
+ *     denormalizationContext={"groups"={"write"}, "enable_max_depth"=true},
  *     itemOperations={
  *          "get",
  *          "put",
@@ -193,7 +194,7 @@ class Freebusy
     private ?string $resource = null;
 
     /**
-     * @ApiSubresource(maxDepth=1)
+     * @MaxDepth(1)
      *
      * @Groups({"read", "write"})
      * @ORM\ManyToOne(targetEntity="App\Entity\Calendar", inversedBy="freebusies")
@@ -202,7 +203,7 @@ class Freebusy
     private ?Calendar $calendar = null;
 
     /**
-     * @ApiSubresource(maxDepth=1)
+     * @MaxDepth(1)
      *
      * @Groups({"read", "write"})
      * @ORM\ManyToOne(targetEntity="App\Entity\Event", inversedBy="freebusies")
@@ -212,7 +213,7 @@ class Freebusy
 
     /**
      * @var Schedule Schedule that belongs to this freebusy
-     * @ApiSubresource(maxDepth=1)
+     * @MaxDepth(1)
      * @Groups({"read", "write"})
      * @ORM\ManyToOne(targetEntity="App\Entity\Schedule", inversedBy="freebusies", cascade={"persist"})
      */

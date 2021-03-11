@@ -25,8 +25,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ApiResource(
  * 	   iri="http://schema.org/PostalAddress",
- *     normalizationContext={"groups"={"read"}},
- *     denormalizationContext={"groups"={"write"}},
+ *     normalizationContext={"groups"={"read"}, "enable_max_depth"=true},
+ *     denormalizationContext={"groups"={"write"}, "enable_max_depth"=true},
  *     itemOperations={
  *          "get",
  *          "put",
@@ -268,14 +268,13 @@ class Schedule
 
     /**
      * @var Calendar The Calendar to wich this Schedule belongs
-     * @ApiSubresource(maxDepth=1)
+     * @MaxDepth(1)
      * @ORM\ManyToOne(targetEntity="App\Entity\Calendar", inversedBy="schedules", cascade={"persist"})
      * @ORM\JoinColumn(nullable=true)
      */
     private ?Calendar $calendar = null;
 
     /**
-     * @ApiSubresource(maxDepth=1)
      *
      * @var Collection The events that belong to or are caused by this Schedule
      *
@@ -286,7 +285,6 @@ class Schedule
     private Collection $events;
 
     /**
-     * @ApiSubresource(maxDepth=1)
      *
      * @var Collection The freebusies that belong to or are caused by this Schedule
      *
@@ -297,7 +295,6 @@ class Schedule
     private Collection $freebusies;
 
     /**
-     * @ApiSubresource(maxDepth=1)
      *
      * @var Collection The todos that belong to or are caused by this Schedule
      *

@@ -3,10 +3,10 @@ entries:
   agendaservice:
   - apiVersion: v1
     appVersion: V1.0
-    created: "2021-03-11T16:21:14.6747872Z"
+    created: "2021-03-11T16:51:30.7090879Z"
     description: Naast deze JSON rest API is er ook een [graphql](/graphql) interface
       beschikbaar.
-    digest: 13414e3fd518737b5d6292e48209ee5b649efc8d3184275a527608f820b1e9c1
+    digest: d059b22205ecb7b4e062ca0eddfd21c5fe4a58b3bf2195c43634cbaf3ad2b88f
     home: https://www.conduction.nl
     icon: https://conductionnl.github.io/images/conduction_avatar_blue_on_transparant.svg
     keywords:
@@ -31,7 +31,7 @@ entries:
       category: Database
     apiVersion: v2
     appVersion: 11.10.0
-    created: "2021-03-11T16:21:14.6900777Z"
+    created: "2021-03-11T16:51:30.7245046Z"
     dependencies:
     - name: common
       repository: https://charts.bitnami.com/bitnami
@@ -60,4 +60,4 @@ entries:
     urls:
     - charts/postgresql-10.1.1.tgz
     version: 10.1.1
-generated: "2021-03-11T16:21:14.6577059Z"
+generated: "2021-03-11T16:51:30.69396Z"
