@@ -17,6 +17,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Annotation\MaxDepth;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -278,6 +279,7 @@ class Schedule
      *
      * @var Collection The events that belong to or are caused by this Schedule
      *
+     * @MaxDepth(1)
      * @Groups({"read", "write"})
      * @ORM\OneToMany(targetEntity="App\Entity\Event", mappedBy="schedule")
      */
@@ -288,6 +290,7 @@ class Schedule
      *
      * @var Collection The freebusies that belong to or are caused by this Schedule
      *
+     * @MaxDepth(1)
      * @Groups({"read", "write"})
      * @ORM\OneToMany(targetEntity="App\Entity\Freebusy", mappedBy="schedule")
      */
@@ -298,6 +301,7 @@ class Schedule
      *
      * @var Collection The todos that belong to or are caused by this Schedule
      *
+     * @MaxDepth(1)
      * @Groups({"read", "write"})
      * @ORM\OneToMany(targetEntity="App\Entity\Todo", mappedBy="schedule")
      */
@@ -593,6 +597,7 @@ class Schedule
 
         return $this;
     }
+
     public function getDaysPerMonth(): ?array
     {
         return $this->daysPerMonth;

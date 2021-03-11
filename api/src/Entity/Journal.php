@@ -16,6 +16,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Annotation\MaxDepth;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -300,7 +301,7 @@ class Journal
     private ?string $resource = null;
 
     /**
-     * @ApiSubresource(maxDepth=1)
+     * @MaxDepth(1)
      * @ORM\ManyToOne(targetEntity="App\Entity\Calendar", inversedBy="journals", cascade={"persist"})
      * @ORM\JoinColumn(nullable=true)
      */
