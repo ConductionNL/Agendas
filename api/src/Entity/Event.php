@@ -61,11 +61,11 @@ use Symfony\Component\Validator\Constraints as Assert;
  *     "calendar.id":"exact",
  *     "calendar.organization":"exact",
  *     "calendar.resource":"exact",
- *     "name":"ipartial",
- *     "description":"ipartial",
+ *     "name":"partial",
+ *     "description":"partial",
  *     "organization":"exact",
  *     "resource":"exact",
- *     "location":"iexact",
+ *     "location":"exact",
  *     "status":"exact"
  * })
  */
