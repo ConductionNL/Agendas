@@ -593,6 +593,7 @@ class Schedule
 
         return $this;
     }
+
     public function getDaysPerMonth(): ?array
     {
         return $this->daysPerMonth;
