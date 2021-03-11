@@ -12,7 +12,6 @@ use GuzzleHttp\Client;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\Event\ViewEvent;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\KernelEvents;
@@ -32,8 +31,7 @@ class FreetimeSubscriber implements EventSubscriberInterface
         EntityManagerInterface $em,
         SerializerInterface $serializer,
         CommonGroundService $commonGroundService
-    )
-    {
+    ) {
         $this->params = $params;
         $this->em = $em;
         $this->serializer = $serializer;
@@ -108,7 +106,6 @@ class FreetimeSubscriber implements EventSubscriberInterface
 
                 // Add freebusy period as timeblock to the array
                 if (isset($startDate)) {
-
                     if (strtotime($freebusy->getStartDate()->format('Y-m-d H:i:s')) >= strtotime($startDate)) {
 
                         // If enddate of freebusy is later than the given enddate, set the timeblock enddate to that of the given enddate
@@ -122,19 +119,16 @@ class FreetimeSubscriber implements EventSubscriberInterface
                         if ($freebusy->getSchedule() != null) {
                             $schedule = $freebusy->getSchedule();
 
-                            $monthFreebusyStartDate = (int)date("m", strtotime($freebusy->getStartDate()->format('Y-m-d H:i:s')));
-                            $weekFreebusyStartDate = (int)$freebusy->getStartDate()->format("W");
+                            $monthFreebusyStartDate = (int) date('m', strtotime($freebusy->getStartDate()->format('Y-m-d H:i:s')));
+                            $weekFreebusyStartDate = (int) $freebusy->getStartDate()->format('W');
                             $dayFreebusyStartDate = $this->dayOfWeekToNumber(date('l', strtotime($freebusy->getStartDate()->format('Y-m-d H:i:s'))));
 
                             if ($schedule->getDaysPerWeek() != null) {
                                 $timeBlocks = array_merge($timeBlocks, $this->getTimeblocksFromDaySchedule($schedule, $freebusy, $dayFreebusyStartDate, $endDate));
-
                             } elseif ($schedule->getWeeksPerYear() != null) {
                                 $timeBlocks = array_merge($timeBlocks, $this->getTimeblocksFromWeekSchedule($schedule, $freebusy, $weekFreebusyStartDate, $endDate));
-
                             } elseif ($schedule->getMonthsPerYear() != null) {
                                 $timeBlocks = array_merge($timeBlocks, $this->getTimeblocksFromMonthSchedule($schedule, $freebusy, $monthFreebusyStartDate, $endDate));
-
                             }
                         }
                     }
@@ -144,7 +138,7 @@ class FreetimeSubscriber implements EventSubscriberInterface
 
         $responseData = [
             'description' => 'All '.$type.' timeblocks for calendar '.$calendar->getName().' between '.$startDate.' and '.$endDate,
-            'timeBlocks' => $timeBlocks
+            'timeBlocks'  => $timeBlocks,
         ];
 
         $json = $this->serializer->serialize(
@@ -164,13 +158,14 @@ class FreetimeSubscriber implements EventSubscriberInterface
         return $calendar;
     }
 
-    function validateDate($date, $format = 'Y-m-d H:i:s')
+    public function validateDate($date, $format = 'Y-m-d H:i:s')
     {
         $d = \DateTime::createFromFormat($format, $date);
+
         return $d && $d->format($format) === $date;
     }
 
-    function dayOfWeekToNumber($day)
+    public function dayOfWeekToNumber($day)
     {
         switch ($day) {
             case 'Monday':
@@ -195,19 +190,20 @@ class FreetimeSubscriber implements EventSubscriberInterface
                 $day = 7;
                 break;
         }
+
         return $day;
     }
 
-    function getTimeblocksFromDaySchedule(Schedule $schedule, Freebusy $freebusy, $dayFreebusyStartDate, $endDate)
+    public function getTimeblocksFromDaySchedule(Schedule $schedule, Freebusy $freebusy, $dayFreebusyStartDate, $endDate)
     {
         $passedFirstWeek = false;
         $totalDaysPassed = 0;
 
-        for ($dayOfWeekCounter = ($dayFreebusyStartDate + 1); ; $dayOfWeekCounter++) {
+        for ($dayOfWeekCounter = ($dayFreebusyStartDate + 1);; $dayOfWeekCounter++) {
             $totalDaysPassed++;
-            $currentDateOfIteration = date('Y-m-d H:i:s', strtotime("+" . $totalDaysPassed . " day", strtotime($freebusy->getStartDate()->format('Y-m-d H:i:s'))));
-            $currentWeekOfIteration = (int)date('W', strtotime($currentDateOfIteration));
-            $currentMonthOfIteration = (int)date("m", strtotime($currentDateOfIteration));
+            $currentDateOfIteration = date('Y-m-d H:i:s', strtotime('+'.$totalDaysPassed.' day', strtotime($freebusy->getStartDate()->format('Y-m-d H:i:s'))));
+            $currentWeekOfIteration = (int) date('W', strtotime($currentDateOfIteration));
+            $currentMonthOfIteration = (int) date('m', strtotime($currentDateOfIteration));
 
             // If we are past the given endDate, break the loop
             if (strtotime($currentDateOfIteration) >= strtotime($endDate)) {
@@ -253,7 +249,7 @@ class FreetimeSubscriber implements EventSubscriberInterface
                 // Check if it is the first week of the loop
                 if ($passedFirstWeek !== true) {
                     if ($dayOfWeekCounter > $dayFreebusyStartDate) {
-                        $newTimeBlockStartDate = date('Y-m-d H:i:s', strtotime("+" . $totalDaysPassed . " day", strtotime($freebusy->getStartDate()->format('Y-m-d H:i:s'))));
+                        $newTimeBlockStartDate = date('Y-m-d H:i:s', strtotime('+'.$totalDaysPassed.' day', strtotime($freebusy->getStartDate()->format('Y-m-d H:i:s'))));
                         $newTimeBlockEndDate = date('Y-m-d H:i:s', strtotime($newTimeBlockStartDate) + (strtotime($freebusy->getEndDate()->format('Y-m-d H:i:s')) - strtotime($freebusy->getStartDate()->format('Y-m-d H:i:s'))));
 
                         $timeBlocks[] = ['startDate' => $newTimeBlockStartDate, 'endDate' => $newTimeBlockEndDate];
@@ -261,13 +257,11 @@ class FreetimeSubscriber implements EventSubscriberInterface
 
                     // Else just add the new timeBlocks
                 } else {
-                    $newTimeBlockStartDate = date('Y-m-d H:i:s', strtotime("+" . $totalDaysPassed . " day", strtotime($freebusy->getStartDate()->format('Y-m-d H:i:s'))));
+                    $newTimeBlockStartDate = date('Y-m-d H:i:s', strtotime('+'.$totalDaysPassed.' day', strtotime($freebusy->getStartDate()->format('Y-m-d H:i:s'))));
                     $newTimeBlockEndDate = date('Y-m-d H:i:s', strtotime($newTimeBlockStartDate) + (strtotime($freebusy->getEndDate()->format('Y-m-d H:i:s')) - strtotime($freebusy->getStartDate()->format('Y-m-d H:i:s'))));
 
                     $timeBlocks[] = ['startDate' => $newTimeBlockStartDate, 'endDate' => $newTimeBlockEndDate];
-
                 }
-
             }
 
             // If the counter is Sunday (7) the next iteration needs to be Monday (1)
@@ -284,16 +278,16 @@ class FreetimeSubscriber implements EventSubscriberInterface
         return $timeBlocks;
     }
 
-    function getTimeblocksFromWeekSchedule(Schedule $schedule, Freebusy $freebusy, $weekFreebusyStartDate, $endDate)
+    public function getTimeblocksFromWeekSchedule(Schedule $schedule, Freebusy $freebusy, $weekFreebusyStartDate, $endDate)
     {
         $passedFirstYear = false;
         $totalWeeksPassed = 0;
 
-        for ($weekOfYearCounter = ($weekFreebusyStartDate + 1); ; $weekOfYearCounter++) {
+        for ($weekOfYearCounter = ($weekFreebusyStartDate + 1);; $weekOfYearCounter++) {
             $totalWeeksPassed++;
-            $currentDateOfIteration = date('Y-m-d H:i:s', strtotime("+" . $totalWeeksPassed . " week", strtotime($freebusy->getStartDate()->format('Y-m-d H:i:s'))));
-            $currentWeekOfIteration = (int)date('W', strtotime($currentDateOfIteration));
-            $currentMonthOfIteration = (int)date("m", strtotime($currentDateOfIteration));
+            $currentDateOfIteration = date('Y-m-d H:i:s', strtotime('+'.$totalWeeksPassed.' week', strtotime($freebusy->getStartDate()->format('Y-m-d H:i:s'))));
+            $currentWeekOfIteration = (int) date('W', strtotime($currentDateOfIteration));
+            $currentMonthOfIteration = (int) date('m', strtotime($currentDateOfIteration));
 
             // If we are past the given endDate, break the loop
             if (strtotime($currentDateOfIteration) >= strtotime($endDate)) {
@@ -325,7 +319,7 @@ class FreetimeSubscriber implements EventSubscriberInterface
                 // Check if it is the first week of the loop
                 if ($passedFirstYear !== true) {
                     if ($weekOfYearCounter > $weekFreebusyStartDate) {
-                        $newTimeBlockStartDate = date('Y-m-d H:i:s', strtotime("+" . $totalWeeksPassed . " week", strtotime($freebusy->getStartDate()->format('Y-m-d H:i:s'))));
+                        $newTimeBlockStartDate = date('Y-m-d H:i:s', strtotime('+'.$totalWeeksPassed.' week', strtotime($freebusy->getStartDate()->format('Y-m-d H:i:s'))));
                         $newTimeBlockEndDate = date('Y-m-d H:i:s', strtotime($newTimeBlockStartDate) + (strtotime($freebusy->getEndDate()->format('Y-m-d H:i:s')) - strtotime($freebusy->getStartDate()->format('Y-m-d H:i:s'))));
 
                         $timeBlocks[] = ['startDate' => $newTimeBlockStartDate, 'endDate' => $newTimeBlockEndDate];
@@ -333,13 +327,11 @@ class FreetimeSubscriber implements EventSubscriberInterface
 
                     // Else just add the new timeBlocks
                 } else {
-                    $newTimeBlockStartDate = date('Y-m-d H:i:s', strtotime("+" . $totalWeeksPassed . " week", strtotime($freebusy->getStartDate()->format('Y-m-d H:i:s'))));
+                    $newTimeBlockStartDate = date('Y-m-d H:i:s', strtotime('+'.$totalWeeksPassed.' week', strtotime($freebusy->getStartDate()->format('Y-m-d H:i:s'))));
                     $newTimeBlockEndDate = date('Y-m-d H:i:s', strtotime($newTimeBlockStartDate) + (strtotime($freebusy->getEndDate()->format('Y-m-d H:i:s')) - strtotime($freebusy->getStartDate()->format('Y-m-d H:i:s'))));
 
                     $timeBlocks[] = ['startDate' => $newTimeBlockStartDate, 'endDate' => $newTimeBlockEndDate];
-
                 }
-
             }
 
             // If the counter is 52 the next iteration needs to be 0
@@ -356,16 +348,16 @@ class FreetimeSubscriber implements EventSubscriberInterface
         return $timeBlocks;
     }
 
-    function getTimeblocksFromMonthSchedule(Schedule $schedule, Freebusy $freebusy, $monthFreebusyStartDate, $endDate)
+    public function getTimeblocksFromMonthSchedule(Schedule $schedule, Freebusy $freebusy, $monthFreebusyStartDate, $endDate)
     {
         $passedFirstYear = false;
         $totalMonthsPassed = 0;
 
-        for ($monthOfYearCounter = ($monthFreebusyStartDate + 1); ; $monthOfYearCounter++) {
+        for ($monthOfYearCounter = ($monthFreebusyStartDate + 1);; $monthOfYearCounter++) {
             $totalMonthsPassed++;
-            $currentDateOfIteration = date('Y-m-d H:i:s', strtotime("+" . $totalMonthsPassed . " month", strtotime($freebusy->getStartDate()->format('Y-m-d H:i:s'))));
-            $currentWeekOfIteration = (int)date('W', strtotime($currentDateOfIteration));
-            $currentMonthOfIteration = (int)date("m", strtotime($currentDateOfIteration));
+            $currentDateOfIteration = date('Y-m-d H:i:s', strtotime('+'.$totalMonthsPassed.' month', strtotime($freebusy->getStartDate()->format('Y-m-d H:i:s'))));
+            $currentWeekOfIteration = (int) date('W', strtotime($currentDateOfIteration));
+            $currentMonthOfIteration = (int) date('m', strtotime($currentDateOfIteration));
 
             // If we are past the given endDate, break the loop
             if (strtotime($currentDateOfIteration) >= strtotime($endDate)) {
@@ -383,7 +375,7 @@ class FreetimeSubscriber implements EventSubscriberInterface
                 // Check if it is the first week of the loop
                 if ($passedFirstYear !== true) {
                     if ($monthOfYearCounter > $monthFreebusyStartDate) {
-                        $newTimeBlockStartDate = date('Y-m-d H:i:s', strtotime("+" . $totalMonthsPassed . " month", strtotime($freebusy->getStartDate()->format('Y-m-d H:i:s'))));
+                        $newTimeBlockStartDate = date('Y-m-d H:i:s', strtotime('+'.$totalMonthsPassed.' month', strtotime($freebusy->getStartDate()->format('Y-m-d H:i:s'))));
                         $newTimeBlockEndDate = date('Y-m-d H:i:s', strtotime($newTimeBlockStartDate) + (strtotime($freebusy->getEndDate()->format('Y-m-d H:i:s')) - strtotime($freebusy->getStartDate()->format('Y-m-d H:i:s'))));
 
                         $timeBlocks[] = ['startDate' => $newTimeBlockStartDate, 'endDate' => $newTimeBlockEndDate];
@@ -391,13 +383,11 @@ class FreetimeSubscriber implements EventSubscriberInterface
 
                     // Else just add the new timeBlocks
                 } else {
-                    $newTimeBlockStartDate = date('Y-m-d H:i:s', strtotime("+" . $totalMonthsPassed . " month", strtotime($freebusy->getStartDate()->format('Y-m-d H:i:s'))));
+                    $newTimeBlockStartDate = date('Y-m-d H:i:s', strtotime('+'.$totalMonthsPassed.' month', strtotime($freebusy->getStartDate()->format('Y-m-d H:i:s'))));
                     $newTimeBlockEndDate = date('Y-m-d H:i:s', strtotime($newTimeBlockStartDate) + (strtotime($freebusy->getEndDate()->format('Y-m-d H:i:s')) - strtotime($freebusy->getStartDate()->format('Y-m-d H:i:s'))));
 
                     $timeBlocks[] = ['startDate' => $newTimeBlockStartDate, 'endDate' => $newTimeBlockEndDate];
-
                 }
-
             }
 
             // If the counter is 12 the next iteration needs to be 0
@@ -412,6 +402,5 @@ class FreetimeSubscriber implements EventSubscriberInterface
         }
 
         return $timeBlocks;
-
     }
 }
