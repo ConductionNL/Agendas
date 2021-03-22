@@ -52,7 +52,7 @@ class LarpingFixtures extends Fixture
         $event->setId($id);
         $manager->persist($event);
         $manager->flush();
-        $event = $manager->getRepository('App:Calendar')->findOneBy(['id'=> $id]);
+        $event = $manager->getRepository('App:Event')->findOneBy(['id'=> $id]);
 
 //        // Algemene Begraafplaats
 //        $id = Uuid::fromString('e46e6b3e-9b3a-4339-9d69-874d8dd6bc44');
