@@ -46,6 +46,7 @@ class LarpingFixtures extends Fixture
         $event->setOrganization($this->commonGroundService->cleanUrl(['component'=>'wrc', 'type'=>'organizations', 'id'=>'e62b32b5-2d1f-4412-9eb7-225bce414d05']));
         $event->setStartDate(new \DateTime('22-03-2021'));
         $event->setEndDate(new \DateTime('22-03-2021'));
+        $event->setStatus('published');
 //        $event->setCategories();
         $manager->persist($event);
         $event->setId($id);
