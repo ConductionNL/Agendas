@@ -30,22 +30,23 @@ class LarpingFixtures extends Fixture
             return false;
         }
 
-        $event = new Event();
-        $event->setName('Moots 1');
-        $event->setOrganization($this->commonGroundService->cleanUrl(['component'=>'wrc', 'type'=>'organizations', 'id'=>'51eb5628-3b37-497b-a57f-6b039ec776e5']));
-        $event->setResource($this->commonGroundService->cleanUrl(['component'=>'pdc', 'type'=>'products', 'id'=>'893e5c2f-4c89-438c-aa62-c0bd4636e858']));
-        $event->setStartDate(new \DateTime('12-09-2020'));
-        $event->setEndDate(new \DateTime('14-09-2020'));
-        $manager->persist($event);
-        $manager->flush();
+//        $event = new Event();
+//        $event->setName('Moots 1');
+//        $event->setOrganization($this->commonGroundService->cleanUrl(['component'=>'wrc', 'type'=>'organizations', 'id'=>'51eb5628-3b37-497b-a57f-6b039ec776e5']));
+//        $event->setResource($this->commonGroundService->cleanUrl(['component'=>'pdc', 'type'=>'products', 'id'=>'893e5c2f-4c89-438c-aa62-c0bd4636e858']));
+//        $event->setStartDate(new \DateTime('12-09-2020'));
+//        $event->setEndDate(new \DateTime('14-09-2020'));
+//        $manager->persist($event);
+//        $manager->flush();
 
-        $id = Uuid::fromString('81052670-582e-401d-ad2b-77ac60cf9d73');
+        $id = Uuid::fromString('e0b3b247-91a9-43a5-afe9-6f624876fb8b');
         $event = new Event();
-        $event->setName('Event met subscription');
-        $event->setOrganization($this->commonGroundService->cleanUrl(['component'=>'wrc', 'type'=>'organizations', 'id'=>'51eb5628-3b37-497b-a57f-6b039ec776e5']));
-        $event->setResource($this->commonGroundService->cleanUrl(['component'=>'pdc', 'type'=>'products', 'id'=>'364523a6-458f-45f3-a9de-7d10b9e928a7']));
-        $event->setStartDate(new \DateTime('12-09-2020'));
-        $event->setEndDate(new \DateTime('14-09-2020'));
+        $event->setName('Voorjaars ALV');
+        $event->setDescription(file_get_contents(dirname(__FILE__).'/eventDescriptions/voorjaars-alv.html.twig', 'r'));
+        $event->setOrganization($this->commonGroundService->cleanUrl(['component'=>'wrc', 'type'=>'organizations', 'id'=>'e62b32b5-2d1f-4412-9eb7-225bce414d05']));
+        $event->setStartDate(new \DateTime('22-03-2021'));
+        $event->setEndDate(new \DateTime('22-03-2021'));
+//        $event->setCategories();
         $manager->persist($event);
         $event->setId($id);
         $manager->persist($event);
