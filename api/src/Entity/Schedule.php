@@ -17,6 +17,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Annotation\MaxDepth;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -24,8 +25,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ApiResource(
  * 	   iri="http://schema.org/PostalAddress",
- *     normalizationContext={"groups"={"read"}},
- *     denormalizationContext={"groups"={"write"}},
+ *     normalizationContext={"groups"={"read"}, "enable_max_depth"=true},
+ *     denormalizationContext={"groups"={"write"}, "enable_max_depth"=true},
  *     itemOperations={
  *          "get",
  *          "put",
@@ -104,55 +105,102 @@ class Schedule
     private ?string $description;
 
     /**
-     * @var string Defines the day(s) of the week on which a recurring Event takes place. Sunday is both 0 and 7.
+     * @var array Defines the day(s) a week this recurrence occurs where monday is 1 and sunday is 7
      *
      * @Gedmo\Versioned
      *
-     * @example 1
+     * @example array(1, 2, 4, 6)
      *
-     * @Assert\Range(
-     *     min = 0,
-     *     max = 7
-     * )
-     * @Assert\PositiveOrZero
      * @Groups({"read","write"})
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="array", nullable=true)
      */
-    private ?string $byDay;
+    private $daysPerWeek = [];
 
     /**
-     * @var string Defines the month(s) of the year on which a recurring Event takes place. Specified as an Integer between 1-12. January is 1.
+     * @var array Defines the day(s) a month this recurrence occurs
      *
      * @Gedmo\Versioned
      *
-     * @example 1
+     * @example array(12, 26, 30)
      *
-     * @Assert\Range(
-     *     min = 1,
-     *     max = 12
-     * )
-     * @Assert\PositiveOrZero
      * @Groups({"read","write"})
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="array", nullable=true)
      */
-    private ?string $byMonth;
+    private $daysPerMonth = [];
+    /**
+     * @var array Defines the week(s) a year this recurrence occurs
+     *
+     * @Gedmo\Versioned
+     *
+     * @example array(12, 26, 51)
+     *
+     * @Groups({"read","write"})
+     * @ORM\Column(type="array", nullable=true)
+     */
+    private $weeksPerYear = [];
 
     /**
-     * @var string Defines the day(s) of the month on which a recurring Event takes place. Specified as an Integer between 1-31.
+     * @var array Defines the month(s) a year this recurrence occurs
      *
      * @Gedmo\Versioned
      *
-     * @example 1
+     * @example array(1, 2, 12)
      *
-     * @Assert\Range(
-     *     min = 1,
-     *     max = 31
-     * )
-     * @Assert\PositiveOrZero
      * @Groups({"read","write"})
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="array", nullable=true)
      */
-    private ?string $byMonthDay;
+    private $monthsPerYear = [];
+
+//    /**
+//     * @var string Defines the day(s) of the week on which a recurring Event takes place. Sunday is both 0 and 7.
+//     *
+//     * @Gedmo\Versioned
+//     *
+//     * @example 1
+//     *
+//     * @Assert\Range(
+//     *     min = 0,
+//     *     max = 7
+//     * )
+//     * @Assert\PositiveOrZero
+//     * @Groups({"read","write"})
+//     * @ORM\Column(type="integer", nullable=true)
+//     */
+//    private ?string $byDay;
+
+//    /**
+//     * @var string Defines the month(s) of the year on which a recurring Event takes place. Specified as an Integer between 1-12. January is 1.
+//     *
+//     * @Gedmo\Versioned
+//     *
+//     * @example 1
+//     *
+//     * @Assert\Range(
+//     *     min = 1,
+//     *     max = 12
+//     * )
+//     * @Assert\PositiveOrZero
+//     * @Groups({"read","write"})
+//     * @ORM\Column(type="integer", nullable=true)
+//     */
+//    private ?string $byMonth;
+//
+//    /**
+//     * @var string Defines the day(s) of the month on which a recurring Event takes place. Specified as an Integer between 1-31.
+//     *
+//     * @Gedmo\Versioned
+//     *
+//     * @example 1
+//     *
+//     * @Assert\Range(
+//     *     min = 1,
+//     *     max = 31
+//     * )
+//     * @Assert\PositiveOrZero
+//     * @Groups({"read","write"})
+//     * @ORM\Column(type="integer", nullable=true)
+//     */
+//    private ?string $byMonthDay;
 
     /**
      * @var array Defines the day(s) of the month on which a recurring Event takes place. Specified as an Integer between 1-31.
@@ -165,6 +213,18 @@ class Schedule
      * @ORM\Column(type="array", nullable=true)
      */
     private array $exceptDates = [];
+
+    /**
+     * @var Datetime The moment this recurrence can be recurred to
+     *
+     * @Gedmo\Versioned
+     *
+     * @example 3-3-2021
+     *
+     * @Groups({"read", "write"})
+     * @ORM\Column(type="datetime")
+     */
+    private ?DateTime $repeatTill;
 
     /**
      * @var int Defines the number of times a recurring Event will take place
@@ -208,34 +268,38 @@ class Schedule
 
     /**
      * @var Calendar The Calendar to wich this Schedule belongs
-     * @ApiSubresource(maxDepth=1)
+     * @MaxDepth(1)
      * @ORM\ManyToOne(targetEntity="App\Entity\Calendar", inversedBy="schedules", cascade={"persist"})
      * @ORM\JoinColumn(nullable=true)
      */
     private ?Calendar $calendar = null;
 
     /**
-     * @ApiSubresource(maxDepth=1)
      *
      * @var Collection The events that belong to or are caused by this Schedule
      *
+     * @MaxDepth(1)
+     * @Groups({"read", "write"})
      * @ORM\OneToMany(targetEntity="App\Entity\Event", mappedBy="schedule")
      */
     private Collection $events;
 
     /**
-     * @ApiSubresource(maxDepth=1)
      *
      * @var Collection The freebusies that belong to or are caused by this Schedule
      *
+     * @MaxDepth(1)
+     * @Groups({"read", "write"})
      * @ORM\OneToMany(targetEntity="App\Entity\Freebusy", mappedBy="schedule")
      */
     private Collection $freebusies;
 
     /**
-     * @ApiSubresource(maxDepth=1)
      *
      * @var Collection The todos that belong to or are caused by this Schedule
+     *
+     * @MaxDepth(1)
+     * @Groups({"read", "write"})
      * @ORM\OneToMany(targetEntity="App\Entity\Todo", mappedBy="schedule")
      */
     private Collection $todos;
@@ -306,41 +370,41 @@ class Schedule
         return $this;
     }
 
-    public function getByDay(): ?int
-    {
-        return $this->byDay;
-    }
-
-    public function setByDay(?int $byDay): self
-    {
-        $this->byDay = $byDay;
-
-        return $this;
-    }
-
-    public function getByMonth(): ?int
-    {
-        return $this->byMonth;
-    }
-
-    public function setByMonth(?int $byMonth): self
-    {
-        $this->byMonth = $byMonth;
-
-        return $this;
-    }
-
-    public function getByMonthDay(): ?int
-    {
-        return $this->byMonthDay;
-    }
-
-    public function setByMonthDay(?int $byMonthDay): self
-    {
-        $this->byMonthDay = $byMonthDay;
-
-        return $this;
-    }
+//    public function getByDay(): ?int
+//    {
+//        return $this->byDay;
+//    }
+//
+//    public function setByDay(?int $byDay): self
+//    {
+//        $this->byDay = $byDay;
+//
+//        return $this;
+//    }
+//
+//    public function getByMonth(): ?int
+//    {
+//        return $this->byMonth;
+//    }
+//
+//    public function setByMonth(?int $byMonth): self
+//    {
+//        $this->byMonth = $byMonth;
+//
+//        return $this;
+//    }
+//
+//    public function getByMonthDay(): ?int
+//    {
+//        return $this->byMonthDay;
+//    }
+//
+//    public function setByMonthDay(?int $byMonthDay): self
+//    {
+//        $this->byMonthDay = $byMonthDay;
+//
+//        return $this;
+//    }
 
     /**
      * @return Collection|Event[]
@@ -483,6 +547,18 @@ class Schedule
         return $this;
     }
 
+    public function getRepeatTill(): ?\DateTimeInterface
+    {
+        return $this->repeatTill;
+    }
+
+    public function setRepeatTill(\DateTimeInterface $repeatTill): self
+    {
+        $this->repeatTill = $repeatTill;
+
+        return $this;
+    }
+
     public function getDateCreated(): ?\DateTimeInterface
     {
         return $this->dateCreated;
@@ -503,6 +579,54 @@ class Schedule
     public function setDateModified(\DateTimeInterface $dateModified): self
     {
         $this->dateModified = $dateModified;
+
+        return $this;
+    }
+
+    public function getDaysPerWeek(): ?array
+    {
+        return $this->daysPerWeek;
+    }
+
+    public function setDaysPerWeek(?array $daysPerWeek): self
+    {
+        $this->daysPerWeek = $daysPerWeek;
+
+        return $this;
+    }
+
+    public function getDaysPerMonth(): ?array
+    {
+        return $this->daysPerMonth;
+    }
+
+    public function setDaysPerMonth(?array $daysPerMonth): self
+    {
+        $this->daysPerMonth = $daysPerMonth;
+
+        return $this;
+    }
+
+    public function getWeeksPerYear(): ?array
+    {
+        return $this->weeksPerYear;
+    }
+
+    public function setWeeksPerYear(?array $weeksPerYear): self
+    {
+        $this->weeksPerYear = $weeksPerYear;
+
+        return $this;
+    }
+
+    public function getMonthsPerYear(): ?array
+    {
+        return $this->monthsPerYear;
+    }
+
+    public function setMonthsPerYear(?array $monthsPerYear): self
+    {
+        $this->monthsPerYear = $monthsPerYear;
 
         return $this;
     }

@@ -17,6 +17,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Annotation\MaxDepth;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -118,13 +119,13 @@ class Resource
     private ?string $resource;
 
     /**
-     * @ApiSubresource(maxDepth=1)
+     * @MaxDepth(1)
      * @ORM\ManyToMany(targetEntity="App\Entity\Event", inversedBy="resources")
      */
     private Collection $events;
 
     /**
-     * @ApiSubresource(maxDepth=1)
+     * @MaxDepth(1)
      * @ORM\ManyToMany(targetEntity="App\Entity\Todo", inversedBy="resources")
      */
     private Collection $todos;

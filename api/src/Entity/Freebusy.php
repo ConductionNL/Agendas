@@ -16,14 +16,15 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Annotation\MaxDepth;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * This entity checks if a person is free or busy for a event.
  *
  * @ApiResource(
- *     normalizationContext={"groups"={"read"}},
- *     denormalizationContext={"groups"={"write"}},
+ *     normalizationContext={"groups"={"read"}, "enable_max_depth"=true},
+ *     denormalizationContext={"groups"={"write"}, "enable_max_depth"=true},
  *     itemOperations={
  *          "get",
  *          "put",
@@ -193,16 +194,28 @@ class Freebusy
     private ?string $resource = null;
 
     /**
-     * @ApiSubresource(maxDepth=1)
+     * @MaxDepth(1)
      *
+     * @Groups({"read", "write"})
      * @ORM\ManyToOne(targetEntity="App\Entity\Calendar", inversedBy="freebusies")
      * @ORM\JoinColumn(nullable=true)
      */
     private ?Calendar $calendar = null;
 
     /**
-     * @ApiSubresource(maxDepth=1)
-     * @ORM\ManyToOne(targetEntity="App\Entity\Schedule", inversedBy="freebusies")
+     * @MaxDepth(1)
+     *
+     * @Groups({"read", "write"})
+     * @ORM\ManyToOne(targetEntity="App\Entity\Event", inversedBy="freebusies")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private ?Event $event = null;
+
+    /**
+     * @var Schedule Schedule that belongs to this freebusy
+     * @MaxDepth(1)
+     * @Groups({"read", "write"})
+     * @ORM\ManyToOne(targetEntity="App\Entity\Schedule", inversedBy="freebusies", cascade={"persist"})
      */
     private ?Schedule $schedule;
 
@@ -357,6 +370,18 @@ class Freebusy
     public function setCalendar(?Calendar $calendar): self
     {
         $this->calendar = $calendar;
+
+        return $this;
+    }
+
+    public function getEvent(): ?Event
+    {
+        return $this->event;
+    }
+
+    public function setEvent(?Event $event): self
+    {
+        $this->event = $event;
 
         return $this;
     }

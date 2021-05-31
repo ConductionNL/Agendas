@@ -26,8 +26,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ApiResource(
  *       iri="https://schema.org/Event",
- *     normalizationContext={"groups"={"read"}},
- *     denormalizationContext={"groups"={"write"}},
+ *     normalizationContext={"groups"={"read"}, "enable_max_depth"=true},
+ *     denormalizationContext={"groups"={"write"}, "enable_max_depth"=true},
  *     itemOperations={
  *          "get",
  *          "put",
@@ -61,11 +61,12 @@ use Symfony\Component\Validator\Constraints as Assert;
  *     "calendar.id":"exact",
  *     "calendar.organization":"exact",
  *     "calendar.resource":"exact",
- *     "name":"ipartial",
- *     "description":"ipartial",
+ *     "name":"partial",
+ *     "description":"partial",
  *     "organization":"exact",
  *     "resource":"exact",
- *     "location":"iexact"
+ *     "location":"exact",
+ *     "status":"exact"
  * })
  */
 class Event
@@ -183,7 +184,7 @@ class Event
     /**
      * @var Schedule An optional Schedule to which this event belongs
      *
-     * @ApiSubresource(maxDepth=1)
+     * @MaxDepth(1)
      * @Groups({"read","write"})
      * @ORM\ManyToOne(targetEntity="App\Entity\Schedule", inversedBy="events")
      */
@@ -192,7 +193,7 @@ class Event
     /**
      * @var Calendar The Calendar to wich this event belongs
      *
-     * @ApiSubresource(maxDepth=1)
+     * @MaxDepth(1)
      * @Groups({"read","write"})
      * @ORM\ManyToOne(targetEntity="App\Entity\Calendar", inversedBy="events" , cascade={"persist"})
      * @ORM\JoinColumn(nullable=true)
@@ -389,24 +390,41 @@ class Event
     private array $comments = [];
 
     /**
+     * @Groups({"read","write"})
+     * @MaxDepth(1)
      * @ORM\ManyToMany(targetEntity="App\Entity\Event")
      */
     private Collection $related;
 
     /**
+     * @Groups({"read","write"})
+     * @MaxDepth(1)
      * @ORM\ManyToMany(targetEntity="App\Entity\Resource", mappedBy="events")
      */
     private Collection $resources;
 
     /**
+     * @Groups({"read","write"})
+     * @MaxDepth(1)
      * @ORM\OneToMany(targetEntity="App\Entity\Alarm", mappedBy="event")
      */
     private Collection $alarms;
 
     /**
+     * @Groups({"read","write"})
+     * @MaxDepth(1)
      * @ORM\OneToOne(targetEntity="App\Entity\Journal", mappedBy="event", cascade={"persist", "remove"})
      */
     private ?Journal $journal;
+
+    /**
+     * @var Collection Freebusies that are for this Event
+     *
+     * @MaxDepth(1)
+     * @ORM\OneToMany(targetEntity="App\Entity\Freebusy", mappedBy="event")
+     * @Groups({"read", "write"})
+     */
+    private ?Collection $freebusies = null;
 
     /**
      * @var DateTime The moment this resource was created
@@ -819,6 +837,37 @@ class Event
         $newEvent = $journal === null ? null : $this;
         if ($newEvent !== $journal->getEvent()) {
             $journal->setEvent($newEvent);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Freebusy[]
+     */
+    public function getFreebusies(): Collection
+    {
+        return $this->freebusies;
+    }
+
+    public function addFreebusy(Freebusy $freebusy): self
+    {
+        if (!$this->freebusies->contains($freebusy)) {
+            $this->freebusies[] = $freebusy;
+            $freebusy->setEvent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFreebusy(Freebusy $freebusy): self
+    {
+        if ($this->freebusies->contains($freebusy)) {
+            $this->freebusies->removeElement($freebusy);
+            // set the owning side to null (unless already changed)
+            if ($freebusy->getEvent() === $this) {
+                $freebusy->setEvent(null);
+            }
         }
 
         return $this;

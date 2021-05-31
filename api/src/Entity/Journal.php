@@ -16,14 +16,15 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Annotation\MaxDepth;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * A journal from an event.
  *
  * @ApiResource(
- *     normalizationContext={"groups"={"read"}},
- *     denormalizationContext={"groups"={"write"}},
+ *     normalizationContext={"groups"={"read"}, "enable_max_depth"=true},
+ *     denormalizationContext={"groups"={"write"}, "enable_max_depth"=true},
  *     itemOperations={
  *          "get",
  *          "put",
@@ -300,14 +301,15 @@ class Journal
     private ?string $resource = null;
 
     /**
-     * @ApiSubresource(maxDepth=1)
+     * @MaxDepth(1)
      * @ORM\ManyToOne(targetEntity="App\Entity\Calendar", inversedBy="journals", cascade={"persist"})
      * @ORM\JoinColumn(nullable=true)
      */
     private ?Calendar $calendar = null;
 
     /**
-     * @ApiSubresource(maxDepth=1)
+     * @Groups({"read","write"})
+     * @MaxDepth(1)
      * @ORM\OneToOne(targetEntity="App\Entity\Event", inversedBy="journal", cascade={"persist", "remove"})
      */
     private ?Event $event;

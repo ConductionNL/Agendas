@@ -25,8 +25,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  * A to-do from an event.
  *
  * @ApiResource(
- *     normalizationContext={"groups"={"read"}},
- *     denormalizationContext={"groups"={"write"}},
+ *     normalizationContext={"groups"={"read"}, "enable_max_depth"=true},
+ *     denormalizationContext={"groups"={"write"}, "enable_max_depth"=true},
  *     itemOperations={
  *          "get",
  *          "put",
@@ -357,26 +357,27 @@ class Todo
     private ?string $resource = null;
 
     /**
-     * @ApiSubresource
+     * @MaxDepth(1)
      * @ORM\ManyToMany(targetEntity="App\Entity\Resource", mappedBy="todos", cascade={"persist"})
      */
     private ?Collection $resources;
 
     /**
-     * @ApiSubresource(maxDepth=1)
+     * @Groups({"read","write"})
+     * @MaxDepth(1)
      * @ORM\OneToOne(targetEntity="App\Entity\Alarm", mappedBy="todo", cascade={"persist", "remove"})
      */
     private ?Alarm $alarm;
 
     /**
-     * @ApiSubresource(maxDepth=1)
+     * @MaxDepth(1)
      * @ORM\ManyToOne(targetEntity="App\Entity\Calendar", inversedBy="todos", cascade={"persist"})
      * @ORM\JoinColumn(nullable=true)
      */
     private ?Calendar $calendar = null;
 
     /**
-     * @ApiSubresource(maxDepth=1)
+     * @MaxDepth(1)
      * @ORM\ManyToOne(targetEntity="App\Entity\Schedule", inversedBy="todos")
      */
     private ?Schedule $schedule;
