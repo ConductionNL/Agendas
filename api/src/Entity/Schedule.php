@@ -4,7 +4,6 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
-use ApiPlatform\Core\Annotation\ApiSubresource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\BooleanFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\DateFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
@@ -275,7 +274,6 @@ class Schedule
     private ?Calendar $calendar = null;
 
     /**
-     *
      * @var Collection The events that belong to or are caused by this Schedule
      *
      * @MaxDepth(1)
@@ -285,7 +283,6 @@ class Schedule
     private Collection $events;
 
     /**
-     *
      * @var Collection The freebusies that belong to or are caused by this Schedule
      *
      * @MaxDepth(1)
@@ -295,7 +292,6 @@ class Schedule
     private Collection $freebusies;
 
     /**
-     *
      * @var Collection The todos that belong to or are caused by this Schedule
      *
      * @MaxDepth(1)
