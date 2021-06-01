@@ -1,8 +1,12 @@
 # agendaservice
+![StyleCI](https://github.styleci.io/repos/206144508/shield?branch=master)
+[![Docker Image CI](https://github.com/ConductionNL/agendaservice/workflows/Docker%20Image%20CI/badge.svg?branch=master)](https://github.com/ConductionNL/agendaservice/actions?query=workflow%3A"Docker+Image+CI") [![Artifacthub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/agenaservice)](https://artifacthub.io/packages/helm/agendaservice/agendaservice)
+[![BCH compliance](https://bettercodehub.com/edge/badge/ConductionNL/agendaservice?branch=master)](https://bettercodehub.com/)
 
 Description
 ----
-Naast deze JSON rest API is er ook een [graphql](/graphql) interface beschikbaar.
+De Agenda Service faciliteert een agenda functionaliteit. Hiermee kunnen er resources gekoppeld worden aan een agenda. Een resource kan daarbij een persoon uit het Contacten Component of een medewerker vanuit het Medewerkers Component zijn, maar is daar technisch niet toe beperkt.
+Het is dus ook mogelijk om agenda’s te voeren voor locaties, zalen en kamers in de zin van boekingen of bijvoorbeeld voertuigen. Hierbij zit een logisch doch niet dwingend verband met het PDC en ORC met betrekking tot kostprijsberekening etc. Naast agenda’s als objecten bevat het component uiteraard mogelijkheden tot het blokkeren of juist beschikbaar stellen van agenda ruimtes, het maken van afspraken en zoeken naar vrije ruimte binnen één of meer agenda’s.
 
 Additional Information
 ----
