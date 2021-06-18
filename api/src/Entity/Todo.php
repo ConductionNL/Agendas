@@ -358,6 +358,7 @@ class Todo
     /**
      * @MaxDepth(1)
      * @ORM\ManyToMany(targetEntity="App\Entity\Resource", mappedBy="todos", cascade={"persist"})
+     * @Groups({"read","write"})
      */
     private ?Collection $resources;
 
@@ -371,6 +372,7 @@ class Todo
     /**
      * @MaxDepth(1)
      * @ORM\ManyToOne(targetEntity="App\Entity\Calendar", inversedBy="todos", cascade={"persist"})
+     * @Groups({"read","write"})
      * @ORM\JoinColumn(nullable=true)
      */
     private ?Calendar $calendar = null;
@@ -378,6 +380,7 @@ class Todo
     /**
      * @MaxDepth(1)
      * @ORM\ManyToOne(targetEntity="App\Entity\Schedule", inversedBy="todos")
+     * @Groups({"read","write"})
      */
     private ?Schedule $schedule;
 
