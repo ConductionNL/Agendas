@@ -1,7 +1,10 @@
 # agendaservice
 ![StyleCI](https://github.styleci.io/repos/206144508/shield?branch=master)
-[![Docker Image CI](https://github.com/ConductionNL/agendaservice/workflows/Docker%20Image%20CI/badge.svg?branch=master)](https://github.com/ConductionNL/agendaservice/actions?query=workflow%3A"Docker+Image+CI") [![Artifacthub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/agenaservice)](https://artifacthub.io/packages/helm/agendaservice/agendaservice)
+[![Docker Image CI](https://github.com/ConductionNL/agendaservice/workflows/Docker%20Image%20CI/badge.svg?branch=master)](https://github.com/ConductionNL/agendaservice/actions?query=workflow%3A"Docker+Image+CI") 
+[![Artifacthub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/agenaservice)](https://artifacthub.io/packages/helm/agendaservice/agendaservice)
 [![BCH compliance](https://bettercodehub.com/edge/badge/ConductionNL/agendaservice?branch=master)](https://bettercodehub.com/)
+[![Componenten Catalogus](https://img.shields.io/badge/vng--componentencatalogus-posted-green)](https://componentencatalogus.commonground.nl/componenten/20?)
+[![Status badge](https://shields.api-test.nl/endpoint.svg?style=for-the-badge&url=https%3A//api-test.nl/api/v1/provider-latest-badge/ff0ccbd0-4e84-4e48-8458-6f31c603dc5c/)](https://api-test.nl/server/4/3c8b48ab-4295-41df-a58e-735c79cf510e/ff0ccbd0-4e84-4e48-8458-6f31c603dc5c/latest/)
 
 Description
 ----
