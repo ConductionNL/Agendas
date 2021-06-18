@@ -114,18 +114,21 @@ class Resource
      * )
      * @Groups({"read","write"})
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"read","write"})
      */
     private ?string $resource;
 
     /**
      * @MaxDepth(1)
      * @ORM\ManyToMany(targetEntity="App\Entity\Event", inversedBy="resources")
+     * @Groups({"read","write"})
      */
     private Collection $events;
 
     /**
      * @MaxDepth(1)
      * @ORM\ManyToMany(targetEntity="App\Entity\Todo", inversedBy="resources")
+     * @Groups({"read","write"})
      */
     private Collection $todos;
 

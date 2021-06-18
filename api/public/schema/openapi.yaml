@@ -12,7 +12,7 @@ info:
     - Docker Image: [online]() 
     - Datamodel: [postman](schema/agendaservice.postman_collection.json) / [oas](schema/openapi.yaml) / [pdf](schema/datamodel.pdf) / [modelio (zip)](schema/Datamodel_Modelio.zip) 
     
-    Naast deze JSON rest API is er ook een [graphql](/graphql) interface beschikbaar.         
+    De Agenda Service faciliteert een agenda functionaliteit. Hiermee kunnen er resources gekoppeld worden aan een agenda. Een resource kan daarbij een persoon uit het Contacten Component of een medewerker vanuit het Medewerkers Component zijn, maar is daar technisch niet toe beperkt. Het is dus ook mogelijk om agenda’s te voeren voor locaties, zalen en kamers in de zin van boekingen of bijvoorbeeld voertuigen. Hierbij zit een logisch doch niet dwingend verband met het PDC en ORC met betrekking tot kostprijsberekening etc. Naast agenda’s als objecten bevat het component uiteraard mogelijkheden tot het blokkeren of juist beschikbaar stellen van agenda ruimtes, het maken van afspraken en zoeken naar vrije ruimte binnen één of meer agenda’s.         
     
 paths:
   /alarms:
@@ -15477,6 +15477,14 @@ components:
             url: 'http://schema.org/url'
           type: string
           nullable: true
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/Event-read'
+        todos:
+          type: array
+          items:
+            $ref: '#/components/schemas/Todo-read'
         dateCreated:
           description: 'The moment this resource was created'
           type: string
@@ -15508,6 +15516,14 @@ components:
             url: 'http://schema.org/url'
           type: string
           nullable: true
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/Event-write'
+        todos:
+          type: array
+          items:
+            $ref: '#/components/schemas/Todo-write'
     'Resource:jsonld-read':
       type: object
       description: 'Describes resources that can be needed for an event.'
@@ -15541,6 +15557,14 @@ components:
             url: 'http://schema.org/url'
           type: string
           nullable: true
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/Event:jsonld-read'
+        todos:
+          type: array
+          items:
+            $ref: '#/components/schemas/Todo:jsonld-read'
         dateCreated:
           description: 'The moment this resource was created'
           type: string
@@ -15581,6 +15605,14 @@ components:
             url: 'http://schema.org/url'
           type: string
           nullable: true
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/Event:jsonld-write'
+        todos:
+          type: array
+          items:
+            $ref: '#/components/schemas/Todo:jsonld-write'
     Schedule-read:
       type: object
       description: 'A schedule defines a repeating time period used to describe a regularly occurring Event. At a minimum a schedule will specify repeatFrequency which describes the interval between occurences of the event. Additional information can be provided to specify the schedule more precisely. This includes identifying the day(s) of the week or month when the recurring event will take place, in addition to its start and end time. Schedules may also have start and end dates to indicate when they are active, e.g. to define a limited calendar of events.'
@@ -16053,11 +16085,25 @@ components:
             url: 'http://schema.org/url'
           type: string
           nullable: true
+        resources:
+          type: array
+          items:
+            $ref: '#/components/schemas/Resource-read'
         alarm:
           nullable: true
           anyOf:
             -
               $ref: '#/components/schemas/Alarm-read'
+        calendar:
+          nullable: true
+          anyOf:
+            -
+              $ref: '#/components/schemas/Calendar-read'
+        schedule:
+          nullable: true
+          anyOf:
+            -
+              $ref: '#/components/schemas/Schedule-read'
         dateCreated:
           description: 'The moment this resource was created'
           type: string
@@ -16177,11 +16223,25 @@ components:
             url: 'http://schema.org/url'
           type: string
           nullable: true
+        resources:
+          type: array
+          items:
+            $ref: '#/components/schemas/Resource-write'
         alarm:
           nullable: true
           anyOf:
             -
               $ref: '#/components/schemas/Alarm-write'
+        calendar:
+          nullable: true
+          anyOf:
+            -
+              $ref: '#/components/schemas/Calendar-write'
+        schedule:
+          nullable: true
+          anyOf:
+            -
+              $ref: '#/components/schemas/Schedule-write'
     'Todo:jsonld-read':
       type: object
       description: 'A to-do from an event.'
@@ -16299,11 +16359,25 @@ components:
             url: 'http://schema.org/url'
           type: string
           nullable: true
+        resources:
+          type: array
+          items:
+            $ref: '#/components/schemas/Resource:jsonld-read'
         alarm:
           nullable: true
           anyOf:
             -
               $ref: '#/components/schemas/Alarm:jsonld-read'
+        calendar:
+          nullable: true
+          anyOf:
+            -
+              $ref: '#/components/schemas/Calendar:jsonld-read'
+        schedule:
+          nullable: true
+          anyOf:
+            -
+              $ref: '#/components/schemas/Schedule:jsonld-read'
         dateCreated:
           description: 'The moment this resource was created'
           type: string
@@ -16432,11 +16506,25 @@ components:
             url: 'http://schema.org/url'
           type: string
           nullable: true
+        resources:
+          type: array
+          items:
+            $ref: '#/components/schemas/Resource:jsonld-write'
         alarm:
           nullable: true
           anyOf:
             -
               $ref: '#/components/schemas/Alarm:jsonld-write'
+        calendar:
+          nullable: true
+          anyOf:
+            -
+              $ref: '#/components/schemas/Calendar:jsonld-write'
+        schedule:
+          nullable: true
+          anyOf:
+            -
+              $ref: '#/components/schemas/Schedule:jsonld-write'
 definitions:
   Alarm-read:
     properties:
@@ -17406,6 +17494,8 @@ definitions:
       dateModified:
         description: 'The moment this resource last Modified'
         type: \Datetime
+      events: []
+      todos: []
     required:
       - name
   Resource-write:
@@ -17426,6 +17516,8 @@ definitions:
         example: 'https://dev.zuid-drecht.nl/api/v1/uc/users/7f341a1e-0d75-4f43-8b9a-a6727c4b3404'
         format: url
         maxLength: 255
+      events: []
+      todos: []
     required:
       - name
   Schedule-read:
@@ -17652,7 +17744,7 @@ definitions:
       completed:
         description: 'The date and time a to-do is completed.'
         type: string
-        example: '2021-03-22 11:25:58'
+        example: '2021-06-18 07:31:17'
         format: date-time
       percentageDone:
         description: 'The percentage of a to-do that has been comepleted.'
@@ -17669,7 +17761,10 @@ definitions:
       dateModified:
         description: 'The moment this resource last Modified'
         type: \Datetime
+      resources: []
       alarm: []
+      calendar: []
+      schedule: []
     required:
       - name
       - startDate
@@ -17760,7 +17855,7 @@ definitions:
       completed:
         description: 'The date and time a to-do is completed.'
         type: string
-        example: '2021-03-22 11:25:58'
+        example: '2021-06-18 07:31:17'
         format: date-time
       percentageDone:
         description: 'The percentage of a to-do that has been comepleted.'
@@ -17771,7 +17866,10 @@ definitions:
         type: string
         example: 'https://wrc.zaakonline.nl/organisations/16353702-4614-42ff-92af-7dd11c8eef9f'
         format: url
+      resources: []
       alarm: []
+      calendar: []
+      schedule: []
     required:
       - name
       - startDate
@@ -17880,12 +17978,12 @@ definitions:
         description: 'The moment this request was created'
         type: string
         format: date-time
-        example: '2021-03-22 11:25:58'
+        example: '2021-06-18 07:31:17'
       dateModified:
         description: 'The moment this request last Modified'
         type: string
         format: date-time
-        example: '2021-03-22 11:25:58'
+        example: '2021-06-18 07:31:17'
     required: []
   AuditTrail-write:
     properties:
@@ -17933,12 +18031,12 @@ definitions:
         description: 'The moment this request was created'
         type: string
         format: date-time
-        example: '2021-03-22 11:25:58'
+        example: '2021-06-18 07:31:17'
       dateModified:
         description: 'The moment this request last Modified'
         type: string
         format: date-time
-        example: '2021-03-22 11:25:58'
+        example: '2021-06-18 07:31:17'
     required: []
   ChangeLog-write:
     properties:
