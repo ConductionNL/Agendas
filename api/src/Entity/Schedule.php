@@ -292,13 +292,14 @@ class Schedule
     private Collection $freebusies;
 
     /**
-     * @var Collection The todos that belong to or are caused by this Schedule
+     * @var array todos that belong to this Calendar
      *
-     * @MaxDepth(1)
+     * @Gedmo\Versioned
+     *
      * @Groups({"read", "write"})
-     * @ORM\OneToMany(targetEntity="App\Entity\Todo", mappedBy="schedule")
+     * @ORM\Column(type="array", length=255)
      */
-    private Collection $todos;
+    private ?array $todos = null;
 
     /**
      * @var Datetime The moment this resource was created
@@ -322,7 +323,6 @@ class Schedule
     {
         $this->events = new ArrayCollection();
         $this->freebusies = new ArrayCollection();
-        $this->todos = new ArrayCollection();
     }
 
     public function getId(): ?Uuid
@@ -512,33 +512,14 @@ class Schedule
         return $this;
     }
 
-    /**
-     * @return Collection|Todo[]
-     */
-    public function getTodos(): Collection
+    public function getTodos(): ?array
     {
         return $this->todos;
     }
 
-    public function addTodo(Todo $todo): self
+    public function setTodos(?array $todos): self
     {
-        if (!$this->todos->contains($todo)) {
-            $this->todos[] = $todo;
-            $todo->setSchedule($this);
-        }
-
-        return $this;
-    }
-
-    public function removeTodo(Todo $todo): self
-    {
-        if ($this->todos->contains($todo)) {
-            $this->todos->removeElement($todo);
-            // set the owning side to null (unless already changed)
-            if ($todo->getSchedule() === $this) {
-                $todo->setSchedule(null);
-            }
-        }
+        $this->todos = $todos;
 
         return $this;
     }

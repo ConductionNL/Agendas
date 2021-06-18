@@ -188,13 +188,14 @@ class Calendar
     private ?Collection $journals = null;
 
     /**
-     * @var Collection todos that belong to this Calendar
+     * @var array todos that belong to this Calendar
      *
-     * @MaxDepth(1)
-     * @ORM\OneToMany(targetEntity="App\Entity\Todo", mappedBy="calendar")
+     * @Gedmo\Versioned
+     *
      * @Groups({"read", "write"})
+     * @ORM\Column(type="array", length=255)
      */
-    private ?Collection $todos = null;
+    private ?array $todos = null;
 
     /**
      * @var string The time zone of this calendar
@@ -245,7 +246,6 @@ class Calendar
         $this->events = new ArrayCollection();
         $this->freebusies = new ArrayCollection();
         $this->journals = new ArrayCollection();
-        $this->todos = new ArrayCollection();
         $this->availabilities = new ArrayCollection();
     }
 
@@ -488,33 +488,14 @@ class Calendar
         return $this;
     }
 
-    /**
-     * @return Collection|Todo[]
-     */
-    public function getTodos(): Collection
+    public function getTodos(): ?array
     {
         return $this->todos;
     }
 
-    public function addTodo(Todo $todo): self
+    public function setTodos(?array $todos): self
     {
-        if (!$this->todos->contains($todo)) {
-            $this->todos[] = $todo;
-            $todo->setCalendar($this);
-        }
-
-        return $this;
-    }
-
-    public function removeTodo(Todo $todo): self
-    {
-        if ($this->todos->contains($todo)) {
-            $this->todos->removeElement($todo);
-            // set the owning side to null (unless already changed)
-            if ($todo->getCalendar() === $this) {
-                $todo->setCalendar(null);
-            }
-        }
+        $this->todos = $todos;
 
         return $this;
     }
