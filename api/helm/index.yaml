@@ -3,7 +3,7 @@ entries:
   agendaservice:
   - apiVersion: v1
     appVersion: V1.0
-    created: "2021-06-18T07:29:32.6607715Z"
+    created: "2021-06-22T15:29:54.1243515Z"
     description: De Agenda Service faciliteert een agenda functionaliteit. Hiermee
       kunnen er resources gekoppeld worden aan een agenda. Een resource kan daarbij
       een persoon uit het Contacten Component of een medewerker vanuit het Medewerkers
@@ -14,7 +14,7 @@ entries:
       als objecten bevat het component uiteraard mogelijkheden tot het blokkeren of
       juist beschikbaar stellen van agenda ruimtes, het maken van afspraken en zoeken
       naar vrije ruimte binnen één of meer agenda’s.
-    digest: 28ec20680e47f1c1f39ffc46d1d4f238ab904e58b4ee11378343d6997a86180d
+    digest: efc63310b03084026855dbfde0a55c9b2832b5fa5e8b636b811a1602159a9f94
     home: https://www.conduction.nl
     icon: https://conductionnl.github.io/images/conduction_avatar_blue_on_transparant.svg
     keywords:
@@ -39,7 +39,7 @@ entries:
       category: Database
     apiVersion: v2
     appVersion: 11.10.0
-    created: "2021-06-18T07:29:32.6819735Z"
+    created: "2021-06-22T15:29:54.1286758Z"
     dependencies:
     - name: common
       repository: https://charts.bitnami.com/bitnami
@@ -68,4 +68,4 @@ entries:
     urls:
     - charts/postgresql-10.1.1.tgz
     version: 10.1.1
-generated: "2021-06-18T07:29:32.642553Z"
+generated: "2021-06-22T15:29:54.1169113Z"
