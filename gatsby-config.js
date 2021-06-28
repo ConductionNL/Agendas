@@ -1,6 +1,6 @@
 module.exports = {
   siteMetadata: {
-    title: `Producten en diensten catalogus`,
+    title: `Agenda service`,
     description: `Demodam is a fictitious municipal website that shows which reusable open source products and services are available for municipalities. This website hosts the community governance and demodam information.`,
     author: `The Demodam Community`,
     repositoryUrl: `https://github.com/demodam/demodam.org/`,

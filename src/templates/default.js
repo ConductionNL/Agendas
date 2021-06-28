@@ -13,7 +13,7 @@ export default function Template({ data, location }) {
 
   return (
     <Layout>
-      <SEO title="Proto component commonground" />
+      <SEO title="Agenda service" />
       <Background backgroundColor="#CC0000">
 
       <nav>
