@@ -355,34 +355,34 @@ class Todo
      */
     private ?string $resource = null;
 
-    /**
-     * @MaxDepth(1)
-     * @ORM\ManyToMany(targetEntity="App\Entity\Resource", mappedBy="todos", cascade={"persist"})
-     * @Groups({"read","write"})
-     */
-    private ?Collection $resources;
-
-    /**
-     * @Groups({"read","write"})
-     * @MaxDepth(1)
-     * @ORM\OneToOne(targetEntity="App\Entity\Alarm", mappedBy="todo", cascade={"persist", "remove"})
-     */
-    private ?Alarm $alarm;
-
-    /**
-     * @MaxDepth(1)
-     * @ORM\ManyToOne(targetEntity="App\Entity\Calendar", inversedBy="todos", cascade={"persist"})
-     * @Groups({"read","write"})
-     * @ORM\JoinColumn(nullable=true)
-     */
-    private ?Calendar $calendar = null;
-
-    /**
-     * @MaxDepth(1)
-     * @ORM\ManyToOne(targetEntity="App\Entity\Schedule", inversedBy="todos")
-     * @Groups({"read","write"})
-     */
-    private ?Schedule $schedule;
+//    /**
+//     * @MaxDepth(1)
+//     * @ORM\ManyToMany(targetEntity="App\Entity\Resource", mappedBy="todos", cascade={"persist"})
+//     * @Groups({"read","write"})
+//     */
+//    private ?Collection $resources;
+//
+//    /**
+//     * @Groups({"read","write"})
+//     * @MaxDepth(1)
+//     * @ORM\OneToOne(targetEntity="App\Entity\Alarm", mappedBy="todo", cascade={"persist", "remove"})
+//     */
+//    private ?Alarm $alarm;
+//
+//    /**
+//     * @MaxDepth(1)
+//     * @ORM\ManyToOne(targetEntity="App\Entity\Calendar", inversedBy="todos", cascade={"persist"})
+//     * @Groups({"read","write"})
+//     * @ORM\JoinColumn(nullable=true)
+//     */
+//    private ?Calendar $calendar = null;
+//
+//    /**
+//     * @MaxDepth(1)
+//     * @ORM\ManyToOne(targetEntity="App\Entity\Schedule", inversedBy="todos")
+//     * @Groups({"read","write"})
+//     */
+//    private ?Schedule $schedule;
 
     /**
      * @var Datetime The moment this resource was created
@@ -700,75 +700,75 @@ class Todo
         return $this;
     }
 
-    /**
-     * @return Collection|resource[]
-     */
-    public function getResources(): Collection
-    {
-        return $this->resources;
-    }
-
-    public function addResource(Resource $resource): self
-    {
-        if (!$this->resources->contains($resource)) {
-            $this->resources[] = $resource;
-            $resource->addTodo($this);
-        }
-
-        return $this;
-    }
-
-    public function removeResource(Resource $resource): self
-    {
-        if ($this->resources->contains($resource)) {
-            $this->resources->removeElement($resource);
-            $resource->removeTodo($this);
-        }
-
-        return $this;
-    }
-
-    public function getAlarm(): ?Alarm
-    {
-        return $this->alarm;
-    }
-
-    public function setAlarm(?Alarm $alarm): self
-    {
-        $this->alarm = $alarm;
-
-        // set (or unset) the owning side of the relation if necessary
-        $newTodo = $alarm === null ? null : $this;
-        if ($newTodo !== $alarm->getTodo()) {
-            $alarm->setTodo($newTodo);
-        }
-
-        return $this;
-    }
-
-    public function getCalendar(): ?Calendar
-    {
-        return $this->calendar;
-    }
-
-    public function setCalendar(?Calendar $calendar): self
-    {
-        $this->calendar = $calendar;
-
-        return $this;
-    }
-
-    public function getSchedule(): ?Schedule
-    {
-        return $this->schedule;
-    }
-
-    public function setSchedule(?Schedule $schedule): self
-    {
-        $this->schedule = $schedule;
-
-        return $this;
-    }
+//    /**
+//     * @return Collection|resource[]
+//     */
+//    public function getResources(): Collection
+//    {
+//        return $this->resources;
+//    }
+//
+//    public function addResource(Resource $resource): self
+//    {
+//        if (!$this->resources->contains($resource)) {
+//            $this->resources[] = $resource;
+//            $resource->addTodo($this);
+//        }
+//
+//        return $this;
+//    }
+//
+//    public function removeResource(Resource $resource): self
+//    {
+//        if ($this->resources->contains($resource)) {
+//            $this->resources->removeElement($resource);
+//            $resource->removeTodo($this);
+//        }
+//
+//        return $this;
+//    }
+//
+//    public function getAlarm(): ?Alarm
+//    {
+//        return $this->alarm;
+//    }
+//
+//    public function setAlarm(?Alarm $alarm): self
+//    {
+//        $this->alarm = $alarm;
+//
+//        // set (or unset) the owning side of the relation if necessary
+//        $newTodo = $alarm === null ? null : $this;
+//        if ($newTodo !== $alarm->getTodo()) {
+//            $alarm->setTodo($newTodo);
+//        }
+//
+//        return $this;
+//    }
+//
+//    public function getCalendar(): ?Calendar
+//    {
+//        return $this->calendar;
+//    }
+//
+//    public function setCalendar(?Calendar $calendar): self
+//    {
+//        $this->calendar = $calendar;
+//
+//        return $this;
+//    }
+//
+//    public function getSchedule(): ?Schedule
+//    {
+//        return $this->schedule;
+//    }
+//
+//    public function setSchedule(?Schedule $schedule): self
+//    {
+//        $this->schedule = $schedule;
+//
+//        return $this;
+//    }
 
     public function getDateCreated(): ?\DateTimeInterface
     {

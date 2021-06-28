@@ -179,11 +179,20 @@ class Alarm
     private ?Event $event;
 
     /**
-     * @Groups({"read","write"})
-     * @MaxDepth(1)
-     * @ORM\OneToOne(targetEntity="App\Entity\Todo", inversedBy="alarm", cascade={"persist", "remove"})
+     * @var string The url of the todo for this alarm
+     *
+     * @Gedmo\Versioned
+     *
+     * @example /todos/id
+     *
+     * @Assert\Url
+     * @Assert\Length(
+     *      max = 255
+     * )
+     * @Groups({"read", "write"})
+     * @ORM\Column(type="string", length=255)
      */
-    private ?Todo $todo;
+    private ?string $todo;
 
     /**
      * @var Datetime The moment this resource was created
@@ -304,12 +313,12 @@ class Alarm
         return $this;
     }
 
-    public function getTodo(): ?Todo
+    public function getTodo(): ?string
     {
         return $this->todo;
     }
 
-    public function setTodo(?Todo $todo): self
+    public function setTodo(?string $todo): self
     {
         $this->todo = $todo;
 
