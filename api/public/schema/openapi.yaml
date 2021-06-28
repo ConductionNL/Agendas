@@ -11,9 +11,8 @@ info:
     - Repository: [online](https://github.com/ConductionNL/agendaservice) / [zip](https://github.com/ConductionNL/agendaservice/archive/master.zip)
     - Docker Image: [online]() 
     - Datamodel: [postman](schema/agendaservice.postman_collection.json) / [oas](schema/openapi.yaml) / [pdf](schema/datamodel.pdf) / [modelio (zip)](schema/Datamodel_Modelio.zip) 
-    
-    De Agenda Service faciliteert een agenda functionaliteit. Hiermee kunnen er resources gekoppeld worden aan een agenda. Een resource kan daarbij een persoon uit het Contacten Component of een medewerker vanuit het Medewerkers Component zijn, maar is daar technisch niet toe beperkt. Het is dus ook mogelijk om agenda’s te voeren voor locaties, zalen en kamers in de zin van boekingen of bijvoorbeeld voertuigen. Hierbij zit een logisch doch niet dwingend verband met het PDC en ORC met betrekking tot kostprijsberekening etc. Naast agenda’s als objecten bevat het component uiteraard mogelijkheden tot het blokkeren of juist beschikbaar stellen van agenda ruimtes, het maken van afspraken en zoeken naar vrije ruimte binnen één of meer agenda’s.         
-    
+
+    Naast deze JSON rest API is er ook een [graphql](/graphql) interface beschikbaar.         
 paths:
   /alarms:
     get:
@@ -17674,7 +17673,7 @@ definitions:
       completed:
         description: 'The date and time a to-do is completed.'
         type: string
-        example: '2021-06-18 15:05:26'
+        example: '2021-06-24 13:26:38'
         format: date-time
       percentageDone:
         description: 'The percentage of a to-do that has been comepleted.'
@@ -17781,7 +17780,7 @@ definitions:
       completed:
         description: 'The date and time a to-do is completed.'
         type: string
-        example: '2021-06-18 15:05:26'
+        example: '2021-06-24 13:26:38'
         format: date-time
       percentageDone:
         description: 'The percentage of a to-do that has been comepleted.'
@@ -17900,12 +17899,12 @@ definitions:
         description: 'The moment this request was created'
         type: string
         format: date-time
-        example: '2021-06-18 15:05:26'
+        example: '2021-06-24 13:26:39'
       dateModified:
         description: 'The moment this request last Modified'
         type: string
         format: date-time
-        example: '2021-06-18 15:05:26'
+        example: '2021-06-24 13:26:39'
     required: []
   AuditTrail-write:
     properties:
@@ -17953,12 +17952,12 @@ definitions:
         description: 'The moment this request was created'
         type: string
         format: date-time
-        example: '2021-06-18 15:05:26'
+        example: '2021-06-24 13:26:39'
       dateModified:
         description: 'The moment this request last Modified'
         type: string
         format: date-time
-        example: '2021-06-18 15:05:26'
+        example: '2021-06-24 13:26:39'
     required: []
   ChangeLog-write:
     properties:
@@ -17971,75 +17970,65 @@ definitions:
 tags:
   -
     name: Alarm
-    description: |
+    description: |+
       Used to describe alarms for Events and Todos.
-      
-      
+
   -
     name: Availability
-    description: |
-      
-      
-      
+    description: |+
+
+
   -
     name: Calendar
-    description: |
+    description: |+
       A Calendar is a collection of events tied to an unque person or resource.
-      
-      
+
   -
     name: Event
-    description: |
+    description: |+
       An event happening at a certain time and location, such as a concert, lecture, meeting or festival.
-      
-      
+
   -
     name: Freebusy
-    description: |
+    description: |+
       This entity checks if a person is free or busy for a event.
-      
-      
+
   -
     name: Journal
-    description: |
+    description: |+
       A journal from an event.
-      
-      
+
   -
     name: Reservation
-    description: |
+    description: |+
       A Reservation is a event that is tied to an unique person or resource.
-      
-      
+
   -
     name: Resource
-    description: |
+    description: |+
       Describes resources that can be needed for an event.
-      
-      
+
   -
     name: Schedule
-    description: |
+    description: |+
       A schedule defines a repeating time period used to describe a regularly occurring Event. At a minimum a schedule will specify repeatFrequency which describes the interval between occurences of the event. Additional information can be provided to specify the schedule more precisely. This includes identifying the day(s) of the week or month when the recurring event will take place, in addition to its start and end time. Schedules may also have start and end dates to indicate when they are active, e.g. to define a limited calendar of events.
-      
-      
+
   -
     name: Todo
-    description: |
+    description: |+
       A to-do from an event.
-      
-      
+
   -
     name: AuditTrail
-    description: |
+    description: |-
       An resource representing a log line.
-      
+
       This entity represents a product that can be ordered via the OrderRegistratieComponent.
   -
     name: ChangeLog
-    description: |
+    description: |-
       An resource representing a log line.
-      
+
       This entity represents a product that can be ordered via the OrderRegistratieComponent.
 securityDefinitions:
   JWT-Oauth:

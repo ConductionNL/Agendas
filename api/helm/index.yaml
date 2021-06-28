@@ -1,20 +1,23 @@
 apiVersion: v1
 entries:
   agendaservice:
-  - apiVersion: v1
+  - annotations:
+      artifacthub.io/containsSecurityUpdates: "true"
+    apiVersion: v2
     appVersion: V1.0
-    created: "2021-06-18T15:03:49.700665Z"
-    description: De Agenda Service faciliteert een agenda functionaliteit. Hiermee
-      kunnen er resources gekoppeld worden aan een agenda. Een resource kan daarbij
-      een persoon uit het Contacten Component of een medewerker vanuit het Medewerkers
-      Component zijn, maar is daar technisch niet toe beperkt. Het is dus ook mogelijk
-      om agenda’s te voeren voor locaties, zalen en kamers in de zin van boekingen
-      of bijvoorbeeld voertuigen. Hierbij zit een logisch doch niet dwingend verband
-      met het PDC en ORC met betrekking tot kostprijsberekening etc. Naast agenda’s
-      als objecten bevat het component uiteraard mogelijkheden tot het blokkeren of
-      juist beschikbaar stellen van agenda ruimtes, het maken van afspraken en zoeken
-      naar vrije ruimte binnen één of meer agenda’s.
-    digest: ae49f20728b3ca824e3ab734e12a8d3cce7cfd5ce3cd7046abb1a628fe295181
+    created: "2021-06-24T15:31:54.7434313+02:00"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 10.1.1
+    - condition: redis.enabled
+      name: redis
+      repository: https://charts.bitnami.com/bitnami
+      version: 12.7.7
+    description: Naast deze JSON rest API is er ook een [graphql](/graphql) interface
+      beschikbaar.
+    digest: 22f9d232a7cfb1fc90373a3ea2baa4b368db5de39905474eb04a0d69d6f62557
     home: https://www.conduction.nl
     icon: https://conductionnl.github.io/images/conduction_avatar_blue_on_transparant.svg
     keywords:
@@ -32,14 +35,14 @@ entries:
     - https://commonground.conduction.nl/
     - https://www.commonground.nl/
     urls:
-    - agendaservice-0.1.0.tgz
-    version: 0.1.0
+    - agendaservice-1.0.0.tgz
+    version: 1.0.0
   postgresql:
   - annotations:
       category: Database
     apiVersion: v2
     appVersion: 11.10.0
-    created: "2021-06-18T15:03:49.7218049Z"
+    created: "2021-06-24T15:31:54.7574286+02:00"
     dependencies:
     - name: common
       repository: https://charts.bitnami.com/bitnami
@@ -68,4 +71,38 @@ entries:
     urls:
     - charts/postgresql-10.1.1.tgz
     version: 10.1.1
-generated: "2021-06-18T15:03:49.6836259Z"
+  redis:
+  - annotations:
+      category: Database
+    apiVersion: v2
+    appVersion: 6.0.11
+    created: "2021-06-24T15:31:54.7768885+02:00"
+    dependencies:
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: 1.x.x
+    description: Open source, advanced key-value store. It is often referred to as
+      a data structure server since keys can contain strings, hashes, lists, sets
+      and sorted sets.
+    digest: 2d70861d16fc410ed6d6c818b97f7b0d519031147e5c7b42c5691d4c38742c44
+    home: https://github.com/bitnami/charts/tree/master/bitnami/redis
+    icon: https://bitnami.com/assets/stacks/redis/img/redis-stack-220x234.png
+    keywords:
+    - redis
+    - keyvalue
+    - database
+    maintainers:
+    - email: containers@bitnami.com
+      name: Bitnami
+    - email: cedric@desaintmartin.fr
+      name: desaintmartin
+    name: redis
+    sources:
+    - https://github.com/bitnami/bitnami-docker-redis
+    - http://redis.io/
+    urls:
+    - charts/redis-12.7.7.tgz
+    version: 12.7.7
+generated: "2021-06-24T15:31:54.7175376+02:00"
