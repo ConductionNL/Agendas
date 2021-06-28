@@ -126,11 +126,14 @@ class Resource
     private Collection $events;
 
     /**
-     * @MaxDepth(1)
-     * @ORM\ManyToMany(targetEntity="App\Entity\Todo", inversedBy="resources")
-     * @Groups({"read","write"})
+     * @var array todos that belong to this Calendar
+     *
+     * @Gedmo\Versioned
+     *
+     * @Groups({"read", "write"})
+     * @ORM\Column(type="array", length=255)
      */
-    private Collection $todos;
+    private ?array $todos = null;
 
     /**
      * @var Datetime The moment this resource was created
@@ -153,7 +156,6 @@ class Resource
     public function __construct()
     {
         $this->events = new ArrayCollection();
-        $this->todos = new ArrayCollection();
     }
 
     public function getId(): ?Uuid
@@ -223,31 +225,18 @@ class Resource
         return $this;
     }
 
-    /**
-     * @return Collection|Todo[]
-     */
-    public function getTodos(): Collection
+    public function getTodos(): ?array
     {
         return $this->todos;
     }
 
-    public function addTodo(Todo $todo): self
+    public function setTodos(?array $todos): self
     {
-        if (!$this->todos->contains($todo)) {
-            $this->todos[] = $todo;
-        }
+        $this->todos = $todos;
 
         return $this;
     }
 
-    public function removeTodo(Todo $todo): self
-    {
-        if ($this->todos->contains($todo)) {
-            $this->todos->removeElement($todo);
-        }
-
-        return $this;
-    }
 
     public function getDateCreated(): ?\DateTimeInterface
     {
