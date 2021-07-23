@@ -4,7 +4,6 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
-use ApiPlatform\Core\Annotation\ApiSubresource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\BooleanFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\DateFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
@@ -275,7 +274,6 @@ class Schedule
     private ?Calendar $calendar = null;
 
     /**
-     *
      * @var Collection The events that belong to or are caused by this Schedule
      *
      * @MaxDepth(1)
@@ -285,7 +283,6 @@ class Schedule
     private Collection $events;
 
     /**
-     *
      * @var Collection The freebusies that belong to or are caused by this Schedule
      *
      * @MaxDepth(1)
@@ -295,14 +292,14 @@ class Schedule
     private Collection $freebusies;
 
     /**
+     * @var array todos that belong to this Calendar
      *
-     * @var Collection The todos that belong to or are caused by this Schedule
+     * @Gedmo\Versioned
      *
-     * @MaxDepth(1)
      * @Groups({"read", "write"})
-     * @ORM\OneToMany(targetEntity="App\Entity\Todo", mappedBy="schedule")
+     * @ORM\Column(type="array", length=255)
      */
-    private Collection $todos;
+    private ?array $todos = null;
 
     /**
      * @var Datetime The moment this resource was created
@@ -326,7 +323,6 @@ class Schedule
     {
         $this->events = new ArrayCollection();
         $this->freebusies = new ArrayCollection();
-        $this->todos = new ArrayCollection();
     }
 
     public function getId(): ?Uuid
@@ -516,33 +512,14 @@ class Schedule
         return $this;
     }
 
-    /**
-     * @return Collection|Todo[]
-     */
-    public function getTodos(): Collection
+    public function getTodos(): ?array
     {
         return $this->todos;
     }
 
-    public function addTodo(Todo $todo): self
+    public function setTodos(?array $todos): self
     {
-        if (!$this->todos->contains($todo)) {
-            $this->todos[] = $todo;
-            $todo->setSchedule($this);
-        }
-
-        return $this;
-    }
-
-    public function removeTodo(Todo $todo): self
-    {
-        if ($this->todos->contains($todo)) {
-            $this->todos->removeElement($todo);
-            // set the owning side to null (unless already changed)
-            if ($todo->getSchedule() === $this) {
-                $todo->setSchedule(null);
-            }
-        }
+        $this->todos = $todos;
 
         return $this;
     }

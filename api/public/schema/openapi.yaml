@@ -11,9 +11,8 @@ info:
     - Repository: [online](https://github.com/ConductionNL/agendaservice) / [zip](https://github.com/ConductionNL/agendaservice/archive/master.zip)
     - Docker Image: [online]() 
     - Datamodel: [postman](schema/agendaservice.postman_collection.json) / [oas](schema/openapi.yaml) / [pdf](schema/datamodel.pdf) / [modelio (zip)](schema/Datamodel_Modelio.zip) 
-    
+
     Naast deze JSON rest API is er ook een [graphql](/graphql) interface beschikbaar.         
-    
 paths:
   /alarms:
     get:
@@ -174,6 +173,15 @@ paths:
               - asc
               - desc
         -
+          name: 'order[todo]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
           name: 'order[dateCreated]'
           in: query
           required: false
@@ -256,22 +264,6 @@ paths:
           style: form
           explode: true
         -
-          name: todo.id
-          in: query
-          required: false
-          schema:
-            type: string
-        -
-          name: 'todo.id[]'
-          in: query
-          required: false
-          schema:
-            type: array
-            items:
-              type: string
-          style: form
-          explode: true
-        -
           name: event.calendar.id
           in: query
           required: false
@@ -279,22 +271,6 @@ paths:
             type: string
         -
           name: 'event.calendar.id[]'
-          in: query
-          required: false
-          schema:
-            type: array
-            items:
-              type: string
-          style: form
-          explode: true
-        -
-          name: todo.calendar.id
-          in: query
-          required: false
-          schema:
-            type: string
-        -
-          name: 'todo.calendar.id[]'
           in: query
           required: false
           schema:
@@ -2993,6 +2969,15 @@ paths:
               - desc
         -
           name: 'order[resource]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[todos]'
           in: query
           required: false
           schema:
@@ -9567,6 +9552,15 @@ paths:
               - asc
               - desc
         -
+          name: 'order[todos]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
           name: 'order[dateCreated]'
           in: query
           required: false
@@ -9695,6 +9689,22 @@ paths:
             items:
               type: string
           style: form
+          explode: true
+        -
+          name: todos
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'todos[]'
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          style: deepObject
           explode: true
         -
           name: dateCreated
@@ -10552,6 +10562,15 @@ paths:
               - desc
         -
           name: 'order[resource]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[todos]'
           in: query
           required: false
           schema:
@@ -12155,38 +12174,6 @@ paths:
           schema:
             type: string
         -
-          name: calendar.id
-          in: query
-          required: false
-          schema:
-            type: string
-        -
-          name: 'calendar.id[]'
-          in: query
-          required: false
-          schema:
-            type: array
-            items:
-              type: string
-          style: form
-          explode: true
-        -
-          name: calendar.resource
-          in: query
-          required: false
-          schema:
-            type: string
-        -
-          name: 'calendar.resource[]'
-          in: query
-          required: false
-          schema:
-            type: array
-            items:
-              type: string
-          style: form
-          explode: true
-        -
           name: page
           in: query
           required: false
@@ -12757,10 +12744,10 @@ components:
             -
               $ref: '#/components/schemas/Event-read'
         todo:
-          nullable: true
-          anyOf:
-            -
-              $ref: '#/components/schemas/Todo-read'
+          description: 'The url of the todo for this alarm'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: string
         dateCreated:
           description: 'The moment this resource was created'
           type: string
@@ -12816,10 +12803,10 @@ components:
             -
               $ref: '#/components/schemas/Event-write'
         todo:
-          nullable: true
-          anyOf:
-            -
-              $ref: '#/components/schemas/Todo-write'
+          description: 'The url of the todo for this alarm'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: string
     'Alarm:jsonld-read':
       type: object
       description: 'Used to describe alarms for Events and Todos.'
@@ -12871,10 +12858,10 @@ components:
             -
               $ref: '#/components/schemas/Event:jsonld-read'
         todo:
-          nullable: true
-          anyOf:
-            -
-              $ref: '#/components/schemas/Todo:jsonld-read'
+          description: 'The url of the todo for this alarm'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: string
         dateCreated:
           description: 'The moment this resource was created'
           type: string
@@ -12939,10 +12926,10 @@ components:
             -
               $ref: '#/components/schemas/Event:jsonld-write'
         todo:
-          nullable: true
-          anyOf:
-            -
-              $ref: '#/components/schemas/Todo:jsonld-write'
+          description: 'The url of the todo for this alarm'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: string
     AuditTrail-read:
       type: object
       description: 'An resource representing a log line.'
@@ -13416,7 +13403,7 @@ components:
           description: 'todos that belong to this Calendar'
           type: array
           items:
-            $ref: '#/components/schemas/Todo-read'
+            type: string
         timeZone:
           description: 'The time zone of this calendar'
           type: string
@@ -13494,7 +13481,7 @@ components:
           description: 'todos that belong to this Calendar'
           type: array
           items:
-            $ref: '#/components/schemas/Todo-write'
+            type: string
         timeZone:
           description: 'The time zone of this calendar'
           type: string
@@ -13572,7 +13559,7 @@ components:
           description: 'todos that belong to this Calendar'
           type: array
           items:
-            $ref: '#/components/schemas/Todo:jsonld-read'
+            type: string
         timeZone:
           description: 'The time zone of this calendar'
           type: string
@@ -13659,7 +13646,7 @@ components:
           description: 'todos that belong to this Calendar'
           type: array
           items:
-            $ref: '#/components/schemas/Todo:jsonld-write'
+            type: string
         timeZone:
           description: 'The time zone of this calendar'
           type: string
@@ -15477,6 +15464,15 @@ components:
             url: 'http://schema.org/url'
           type: string
           nullable: true
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/Event-read'
+        todos:
+          description: 'todos that belong to this Calendar'
+          type: array
+          items:
+            type: string
         dateCreated:
           description: 'The moment this resource was created'
           type: string
@@ -15508,6 +15504,15 @@ components:
             url: 'http://schema.org/url'
           type: string
           nullable: true
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/Event-write'
+        todos:
+          description: 'todos that belong to this Calendar'
+          type: array
+          items:
+            type: string
     'Resource:jsonld-read':
       type: object
       description: 'Describes resources that can be needed for an event.'
@@ -15541,6 +15546,15 @@ components:
             url: 'http://schema.org/url'
           type: string
           nullable: true
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/Event:jsonld-read'
+        todos:
+          description: 'todos that belong to this Calendar'
+          type: array
+          items:
+            type: string
         dateCreated:
           description: 'The moment this resource was created'
           type: string
@@ -15581,6 +15595,15 @@ components:
             url: 'http://schema.org/url'
           type: string
           nullable: true
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/Event:jsonld-write'
+        todos:
+          description: 'todos that belong to this Calendar'
+          type: array
+          items:
+            type: string
     Schedule-read:
       type: object
       description: 'A schedule defines a repeating time period used to describe a regularly occurring Event. At a minimum a schedule will specify repeatFrequency which describes the interval between occurences of the event. Additional information can be provided to specify the schedule more precisely. This includes identifying the day(s) of the week or month when the recurring event will take place, in addition to its start and end time. Schedules may also have start and end dates to indicate when they are active, e.g. to define a limited calendar of events.'
@@ -15660,10 +15683,10 @@ components:
           items:
             $ref: '#/components/schemas/Freebusy-read'
         todos:
-          description: 'The todos that belong to or are caused by this Schedule'
+          description: 'todos that belong to this Calendar'
           type: array
           items:
-            $ref: '#/components/schemas/Todo-read'
+            type: string
         dateCreated:
           description: 'The moment this resource was created'
           type: string
@@ -15750,10 +15773,10 @@ components:
           items:
             $ref: '#/components/schemas/Freebusy-write'
         todos:
-          description: 'The todos that belong to or are caused by this Schedule'
+          description: 'todos that belong to this Calendar'
           type: array
           items:
-            $ref: '#/components/schemas/Todo-write'
+            type: string
     'Schedule:jsonld-read':
       type: object
       description: 'A schedule defines a repeating time period used to describe a regularly occurring Event. At a minimum a schedule will specify repeatFrequency which describes the interval between occurences of the event. Additional information can be provided to specify the schedule more precisely. This includes identifying the day(s) of the week or month when the recurring event will take place, in addition to its start and end time. Schedules may also have start and end dates to indicate when they are active, e.g. to define a limited calendar of events.'
@@ -15842,10 +15865,10 @@ components:
           items:
             $ref: '#/components/schemas/Freebusy:jsonld-read'
         todos:
-          description: 'The todos that belong to or are caused by this Schedule'
+          description: 'todos that belong to this Calendar'
           type: array
           items:
-            $ref: '#/components/schemas/Todo:jsonld-read'
+            type: string
         dateCreated:
           description: 'The moment this resource was created'
           type: string
@@ -15941,10 +15964,10 @@ components:
           items:
             $ref: '#/components/schemas/Freebusy:jsonld-write'
         todos:
-          description: 'The todos that belong to or are caused by this Schedule'
+          description: 'todos that belong to this Calendar'
           type: array
           items:
-            $ref: '#/components/schemas/Todo:jsonld-write'
+            type: string
     Todo-read:
       type: object
       description: 'A to-do from an event.'
@@ -16053,11 +16076,6 @@ components:
             url: 'http://schema.org/url'
           type: string
           nullable: true
-        alarm:
-          nullable: true
-          anyOf:
-            -
-              $ref: '#/components/schemas/Alarm-read'
         dateCreated:
           description: 'The moment this resource was created'
           type: string
@@ -16177,11 +16195,6 @@ components:
             url: 'http://schema.org/url'
           type: string
           nullable: true
-        alarm:
-          nullable: true
-          anyOf:
-            -
-              $ref: '#/components/schemas/Alarm-write'
     'Todo:jsonld-read':
       type: object
       description: 'A to-do from an event.'
@@ -16299,11 +16312,6 @@ components:
             url: 'http://schema.org/url'
           type: string
           nullable: true
-        alarm:
-          nullable: true
-          anyOf:
-            -
-              $ref: '#/components/schemas/Alarm:jsonld-read'
         dateCreated:
           description: 'The moment this resource was created'
           type: string
@@ -16432,11 +16440,6 @@ components:
             url: 'http://schema.org/url'
           type: string
           nullable: true
-        alarm:
-          nullable: true
-          anyOf:
-            -
-              $ref: '#/components/schemas/Alarm:jsonld-write'
 definitions:
   Alarm-read:
     properties:
@@ -16476,6 +16479,12 @@ definitions:
         description: 'The number of times the alarm repeats.'
         type: int
         example: '4'
+      todo:
+        description: 'The url of the todo for this alarm'
+        type: string
+        example: /todos/id
+        format: url
+        maxLength: 255
       dateCreated:
         description: 'The moment this resource was created'
         type: \Datetime
@@ -16483,7 +16492,6 @@ definitions:
         description: 'The moment this resource last Modified'
         type: \Datetime
       event: []
-      todo: []
     required:
       - name
       - action
@@ -16522,8 +16530,13 @@ definitions:
         description: 'The number of times the alarm repeats.'
         type: int
         example: '4'
+      todo:
+        description: 'The url of the todo for this alarm'
+        type: string
+        example: /todos/id
+        format: url
+        maxLength: 255
       event: []
-      todo: []
     required:
       - name
       - action
@@ -16600,6 +16613,9 @@ definitions:
         type: string
         example: 'https://wrc.zaakonline.nl/organisations/16353702-4614-42ff-92af-7dd11c8eef9f'
         format: url
+      todos:
+        description: 'todos that belong to this Calendar'
+        type: array
       timeZone:
         description: 'The time zone of this calendar'
         type: string
@@ -16623,9 +16639,6 @@ definitions:
         type: \Collection
       journals:
         description: 'journals that belong to this Calendar'
-        type: \Collection
-      todos:
-        description: 'todos that belong to this Calendar'
         type: \Collection
       availabilities:
         description: 'Availability that belong to this Calendar'
@@ -16660,6 +16673,9 @@ definitions:
         type: string
         example: 'https://wrc.zaakonline.nl/organisations/16353702-4614-42ff-92af-7dd11c8eef9f'
         format: url
+      todos:
+        description: 'todos that belong to this Calendar'
+        type: array
       timeZone:
         description: 'The time zone of this calendar'
         type: string
@@ -16677,9 +16693,6 @@ definitions:
         type: \Collection
       journals:
         description: 'journals that belong to this Calendar'
-        type: \Collection
-      todos:
-        description: 'todos that belong to this Calendar'
         type: \Collection
       availabilities:
         description: 'Availability that belong to this Calendar'
@@ -17400,12 +17413,16 @@ definitions:
         example: 'https://dev.zuid-drecht.nl/api/v1/uc/users/7f341a1e-0d75-4f43-8b9a-a6727c4b3404'
         format: url
         maxLength: 255
+      todos:
+        description: 'todos that belong to this Calendar'
+        type: array
       dateCreated:
         description: 'The moment this resource was created'
         type: \Datetime
       dateModified:
         description: 'The moment this resource last Modified'
         type: \Datetime
+      events: []
     required:
       - name
   Resource-write:
@@ -17426,6 +17443,10 @@ definitions:
         example: 'https://dev.zuid-drecht.nl/api/v1/uc/users/7f341a1e-0d75-4f43-8b9a-a6727c4b3404'
         format: url
         maxLength: 255
+      todos:
+        description: 'todos that belong to this Calendar'
+        type: array
+      events: []
     required:
       - name
   Schedule-read:
@@ -17483,6 +17504,9 @@ definitions:
         type: string
         example: 'https://wrc.zaakonline.nl/organisations/16353702-4614-42ff-92af-7dd11c8eef9f'
         format: url
+      todos:
+        description: 'todos that belong to this Calendar'
+        type: array
       dateCreated:
         description: 'The moment this resource was created'
         type: \Datetime
@@ -17494,9 +17518,6 @@ definitions:
         type: \Collection
       freebusies:
         description: 'The freebusies that belong to or are caused by this Schedule'
-        type: \Collection
-      todos:
-        description: 'The todos that belong to or are caused by this Schedule'
         type: \Collection
     required:
       - name
@@ -17550,14 +17571,14 @@ definitions:
         type: string
         example: 'https://wrc.zaakonline.nl/organisations/16353702-4614-42ff-92af-7dd11c8eef9f'
         format: url
+      todos:
+        description: 'todos that belong to this Calendar'
+        type: array
       events:
         description: 'The events that belong to or are caused by this Schedule'
         type: \Collection
       freebusies:
         description: 'The freebusies that belong to or are caused by this Schedule'
-        type: \Collection
-      todos:
-        description: 'The todos that belong to or are caused by this Schedule'
         type: \Collection
     required:
       - name
@@ -17652,7 +17673,7 @@ definitions:
       completed:
         description: 'The date and time a to-do is completed.'
         type: string
-        example: '2021-03-22 11:25:58'
+        example: '2021-06-24 13:26:38'
         format: date-time
       percentageDone:
         description: 'The percentage of a to-do that has been comepleted.'
@@ -17669,7 +17690,6 @@ definitions:
       dateModified:
         description: 'The moment this resource last Modified'
         type: \Datetime
-      alarm: []
     required:
       - name
       - startDate
@@ -17760,7 +17780,7 @@ definitions:
       completed:
         description: 'The date and time a to-do is completed.'
         type: string
-        example: '2021-03-22 11:25:58'
+        example: '2021-06-24 13:26:38'
         format: date-time
       percentageDone:
         description: 'The percentage of a to-do that has been comepleted.'
@@ -17771,7 +17791,6 @@ definitions:
         type: string
         example: 'https://wrc.zaakonline.nl/organisations/16353702-4614-42ff-92af-7dd11c8eef9f'
         format: url
-      alarm: []
     required:
       - name
       - startDate
@@ -17880,12 +17899,12 @@ definitions:
         description: 'The moment this request was created'
         type: string
         format: date-time
-        example: '2021-03-22 11:25:58'
+        example: '2021-06-24 13:26:39'
       dateModified:
         description: 'The moment this request last Modified'
         type: string
         format: date-time
-        example: '2021-03-22 11:25:58'
+        example: '2021-06-24 13:26:39'
     required: []
   AuditTrail-write:
     properties:
@@ -17933,12 +17952,12 @@ definitions:
         description: 'The moment this request was created'
         type: string
         format: date-time
-        example: '2021-03-22 11:25:58'
+        example: '2021-06-24 13:26:39'
       dateModified:
         description: 'The moment this request last Modified'
         type: string
         format: date-time
-        example: '2021-03-22 11:25:58'
+        example: '2021-06-24 13:26:39'
     required: []
   ChangeLog-write:
     properties:
@@ -17951,75 +17970,65 @@ definitions:
 tags:
   -
     name: Alarm
-    description: |
+    description: |+
       Used to describe alarms for Events and Todos.
-      
-      
+
   -
     name: Availability
-    description: |
-      
-      
-      
+    description: |+
+
+
   -
     name: Calendar
-    description: |
+    description: |+
       A Calendar is a collection of events tied to an unque person or resource.
-      
-      
+
   -
     name: Event
-    description: |
+    description: |+
       An event happening at a certain time and location, such as a concert, lecture, meeting or festival.
-      
-      
+
   -
     name: Freebusy
-    description: |
+    description: |+
       This entity checks if a person is free or busy for a event.
-      
-      
+
   -
     name: Journal
-    description: |
+    description: |+
       A journal from an event.
-      
-      
+
   -
     name: Reservation
-    description: |
+    description: |+
       A Reservation is a event that is tied to an unique person or resource.
-      
-      
+
   -
     name: Resource
-    description: |
+    description: |+
       Describes resources that can be needed for an event.
-      
-      
+
   -
     name: Schedule
-    description: |
+    description: |+
       A schedule defines a repeating time period used to describe a regularly occurring Event. At a minimum a schedule will specify repeatFrequency which describes the interval between occurences of the event. Additional information can be provided to specify the schedule more precisely. This includes identifying the day(s) of the week or month when the recurring event will take place, in addition to its start and end time. Schedules may also have start and end dates to indicate when they are active, e.g. to define a limited calendar of events.
-      
-      
+
   -
     name: Todo
-    description: |
+    description: |+
       A to-do from an event.
-      
-      
+
   -
     name: AuditTrail
-    description: |
+    description: |-
       An resource representing a log line.
-      
+
       This entity represents a product that can be ordered via the OrderRegistratieComponent.
   -
     name: ChangeLog
-    description: |
+    description: |-
       An resource representing a log line.
-      
+
       This entity represents a product that can be ordered via the OrderRegistratieComponent.
 securityDefinitions:
   JWT-Oauth:
