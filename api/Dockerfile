@@ -10,10 +10,11 @@ FROM conduction/pc-php:prod AS api_platform_php
 
 # https://getcomposer.org/doc/03-cli.md#composer-allow-superuser
 ENV COMPOSER_ALLOW_SUPERUSER=1
+RUN rm -r vendor/
 
 # install Symfony Flex globally to speed up download of Composer packages (parallelized prefetching)
 RUN set -eux; \
-	composer global require "symfony/flex:^1.18" --prefer-dist --no-progress --no-suggest --classmap-authoritative; \
+	composer global require "symfony/flex:^1.18.5" --prefer-dist --no-progress --classmap-authoritative; \
 	composer clear-cache
 ENV PATH="${PATH}:/root/.composer/vendor/bin"
 
@@ -26,7 +27,7 @@ ARG APP_ENV=prod
 COPY composer.json composer.lock symfony.lock ./
 
 RUN set -eux; \
-	composer install --prefer-dist --no-dev --no-scripts --no-progress --no-suggest; \
+	composer install --prefer-dist --no-dev --no-scripts --no-progress; \
 	composer clear-cache
 
 # copy only specifically what we need
